@@ -1,0 +1,26 @@
+Table (of Game struct)	Id	Field	New text
+StdItemsTxt	0	BonusStat	힘
+	1	BonusStat	지력
+	2	BonusStat	인격
+	3	BonusStat	체력
+	4	BonusStat	정확도
+	5	BonusStat	속도
+	6	BonusStat	행운
+	7	BonusStat	생명력
+	8	BonusStat	주문력
+	9	BonusStat	방어도
+	10	BonusStat	불 저항
+	11	BonusStat	공기 저항
+	12	BonusStat	물 저항
+	13	BonusStat	대지 저항
+	14	BonusStat	정신 저항
+	15	BonusStat	육체 저항
+	16	BonusStat	연금술 기술
+	17	BonusStat	도둑질 기술
+	18	BonusStat	함정 해제 기술
+	19	BonusStat	아이템 감정 기술
+	20	BonusStat	몬스터 감정 기술
+	21	BonusStat	무기 전문가 기술
+	22	BonusStat	회피 기술
+	23	BonusStat	맨손 전투 기술
+	24	BonusStat	강대한 힘

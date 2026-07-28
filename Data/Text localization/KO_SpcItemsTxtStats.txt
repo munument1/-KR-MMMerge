@@ -1,0 +1,74 @@
+Table (of Game struct)	Id	Field	New text
+SpcItemsTxt	0	BonusStat	 모든 저항 +10.
+	1	BonusStat	 7대 능력치 모두 +10.
+	2	BonusStat	폭발 충격!
+	3	BonusStat	냉기 피해 3~4 추가.
+	4	BonusStat	냉기 피해 6~8 추가.
+	5	BonusStat	냉기 피해 9~12 추가.
+	6	BonusStat	전격 피해 2~5 추가.
+	7	BonusStat	전격 피해 4~10 추가.
+	8	BonusStat	전격 피해 6~15 추가.
+	9	BonusStat	화염 피해 1~6 추가.
+	10	BonusStat	화염 피해 2~12 추가.
+	11	BonusStat	화염 피해 3~18 추가.
+	12	BonusStat	육체 피해 5 추가.
+	13	BonusStat	육체 피해 8 추가.
+	14	BonusStat	육체 피해 12 추가.
+	15	BonusStat	대상의 생명력을 흡수합니다.
+	16	BonusStat	회복 속도가 증가합니다.
+	17	BonusStat	착용자가 질병 저항을 얻습니다.
+	18	BonusStat	착용자가 광기 저항을 얻습니다.
+	19	BonusStat	착용자가 마비 저항을 얻습니다.
+	20	BonusStat	착용자가 독 저항을 얻습니다.
+	21	BonusStat	착용자가 수면 저항을 얻습니다.
+	22	BonusStat	착용자가 석화 저항을 얻습니다.
+	23	BonusStat	밀쳐내기 효과가 증가합니다.
+	24	BonusStat	 레벨 +5.
+	25	BonusStat	모든 공기 계열 주문의 효과가 증가합니다.
+	26	BonusStat	모든 육체 계열 주문의 효과가 증가합니다.
+	27	BonusStat	모든 어둠 계열 주문의 효과가 증가합니다.
+	28	BonusStat	모든 대지 계열 주문의 효과가 증가합니다.
+	29	BonusStat	모든 불 계열 주문의 효과가 증가합니다.
+	30	BonusStat	모든 빛 계열 주문의 효과가 증가합니다.
+	31	BonusStat	모든 정신 계열 주문의 효과가 증가합니다.
+	32	BonusStat	모든 영혼 계열 주문의 효과가 증가합니다.
+	33	BonusStat	모든 물 계열 주문의 효과가 증가합니다.
+	34	BonusStat	함정 해제 성공률이 증가합니다.
+	35	BonusStat	모든 투사체 공격으로 받는 피해가 절반으로 감소합니다.
+	36	BonusStat	시간이 지남에 따라 생명력을 재생합니다.
+	37	BonusStat	시간이 지남에 따라 주문력을 재생합니다.
+	38	BonusStat	오우거에게 주는 피해가 두 배가 됩니다.
+	39	BonusStat	드래곤에게 주는 피해가 두 배가 됩니다.
+	40	BonusStat	대상의 생명력을 흡수하고 무기 공격 속도가 증가합니다.
+	41	BonusStat	 7대 능력치, 생명력, 주문력, 방어도 및 모든 저항 +1.
+	42	BonusStat	 체력, 방어도 및 생명력 +10.
+	43	BonusStat	 생명력 +10. 시간이 지남에 따라 생명력을 재생합니다.
+	44	BonusStat	 속도와 정확도 +5.
+	45	BonusStat	화염 피해 10~20 추가. 힘 +25.
+	46	BonusStat	 주문력 +10. 시간이 지남에 따라 주문력을 재생합니다.
+	47	BonusStat	 체력 +15, 방어도 +5.
+	48	BonusStat	 지력과 행운 +10.
+	49	BonusStat	 불 저항 +30. 시간이 지남에 따라 생명력을 재생합니다.
+	50	BonusStat	 주문력, 속도 및 지력 +10.
+	51	BonusStat	 체력과 정확도 +10.
+	52	BonusStat	 힘과 인격 +10.
+	53	BonusStat	 체력 +15. 시간이 지남에 따라 생명력을 재생합니다.
+	54	BonusStat	 행운 +15. 시간이 지남에 따라 주문력을 재생합니다.
+	55	BonusStat	 힘과 체력 +5.
+	56	BonusStat	 지력과 인격 +5.
+	57	BonusStat	가치가 증가합니다.
+	58	BonusStat	무기 공격 속도가 증가합니다.
+	59	BonusStat	맨손 전투와 회피 기술 +3.
+	60	BonusStat	도둑질과 함정 해제 기술 +3.
+	61	BonusStat	아이템 감정과 몬스터 감정 기술 +3.
+	62	BonusStat	정령에게 주는 피해가 두 배가 됩니다.
+	63	BonusStat	언데드에게 주는 피해가 두 배가 됩니다.
+	64	BonusStat	타이탄에게 주는 피해가 두 배가 됩니다.
+	65	BonusStat	시간이 지남에 따라 생명력과 주문력을 재생합니다.
+	66	BonusStat	육체 피해 5 추가. 함정 해제 기술 +2.
+	67	BonusStat	냉기 피해 6~8 추가. 방어도 +5.
+	68	BonusStat	공기 저항 +20. 방어막 효과를 부여합니다.
+	69	BonusStat	물 저항 +10. 연금술 기술 +2.
+	70	BonusStat	익사로 인한 피해를 방지합니다.
+	71	BonusStat	추락 피해를 방지합니다.
+	72	BonusStat	적에게 전기 불꽃을 발사합니다.

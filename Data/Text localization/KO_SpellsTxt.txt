@@ -1,0 +1,932 @@
+Table (of Game struct)	Id	Field	New text
+SpellsTxt	0	Name	
+	0	ShortName	
+	0	Description	
+	0	Normal	
+	0	Expert	
+	0	Master	
+	0	GrandMaster	
+	1	Name	횃불
+	1	ShortName	횃불
+	1	Description	횃불은 어둠 속에서 파티 주변의 시야를 밝혀줍니다.
+	1	Normal	지속 시간: 기술 포인트당 1시간
+	1	Expert	더 밝은 빛
+	1	Master	가장 밝은 빛
+	1	GrandMaster	회복 속도 증가
+	2	Name	파이어 볼트
+	2	ShortName	파이어 볼트
+	2	Description	단일 대상에게 화염을 발사합니다. 화염 마법 기술 포인트당 1-3의 피해를 줍니다. 파이어 볼트는 안전하고 효과적이며 마나 소모가 적습니다.
+	2	Normal	회복 속도 느림
+	2	Expert	회복 속도 증가
+	2	Master	회복 속도 증가
+	2	GrandMaster	회복 속도 매우 증가
+	3	Name	화염 저항
+	3	ShortName	화염 저항
+	3	Description	모든 캐릭터의 화염 저항력을 화염 마법 기술 포인트만큼 증가시킵니다. 효과는 기술 포인트당 1시간 동안 지속됩니다.
+	3	Normal	기술 포인트당 저항력 1 증가
+	3	Expert	기술 포인트당 저항력 2 증가
+	3	Master	기술 포인트당 저항력 3 증가
+	3	GrandMaster	스킬 포인트당 4의 저항력
+	4	Name	화염 오라
+	4	ShortName	화염 오라
+	4	Description	특수 능력이 없는 무기를 마법의 불꽃으로 감싸 "화염의" 능력을 부여합니다. 이 주문은 화염 마법 스킬 포인트당 1시간 동안 지속됩니다.
+	4	Normal	"화염의" 부여
+	4	Expert	"불꽃의" 부여
+	4	Master	"지옥불의" 부여
+	4	GrandMaster	"지옥불의" 영구 부여
+	5	Name	가속
+	5	ShortName	가속
+	5	Description	모든 캐릭터의 공격 및 주문 시전 후 회복 시간을 단축합니다. 주문 효과가 사라지면 캐릭터가 허약해집니다.
+	5	Normal	n/a
+	5	Expert	지속 시간 1시간 + 스킬 포인트당 1분
+	5	Master	지속 시간 1시간 + 스킬 포인트당 3분
+	5	GrandMaster	지속 시간 1시간 + 스킬 포인트당 4분
+	6	Name	파이어볼
+	6	ShortName	파이어볼
+	6	Description	단일 대상에게 화염구를 발사합니다. 명중 시 폭발하며 주변의 모든 대상에게 피해를 입힙니다. 너무 가까이 있으면 아군도 피해를 입을 수 있습니다. 파이어볼은 화염 마법 스킬 포인트당 1-6의 피해를 줍니다.
+	6	Normal	n/a
+	6	Expert	보통 회복 속도
+	6	Master	회복 속도 증가
+	6	GrandMaster	회복 속도 매우 증가
+	7	Name	파이어 스파이크
+	7	ShortName	파이어 스파이크
+	7	Description	지면에 화염 가시를 설치합니다. 근처에 적이 다가오면 폭발하며, 맵을 떠나거나 폭발할 때까지 유지됩니다.
+	7	Normal	n/a
+	7	Expert	스킬 포인트당 1-6의 피해를 주며, 최대 5개의 가시를 설치합니다.
+	7	Master	스킬 포인트당 1-8의 피해를 주며, 최대 7개의 가시를 설치합니다.
+	7	GrandMaster	스킬 포인트당 1-10의 피해를 주며, 최대 9개의 가시를 설치합니다.
+	8	Name	이몰레이션
+	8	ShortName	이몰레이션
+	8	Description	캐릭터 주변을 적에게만 해로운 뜨거운 화염으로 감쌉니다. 이 주문은 범위 내에 머무는 모든 몬스터에게 스킬 포인트당 1-6의 피해를 지속적으로 입힙니다.
+	8	Normal	n/a
+	8	Expert	n/a
+	8	Master	지속 시간: 스킬 포인트당 1분
+	8	GrandMaster	지속 시간: 스킬 포인트당 10분
+	9	Name	메테오 샤워
+	9	ShortName	메테오 샤워
+	9	Description	지정한 대상 주변의 넓은 반경에 하늘에서 불타는 바위를 소환합니다. 주문 사용 시 대상 근처에 있지 않도록 주의하십시오. 운석 하나당 8의 피해와 화염 마법 스킬 포인트당 1의 추가 피해를 줍니다. 실외에서만 사용할 수 있습니다.
+	9	Normal	n/a
+	9	Expert	n/a
+	9	Master	회복 속도 보통, 운석 16개
+	9	GrandMaster	회복 속도 빠름, 운석 20개
+	10	Name	인페르노
+	10	ShortName	인페르노
+	10	Description	시야 내의 모든 몬스터를 불태웁니다(아군 제외). 한두 번의 시전으로 약하거나 중간 정도의 몬스터가 가득 찬 방을 정리할 수 있습니다. 각 몬스터는 12의 피해와 화염 마법 스킬 포인트당 2의 추가 피해를 입습니다. 실내에서만 사용할 수 있습니다.
+	10	Normal	n/a
+	10	Expert	n/a
+	10	Master	회복 속도 보통
+	10	GrandMaster	회복 속도 빠름
+	11	Name	인시너레이트
+	11	ShortName	소각
+	11	Description	가장 강력한 직접 피해 주문 중 하나인 소각은 단일 대상에게 막대한 피해를 입힙니다. 가장 강력한 괴물만이 이 주문에서 살아남을 수 있습니다. 피해량은 15에 화염 마법 기술 점수당 1-15를 더한 값입니다.
+	11	Normal	n/a
+	11	Expert	n/a
+	11	Master	n/a
+	11	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	12	Name	마법사의 눈
+	12	ShortName	마법사의 눈
+	12	Description	마법사의 눈은 모험 화면 오른쪽 하단에 있는 자동 지도를 통해 야외에서 괴물과 기타 관심 지점의 위치를 표시합니다. 주문 지속 시간은 공기 마법 기술 점수당 1시간입니다.
+	12	Normal	지형과 괴물만 표시
+	12	Expert	보물 표시
+	12	Master	기타 관심 지점 표시
+	12	GrandMaster	시전 비용 무료
+	13	Name	깃털 낙하
+	13	ShortName	깃털 낙하
+	13	Description	깃털 낙하는 낙하 속도를 늦춰 10피트 이상 떨어져도 캐릭터가 피해를 입지 않게 합니다. 깃털 낙하는 한 번의 시전으로 파티 전체에 영향을 주며, 지속 시간은 공기 마법 기술에 따라 결정됩니다.
+	13	Normal	지속 시간: 기술 점수당 5분
+	13	Expert	지속 시간: 기술 점수당 10분
+	13	Master	지속 시간: 기술 점수당 1시간
+	13	GrandMaster	회복 속도 증가
+	14	Name	공기 저항
+	14	ShortName	공기 저항
+	14	Description	모든 캐릭터의 공기 피해 저항력을 공기 마법 기술 점수만큼 증가시킵니다. 보호 효과는 기술 점수당 1시간 동안 지속됩니다.
+	14	Normal	기술 포인트당 저항력 1 증가
+	14	Expert	기술 포인트당 저항력 2 증가
+	14	Master	기술 포인트당 저항력 3 증가
+	14	GrandMaster	스킬 포인트당 4의 저항력
+	15	Name	불꽃
+	15	ShortName	스파크
+	15	Description	스파크는 작은 번개 구체를 발사하며, 무언가에 부딪히거나 사라질 때까지 주변을 튕겨 다닙니다. 어디로 튈지 예측하기 어렵기 때문에 작은 몬스터가 밀집한 방에서 사용하기 가장 좋습니다. 각 스파크는 2의 기본 피해와 공기 마법 기술 포인트당 1의 추가 피해를 줍니다.
+	15	Normal	보통 회복 속도, 스파크 3개
+	15	Expert	빠른 회복 속도, 스파크 5개
+	15	Master	더 빠른 회복 속도, 스파크 7개
+	15	GrandMaster	가장 빠른 회복 속도, 스파크 9개
+	16	Name	점프
+	16	ShortName	점프
+	16	Description	점프는 파티를 공중으로 60피트 띄워 높은 난간에 오르거나 넓은 틈을 건널 수 있게 합니다. 점프로 인한 낙하 피해는 입지 않습니다.
+	16	Normal	n/a
+	16	Expert	보통 회복 속도
+	16	Master	회복 속도 증가
+	16	GrandMaster	회복 속도 매우 증가
+	17	Name	실드
+	17	ShortName	실드
+	17	Description	투사체가 적중하기 직전 속도를 늦춰 원거리 공격(돌이나 화살 등)으로 받는 피해를 절반으로 줄입니다.
+	17	Normal	n/a
+	17	Expert	지속 시간 1시간 + 기술 포인트당 5분
+	17	Master	지속 시간 1시간 + 기술 포인트당 15분
+	17	GrandMaster	지속 시간 1시간 + 기술 포인트당 1시간
+	18	Name	라이트닝 볼트
+	18	ShortName	라이트닝
+	18	Description	라이트닝 볼트는 시전자의 손에서 단일 대상을 향해 전기를 방출합니다. 반드시 명중하며 공기 마법 기술 포인트당 1-8의 피해를 줍니다.
+	18	Normal	n/a
+	18	Expert	보통 회복 속도
+	18	Master	회복 속도 증가
+	18	GrandMaster	회복 속도 매우 증가
+	19	Name	인비저빌리티
+	19	ShortName	인비저빌리티
+	19	Description	투명화는 주변 생명체의 정신에 작용하여, 말을 걸거나 공격하지 않는 한 파티를 알아차리지 못하게 합니다. 공격이 적중하든 빗나가든, 공격을 가하는 즉시 이 주문은 해제됩니다. 적대적인 몬스터가 근처에 있을 때는 이 주문을 시전할 수 없습니다.
+	19	Normal	n/a
+	19	Expert	n/a
+	19	Master	지속 시간: 기술 포인트당 10분
+	19	GrandMaster	지속 시간: 기술 포인트당 1시간
+	20	Name	내파
+	20	ShortName	내파
+	20	Description	내파는 대상 주변의 공기를 파괴하여 급격한 공기 유입과 천둥소리를 일으키며, 10의 기본 피해와 에어 매직 기술 포인트당 1~10의 피해를 입히는 강력한 주문입니다.
+	20	Normal	n/a
+	20	Expert	n/a
+	20	Master	보통 회복 속도
+	20	GrandMaster	빠른 회복 속도
+	21	Name	비행
+	21	ShortName	비행
+	21	Description	캐릭터에게 비행 능력을 부여합니다! 이 주문은 비용이 매우 많이 들고 야외에서만 작동하지만 매우 유용합니다. 비행 주문은 사용 중(지면에 닿지 않은 상태) 5분마다 주문 포인트 1을 소모합니다.
+	21	Normal	n/a
+	21	Expert	n/a
+	21	Master	지속 시간: 기술 점수당 1시간
+	21	GrandMaster	주문 포인트 소모 없음
+	22	Name	스타버스트
+	22	ShortName	스타버스트
+	22	Description	하늘에서 별을 소환하여 적을 강타하고 불태웁니다. 20개의 별이 소환되며, 각 별은 20의 기본 피해와 에어 매직 기술 포인트당 1의 피해를 입힙니다. 폭발에 휘말리지 않도록 주의하세요! 이 주문은 야외에서만 작동합니다.
+	22	Normal	n/a
+	22	Expert	n/a
+	22	Master	n/a
+	22	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	23	Name	각성
+	23	ShortName	각성
+	23	Description	모든 캐릭터를 일반적인 잠에서 즉시 깨우며, 마법으로 인한 수면 상태인 경우에도 수면 상태가 너무 오래 지속되지 않았다면 깨울 수 있습니다. 워터 매직 기술이 높을수록 더 오랫동안 지속된 수면 상태도 해제할 수 있습니다.
+	23	Normal	기술 포인트당 3분 미만의 수면 상태에 효과적
+	23	Expert	기술 포인트당 1시간 미만의 수면 상태에 효과적
+	23	Master	스킬 포인트당 1일 미만으로 잠든 상태일 때 효과가 있습니다
+	23	GrandMaster	빠른 회복 속도
+	24	Name	독 분사
+	24	ShortName	독 분사
+	24	Description	캐릭터 바로 앞의 몬스터에게 독을 분사합니다. 피해량은 낮지만 물 마법에 저항력을 가진 몬스터가 거의 없어 대부분 효과가 있습니다. 발사당 2의 피해를 입히며, 스킬 포인트당 1-2의 추가 피해를 줍니다.
+	24	Normal	느린 회복 속도, 1발 발사
+	24	Expert	빠른 회복 속도, 3발 발사
+	24	Master	더 빠른 회복 속도, 5발 발사
+	24	GrandMaster	가장 빠른 회복 속도, 7발 발사
+	25	Name	물 저항력
+	25	ShortName	물 저항
+	25	Description	모든 캐릭터의 물 속성 피해 저항력을 물 마법 스킬 수치만큼 증가시킵니다. 보호 효과는 스킬 포인트당 1시간 동안 지속됩니다.
+	25	Normal	기술 포인트당 저항력 1 증가
+	25	Expert	기술 포인트당 저항력 2 증가
+	25	Master	기술 포인트당 저항력 3 증가
+	25	GrandMaster	스킬 포인트당 4의 저항력
+	26	Name	얼음 화살
+	26	ShortName	얼음 화살
+	26	Description	단일 대상에게 얼음 화살을 발사합니다. 물 마법 스킬 포인트당 1-4의 피해를 입힙니다.
+	26	Normal	회복 속도 느림
+	26	Expert	회복 속도 증가
+	26	Master	회복 속도 증가
+	26	GrandMaster	회복 속도 매우 증가
+	27	Name	물 걷기
+	27	ShortName	물 걷기
+	27	Description	야외에서만 유용한 물 걷기는 캐릭터들이 물에 빠지지 않고 수면 위를 걷게 해줍니다. 시전 비용 외에도 파티가 물 위에 있는 동안 20분마다 1의 마법 포인트가 소모됩니다.
+	27	Normal	n/a
+	27	Expert	지속 시간: 기술 점수당 10분
+	27	Master	지속 시간: 기술 점수당 1시간
+	27	GrandMaster	주문 포인트 소모 없음
+	28	Name	아이템 충전
+	28	ShortName	충전
+	28	Description	충전 횟수를 사용하는 마법 아이템을 충전합니다. 이 주문을 시전할 때마다 아이템의 최대 충전 횟수가 50% - (물 마법 스킬 포인트당 1)만큼 영구적으로 감소합니다.
+	28	Normal	n/a
+	28	Expert	아이템 내구도 50% - 기술 점수당 1 감소
+	28	Master	아이템 내구도 30% - 기술 점수당 1 감소
+	28	GrandMaster	아이템 내구도 20% - 기술 점수당 1 감소
+	29	Name	산성 폭발
+	29	ShortName	산성 폭발
+	29	Description	산성 폭발은 단일 대상에게 부식성 산을 분사합니다. 반드시 명중하며 9의 피해와 기술 점수당 1-9의 추가 피해를 줍니다.
+	29	Normal	n/a
+	29	Expert	보통 회복 속도
+	29	Master	회복 속도 증가
+	29	GrandMaster	회복 속도 매우 증가
+	30	Name	아이템 마법 부여
+	30	ShortName	아이템 마법 부여
+	30	Description	시전 시 일반 아이템에 마법 능력을 부여할 확률이 생깁니다. 성공 확률은 물 마법 기술 점수당 10%입니다. 그랜드마스터는 더 강력한 마법을 부여할 수 있습니다.
+	30	Normal	n/a
+	30	Expert	n/a
+	30	Master	중간 수준의 마법 부여
+	30	GrandMaster	강력한 마법 부여
+	31	Name	마을 귀환
+	31	ShortName	마을 귀환
+	31	Description	마을 귀환은 파티가 중앙 분수대에서 물을 마신 마을로 순간이동합니다. 마을 귀환은 시전 시 물 마법 기술 점수당 10%의 성공 확률을 가지며, 근처에 적대적인 몬스터가 있으면 사용할 수 없습니다.
+	31	Normal	n/a
+	31	Expert	n/a
+	31	Master	근처에 적대적인 몬스터가 있으면 작동하지 않음
+	31	GrandMaster	근처에 적대적인 몬스터가 있어도 작동함
+	32	Name	얼음 폭발
+	32	ShortName	얼음 폭발
+	32	Description	시전자가 바라보는 방향으로 얼음 공을 발사합니다. 얼음 공은 무언가에 부딪히면 산산조각이 나며 시전자를 제외한 모든 방향으로 7개의 얼음 파편을 발사합니다. 파편은 생명체에 명중하거나 녹을 때까지 튕겨 나갑니다. 각 파편은 12의 피해와 물 마법 기술 점수당 1-6의 추가 피해를 줍니다.
+	32	Normal	n/a
+	32	Expert	n/a
+	32	Master	보통의 회복 속도 및 파편 7개
+	32	GrandMaster	회복 속도 증가 및 파편 9개 생성
+	33	Name	로이드의 봉화
+	33	ShortName	로이드
+	33	Description	로이드의 봉화는 나중에 순간이동으로 돌아올 수 있는 위치에 표식을 남깁니다. 얼마나 먼 미래까지 유지되는지는 물 마법 숙련도에 따라 달라집니다. 표식을 남기거나 표식이 있는 곳으로 돌아가고 싶을 때마다 이 주문을 시전하십시오. 각 봉화는 설치 후 물 마법 숙련도 1점당 1주일이 지나면 사라집니다.
+	33	Normal	n/a
+	33	Expert	n/a
+	33	Master	n/a
+	33	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	34	Name	기절
+	34	ShortName	기절
+	34	Description	마법의 힘으로 괴물을 강타하여, 기절 상태에서 회복될 때까지 아무것도 할 수 없게 만듭니다. 기절은 괴물을 뒤로 밀쳐내어 도망칠 기회를 제공합니다. 대지 마법 숙련도가 높을수록 주문의 효과가 강력해집니다.
+	34	Normal	일반 효과
+	34	Expert	더 강력한 효과
+	34	Master	더 강력한 효과
+	34	GrandMaster	가장 강력한 효과
+	35	Name	둔화
+	35	ShortName	둔화
+	35	Description	단일 괴물의 이동 속도를 절반으로 줄이고 회복 속도를 두 배로 늘립니다. 둔화에 걸린 괴물은 공격 빈도가 절반으로 줄어들며, 도망치려 할 때 추격하기가 더 어려워집니다. 주문의 지속 시간은 대지 마법 숙련도 1점당 1분입니다.
+	35	Normal	일반 효과
+	35	Expert	지속 시간: 숙련도 1점당 5분
+	35	Master	괴물의 속도가 1/4로 감소
+	35	GrandMaster	괴물의 속도가 1/8로 감소
+	36	Name	대지 저항
+	36	ShortName	대지 저항
+	36	Description	모든 캐릭터의 대지 마법 피해 저항력을 대지 마법 숙련도만큼 증가시킵니다. 효과는 숙련도 1점당 1시간 동안 지속됩니다.
+	36	Normal	기술 포인트당 저항력 1 증가
+	36	Expert	기술 포인트당 저항력 2 증가
+	36	Master	기술 포인트당 저항력 3 증가
+	36	GrandMaster	스킬 포인트당 4의 저항력
+	37	Name	치명적인 벌떼
+	37	ShortName	벌떼
+	37	Description	물어뜯고 쏘는 벌떼를 소환하여 단일 대상을 괴롭힙니다. 벌떼는 5의 피해를 입히며, 대지 마법 기술 점수 1점당 1-3의 추가 피해를 입힙니다.
+	37	Normal	보통 회복 속도
+	37	Expert	회복 속도 증가
+	37	Master	회복 속도 증가
+	37	GrandMaster	회복 속도 매우 증가
+	38	Name	석화 피부
+	38	ShortName	석화 피부
+	38	Description	모든 캐릭터의 방어도를 5만큼 증가시키며, 대지 마법 기술 점수 1점당 1의 추가 방어도를 제공합니다.
+	38	Normal	n/a
+	38	Expert	지속 시간 1시간 + 기술 포인트당 5분
+	38	Master	지속 시간 1시간 + 기술 포인트당 15분
+	38	GrandMaster	지속 시간 1시간 + 기술 포인트당 1시간
+	39	Name	칼날
+	39	ShortName	칼날
+	39	Description	회전하는 날카로운 금속 칼날을 발사하여 단일 몬스터를 공격합니다. 칼날은 대지 마법 기술 점수 1점당 1-9의 피해를 입힙니다.
+	39	Normal	n/a
+	39	Expert	보통 회복 속도
+	39	Master	회복 속도 증가
+	39	GrandMaster	회복 속도 매우 증가
+	40	Name	석화 해제
+	40	ShortName	석화 해제
+	40	Description	제시간에 시전하면 캐릭터의 석화 상태를 제거합니다. 대지 마법 기술과 숙련도가 높을수록 '돌이킬 수 없는 지점'에 도달하기 전까지 더 오랜 시간 동안 석화된 상태를 치료할 수 있습니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 방법뿐입니다.
+	40	Normal	n/a
+	40	Expert	기술 점수 1점당 1시간 미만의 석화 상태에 효과적
+	40	Master	기술 점수 1점당 1일 미만의 석화 상태에 효과적
+	40	GrandMaster	시간 제한 없음
+	41	Name	바위 폭발
+	41	ShortName	바위 폭발
+	41	Description	접촉하거나 일정 시간이 지나면 폭발하는 마법 바위를 생성합니다. 바위는 멈출 곳을 찾을 때까지 튕기거나 굴러가므로 폭발에 휘말리지 않도록 주의하십시오. 폭발은 10의 피해를 입히며, 대지 마법 기술 점수 1점당 1-10의 추가 피해를 입힙니다.
+	41	Normal	n/a
+	41	Expert	n/a
+	41	Master	보통 회복 속도
+	41	GrandMaster	더 빠른 회복 속도
+	42	Name	염동력
+	42	ShortName	염동력
+	42	Description	염동력을 사용하면 멀리 떨어진 물체를 조종할 수 있습니다. 이 주문을 사용하면 안전한 거리에서 스위치를 작동시키거나, 물건을 줍고, 문을 열 수 있어 위험한 함정을 피하는 데 유용합니다.
+	42	Normal	n/a
+	42	Expert	n/a
+	42	Master	보통 회복 속도
+	42	GrandMaster	더 빠른 회복 속도
+	43	Name	데스 블로섬
+	43	ShortName	데스 블로섬
+	43	Description	공중에서 폭발하여 폭발하는 대지의 파편을 비처럼 쏟아내는 마법 돌을 발사합니다. 각 파편은 20의 기본 피해와 대지 마법 기술 포인트당 2의 추가 피해를 입힙니다. 이 주문은 야외에서만 사용할 수 있습니다.
+	43	Normal	n/a
+	43	Expert	n/a
+	43	Master	회복 속도 보통
+	43	GrandMaster	회복 속도 증가, 기술 효과 2배
+	44	Name	질량 왜곡
+	44	ShortName	질량 왜곡
+	44	Description	대상 하나의 무게를 순간적으로 엄청나게 증가시켜, 몬스터 최대 생명력의 25%와 대지 마법 기술 포인트당 2%를 더한 만큼의 내부 피해를 입힙니다. 덩치가 클수록 더 큰 타격을 입습니다.
+	44	Normal	n/a
+	44	Expert	n/a
+	44	Master	n/a
+	44	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	45	Name	생명 감지
+	45	ShortName	생명 감지
+	45	Description	생명체를 우클릭하면 현재 생명력을 정확한 수치로 확인할 수 있습니다.
+	45	Normal	지속 시간: 기술 포인트당 10분.
+	45	Expert	지속 시간: 기술 포인트당 30분
+	45	Master	지속 시간: 기술 점수당 1시간
+	45	GrandMaster	주문 표시
+	46	Name	축복
+	46	ShortName	축복
+	46	Description	축복받은 캐릭터는 근접 전투 및 원거리 공격 시 몬스터를 명중시킬 확률이 증가합니다. 캐릭터의 명중 보너스는 5 + 정신 마법 기술 포인트당 1만큼 증가합니다.
+	46	Normal	지속 시간: 1시간 + 기술 포인트당 5분
+	46	Expert	파티 전체에 효과 적용
+	46	Master	지속 시간 1시간 + 기술 포인트당 15분
+	46	GrandMaster	지속 시간 1시간 + 기술 포인트당 1시간
+	47	Name	운명
+	47	ShortName	운명
+	47	Description	운명은 캐릭터에게 사용하면 명중률을 높이고, 몬스터에게 사용하면 명중률을 낮춥니다. 수정치는 20 + 정신 마법 기술 포인트당 1이며, 대상이 공격하거나 5분이 지날 때까지 지속됩니다.
+	47	Normal	보너스 또는 페널티 20 + 기술 포인트당 1
+	47	Expert	보너스 또는 페널티 20 + 기술 포인트당 2
+	47	Master	보너스 또는 페널티 20 + 기술 포인트당 4
+	47	GrandMaster	보너스 또는 페널티 20 + 기술 포인트당 6
+	48	Name	언데드 퇴치
+	48	ShortName	언데드 퇴치
+	48	Description	시야 내의 모든 언데드 몬스터가 언데드 퇴치 주문의 지속 시간 동안 도망치게 합니다. 이 주문은 3분 + 정신 마법 기술 포인트당 1분 동안 지속됩니다.
+	48	Normal	지속 시간 3분 + 기술 포인트당 1분
+	48	Expert	지속 시간 3분 + 기술 포인트당 3분
+	48	Master	지속 시간 3분 + 기술 포인트당 5분
+	48	GrandMaster	회복 속도 증가
+	49	Name	저주 해제
+	49	ShortName	저주 해제
+	49	Description	제시간에 시전하면 캐릭터의 저주 상태를 제거합니다. 정신 마법의 기술과 숙련도가 높을수록 '돌이킬 수 없는 지점'에 도달하기 전까지 더 오랫동안 저주 상태를 유지할 수 있습니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 것만이 유일한 해결책입니다.
+	49	Normal	n/a
+	49	Expert	기술 포인트당 1시간 미만으로 저주받은 경우 효과 적용
+	49	Master	기술 포인트당 1일 미만으로 저주받은 경우 효과 적용
+	49	GrandMaster	시간 제한 없음
+	50	Name	보존
+	50	ShortName	보존
+	50	Description	영혼을 육체에 더 강하게 결속시킵니다. 막대한 생명력 피해로 인한 죽음을 지연시키지만, 캐릭터가 의식을 잃는 것을 막지는 못합니다. 주문 효과가 끝날 때 보존 상태인 캐릭터의 생명력이 너무 낮으면 캐릭터는 사망합니다.
+	50	Normal	n/a
+	50	Expert	지속 시간 1시간 + 기술 포인트당 5분
+	50	Master	파티 전체에 적용
+	50	GrandMaster	지속 시간 1시간 + 기술 포인트당 15분
+	51	Name	영웅심
+	51	ShortName	영웅심
+	51	Description	영웅심은 캐릭터의 공격 성공 시 피해량을 5 + 정신 마법 기술 포인트당 1점만큼 증가시킵니다. 이 주문은 파티 전체에 적용됩니다.
+	51	Normal	n/a
+	51	Expert	지속 시간 1시간 + 기술 포인트당 5분
+	51	Master	지속 시간 1시간 + 기술 포인트당 15분
+	51	GrandMaster	지속 시간 1시간 + 기술 포인트당 1시간
+	52	Name	영혼 채찍
+	52	ShortName	영혼 채찍
+	52	Description	이 주문은 대상의 육체와 영혼 사이의 연결을 약화시켜, 시전자 주변의 모든 몬스터에게 10 + 정신 마법 기술 포인트당 2-8의 피해를 입힙니다.
+	52	Normal	n/a
+	52	Expert	n/a
+	52	Master	보통 회복 속도
+	52	GrandMaster	더 빠른 회복 속도
+	53	Name	죽은 자 소생
+	53	ShortName	죽은 자 소생
+	53	Description	제시간에 이 주문을 시전하면 죽은 캐릭터를 소생시킵니다. 정신 마법의 기술과 등급이 높을수록 '돌이킬 수 없는 지점'에 도달하기 전까지 캐릭터가 죽어 있을 수 있는 시간이 길어집니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 것만이 캐릭터를 소생시킬 수 있는 유일한 방법입니다. 이 주문을 시전하면 캐릭터는 허약 상태가 됩니다.
+	53	Normal	n/a
+	53	Expert	n/a
+	53	Master	기술 포인트당 1일 미만으로 사망한 경우 작동
+	53	GrandMaster	시간 제한 없음
+	54	Name	생명 공유
+	54	ShortName	생명 공유
+	54	Description	생명 공유는 캐릭터들의 생명력을 합쳐 가능한 한 균등하게 재분배합니다. 현재 모든 생명력을 합산하고 정신 마법 기술 포인트당 3점을 추가합니다. 그 후 합산된 생명력을 캐릭터들에게 다시 분배하며, 어떤 캐릭터도 최대 생명력을 초과하여 가질 수 없습니다.
+	54	Normal	n/a
+	54	Expert	n/a
+	54	Master	기술 포인트당 3의 생명력을 합계에 추가
+	54	GrandMaster	기술 포인트당 4의 생명력을 합계에 추가
+	55	Name	부활
+	55	ShortName	부활
+	55	Description	파괴된 육체를 가진 캐릭터를 부활시킵니다. 회복 속도는 매우 느리지만, 정신 마법 기술이 높을수록 빨라집니다. 부활한 캐릭터는 주문 시전 후 허약 상태가 됩니다.
+	55	Normal	n/a
+	55	Expert	n/a
+	55	Master	n/a
+	55	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	56	Name	텔레파시
+	56	ShortName	텔레파시
+	56	Description	대상의 마음을 읽어 소지한 금화의 정확한 액수와 아이템을 알아냅니다.
+	56	Normal	느린 회복 속도
+	56	Expert	회복 속도 증가
+	56	Master	회복 속도 증가
+	56	GrandMaster	회복 속도 매우 증가
+	57	Name	공포 제거
+	57	ShortName	공포 제거
+	57	Description	적절한 시기에 시전하면 캐릭터의 공포 상태를 제거합니다. 정신 마법 기술과 숙련도가 높을수록 공포 상태가 지속된 시간이 길어도 효과가 유지됩니다. 그 시간이 지나면 휴식을 취하거나 사원에서만 상태를 제거할 수 있습니다.
+	57	Normal	기술 포인트당 3분 미만의 공포 상태에 효과적
+	57	Expert	기술 포인트당 1시간 미만의 공포 상태에 효과적
+	57	Master	기술 포인트당 1일 미만의 공포 상태에 효과적
+	57	GrandMaster	시간 경과와 관계없이 항상 효과적
+	58	Name	정신 저항
+	58	ShortName	정신 저항
+	58	Description	모든 캐릭터의 정신 마법 피해 저항력을 정신 마법 기술 수치만큼 증가시킵니다. 보호 효과는 기술 포인트당 1시간 동안 지속됩니다.
+	58	Normal	기술 포인트당 저항력 1 증가
+	58	Expert	기술 포인트당 저항력 2 증가
+	58	Master	기술 포인트당 저항력 3 증가
+	58	GrandMaster	스킬 포인트당 4의 저항력
+	59	Name	마인드 블래스트
+	59	ShortName	마인드 블래스트
+	59	Description	정신적인 힘의 화살을 발사하여 단일 대상의 신경계에 피해를 줍니다. 마인드 블래스트는 3의 기본 피해와 정신 마법 기술 포인트당 1-3의 추가 피해를 입힙니다.
+	59	Normal	느린 회복 속도
+	59	Expert	회복 속도 증가
+	59	Master	회복 속도 증가
+	59	GrandMaster	회복 속도 매우 증가
+	60	Name	매혹
+	60	ShortName	매혹
+	60	Description	대상 생명체 하나를 진정시켜 파티에 대한 적대감을 제거합니다. 대상이 피해를 입으면 즉시 다시 적대적으로 변합니다.
+	60	Normal	n/a
+	60	Expert	지속 시간: 숙련도 1점당 5분
+	60	Master	지속 시간: 기술 포인트당 10분
+	60	GrandMaster	주문 지속 시간이 대상이 있는 맵을 떠날 때까지 유지됩니다
+	61	Name	마비 치료
+	61	ShortName	마비 치료
+	61	Description	제시간에 시전하면 마비를 치료합니다. 정신 마법 기술과 등급이 높을수록 캐릭터가 마비된 지 오래되어도 "돌이킬 수 없는 지점"에 도달하기 전까지 치료할 수 있습니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 것만이 유일한 치료 방법입니다.
+	61	Normal	n/a
+	61	Expert	기술 점수당 1시간 미만으로 마비된 경우 효과 발휘
+	61	Master	기술 점수당 1일 미만으로 마비된 경우 효과 발휘
+	61	GrandMaster	시간 제한 없음
+	62	Name	광폭화
+	62	ShortName	광폭화
+	62	Description	몬스터 하나를 전투 광기에 빠뜨려 주문이 풀릴 때까지 가장 가까운 살아있는 생명체를 공격하게 합니다.
+	62	Normal	n/a
+	62	Expert	지속 시간: 숙련도 1점당 5분
+	62	Master	지속 시간: 기술 포인트당 10분
+	62	GrandMaster	지속 시간은 기술 점수당 1시간
+	63	Name	집단 공포
+	63	ShortName	집단 공포
+	63	Description	시전자의 시야 내에 있는 모든 생명체가 시전자를 두려워하여 도망칩니다. 주문의 영향을 받는 동안 생명체가 피해를 입으면 주문이 풀립니다. 집단 공포의 지속 시간은 정신 마법 기술 점수당 3분입니다. 집단 공포는 언데드 생명체에게는 통하지 않습니다.
+	63	Normal	n/a
+	63	Expert	n/a
+	63	Master	지속 시간 3분 + 기술 포인트당 5분
+	63	GrandMaster	지속 시간은 기술 점수당 5분
+	64	Name	광기 치료
+	64	ShortName	광기 치료
+	64	Description	제시간에 시전하면 광기를 치료합니다. 정신 마법 기술과 등급이 높을수록 캐릭터가 광기에 빠진 지 오래되어도 "돌이킬 수 없는 지점"에 도달하기 전까지 치료할 수 있습니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 것만이 유일한 치료 방법입니다.
+	64	Normal	n/a
+	64	Expert	n/a
+	64	Master	스킬 포인트당 1일 미만으로 정신 이상 상태가 지속되었을 때 효과가 있음
+	64	GrandMaster	시간 제한 없음
+	65	Name	사이킥 쇼크
+	65	ShortName	사이킥 쇼크
+	65	Description	마인드 블래스트와 유사하지만, 사이킥 쇼크는 단일 대상을 정신 마법으로 공격하여 훨씬 큰 피해를 입힙니다. 사이킥 쇼크는 12의 기본 피해와 정신 마법 스킬 포인트당 1~12의 추가 피해를 줍니다.
+	65	Normal	n/a
+	65	Expert	n/a
+	65	Master	보통 회복 속도
+	65	GrandMaster	더 빠른 회복 속도
+	66	Name	엔슬레이브
+	66	ShortName	엔슬레이브
+	66	Description	정신 마법 스킬 포인트당 10분 동안 대상의 정신을 지배합니다. 지배당한 생명체는 주문 지속 시간 동안 시전자에게 적대적인 몬스터와 싸우며, 시전자나 동료가 공격하더라도 반격하지 않습니다. 이 주문은 언데드에게는 통하지 않습니다.
+	66	Normal	n/a
+	66	Expert	n/a
+	66	Master	n/a
+	66	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	67	Name	큐어 위크니스
+	67	ShortName	큐어 위크니스
+	67	Description	제시간에 주문을 시전하면 캐릭터의 허약 상태를 치료합니다. 신체 마법 스킬과 숙련도가 높을수록 허약 상태가 된 지 오래되어도 치료할 수 있습니다. 그 이후에는 휴식을 취하거나 사원에서 치료해야 합니다.
+	67	Normal	스킬 포인트당 3분 미만으로 허약 상태가 지속되었을 때 효과가 있음
+	67	Expert	스킬 포인트당 1시간 미만으로 허약 상태가 지속되었을 때 효과가 있음
+	67	Master	스킬 포인트당 1일 미만으로 허약 상태가 지속되었을 때 효과가 있음
+	67	GrandMaster	시간 경과와 관계없이 항상 효과적
+	68	Name	힐
+	68	ShortName	힐
+	68	Description	시전 시 단일 대상의 생명력을 회복합니다. 회복량은 5와 신체 마법 스킬 포인트당 2의 합과 같습니다.
+	68	Normal	생명력 5와 스킬 포인트당 2를 회복
+	68	Expert	생명력 5와 스킬 포인트당 3을 회복하며 원거리 대상에게 시전 가능
+	68	Master	생명력 5와 스킬 포인트당 4를 회복
+	68	GrandMaster	생명력 5와 스킬 포인트당 5를 회복
+	69	Name	신체 저항
+	69	ShortName	신체 저항
+	69	Description	모든 캐릭터의 신체 마법 피해 저항력을 신체 마법 기술 레벨만큼 증가시킵니다. 보호 효과는 기술 레벨당 1시간 동안 지속됩니다.
+	69	Normal	기술 포인트당 저항력 1 증가
+	69	Expert	기술 포인트당 저항력 2 증가
+	69	Master	기술 포인트당 저항력 3 증가
+	69	GrandMaster	스킬 포인트당 4의 저항력
+	70	Name	해
+	70	ShortName	해
+	70	Description	단일 대상에게 직접적인 마법 피해를 입힙니다. 해는 8의 기본 피해와 신체 마법 기술 레벨당 1-2의 추가 피해를 줍니다.
+	70	Normal	보통 회복 속도
+	70	Expert	회복 속도 증가
+	70	Master	회복 속도 증가
+	70	GrandMaster	회복 속도 매우 증가
+	71	Name	재생
+	71	ShortName	재생
+	71	Description	단일 캐릭터에게 재생 능력을 부여합니다. 재생 주문이 활성화된 동안 캐릭터의 생명력이 시간이 지남에 따라 서서히 회복됩니다.
+	71	Normal	n/a
+	71	Expert	지속 시간: 기술 레벨당 1시간
+	71	Master	생명력 회복 속도 증가
+	71	GrandMaster	생명력 회복 속도 대폭 증가
+	72	Name	독 치료
+	72	ShortName	독 치료
+	72	Description	제시간에 시전하면 캐릭터의 독 상태를 치료합니다. 신체 마법 기술 레벨과 숙련도가 높을수록 '돌이킬 수 없는 지점'에 도달하기 전까지 더 오랫동안 독 상태를 치료할 수 있습니다. 그 이후에는 신의 개입을 제외하면 사원을 방문하는 것만이 유일한 치료 방법입니다.
+	72	Normal	n/a
+	72	Expert	기술 레벨당 1시간 미만으로 중독된 경우 치료 가능
+	72	Master	기술 레벨당 1일 미만으로 중독된 경우 치료 가능
+	72	GrandMaster	시간 제한 없음
+	73	Name	망치 손
+	73	ShortName	망치 손
+	73	Description	망치 손은 비무장 전투원의 기술을 마법적으로 강화하여 상대의 약점을 더 정확하게 타격할 수 있게 합니다. 망치 손의 보조를 받는 공격은 비무장 공격으로 입히는 물리 피해와 동일한 양의 신체 속성 추가 피해를 입힙니다.
+	73	Normal	n/a
+	73	Expert	회복 속도 증가
+	73	Master	회복 속도 증가
+	73	GrandMaster	주문이 파티 전체에 적용됩니다
+	74	Name	질병 치료
+	74	ShortName	질병 치료
+	74	Description	제시간에 시전하면 캐릭터의 질병을 치료합니다. 신체 마법 기술과 등급이 높을수록 '돌이킬 수 없는 지점'에 도달하기 전까지 질병을 치료할 수 있는 시간이 길어집니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 것만이 유일한 치료 방법입니다.
+	74	Normal	n/a
+	74	Expert	n/a
+	74	Master	기술 점수 1점당 1일 미만의 질병 상태일 때 효과가 있습니다
+	74	GrandMaster	시간 제한 없음
+	75	Name	마법 보호
+	75	ShortName	마법 보호
+	75	Description	마법 보호는 파티 전체에 적용되어, 쇠약 상태를 유발하는 특정 주문과 몬스터의 능력에 대한 면역을 부여합니다. 해당 상태는 독, 질병, 석화, 마비, 허약입니다. 이 주문이 캐릭터를 효과로부터 보호할 때마다 주문의 힘이 약해집니다. 신체 마법 기술 점수 1점당 1회의 공격을 막아낼 수 있으며, 그 이후에는 마법 보호가 해제됩니다.
+	75	Normal	n/a
+	75	Expert	n/a
+	75	Master	지속 시간: 기술 점수당 1시간
+	75	GrandMaster	죽음 및 소멸 효과에 대한 면역을 부여합니다
+	76	Name	비행 주먹
+	76	ShortName	비행 주먹
+	76	Description	비행 주먹은 단일 대상에게 강력한 마법의 힘을 발사하여 20의 피해를 입히고, 신체 마법 기술 점수 1점당 1~10의 추가 피해를 입힙니다.
+	76	Normal	n/a
+	76	Expert	n/a
+	76	Master	보통 회복 속도
+	76	GrandMaster	더 빠른 회복 속도
+	77	Name	강력 치료
+	77	ShortName	강력 치료
+	77	Description	파티의 모든 캐릭터의 생명력을 한꺼번에 회복합니다. 회복량은 10에 신체 마법 기술 점수 1점당 5를 더한 값입니다.
+	77	Normal	n/a
+	77	Expert	n/a
+	77	Master	n/a
+	77	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	78	Name	빛의 화살
+	78	ShortName	빛의 화살
+	78	Description	단일 대상에게 빛의 화살을 발사하여 빛 마법 기술 점수 1점당 1~4의 피해를 입힙니다. 언데드에게는 두 배의 피해를 입힙니다.
+	78	Normal	보통 회복 속도
+	78	Expert	회복 속도 증가
+	78	Master	회복 속도 증가
+	78	GrandMaster	회복 속도 매우 증가
+	79	Name	언데드 파괴
+	79	ShortName	언데드 파괴
+	79	Description	천상의 힘을 빌려 언데드의 생명을 유지하는 사악한 마법을 무효화합니다. 단일 대상에게 16의 피해를 입히며, 빛 마법 기술 점수당 1~16의 추가 피해를 줍니다. 이 주문은 언데드에게만 효과가 있습니다.
+	79	Normal	보통 회복 속도
+	79	Expert	회복 속도 증가
+	79	Master	회복 속도 증가
+	79	GrandMaster	회복 속도 매우 증가
+	80	Name	마법 해제
+	80	ShortName	마법 해제
+	80	Description	시전자의 시야 내에 있는 모든 생명체에게 걸린 이롭거나 해로운 모든 마법을 제거합니다. 빛 마법 기술 점수만큼 회복 시간이 단축됩니다.
+	80	Normal	보통 회복 속도
+	80	Expert	회복 속도 증가
+	80	Master	회복 속도 증가
+	80	GrandMaster	회복 속도 매우 증가
+	81	Name	마비
+	81	ShortName	마비
+	81	Description	마비는 몬스터가 움직이거나 공격하지 못하게 합니다. 지속 시간은 빛 마법 기술 점수당 3분입니다. 무력해진 대상을 마음껏 공격하십시오. 마비된 몬스터는 반격할 수 없습니다.
+	81	Normal	보통 회복 속도
+	81	Expert	회복 속도 증가
+	81	Master	회복 속도 증가
+	81	GrandMaster	회복 속도 매우 증가
+	82	Name	위습 소환
+	82	ShortName	소환
+	82	Description	파티를 위해 춤추는 빛을 소환합니다. 주문 지속 시간이 끝나거나 파괴될 때까지 함께합니다. 한 번에 최대 1마리의 정령만 소환할 수 있습니다.
+	82	Normal	n/a
+	82	Expert	지속 시간은 기술 점수당 5분입니다. 최대 1마리의 춤추는 빛을 소환합니다.
+	82	Master	위습을 소환합니다. 지속 시간은 기술 점수당 15분입니다. 최대 3마리의 위습을 소환합니다.
+	82	GrandMaster	윌 오 위습을 소환합니다. 최대 5마리의 윌 오 위습을 소환합니다.
+	83	Name	신의 날
+	83	ShortName	신의 날
+	83	Description	모든 캐릭터의 7가지 능력치를 빛 마법 기술 점수의 3배만큼 일시적으로 증가시킵니다. 이 주문은 휴식을 취할 때까지 지속됩니다.
+	83	Normal	n/a
+	83	Expert	모든 주문이 기술 점수의 3배로 시전됨
+	83	Master	모든 주문이 기술 점수의 4배로 시전됨
+	83	GrandMaster	모든 주문이 기술 점수의 5배로 시전됨
+	84	Name	프리즘 광선
+	84	ShortName	프리즘 광선
+	84	Description	시야 내의 모든 생명체에게 25의 피해와 빛 마법 기술 포인트당 1의 추가 피해를 입힙니다. 이 주문은 실내에서만 시전할 수 있습니다.
+	84	Normal	n/a
+	84	Expert	n/a
+	84	Master	보통 회복 속도
+	84	GrandMaster	더 빠른 회복 속도
+	85	Name	보호의 날
+	85	ShortName	보호의 날
+	85	Description	모든 캐릭터에게 화염, 공기, 물, 대지, 정신, 신체 보호 주문과 깃털 낙하, 마법사의 눈 주문을 빛 마법 기술의 4배 효과로 동시에 시전합니다.
+	85	Normal	n/a
+	85	Expert	n/a
+	85	Master	모든 주문이 기술 점수의 4배로 시전됨
+	85	GrandMaster	모든 주문이 기술 점수의 5배로 시전됨
+	86	Name	힘의 시간
+	86	ShortName	힘의 시간
+	86	Description	모든 캐릭터에게 가속, 영웅심, 보호막, 돌 피부, 축복 주문을 빛 마법 기술의 4배 효과로 동시에 시전합니다.
+	86	Normal	n/a
+	86	Expert	n/a
+	86	Master	모든 주문이 기술 점수의 4배로 시전됨
+	86	GrandMaster	모든 주문이 기술 점수의 5배로 시전됨
+	87	Name	태양 광선
+	87	ShortName	태양 광선
+	87	Description	태양 광선은 게임에서 두 번째로 강력한 피해 주문입니다. 태양의 빛을 한 대상에게 집중시켜 20의 피해와 빛 마법 기술 포인트당 1-20의 추가 피해를 입힙니다. 낮에 야외에서만 사용할 수 있습니다.
+	87	Normal	n/a
+	87	Expert	n/a
+	87	Master	느린 회복 속도
+	87	GrandMaster	보통의 회복 속도
+	88	Name	신의 개입
+	88	ShortName	신의 개입
+	88	Description	하루에 세 번 하늘의 힘을 빌려 캐릭터의 모든 피해를 치유하고, 주문 포인트를 회복하며, 모든 부정적인 상태를 제거합니다. 하지만 신들은 그 대가로 시전자의 나이를 10살씩 먹게 합니다. 빛 마법 기술이 높을수록 이 주문의 회복 시간이 단축됩니다.
+	88	Normal	n/a
+	88	Expert	n/a
+	88	Master	n/a
+	88	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	89	Name	되살리기
+	89	ShortName	되살리기
+	89	Description	되살리기는 죽은 생명체를 (어느 정도) 다시 일으켜 세웁니다. 좀비는 파괴되거나 파티가 맵을 떠날 때까지 시전자를 적대하는 몬스터와 싸웁니다. 좀비는 어둠 마법 기술 포인트당 10의 생명력을 가지며, 최대 생명력까지 회복됩니다.
+	89	Normal	생명체는 기술 포인트당 20의 생명력을 얻습니다
+	89	Expert	생명체는 기술 포인트당 30의 생명력을 얻습니다
+	89	Master	생명체는 기술 포인트당 40의 생명력을 얻습니다
+	89	GrandMaster	생명체는 기술 포인트당 50의 생명력을 얻습니다
+	90	Name	독구름
+	90	ShortName	독구름
+	90	Description	시전자 앞에 유독 가스로 이루어진 구름을 생성하며, 이 구름은 캐릭터로부터 천천히 멀어집니다. 구름은 25의 기본 피해와 어둠 마법 기술 포인트당 1-10의 추가 피해를 입히며, 무언가와 충돌할 때까지 지속됩니다.
+	90	Normal	보통 회복 속도
+	90	Expert	회복 속도 증가
+	90	Master	회복 속도 증가
+	90	GrandMaster	회복 속도 매우 증가
+	91	Name	흡혈 무기
+	91	ShortName	흡혈 무기
+	91	Description	무기에 흡혈 능력을 부여합니다. 이 무기로 몬스터를 공격하면 입힌 피해량만큼 시전자의 생명력이 회복되며, 최대 생명력까지 회복할 수 있습니다.
+	91	Normal	지속 시간: 기술 포인트당 1시간
+	91	Expert	회복 속도 증가
+	91	Master	가장 빠른 회복 속도
+	91	GrandMaster	영구 지속
+	92	Name	축소 광선
+	92	ShortName	축소 광선
+	92	Description	거대한 몬스터를 다루기 쉬운 크기로 축소합니다. 이 주문의 지속 시간은 어둠 마법 기술 포인트당 5분입니다. 시전자의 숙련도에 따라 축소된 몬스터는 원래 피해량의 절반, 3분의 1, 또는 4분의 1만큼의 피해를 입힙니다.
+	92	Normal	몬스터 크기를 원래의 절반으로 축소
+	92	Expert	몬스터 크기를 원래의 3분의 1로 축소
+	92	Master	몬스터 크기를 원래의 4분의 1로 축소
+	92	GrandMaster	대상 근처의 다른 몬스터에게도 영향을 줌
+	93	Name	파편 금속
+	93	ShortName	파편 금속
+	93	Description	시전자 전방으로 뜨겁고 날카로운 금속 파편을 발사하여 경로에 있는 모든 생명체에게 피해를 줍니다. 각 파편은 어둠 마법 기술 레벨당 1-6의 피해를 입힙니다.
+	93	Normal	n/a
+	93	Expert	회복 속도 증가 및 파편 5개
+	93	Master	회복 속도 증가 및 파편 7개
+	93	GrandMaster	회복 속도 최대 증가 및 파편 9개
+	94	Name	언데드 조종
+	94	ShortName	언데드 조종
+	94	Description	어둠 마법 기술 레벨당 3분 동안 언데드 대상의 정신을 지배합니다. 조종당하는 언데드는 주문 지속 시간 동안 시전자에게 적대적인 몬스터와 싸우며, 시전자나 동료가 공격하더라도 반격하지 않습니다.
+	94	Normal	n/a
+	94	Expert	지속 시간: 기술 레벨당 3분
+	94	Master	회복 속도 증가, 지속 시간: 기술 레벨당 5분
+	94	GrandMaster	회복 속도 최대 증가, 파티가 맵을 떠날 때까지 지속
+	95	Name	고통 반사
+	95	ShortName	고통 반사
+	95	Description	고통 반사가 활성화된 캐릭터가 몬스터에게 공격받으면, 몬스터는 캐릭터에게 입힌 피해량만큼의 피해를 되돌려 받습니다.
+	95	Normal	n/a
+	95	Expert	지속 시간 1시간 + 기술 포인트당 5분
+	95	Master	파티 전체에 적용
+	95	GrandMaster	지속 시간 1시간 + 기술 포인트당 15분
+	96	Name	어둠의 손아귀
+	96	ShortName	어둠의 손아귀
+	96	Description	이 주문은 대상을 순수한 어둠의 힘으로 감싸 원거리 공격이나 주문 시전을 불가능하게 만듭니다. 또한 대상의 이동 속도를 늦추고 방어력을 절반으로 감소시키며, 근접 공격 시 피해량을 절반으로 줄입니다.
+	96	Normal	n/a
+	96	Expert	n/a
+	96	Master	지속 시간: 기술 레벨당 5분
+	96	GrandMaster	지속 시간: 스킬 포인트당 10분
+	97	Name	드래곤 브레스
+	97	ShortName	용의 숨결
+	97	Description	용의 숨결은 시전자가 독성 증기 구름을 내뿜게 하여 단일 몬스터를 공격하고 주변의 모든 생명체에게 어둠 마법 기술 점수당 1-25의 피해를 입힙니다.
+	97	Normal	n/a
+	97	Expert	n/a
+	97	Master	느린 회복 속도
+	97	GrandMaster	보통의 회복 속도
+	98	Name	아마겟돈
+	98	ShortName	아마겟돈
+	98	Description	이 주문은 마을을 파괴하는 주문입니다. 아마겟돈은 맵상의 모든 생명체(아군 포함)에게 50의 피해와 캐릭터의 어둠 마법 기술 점수당 1의 추가 피해를 입힙니다. 하루에 세 번만 시전할 수 있으며 야외에서만 사용 가능합니다.
+	98	Normal	n/a
+	98	Expert	n/a
+	98	Master	하루에 세 번만 시전 가능
+	98	GrandMaster	하루에 네 번까지 시전 가능
+	99	Name	영혼 흡수
+	99	ShortName	영혼 흡수
+	99	Description	이 끔찍한 주문은 시야 내의 모든 생명체(아군 또는 적군)로부터 생명력을 빨아들입니다. 영혼 흡수는 공유 생명력과 유사한 방식으로 그 생명력을 파티에게 전달합니다. 피해량(및 회복량)은 25 + 기술 점수당 1-8입니다.
+	99	Normal	n/a
+	99	Expert	n/a
+	99	Master	n/a
+	99	GrandMaster	이 주문은 이미 최고의 성능을 발휘하고 있습니다!
+	100	Name	매혹
+	100	ShortName	매혹
+	100	Description	이 능력은 다크 엘프가 상대하는 대상에게 더 호감 가는 태도와 외모를 부여합니다. 효과가 지속되는 동안 상인 기술에 보너스를 받습니다.
+	100	Normal	지속 시간: 기술 점수당 5분
+	100	Expert	지속 시간: 기술 점수당 5분
+	100	Master	지속 시간: 기술 점수당 1시간
+	100	GrandMaster	상인 기술 보너스 증가
+	101	Name	여행자의 축복
+	101	ShortName	여행자의 축복
+	101	Description	이 능력은 횃불, 마법사의 눈, 깃털 낙하 주문을 동시에 전문가 수준으로 시전합니다.
+	101	Normal	n/a
+	101	Expert	지속 시간: 기술 포인트당 30분
+	101	Master	지속 시간: 기술 점수당 1시간
+	101	GrandMaster	지속 시간: 기술 점수당 2시간
+	102	Name	실명
+	102	ShortName	실명
+	102	Description	대상을 눈멀게 합니다. 영향을 받은 생명체는 원거리 공격이나 주문을 사용할 수 없으며, 효과가 사라질 때까지 목적 없이 배회합니다.
+	102	Normal	n/a
+	102	Expert	n/a
+	102	Master	지속 시간: 기술 레벨당 5분
+	102	GrandMaster	지속 시간: 스킬 포인트당 10분
+	103	Name	다크파이어 볼트
+	103	ShortName	다크파이어
+	103	Description	다크 엘프가 어둠과 불의 힘을 결합한 위험한 다크파이어를 다룰 수 있게 합니다. 다크파이어 볼트에 적중당한 대상은 화염 저항력과 어둠 저항력 중 더 낮은 쪽으로 저항합니다. 피해량은 기술 포인트당 1-17입니다.
+	103	Normal	n/a
+	103	Expert	n/a
+	103	Master	n/a
+	103	GrandMaster	n/a
+	104	Name	사용되지 않음!!!
+	104	ShortName	0
+	104	Description	
+	104	Normal	
+	104	Expert	
+	104	Master	
+	104	GrandMaster	
+	105	Name	사용되지 않음!!!
+	105	ShortName	0
+	105	Description	
+	105	Normal	
+	105	Expert	
+	105	Master	
+	105	GrandMaster	
+	106	Name	사용되지 않음!!!
+	106	ShortName	0
+	106	Description	
+	106	Normal	
+	106	Expert	
+	106	Master	
+	106	GrandMaster	
+	107	Name	사용되지 않음!!!
+	107	ShortName	0
+	107	Description	
+	107	Normal	
+	107	Expert	
+	107	Master	
+	107	GrandMaster	
+	108	Name	사용되지 않음!!!
+	108	ShortName	0
+	108	Description	
+	108	Normal	
+	108	Expert	
+	108	Master	
+	108	GrandMaster	
+	109	Name	사용되지 않음!!!
+	109	ShortName	0
+	109	Description	
+	109	Normal	
+	109	Expert	
+	109	Master	
+	109	GrandMaster	
+	110	Name	사용되지 않음!!!
+	110	ShortName	0
+	110	Description	
+	110	Normal	
+	110	Expert	
+	110	Master	
+	110	GrandMaster	
+	111	Name	라이프드레인
+	111	ShortName	라이프드레인
+	111	Description	라이프드레인은 뱀파이어가 대상을 공격하여 피해를 입히고, 그 피해량만큼 자신의 생명력을 회복하는 기술입니다. 피해량은 3 + 기술 포인트당 1-3입니다.
+	111	Normal	뱀파이어가 라이프드레인으로 입힌 피해의 1/3만큼 회복
+	111	Expert	회복 속도 증가
+	111	Master	피해량 5 + 기술 포인트당 1-5
+	111	GrandMaster	피해량 7 + 기술 포인트당 1-7
+	112	Name	레비테이트
+	112	ShortName	레비테이트
+	112	Description	뱀파이어가 파티를 지면에서 살짝 띄워 익사나 용암으로 인한 피해를 방지하고, 지면 함정이 작동하지 않게 합니다.
+	112	Normal	n/a
+	112	Expert	지속 시간: 기술 점수당 10분
+	112	Master	지속 시간: 기술 점수당 1시간
+	112	GrandMaster	지속 시간: 기술 포인트당 3시간
+	113	Name	매혹
+	113	ShortName	매혹
+	113	Description	뱀파이어가 이 능력을 사용하면 근처에 있는 소수의 대상을 매혹할 수 있습니다.
+	113	Normal	n/a
+	113	Expert	n/a
+	113	Master	지속 시간: 기술 포인트당 10분
+	113	GrandMaster	지속 시간: 영구
+	114	Name	미스트폼
+	114	ShortName	미스트폼
+	114	Description	안개 형태는 뱀파이어가 물리 피해에 면역이 되도록 합니다. 하지만 안개 형태인 뱀파이어는 물리 공격을 할 수 없습니다. 안개 형태의 뱀파이어는 주문과 능력을 사용할 수 있으며, 주문과 능력의 영향을 받습니다.
+	114	Normal	n/a
+	114	Expert	n/a
+	114	Master	n/a
+	114	GrandMaster	n/a
+	115	Name	사용되지 않음!!!
+	115	ShortName	0
+	115	Description	
+	115	Normal	
+	115	Expert	
+	115	Master	
+	115	GrandMaster	
+	116	Name	사용되지 않음!!!
+	116	ShortName	0
+	116	Description	
+	116	Normal	
+	116	Expert	
+	116	Master	
+	116	GrandMaster	
+	117	Name	사용되지 않음!!!
+	117	ShortName	0
+	117	Description	
+	117	Normal	
+	117	Expert	
+	117	Master	
+	117	GrandMaster	
+	118	Name	사용되지 않음!!!
+	118	ShortName	0
+	118	Description	
+	118	Normal	
+	118	Expert	
+	118	Master	
+	118	GrandMaster	
+	119	Name	사용되지 않음!!!
+	119	ShortName	0
+	119	Description	
+	119	Normal	
+	119	Expert	
+	119	Master	
+	119	GrandMaster	
+	120	Name	사용되지 않음!!!
+	120	ShortName	0
+	120	Description	
+	120	Normal	
+	120	Expert	
+	120	Master	
+	120	GrandMaster	
+	121	Name	사용되지 않음!!!
+	121	ShortName	0
+	121	Description	
+	121	Normal	
+	121	Expert	
+	121	Master	
+	121	GrandMaster	
+	122	Name	공포
+	122	ShortName	공포
+	122	Description	이 능력은 드래곤이 적의 정신에 공포를 심어줍니다. 대상이 효과에 저항하지 못하면 지속 시간 동안 공포에 질려 도망칩니다.
+	122	Normal	지속 시간 3분 + 기술 포인트당 1분
+	122	Expert	지속 시간 5분 + 기술 점수당 1분
+	122	Master	대상 및 주변의 모든 생명체에게 영향
+	122	GrandMaster	시야 내의 모든 생명체에게 영향
+	123	Name	화염 폭발
+	123	ShortName	화염 폭발
+	123	Description	이 능력은 일반적인 드래곤 브레스 공격의 강화 버전입니다. 파이어볼과 비슷하게 작동하여 대상을 타격하고 폭발하여 근처의 모든 것을 공격하지만, 폭발 피해량은 대부분의 파이어볼보다 훨씬 강력합니다.
+	123	Normal	n/a
+	123	Expert	피해량 10 + 기술 점수당 1-10
+	123	Master	피해량 11 + 기술 점수당 1-11
+	123	GrandMaster	피해량 12 + 기술 점수당 1-12
+	124	Name	비행
+	124	ShortName	비행
+	124	Description	드래곤이 파티를 태우고 비행할 수 있게 합니다. 이 능력은 비용이 많이 들고 야외에서만 작동하지만 매우 유용합니다. 비행 중에는 5분마다 주문 포인트가 1씩 소모됩니다(즉, 지면에 닿아 있지 않을 때).
+	124	Normal	n/a
+	124	Expert	n/a
+	124	Master	지속 시간: 기술 점수당 1시간
+	124	GrandMaster	주문 포인트 소모 없음
+	125	Name	날개 치기
+	125	ShortName	날개 치기
+	125	Description	이 능력은 드래곤이 날개로 일으킨 바람으로 적을 밀쳐냅니다. 화염 폭발로 공격하기 전에 적을 밀어내는 데 매우 효과적입니다.
+	125	Normal	n/a
+	125	Expert	n/a
+	125	Master	n/a
+	125	GrandMaster	n/a
+	126	Name	사용되지 않음!!!
+	126	ShortName	0
+	126	Description	0
+	126	Normal	
+	126	Expert	
+	126	Master	
+	126	GrandMaster	
+	127	Name	사용되지 않음!!!
+	127	ShortName	0
+	127	Description	0
+	127	Normal	
+	127	Expert	
+	127	Master	
+	127	GrandMaster	
+	128	Name	사용되지 않음!!!
+	128	ShortName	0
+	128	Description	0
+	128	Normal	
+	128	Expert	
+	128	Master	
+	128	GrandMaster	
+	129	Name	사용되지 않음!!!
+	129	ShortName	0
+	129	Description	
+	129	Normal	
+	129	Expert	
+	129	Master	
+	129	GrandMaster	
+	130	Name	사용되지 않음!!!
+	130	ShortName	0
+	130	Description	
+	130	Normal	
+	130	Expert	
+	130	Master	
+	130	GrandMaster	
+	131	Name	사용되지 않음!!!
+	131	ShortName	0
+	131	Description	
+	131	Normal	
+	131	Expert	
+	131	Master	
+	131	GrandMaster	
+	132	Name	사용되지 않음!!!
+	132	ShortName	0
+	132	Description	
+	132	Normal	
+	132	Expert	
+	132	Master	
+	132	GrandMaster	

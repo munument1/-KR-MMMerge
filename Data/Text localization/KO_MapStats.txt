@@ -1,0 +1,209 @@
+Table (of Game struct)	Id	Field	New text
+MapStats	0	Name	
+	1	Name	대거 운드 섬
+	2	Name	레이븐쇼어
+	3	Name	알바르
+	4	Name	아이언샌드 사막
+	5	Name	가로트 협곡
+	6	Name	섀도스파이어
+	7	Name	머머우즈
+	8	Name	라비지 로밍
+	9	Name	공기의 차원
+	10	Name	대지의 차원
+	11	Name	불의 차원
+	12	Name	물의 차원
+	13	Name	레그나
+	14	Name	차원 사이의 차원
+	15	Name	튜토리얼
+	16	Name	버려진 신전
+	17	Name	해적 전초기지
+	18	Name	밀수꾼의 만
+	19	Name	다이어 울프 소굴
+	20	Name	알바르 상인회관
+	21	Name	에스카톤의 수정
+	22	Name	말벌 둥지
+	23	Name	오우거 요새
+	24	Name	트롤 무덤
+	25	Name	사이클롭스 식량창고
+	26	Name	불의 사슬
+	27	Name	드래곤 사냥꾼 야영지
+	28	Name	드래곤 동굴
+	29	Name	나가 보물고
+	30	Name	강령술사 길드
+	31	Name	미친 강령술사의 연구소 
+	32	Name	뱀파이어 납골당
+	33	Name	태양의 신전
+	34	Name	드루이드 서클
+	35	Name	발타자르 소굴
+	36	Name	야만인 요새
+	37	Name	코르부의 납골당
+	38	Name	공기의 성
+	39	Name	브린 경의 무덤
+	40	Name	불의 성
+	41	Name	전쟁 야영지
+	42	Name	해적 거점
+	43	Name	버려진 해적 성채
+	44	Name	레그나 지하 통로
+	45	Name	소형 잠수함 격납고
+	46	Name	에스카톤의 궁전
+	47	Name	공기의 군주의 감옥
+	48	Name	불의 군주의 감옥
+	49	Name	물의 군주의 감옥
+	50	Name	대지의 군주의 감옥
+	51	Name	떠오른 도서관
+	52	Name	다크 드워프 거주지
+	53	Name	투기장
+	54	Name	고대 트롤의 거처
+	55	Name	이프 대사원
+	56	Name	이프 예배당
+	57	Name	이프 교회
+	58	Name	늙은 로브의 동굴
+	59	Name	일싱고어의 동굴
+	60	Name	야드드레이크의 동굴
+	61	Name	NWC
+	62	Name	에메랄드 섬
+	63	Name	하몬데일
+	64	Name	에라시아
+	65	Name	툴라리안 숲
+	66	Name	데이자
+	67	Name	브라카다 사막
+	68	Name	이븐모른 섬
+	69	Name	나이혼 산
+	70	Name	고분 지대
+	71	Name	거인들의 땅
+	72	Name	타탈리아
+	73	Name	아블리
+	74	Name	여울
+	75	Name	에라시아 하수도
+	76	Name	미궁
+	77	Name	글로밍 성
+	78	Name	바의 신전
+	79	Name	투기장
+	80	Name	달의 신전
+	81	Name	썬더피스트 산
+	82	Name	툴라리안 동굴
+	83	Name	타이탄 요새
+	84	Name	번식 구역
+	85	Name	안개의 장벽
+	86	Name	클랭커의 연구소
+	87	Name	조카르의 무덤
+	88	Name	마법 학교
+	89	Name	제6 감시탑
+	90	Name	와인 저장고
+	91	Name	타이드워터 동굴
+	92	Name	마컴 경의 저택
+	93	Name	달의 대사원
+	94	Name	용병 길드
+	95	Name	화이트 클리프 동굴
+	96	Name	언덕 아래의 회관
+	97	Name	링컨
+	98	Name	스톤 시티
+	99	Name	셀레스트
+	100	Name	구덩이
+	101	Name	조드 식민지
+	102	Name	드래곤의 소굴
+	103	Name	하몬데일 성
+	104	Name	램번트 성
+	105	Name	리버스트라이드 요새
+	106	Name	나반 성
+	107	Name	그리폰하트 성
+	108	Name	레드 드워프 광산
+	109	Name	나이혼 터널
+	110	Name	이오폴로 가는 터널
+	111	Name	유령 저택
+	112	Name	제7고분
+	113	Name	제4고분
+	114	Name	제2고분
+	115	Name	제14고분
+	116	Name	제3고분
+	117	Name	제9고분
+	118	Name	제6고분
+	119	Name	제1고분
+	120	Name	제8고분
+	121	Name	제13고분
+	122	Name	제10고분
+	123	Name	제12고분
+	124	Name	제5고분
+	125	Name	제11고분
+	126	Name	제15고분
+	127	Name	웜스랙스의 동굴
+	128	Name	윌리엄 세탁의 탑
+	129	Name	숨겨진 무덤
+	130	Name	드래곤 동굴
+	131	Name	도적 동굴
+	132	Name	작은 집
+	133	Name	빛의 신전
+	134	Name	어둠의 신전
+	135	Name	태양의 대사원
+	136	Name	구덩이의 회관
+	137	Name	스위트 워터
+	138	Name	파라다이스 밸리
+	139	Name	은둔자의 섬
+	140	Name	크리그스파이어
+	141	Name	블랙셔
+	142	Name	드래곤샌드
+	143	Name	프로즌 하이랜드
+	144	Name	프리 헤이븐
+	145	Name	저주받은 자들의 수렁
+	146	Name	실버 코브
+	147	Name	부틀렉 베이
+	148	Name	아이언피스트 성
+	149	Name	뱀장어가 들끓는 바다
+	150	Name	안개 섬
+	151	Name	뉴 소르피갈
+	152	Name	고블린워치
+	153	Name	버려진 신전
+	154	Name	섀도 길드 은신처
+	155	Name	불의 군주의 회관
+	156	Name	스너글의 동굴
+	157	Name	드라군의 동굴
+	158	Name	실버 헬름 전초기지
+	159	Name	섀도 길드
+	160	Name	스너글의 철광산
+	161	Name	드라군 성채
+	162	Name	코라곤의 영지
+	163	Name	실버 헬름 요새
+	164	Name	모놀리스
+	165	Name	광인 에스릭의 무덤
+	166	Name	아이스윈드 성채
+	167	Name	군벌의 요새
+	168	Name	늑대의 소굴
+	169	Name	가릭의 대장간
+	170	Name	에이거의 연구소
+	171	Name	드래곤 라이더의 동굴
+	172	Name	바의 신전
+	173	Name	주먹의 신전
+	174	Name	찬차의 신전
+	175	Name	태양의 신전
+	176	Name	달의 신전
+	177	Name	바의 최고 신전
+	178	Name	바의 상급 신전
+	179	Name	뱀의 신전
+	180	Name	알라모스 성
+	181	Name	다크무어 성
+	182	Name	크리그스파이어 성
+	183	Name	프리 헤이븐 하수도
+	184	Name	VARN의 무덤
+	185	Name	엔로스의 오라클
+	186	Name	제어 센터
+	187	Name	하이브
+	188	Name	투기장
+	189	Name	드래곤의 소굴
+	190	Name	pending
+	191	Name	pending
+	192	Name	pending
+	193	Name	pending
+	194	Name	pending
+	195	Name	pending
+	196	Name	pending
+	197	Name	pending
+	198	Name	pending
+	199	Name	pending
+	200	Name	pending
+	201	Name	pending
+	202	Name	데빌 전초기지
+	203	Name	뉴 월드 컴퓨팅
+	204	Name	균열
+	205	Name	균열
+	206	Name	균열 지하실
+	207	Name	기묘한 신전

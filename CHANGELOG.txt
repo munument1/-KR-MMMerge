@@ -1,0 +1,12 @@
+Might and Magic 6.7.8 Merge Korean Patch
+
+v1.0.1
+- Fixed untranslated and partially untranslated NPC dialogue, including greetings.
+- Added Korean localization for 539 male/female random NPC name pairs.
+- Added Korean localization for all 132 spell entries, including names,
+  descriptions, and Normal/Expert/Master/Grandmaster effects.
+- Normalized NPC dialogue records so multiline source text is loaded in full.
+- Improved Korean byte encoding and multiline localization table handling.
+
+v1.0
+- Initial Korean patch release.

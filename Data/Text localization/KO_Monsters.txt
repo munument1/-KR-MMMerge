@@ -1,0 +1,653 @@
+Table (of Game struct)	Id	Field	New text
+MonstersTxt	0	Name	
+	1	Name	리자드맨 농민
+	2	Name	리자드맨 농부
+	3	Name	리자드맨 주민
+	4	Name	리자드맨 병사
+	5	Name	리자드맨 하사
+	6	Name	리자드맨 대장
+	7	Name	어린 코아틀
+	8	Name	코아틀
+	9	Name	날개 달린 뱀
+	10	Name	레그나 산적
+	11	Name	레그나 해적
+	12	Name	레그나 준장
+	13	Name	레그나 석궁병
+	14	Name	레그나 쇠뇌병
+	15	Name	레그나 부관
+	16	Name	레그나 소서러
+	17	Name	레그나 전투 마법사
+	18	Name	레그나 대마법사
+	19	Name	다크 엘프 농민
+	20	Name	다크 엘프 농민
+	21	Name	다크 엘프 농민
+	22	Name	다크 엘프 농민
+	23	Name	다크 엘프 농민
+	24	Name	다크 엘프 농민
+	25	Name	다크 엘프 전사
+	26	Name	다크 엘프 수호병
+	27	Name	다크 엘프 십자군
+	28	Name	오우거 농민
+	29	Name	오우거 농민
+	30	Name	오우거 농민
+	31	Name	오우거 싸움꾼
+	32	Name	오우거 전사
+	33	Name	오우거 전쟁대장
+	34	Name	애니멀리스트
+	35	Name	변신술사
+	36	Name	라이칸스로프
+	37	Name	랫맨
+	38	Name	웨어랫
+	39	Name	상급 웨어랫
+	40	Name	야수 애니멀리스트
+	41	Name	야수 변신술사
+	42	Name	야수 라이칸스로프
+	43	Name	드래곤 사냥꾼
+	44	Name	십자군
+	45	Name	드래곤 슬레이어
+	46	Name	태양의 수행자
+	47	Name	태양의 성직자
+	48	Name	태양의 사제
+	49	Name	농민
+	50	Name	농민
+	51	Name	농민
+	52	Name	뱀파이어 하수인
+	53	Name	뱀파이어
+	54	Name	상급 뱀파이어
+	55	Name	어둠의 길 숙련자
+	56	Name	강령술사
+	57	Name	대강령술사
+	58	Name	곤봉 트롤
+	59	Name	트롤 전사
+	60	Name	트롤 족장
+	61	Name	트롤 농민
+	62	Name	트롤 농민
+	63	Name	트롤 농민
+	64	Name	미노타우로스 경비병
+	65	Name	미노타우로스 전사
+	66	Name	미노타우로스 전투대장
+	67	Name	미노타우로스 농민
+	68	Name	미노타우로스 농민
+	69	Name	미노타우로스 농민
+	70	Name	드래곤
+	71	Name	드래곤 편대장
+	72	Name	고룡
+	73	Name	하급 불의 정령
+	74	Name	불의 정령
+	75	Name	상급 불의 정령
+	76	Name	하급 물의 정령
+	77	Name	물의 정령
+	78	Name	상급 물의 정령
+	79	Name	하급 대지의 정령
+	80	Name	대지의 정령
+	81	Name	상급 대지의 정령
+	82	Name	하급 공기의 정령
+	83	Name	공기의 정령
+	84	Name	상급 공기의 정령
+	85	Name	어린 다이어 울프
+	86	Name	다이어 울프
+	87	Name	무리 우두머리
+	88	Name	어린 바실리스크
+	89	Name	바실리스크
+	90	Name	늙은 바실리스크
+	91	Name	사이클롭스
+	92	Name	사이클롭스 사냥꾼
+	93	Name	사이클롭스 전사
+	94	Name	서펜트맨
+	95	Name	서펜트맨 장로
+	96	Name	서펜트맨 전사
+	97	Name	춤추는 빛
+	98	Name	위스프 
+	99	Name	윌 오 위스프
+	100	Name	켄타우로스
+	101	Name	켄타우로스 전사
+	102	Name	켄타우로스 전쟁군주
+	103	Name	이프리트 병사
+	104	Name	이프리트 기사
+	105	Name	이프리트 군주
+	106	Name	오우거 마법사 견습생
+	107	Name	오우거 마법사 
+	108	Name	오우거 현자
+	109	Name	유니콘 망아지
+	110	Name	유니콘
+	111	Name	유니콘 무리 우두머리
+	112	Name	에메랄드 드래곤
+	113	Name	사파이어 드래곤
+	114	Name	루비 드래곤
+	115	Name	안개매
+	116	Name	폭풍 독수리
+	117	Name	썬더버드
+	118	Name	일벌
+	119	Name	보초 말벌
+	120	Name	전사 말벌
+	121	Name	와이번 
+	122	Name	뿔 달린 와이번
+	123	Name	고대 와이번
+	124	Name	황동 고르곤
+	125	Name	청동 고르곤
+	126	Name	철 고르곤
+	127	Name	파이어 뉴트
+	128	Name	불도마뱀
+	129	Name	샐러맨더 
+	130	Name	불새
+	131	Name	불사조
+	132	Name	대불사조
+	133	Name	트리톤 
+	134	Name	트리톤 전사
+	135	Name	트리톤 십자군
+	136	Name	어린 드래곤 터틀
+	137	Name	드래곤 터틀
+	138	Name	늙은 거북
+	139	Name	룩
+	140	Name	코비
+	141	Name	레이븐
+	142	Name	바위
+	143	Name	바위
+	144	Name	바위
+	145	Name	차원 수호자
+	146	Name	차원 방어자
+	147	Name	차원 지배자
+	148	Name	수정 보행자
+	149	Name	수정 보초
+	150	Name	수정 수호자
+	151	Name	공포
+	152	Name	극도의 공포
+	153	Name	악몽
+	154	Name	에테르 기사
+	155	Name	에테르 챔피언
+	156	Name	에테르 군주
+	157	Name	돌격자
+	158	Name	저거너트
+	159	Name	파괴자
+	160	Name	연기 고그
+	161	Name	불씨 고그
+	162	Name	불꽃 고그
+	163	Name	해골 드래곤
+	164	Name	본 드래곤
+	165	Name	언데드 드래곤
+	166	Name	인간 농민
+	167	Name	인간 농민
+	168	Name	인간 농민
+	169	Name	나가 
+	170	Name	나가 전사
+	171	Name	나가 여왕
+	172	Name	해골 궁병
+	173	Name	해골 사냥꾼
+	174	Name	해골 궁수 
+	175	Name	다크 드워프 졸병
+	176	Name	다크 드워프 분쇄자
+	177	Name	다크 드워프 광전사
+	178	Name	물고기
+	179	Name	물고기
+	180	Name	물고기
+	181	Name	해적
+	182	Name	버커니어
+	183	Name	코르세어
+	184	Name	레그나 석궁병
+	185	Name	레그나 쇠뇌병
+	186	Name	레그나 부관
+	187	Name	해적 예언자
+	188	Name	해적 현자
+	189	Name	해적 마법사
+	190	Name	해츨링
+	191	Name	어린 용
+	192	Name	어린 드래곤
+	193	Name	용병 전사
+	194	Name	용병
+	195	Name	용병 대장
+	196	Name	혼돈의 수호자
+	197	Name	혼돈의 방어자
+	198	Name	혼돈의 지배자
+	199	Name	천사
+	200	Name	천사 군주
+	201	Name	대천사
+	202	Name	궁수
+	203	Name	궁병
+	204	Name	정예 궁수
+	205	Name	거대 박쥐
+	206	Name	뱀파이어 박쥐
+	207	Name	지옥불 박쥐
+	208	Name	어린 베히모스
+	209	Name	베히모스
+	210	Name	고대 베히모스
+	211	Name	부유하는 눈
+	212	Name	게이저
+	213	Name	사악한 눈
+	214	Name	달의 수행자
+	215	Name	달의 성직자
+	216	Name	달의 사제
+	217	Name	태양의 수행자
+	218	Name	태양의 성직자
+	219	Name	태양의 사제
+	220	Name	데빌 일꾼
+	221	Name	데빌 전사
+	222	Name	데빌 대장
+	223	Name	그린 드래곤
+	224	Name	블루 드래곤
+	225	Name	레드 드래곤
+	226	Name	잠자리
+	227	Name	불잠자리
+	228	Name	여왕 잠자리
+	229	Name	드워프 병사
+	230	Name	드워프 부관
+	231	Name	드워프 지휘관
+	232	Name	대폭풍
+	233	Name	회오리바람
+	234	Name	공기의 정령
+	235	Name	점토 정령
+	236	Name	돌 정령
+	237	Name	대지의 정령
+	238	Name	불의 감시자
+	239	Name	화염의 수호자
+	240	Name	불의 정령
+	241	Name	하급 빛의 정령
+	242	Name	빛의 정령
+	243	Name	상급 빛의 정령
+	244	Name	스프라이트
+	245	Name	실프
+	246	Name	물의 정령
+	247	Name	엘프 궁수
+	248	Name	엘프 정찰병
+	249	Name	엘프 레인저
+	250	Name	엘프 전사
+	251	Name	엘프 수호병
+	252	Name	엘프 창기병
+	253	Name	징집병
+	254	Name	병사
+	255	Name	투사
+	256	Name	강도
+	257	Name	약탈자
+	258	Name	산적
+	259	Name	검의 수련자
+	260	Name	검의 챔피언
+	261	Name	검의 달인
+	262	Name	석제 가고일
+	263	Name	대리석 가고일
+	264	Name	흑요석 가고일
+	265	Name	지니
+	266	Name	지니
+	267	Name	이프리트
+	268	Name	셰이드
+	269	Name	스펙터
+	270	Name	유령
+	271	Name	고블린
+	272	Name	홉고블린
+	273	Name	고블린 군주
+	274	Name	고글링
+	275	Name	고그
+	276	Name	마고그
+	277	Name	청동 골렘
+	278	Name	황동 골렘
+	279	Name	황금 골렘
+	280	Name	그리핀
+	281	Name	사냥 그리핀
+	282	Name	로열 그리핀
+	283	Name	하피
+	284	Name	하피 노파
+	285	Name	하피 여왕
+	286	Name	불의 히드라
+	287	Name	공기의 히드라
+	288	Name	혼돈의 히드라
+	289	Name	리치
+	290	Name	파워 리치
+	291	Name	리치 왕
+	292	Name	소서러
+	293	Name	마법사
+	294	Name	대마법사
+	295	Name	미니코어
+	296	Name	맨티코어 
+	297	Name	스코피코어
+	298	Name	메두사
+	299	Name	메두사 여왕
+	300	Name	메두사 여제
+	301	Name	미노타우로스
+	302	Name	미노타우로스 참수자
+	303	Name	미노타우로스 군주
+	304	Name	수도사
+	305	Name	수련자
+	306	Name	달인
+	307	Name	강령술사
+	308	Name	망자의 대변자
+	309	Name	망자의 여왕
+	310	Name	에메랄드 우즈
+	311	Name	사파이어 우즈
+	312	Name	블러드스톤 우즈
+	313	Name	농민
+	314	Name	농민
+	315	Name	농민
+	316	Name	농민
+	317	Name	농민
+	318	Name	농민
+	319	Name	농민
+	320	Name	농민
+	321	Name	농민
+	322	Name	농민
+	323	Name	농민
+	324	Name	농민
+	325	Name	농민
+	326	Name	농민
+	327	Name	농민
+	328	Name	농민
+	329	Name	농민
+	330	Name	농민
+	331	Name	농민
+	332	Name	농민
+	333	Name	농민
+	334	Name	농민
+	335	Name	농민
+	336	Name	농민
+	337	Name	농민
+	338	Name	농민
+	339	Name	농민
+	340	Name	농민
+	341	Name	농민
+	342	Name	농민
+	343	Name	농민
+	344	Name	농민
+	345	Name	농민
+	346	Name	농민
+	347	Name	농민
+	348	Name	농민
+	349	Name	농민
+	350	Name	농민
+	351	Name	농민
+	352	Name	농민
+	353	Name	농민
+	354	Name	농민
+	355	Name	농민
+	356	Name	농민
+	357	Name	농민
+	358	Name	농민
+	359	Name	농민
+	360	Name	농민
+	361	Name	농민
+	362	Name	농민
+	363	Name	농민
+	364	Name	농민
+	365	Name	농민
+	366	Name	농민
+	367	Name	농민
+	368	Name	농민
+	369	Name	농민
+	370	Name	농민
+	371	Name	농민
+	372	Name	농민
+	373	Name	농민
+	374	Name	농민
+	375	Name	농민
+	376	Name	농민
+	377	Name	농민
+	378	Name	농민
+	379	Name	농민
+	380	Name	농민
+	381	Name	농민
+	382	Name	농민
+	383	Name	농민
+	384	Name	농민
+	385	Name	거대 쥐
+	386	Name	번개 쥐
+	387	Name	불쥐
+	388	Name	탐색 드로이드
+	389	Name	보초 드로이드
+	390	Name	암살 드로이드
+	391	Name	로크
+	392	Name	상급 로크
+	393	Name	썬더버드
+	394	Name	거대 상어
+	395	Name	피라냐 상어
+	396	Name	드래곤 상어
+	397	Name	해골
+	398	Name	해골 전사
+	399	Name	해골 군주
+	400	Name	거대 거미
+	401	Name	독거미
+	402	Name	위도우메이커
+	403	Name	검사
+	404	Name	경비병
+	405	Name	모험가
+	406	Name	도둑
+	407	Name	로그
+	408	Name	대도둑
+	409	Name	타이탄
+	410	Name	폭풍 타이탄
+	411	Name	피의 타이탄
+	412	Name	트로글로다이트 일꾼
+	413	Name	트로글로다이트 병사
+	414	Name	트로글로다이트 여왕
+	415	Name	하급 뱀파이어
+	416	Name	뱀파이어
+	417	Name	고대 뱀파이어
+	418	Name	화염 흑마법사
+	419	Name	물의 흑마법사
+	420	Name	공기의 흑마법사
+	421	Name	와이트
+	422	Name	레이스
+	423	Name	고분 와이트
+	424	Name	와이번
+	425	Name	뿔 달린 와이번
+	426	Name	고대 와이번
+	427	Name	썩은 시체
+	428	Name	걸어 다니는 시체
+	429	Name	좀비
+	430	Name	농민
+	431	Name	농민
+	432	Name	농민
+	433	Name	농민
+	434	Name	농민
+	435	Name	농민
+	436	Name	농민
+	437	Name	농민
+	438	Name	농민
+	439	Name	농민
+	440	Name	농민
+	441	Name	농민
+	442	Name	농민
+	443	Name	농민
+	444	Name	농민
+	445	Name	농민
+	446	Name	농민
+	447	Name	농민
+	448	Name	늪지 트롤
+	449	Name	강 트롤
+	450	Name	산악 트롤
+	451	Name	나무
+	452	Name	나무
+	453	Name	나무
+	454	Name	가스트
+	455	Name	구울 
+	456	Name	레버넌트
+	457	Name	톨베르티
+	458	Name	현자 로버트
+	459	Name	블래스터 가이 C
+	460	Name	메가 드래곤
+	461	Name	메가 드래곤
+	462	Name	메가 드래곤
+	463	Name	고양이 A
+	464	Name	고양이 B
+	465	Name	고양이 C
+	466	Name	닭 A
+	467	Name	닭 B
+	468	Name	닭 C
+	469	Name	개 A
+	470	Name	개 B
+	471	Name	개 C
+	472	Name	쥐 A
+	473	Name	쥐 B
+	474	Name	쥐 C
+	475	Name	궁수
+	476	Name	명궁
+	477	Name	화염 궁수
+	478	Name	마자르
+	479	Name	마자르 병사
+	480	Name	마자르 대모
+	481	Name	박쥐
+	482	Name	거대 박쥐
+	483	Name	뱀파이어 박쥐
+	484	Name	날아다니는 눈
+	485	Name	끔찍한 눈
+	486	Name	광기의 눈
+	487	Name	혈액 흡수자
+	488	Name	뇌 흡수자
+	489	Name	영혼 흡수자
+	490	Name	바의 수행자
+	491	Name	바의 성직자
+	492	Name	바의 사제
+	493	Name	코브라
+	494	Name	킹코브라
+	495	Name	여왕 코브라
+	496	Name	에이거의 애완동물
+	497	Name	에이거의 괴물
+	498	Name	에이거의 흉물
+	499	Name	데빌 대장
+	500	Name	데빌 지배자
+	501	Name	데빌 왕
+	502	Name	데빌 스폰
+	503	Name	데빌 일꾼
+	504	Name	데빌 전사
+	505	Name	불도마뱀
+	506	Name	번개도마뱀
+	507	Name	천둥도마뱀
+	508	Name	화염 드레이크
+	509	Name	서리 드레이크
+	510	Name	에너지 드레이크
+	511	Name	웜
+	512	Name	거대 웜
+	513	Name	고룡
+	514	Name	레드 드래곤
+	515	Name	블루 드래곤
+	516	Name	골드 드래곤
+	517	Name	드루이드
+	518	Name	상급 드루이드
+	519	Name	대드루이드
+	520	Name	드워프
+	521	Name	드워프 전사
+	522	Name	드워프 군주
+	523	Name	더스트 데빌
+	524	Name	회오리바람
+	525	Name	공기의 정령
+	526	Name	바위 야수
+	527	Name	대지의 영
+	528	Name	대지의 정령
+	529	Name	불의 야수
+	530	Name	불의 영
+	531	Name	불의 정령
+	532	Name	물의 야수
+	533	Name	물의 영
+	534	Name	물의 정령
+	535	Name	투사
+	536	Name	병사
+	537	Name	베테랑
+	538	Name	깡패
+	539	Name	불한당
+	540	Name	노상강도
+	541	Name	석제 가고일
+	542	Name	대리석 가고일
+	543	Name	다이아몬드 가고일
+	544	Name	지니
+	545	Name	진
+	546	Name	이프리트
+	547	Name	유령
+	548	Name	악령
+	549	Name	스펙터
+	550	Name	고블린
+	551	Name	고블린 주술사
+	552	Name	고블린 왕
+	553	Name	경비병
+	554	Name	부관
+	555	Name	대장
+	556	Name	하피
+	557	Name	하피 노파
+	558	Name	하피 마녀
+	559	Name	히드라
+	560	Name	맹독 히드라
+	561	Name	거대 히드라
+	562	Name	VARN의 방어자
+	563	Name	VARN의 보초
+	564	Name	VARN의 수호자
+	565	Name	죽음의 기사
+	566	Name	파멸의 기사
+	567	Name	퀴진아트
+	568	Name	리치
+	569	Name	상급 리치
+	570	Name	파워 리치
+	571	Name	리자드맨
+	572	Name	리자드맨 궁수
+	573	Name	리자드맨 마법사
+	574	Name	메두사
+	575	Name	메두사 요술사
+	576	Name	고르곤
+	577	Name	농민
+	578	Name	농민
+	579	Name	농민
+	580	Name	미노타우로스
+	581	Name	미노타우로스 마법사
+	582	Name	미노타우로스 왕
+	583	Name	초보 수도사
+	584	Name	수련 수도사
+	585	Name	달인 수도사
+	586	Name	검사
+	587	Name	숙련 검사
+	588	Name	달인 검사
+	589	Name	우즈
+	590	Name	산성 우즈
+	591	Name	부식성 우즈
+	592	Name	오우거
+	593	Name	오우거 약탈자
+	594	Name	오우거 족장
+	595	Name	농민
+	596	Name	농민
+	597	Name	농민
+	598	Name	농민
+	599	Name	농민
+	600	Name	농민
+	601	Name	소매치기
+	602	Name	현상금 사냥꾼
+	603	Name	암살자
+	604	Name	식인종
+	605	Name	머리 사냥꾼
+	606	Name	주술사
+	607	Name	농민
+	608	Name	농민
+	609	Name	농민
+	610	Name	견습 마법사
+	611	Name	숙련 마법사
+	612	Name	마법사
+	613	Name	바의 추종자
+	614	Name	바의 신비술사
+	615	Name	바의 광신도
+	616	Name	식인종
+	617	Name	머리 사냥꾼
+	618	Name	주술사
+	619	Name	일반 쥐
+	620	Name	큰 쥐
+	621	Name	거대 쥐
+	622	Name	순찰 유닛
+	623	Name	집행 유닛
+	624	Name	터미네이터 유닛
+	625	Name	바다뱀
+	626	Name	바다 괴물
+	627	Name	바다의 공포
+	628	Name	해골
+	629	Name	해골 기사
+	630	Name	해골 군주
+	631	Name	소서러
+	632	Name	마도사
+	633	Name	흑마법사
+	634	Name	거미
+	635	Name	거대 거미
+	636	Name	초거대 거미
+	637	Name	도둑
+	638	Name	절도범
+	639	Name	로그
+	640	Name	타이탄
+	641	Name	귀족 타이탄
+	642	Name	최고위 타이탄
+	643	Name	늑대인간
+	644	Name	웨어울프
+	645	Name	상급 웨어울프
+	646	Name	데몬 여왕
+	647	Name	원자로
+	648	Name	원자로
+	649	Name	선인장
+	650	Name	선인장
+	651	Name	선인장
