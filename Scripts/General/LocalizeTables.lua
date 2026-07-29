@@ -148,6 +148,21 @@ local function _RelocalizeTables(PathMask)
 					end
 				end
 
+			elseif string.find(FilePath, "NPCProfessions.txt") then
+				-- Merge builds this table from News topics - profession.txt.
+				-- Apply Korean names after the base table has been populated.
+				local Professions = Game.NPCProfessions
+				for line in LineIt do
+					if line and #line > 0 then
+						Words = string.split(line, "\9")
+						local Num = tonumber(Words[1])
+						if Num and Professions and Words[2] and #Words[2] > 0 then
+							Professions[Num] = encode_korean(Words[2])
+							Count = Count + 1
+						end
+					end
+				end
+
 			else
 				local len = string.len
 				local LastTable = ""

@@ -19,12 +19,23 @@ Might and Magic 8\
 │  └─ Text localization\
 │     ├─ KO_NPCText.txt
 │     ├─ KO_NPCNames.txt
+│     ├─ KO_NPCProfessions.txt
+│     ├─ KO_GlobalTxt.txt
 │     └─ KO_SpellsTxt.txt
 ├─ DataFiles\
 └─ Scripts\General\
    ├─ KoreanFont.lua
+   ├─ LocalizeSignposts.lua
    └─ LocalizeTables.lua
 ```
+
+## v1.0.3 추가 수정
+
+- 일부 표지판과 지역 방향 안내를 한국어로 표시합니다.
+- 일반 NPC 직업 77개를 번역했습니다.
+- NPC 이름 표시를 `이름 - 직업` 형식으로 바꿔 영어 관사 `The`가 섞이지 않게 했습니다.
+- 시스템 문자열 758개를 보완했습니다.
+- `좋은 day입니다!`의 원인이던 `morning/day/evening` 치환값을 `아침/하루/저녁`으로 수정했습니다.
 
 ## v1.0.2 교정 사항
 
@@ -46,11 +57,13 @@ Might and Magic 8\
 
 ## 검증
 
-v1.0.2는 다음 항목을 확인했습니다.
+v1.0.3은 다음 항목을 확인했습니다.
 
 - 대화 2,713개 ID와 서식 토큰 보존
 - 무작위 NPC 이름 남성 539개·여성 310개 런타임 적용
 - 주문명 132개 런타임 적용
+- 일반 NPC 직업 77개 런타임 적용
+- 시스템 문자열 758개 및 서식 토큰 검사
 - CP949 디코딩 및 테이블 행 구조 검사
 - MMExtension 번역 로더 오류 없음
 

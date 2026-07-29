@@ -1,5 +1,14 @@
 # 변경 기록
 
+## v1.0.3
+
+- 누락됐던 `LocalizeSignposts.lua` 배포 포함
+- 일반 NPC 직업 77개 번역 및 런타임 로더 추가
+- NPC 표시 형식 `%s the %s`를 `%s - %s`로 변경
+- `GlobalTxt` 시스템 문자열 758개 보완
+- `morning/day/evening`을 `아침/하루/저녁`으로 번역해 `좋은 day입니다!` 혼합 문구 수정
+- 시스템 문자열의 printf 서식 토큰 보존 검증
+
 ## v1.0.2
 
 - 사용자가 올린 `KO_NPCText`, `KO_NPCGreet1`, `KO_NPCGreet2`를 재가공하지 않은 원본으로 복원
