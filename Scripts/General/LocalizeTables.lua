@@ -39,9 +39,16 @@ local function _RelocalizeTables(PathMask)
 
 	for FilePath in path.find(PathMask) do
 
-		local TxtTable = io.open(FilePath, "rb")
+		-- Older Korean packages shipped one mixed HistoryTxt table.  History is
+		-- continent-specific in Merge, so loading that file here makes MM6/MM7
+		-- display MM8's "Day of the Destroyer" entries.  KoreanHistory.lua owns
+		-- history switching now; keep stale files harmless during upgrades.
+		local IsLegacyHistory = string.find(string.lower(FilePath), "ko_historytxt.txt", 1, true) ~= nil
+		local TxtTable = not IsLegacyHistory and io.open(FilePath, "rb") or nil
 
-		if TxtTable then
+		if IsLegacyHistory then
+			Log(Merge.Log.Info, "Skipped legacy mixed history localization file: %s.", FilePath)
+		elseif TxtTable then
 			local Count = 0
 			local Words
 			local LineIt = lines_binary(TxtTable)
@@ -248,7 +255,11 @@ end
 
 function RelocalizeTables()
 	_RelocalizeTables("Data/*LocalizeTables.*txt")
-	_RelocalizeTables("Data/Text localization/*.txt")
+	_RelocalizeTables("Data/Text localization/KO_*.txt")
+	-- The legacy Gulim bitmap does not contain the syllable in the original
+	-- wording for NPCNews 55.  Use an equivalent sentence composed entirely
+	-- of glyphs present in the untouched v1.0.3 font instead of rebuilding FNT.
+	Game.NPCNews[55] = encode_korean("\185\174\193\166\184\166 \192\207\192\184\197\176\193\246 \184\182\189\195\191\192.")
 end
 
 function events.ScriptsLoaded() -- register after Merge's base text loaders

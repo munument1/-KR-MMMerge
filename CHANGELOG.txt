@@ -1,5 +1,17 @@
 Might and Magic 6.7.8 Merge Korean Patch
 
+v1.0.5
+- Fixed MM8 Day of the Destroyer history remaining visible in MM6.
+- Restored continent-specific MM8/MM7 history loading and added an Enroth introduction for MM6.
+- Ignored legacy mixed KO_HistoryTxt.txt files left by older installations.
+- Limited loose localization loading to KO_*.txt files.
+- Added KoreanHistory.lua without restoring the retired malformed History.lua.
+- Added separate Korean MM8 (18 records) and MM7 (27 records) history files.
+- Kept the MM8 opening history below the engine's 8 KB encoded-text limit.
+- Fixed three travel messages whose %d/%s argument order crashed the coach screen.
+- Restored the clean small DBCS fonts from the verified 2026-07-28 09:14 game backup.
+- Applied ChungjuKimSaeng only to the 29-pixel book-title fonts.
+
 v1.0.1
 - Fixed untranslated and partially untranslated NPC dialogue, including greetings.
 - Added Korean localization for 539 male/female random NPC name pairs.
