@@ -1,6 +1,13 @@
 # 변경 기록
 
-## v1.0.1
+## v1.0.2
+
+- 사용자가 올린 `KO_NPCText`, `KO_NPCGreet1`, `KO_NPCGreet2`를 재가공하지 않은 원본으로 복원
+- `unfinished string near` 오류를 일으킨 폐기 파일 `Scripts/General/History.lua` 제거
+- NPC 이름·주문 번역 및 현지화 로더 수정은 유지
+- 복원된 원본 번역 파일로 게임 런타임 재검증
+
+## v1.0.1 (철회됨)
 
 - NPC 대화 및 인사말 번역 누락 수정
 - 무작위 NPC 이름 남성 539개·여성 310개 번역 추가

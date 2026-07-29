@@ -26,6 +26,12 @@ Might and Magic 8\
    └─ LocalizeTables.lua
 ```
 
+## v1.0.2 교정 사항
+
+- 사용자가 제공한 `KO_NPCText`, `KO_NPCGreet1`, `KO_NPCGreet2`를 바이트 그대로 복원했습니다.
+- 폐기된 `Scripts\General\History.lua`를 제거했습니다.
+- v1.0 또는 잘못 게시된 v1.0.1에서 업데이트했다면 게임 폴더의 기존 `Scripts\General\History.lua`도 직접 삭제해야 합니다.
+
 ## v1.0.1 주요 수정
 
 - 누락되거나 영어로 남아 있던 NPC 대화와 인사말을 완성된 번역본으로 교체했습니다.
@@ -40,7 +46,7 @@ Might and Magic 8\
 
 ## 검증
 
-v1.0.1은 다음 항목을 확인했습니다.
+v1.0.2는 다음 항목을 확인했습니다.
 
 - 대화 2,713개 ID와 서식 토큰 보존
 - 무작위 NPC 이름 남성 539개·여성 310개 런타임 적용
