@@ -1,5 +1,5 @@
 ﻿==================================================
-Might and Magic 6.7.8 Merge Korean Patch Release (v1.0.5)
+Might and Magic 6.7.8 Merge Korean Patch Release (v1.0.6)
 ==================================================
 [Installation Instructions]
 Copy all folders (Data, DataFiles, Scripts) from this release package 
@@ -18,6 +18,11 @@ D:\GOG\Might and Magic 8\
 [Translation File Placement]
 Put your translated text files (KO_*.txt) in:
   D:\GOG\Might and Magic 8\Data\Text localization\
+
+[v1.0.6 Saved NPC Name Fix]
+- Converts English NPC names copied into existing saves to their Korean names after map loading.
+- Migrates persisted random NPC names so they remain Korean after saving and loading again.
+- Margaret the Docent is displayed as 도슨트 마거릿.
 
 [v1.0.5 History Fix]
 - MM8 and MM7 history tables now switch with the active continent.
