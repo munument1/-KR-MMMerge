@@ -1,5 +1,11 @@
 Might and Magic 6.7.8 Merge Korean Patch
 
+v1.0.6
+- Fixed English NPC names copied into existing save files remaining untranslated.
+- Preserved English-to-Korean NPC name mappings while loading localization tables.
+- Migrated persisted random NPC names after map loading so they remain Korean after saving again.
+- Verified Margaret the Docent is displayed as 도슨트 마거릿 in the game.
+
 v1.0.5
 - Fixed MM8 Day of the Destroyer history remaining visible in MM6.
 - Restored continent-specific MM8/MM7 history loading and added an Enroth introduction for MM6.

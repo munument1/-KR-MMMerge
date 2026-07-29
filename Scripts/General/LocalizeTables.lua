@@ -17,6 +17,47 @@ local function encode_korean(str)
 	return result
 end
 
+-- Merge copies NPC names out of its source tables and also persists randomly
+-- generated NPC names in save files.  Once copied, those strings are not
+-- updated when NPCNames/NPCDataTxt are localized, which leaves old saves with
+-- English names such as "Margaret the Docent".  Keep the English -> Korean
+-- pairs observed while localizing the source tables and apply them to copies.
+local npcNameTranslations = {}
+
+local function rememberNPCName(original, localized)
+	if type(original) == "string" and original ~= "" and
+			type(localized) == "string" and localized ~= "" and
+			original ~= localized then
+		npcNameTranslations[original] = localized
+	end
+end
+
+local function migrateCopiedNPCNames()
+	if Game and Game.NPC then
+		for _, npc in Game.NPC do
+			if npc and type(npc.Name) == "string" then
+				local localized = npcNameTranslations[npc.Name]
+				if localized then
+					npc.Name = localized
+				end
+			end
+		end
+	end
+
+	-- LoadMapScripts restores this table into Game.NPC for existing saves.
+	-- Migrate it too so the next save does not write the English name back.
+	if vars and type(vars.RndNPCPersist) == "table" then
+		for _, persisted in pairs(vars.RndNPCPersist) do
+			if persisted and type(persisted.Name) == "string" then
+				local localized = npcNameTranslations[persisted.Name]
+				if localized then
+					persisted.Name = localized
+				end
+			end
+		end
+	end
+end
+
 local function lines_binary(file)
 	local txt = file:read("*all")
 	if txt:sub(1, 3) == "\239\187\191" then
@@ -133,6 +174,13 @@ local function _RelocalizeTables(PathMask)
 			elseif string.find(FilePath, "NPCNames.txt") then
 				-- special behavior for NPCNames
 				local NPCNames = Game.NPCNames
+				local OldNames = {M = {}, F = {}}
+				for i = 1, #NPCNames.M do
+					OldNames.M[i] = NPCNames.M[i]
+				end
+				for i = 1, #NPCNames.F do
+					OldNames.F[i] = NPCNames.F[i]
+				end
 				-- Clear the existing arrays in place. Other Merge scripts retain
 				-- references to these exact tables, so replacing M/F would leave
 				-- their English arrays active.
@@ -146,10 +194,16 @@ local function _RelocalizeTables(PathMask)
 					if line and #line > 0 then
 						Words = string.split(line, "\9")
 						if Words[1] and string.len(Words[1]) > 0 then
-							table.insert(NPCNames["M"], encode_korean(Words[1]))
+							local localized = encode_korean(Words[1])
+							local index = #NPCNames.M + 1
+							table.insert(NPCNames["M"], localized)
+							rememberNPCName(OldNames.M[index], localized)
 						end
 						if Words[2] and string.len(Words[2]) > 0 then
-							table.insert(NPCNames["F"], encode_korean(Words[2]))
+							local localized = encode_korean(Words[2])
+							local index = #NPCNames.F + 1
+							table.insert(NPCNames["F"], localized)
+							rememberNPCName(OldNames.F[index], localized)
 						end
 						Count = Count + 1
 					end
@@ -189,6 +243,11 @@ local function _RelocalizeTables(PathMask)
 							if ok and item ~= nil then
 								local val = encode_korean(cText)
 								if len(cField) > 0 then
+									if cTable == "NPCDataTxt" and cField == "Name" then
+										local oldName
+										pcall(function() oldName = item[cField] end)
+										rememberNPCName(oldName, val)
+									end
 									pcall(function() item[cField] = val end)
 								else
 									pcall(function() tbl[cId] = val end)
@@ -260,10 +319,14 @@ function RelocalizeTables()
 	-- wording for NPCNews 55.  Use an equivalent sentence composed entirely
 	-- of glyphs present in the untouched v1.0.3 font instead of rebuilding FNT.
 	Game.NPCNews[55] = encode_korean("\185\174\193\166\184\166 \192\207\192\184\197\176\193\246 \184\182\189\195\191\192.")
+	migrateCopiedNPCNames()
 end
 
 function events.ScriptsLoaded() -- register after Merge's base text loaders
 	events.GameInitialized2 = RelocalizeTables
+	-- Register late so this runs after Merge restores vars.RndNPCPersist during
+	-- LoadMapScripts.  This fixes existing saves as well as newly generated NPCs.
+	events.LoadMapScripts = migrateCopiedNPCNames
 end
 
 function events.TxtFilesReloaded()
