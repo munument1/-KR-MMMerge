@@ -1,0 +1,5 @@
+*.txt binary
+*.lua text eol=crlf
+*.fnt binary
+*.lod binary
+*.ini text eol=crlf
