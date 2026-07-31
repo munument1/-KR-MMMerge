@@ -1,1 +1,103 @@
-şiíıÖ­kù¦™êàz››–+!¿]=sôœ®*m³ñêÚ—òèq©bÍä¢‚zh²Û%¹
+-- Korean Signpost and Map Hint localization script for MM6/7/8 Merge
+
+local function enc(str)
+	if KoreanText and KoreanText.EncodeOnce then
+		return KoreanText.EncodeOnce(str)
+	end
+	return str
+end
+
+local placeTranslations = {
+	["Emerald Isle"] = "¿¡¸Ş¶öµå ¼¶",
+	["Emerald Island"] = "¿¡¸Ş¶öµå ¼¶",
+	["Harmondale"] = "ÇÏ¸óµ¥ÀÏ",
+	["Erathia"] = "¿¡¶ó½Ã¾Æ",
+	["Tularean Forest"] = "Åø¶ó·¹¾È ½£",
+	["Deyja"] = "µ¥ÀÌÀÚ",
+	["Bracada Desert"] = "ºê¶óÄ«´Ù »ç¸·",
+	["Bracada"] = "ºê¶óÄ«´Ù",
+	["Celeste"] = "¼¿·¹½ºÅ×",
+	["The Pit"] = "´õ ÇÍ",
+	["Evenmorn Island"] = "ÀÌºì¸ğ¸¥ ¼¶",
+	["Mount Nighon"] = "³ªÀÌÈ¥ »ê",
+	["Nighon"] = "³ªÀÌÈ¥",
+	["Avlee"] = "¿¡ºí¸®",
+	["Land of the Giants"] = "°ÅÀÎÀÇ ¶¥",
+	["New Sorpagal"] = "´º ¼ÒÇÇ°¥",
+	["Castle Ironfist"] = "¾ÆÀÌ¾ğÇÇ½ºÆ® ¼º",
+	["Ironfist"] = "¾ÆÀÌ¾ğÇÇ½ºÆ®",
+	["Mire of the Damned"] = "ÀúÁÖ¹ŞÀº ÀÚÀÇ ´Ë",
+	["Free Haven"] = "ÇÁ¸® ÇìÀÌºì",
+	["Silver Cove"] = "½Ç¹ö ÄÚºê",
+	["Mist"] = "¾È°³ ¼¶",
+	["Bootleg Bay"] = "¹Ğ¼ö²ÛÀÇ ¸¸",
+	["Kriegspire"] = "Å©¸®±×½ºÆÄÀÌ¾î",
+	["Blackshire"] = "ºí·¢»şÀÌ¾î",
+	["Dragonsand"] = "µå·¡°ï»÷µå",
+	["Hermit's Isle"] = "ÀºµĞÀÚÀÇ ¼¶",
+	["Sweet Water"] = "½ºÀ§Æ® ¿öÅÍ",
+	["Dagger Wound Island"] = "´ë°Å ¿îµå ¼¶",
+	["Dagger Wound"] = "´ë°Å ¿îµå",
+	["Ravenshore"] = "·¹ÀÌºì¼î¾î",
+	["Alvar"] = "¾Ë¹Ù¸£",
+	["Ironsand Desert"] = "¾ÆÀÌ¾ğ»÷µå »ç¸·",
+	["Ironsand"] = "¾ÆÀÌ¾ğ»÷µå",
+	["Garrote Gorge"] = "°¡·ÎÆ® Çù°î",
+	["Shadowspire"] = "¼¨µµ½ºÆÄÀÌ¾î",
+	["Murmurwoods"] = "¸Ó¸Ó¿ìÁî",
+	["Ravage Roaming"] = "¶óºñÁö ·Î¹Ö",
+	["Regna"] = "·¹±×³ª",
+	["Plane of Air"] = "´ë±âÀÇ Â÷¿ø",
+	["Plane of Earth"] = "´ëÁöÀÇ Â÷¿ø",
+	["Plane of Fire"] = "È­¿°ÀÇ Â÷¿ø",
+	["Plane of Water"] = "¹°ÀÇ Â÷¿ø",
+	["Between Planes"] = "Â÷¿ø »çÀÌÀÇ Â÷¿ø"
+}
+
+local function translateSignText(text)
+	if type(text) ~= "string" or text == "" then return text end
+
+	-- 1. "Welcome to <Place>" -> "<Place>¿¡ ¿À½Å °ÍÀ» È¯¿µÇÕ´Ï´Ù"
+	local welcomePlace = text:match("^[Ww]elcome%s+to%s+(.+)$")
+	if welcomePlace then
+		local cleanPlace = welcomePlace:gsub("[%.%!]$", "")
+		local koPlace = placeTranslations[cleanPlace] or cleanPlace
+		return enc(koPlace .. "¿¡ ¿À½Å °ÍÀ» È¯¿µÇÕ´Ï´Ù")
+	end
+
+	-- 2. "To <Place>" -> "<Place> ¹æÇâ"
+	local toPlace = text:match("^[Tt]o%s+(.+)$")
+	if toPlace then
+		local cleanPlace = toPlace:gsub("[%.%!]$", "")
+		local koPlace = placeTranslations[cleanPlace] or cleanPlace
+		return enc(koPlace .. " ¹æÇâ")
+	end
+
+	-- 3. Exact match from dictionary
+	if placeTranslations[text] then
+		return enc(placeTranslations[text])
+	end
+
+	return nil
+end
+
+local function LocalizeMapStrings()
+	if not evt or not evt.str then return end
+	for i = 0, 499 do
+		local ok, s = pcall(function() return evt.str[i] end)
+		if ok and type(s) == "string" and s ~= "" then
+			local translated = translateSignText(s)
+			if translated then
+				pcall(function() evt.str[i] = translated end)
+			end
+		end
+	end
+end
+
+function events.LoadMap()
+	LocalizeMapStrings()
+end
+
+function events.AfterLoadMap()
+	LocalizeMapStrings()
+end

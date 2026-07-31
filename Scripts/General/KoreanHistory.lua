@@ -27,8 +27,8 @@ local MM6Introduction = {
 }
 
 local function EncodeKorean(Text)
-	if KoreanFont and KoreanFont.encodeSpecial then
-		return KoreanFont.encodeSpecial(Text)
+	if KoreanText and KoreanText.EncodeOnce then
+		return KoreanText.EncodeOnce(Text)
 	end
 	return Text
 end
@@ -79,27 +79,47 @@ local function UpdateHistoryText(Continent)
 		return
 	end
 
-	local Lines = string.split(Text, "\13")
-	if #Lines == 0 then
+	local text = Text:gsub("\r\n", "\n"):gsub("\r", "\n")
+	local lines = string.split(text, "\n")
+	if #lines == 0 then
 		return
 	end
 
-	table.remove(Lines, 1)
-	local Count = 1
-	local Limit = Game.HistoryTxt.limit
-	for i, Line in ipairs(Lines) do
-		Line = Line:gsub("^\10", "")
-		local Words = string.split(Line, "\9")
-		local Item = #Line > 0 and Game.HistoryTxt[Count] or nil
-		if Item and Words[2] then
-			Item.Text = EncodeKorean(Words[2] or "")
-			Item.Title = EncodeKorean(Words[4] or "")
-			Count = Count + 1
-		end
-		if Count > Limit then
-			break
+	table.remove(lines, 1) -- remove header
+	local currentRecord = nil
+
+	local function commitRecord()
+		if not currentRecord or not currentRecord.id then return end
+		local Item = Game.HistoryTxt[currentRecord.id]
+		if Item then
+			Item.Text = EncodeKorean(currentRecord.text or "")
+			if currentRecord.title and currentRecord.title ~= "" then
+				Item.Title = EncodeKorean(currentRecord.title)
+			end
 		end
 	end
+
+	for _, line in ipairs(lines) do
+		local words = string.split(line, "\9")
+		local num = tonumber(words[1])
+		if num then
+			commitRecord()
+			currentRecord = {
+				id = num,
+				text = words[2] or "",
+				time = words[3] or "",
+				title = words[4] or ""
+			}
+		elseif currentRecord and #line > 0 then
+			if #words > 1 and (words[#words] == "Forward" or words[#words - 1] == "Forward") then
+				-- If line contains trailing title info
+				currentRecord.title = words[#words]
+			else
+				currentRecord.text = currentRecord.text .. "\n" .. line
+			end
+		end
+	end
+	commitRecord()
 end
 
 -- Kept public for the package's runtime regression check.

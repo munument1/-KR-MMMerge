@@ -1,1 +1,65 @@
-þiíýÖ­kù¦™êàz››–+!¿]=sô“E4@5"ÀLƒåDD„·
+MMMerge Korean v1.0.9 integrated test fix
+
+Implemented:
+- New-game-safe NPC name migration (no Game.NPC access during GameInitialized2).
+- Safe Korean string.format: decode -> format -> encode once.
+- Promotion messages keep actual required class names.
+- Corrected MM7 class order: Champion ID 18, Black Knight ID 19.
+- Patched all 209 STR resources for common map labels/effects.
+- STR replacements: 2323 occurrences / 330 distinct English strings.
+- Expanded runtime object/sign dictionary and event scan range.
+- Handles +10 Might Temporary and related stat/resistance formats.
+
+This is a test build. Completely exit the game before overwriting files.
+
+Translated source examples:
+ +20 Hit Points
+ +20 Hit points restored.
+ Switch
++ 10 Might (Temporary)
++10 Accuracy (Temporary)
++10 Accuracy and Speed(Permanent)
++10 Accuracy permanent
++10 Accuracy temporary.
++10 Elemental resistance permanent.
++10 Endurance and Might(Permanent)
++10 Endurance permanent
++10 Fire Resistance (Temporary)
++10 Fire resistance permanent
++10 Fire resistance permanent.
++10 Hit Points restored.
++10 Hit points restored.
++10 Intellect and Personality temporary.
++10 Intellect permanent
++10 Level temporary.
++10 Luck permanent
++10 Luck(Permanent)
++10 Magic resistance permanent
++10 Magic resistance permanent.
++10 Might permanent
++10 Might temporary.
++10 Personality (Temporary)
++10 Personality permanent
++10 Poison resistance permanent
++10 Seven statistics permanent.
++10 Speed permanent
++10 Speed temporary.
++10 Spell points restored.
++100 Power temporary.
++2 Accuracy (Permanent)
++2 Accuracy permanent.
++2 Endurance (Permanent)
++2 Intellect (Permanent)
++2 Intellect permanent.
++2 Luck permanent
++2 Might (Permanent)
++2 Might permanent
++2 Personality (Permanent)
++2 Personality permanent.
++2 Speed (Permanent)
++2 Speed permanent.
++20 AC (Temporary)
++20 Accuracy and Speed temporary.
++20 Air Resistance (Temporary)
++20 All Resistances (Temporary)
++20 Armor class temporary.
