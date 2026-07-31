@@ -1,0 +1,27 @@
+MMMerge Korean v1.0.11a DBCS refactor audit
+
+Base package: v1.0.10c Event Compatibility Test
+
+Changed runtime files:
+- Scripts/General/KoreanFontText.lua (new shared DBCS API)
+- Scripts/General/LocalizeTables.lua
+- Scripts/General/KoreanRuntimeFixes.lua
+- Scripts/General/KoreanStatsAndSkills.lua
+- Scripts/General/LocalizeSignposts.lua
+- Scripts/General/KoreanHistory.lua
+- Scripts/General/ZZ_KoreanLocalizationValidator.lua
+
+Unchanged critical data:
+- Data/Text localization/KO_GlobalTxt.txt
+- GlobalTxt[632] contains one %s placeholder
+- GlobalTxt[633] contains one %s placeholder
+- GlobalTxt[634] is the connector 'or' / Korean '또는' with no placeholder
+- Font files, LOD archives, and all translation tables are unchanged
+
+Checks completed:
+- All General Lua files compile with Lua loadfile syntax checking
+- KoreanText EncodeOnce / Validate / Finalize behavior tested
+- Unsafe broad byte-range fallback removed
+- No global string.format hook added
+
+Still requires in-game validation.
