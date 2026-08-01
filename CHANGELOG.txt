@@ -1,3 +1,19 @@
+v1.0.12 Static Localization Stabilization
+- Moved stable Korean display tables into zz LocKO.T.lod so they are loaded once
+  instead of repeatedly overwriting Merge tables and save-backed state.
+- Retained runtime localization only for update-sensitive display tables and
+  strings that Merge rewrites after LOD initialization.
+- Removed broad map-string, NPC, save-state, date, and per-frame feedback hooks.
+- Restored the missing Buccaneers' Lair and Blade's End service-guild events
+  without replacing the working magical-guild implementation.
+- Fixed the Dagger Wound cannon prompt, New Sorpigal and Emerald Isle welcome
+  signs, apple-picking feedback, and Korean alignment/day text reported during
+  testing; localization no longer rewrites NPC recruitment/save-backed state.
+- Preserved compact engine-safe MM7/MM8 history resources to avoid the startup
+  access violation caused by oversized history tables.
+- Disabled automatic validation by default and added a reproducible static LOD
+  builder with protected-column and DBCS round-trip handling.
+
 v1.0.11d Merchant Price Text Test
 - Clarified the regular-Merchant purchase message so the base price and actual
   purchase price are labeled accurately even when the final price is higher.

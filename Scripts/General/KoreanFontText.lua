@@ -142,9 +142,56 @@ function KT.Finalize(text)
     return text
 end
 
+-- Fit text into an MM8 fixed-size C string without cutting a DBCS sequence.
+-- `capacity` includes the trailing NUL byte (Player.Name is string(32)).
+function KT.FitFixedString(text, capacity)
+    if type(text) ~= "string" or text == "" then
+        return text
+    end
+    capacity = tonumber(capacity) or 32
+    local maxPayload = math.max(0, capacity - 1)
+    local plain = text
+    if KT.IsEncoded(plain) and KoreanFont and type(KoreanFont.decodeSpecial) == "function" then
+        local valid, reason = KT.Validate(plain)
+        if not valid then
+            KT.LastError = reason
+            return text
+        end
+        local ok, decoded = pcall(KoreanFont.decodeSpecial, plain)
+        if not ok or type(decoded) ~= "string" then
+            KT.LastError = "Could not decode the fixed-size string safely."
+            return text
+        end
+        plain = decoded
+    end
+
+    local accepted = ""
+    local index = 1
+    while index <= #plain do
+        local byte = plain:byte(index)
+        local width = 1
+        local isHighByte = byte and ((byte >= 0xA1 and byte <= 0xAC)
+            or (byte >= 0xB0 and byte <= 0xC8)
+            or (byte >= 0xCA and byte <= 0xFD))
+        local lowByte = plain:byte(index + 1)
+        if isHighByte and lowByte and lowByte >= 0xA0 then
+            width = 2
+        end
+        local candidatePlain = accepted .. plain:sub(index, index + width - 1)
+        local candidate = KT.EncodeOnce(candidatePlain)
+        if type(candidate) ~= "string" or #candidate > maxPayload then
+            break
+        end
+        accepted = candidatePlain
+        index = index + width
+    end
+    return KT.EncodeOnce(accepted)
+end
+
 function KT.SetPlayerName(number, plainName)
     if KoreanFont and type(KoreanFont.setPlayerName) == "function" then
-        return KoreanFont.setPlayerName(number, plainName)
+        Party[number - 1].Name = KT.FitFixedString(plainName, 32)
+        return true
     end
     return false
 end

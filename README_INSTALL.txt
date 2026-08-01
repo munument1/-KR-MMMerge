@@ -1,5 +1,5 @@
 ﻿==================================================
-Might and Magic 6.7.8 Merge Korean Patch Release (v1.0.10 TEST)
+Might and Magic 6.7.8 Merge Korean Patch Release (v1.0.12)
 ==================================================
 [Installation Instructions]
 Copy all folders (Data, DataFiles, Scripts) from this release package 
@@ -18,6 +18,16 @@ D:\GOG\Might and Magic 8\
 [Translation File Placement]
 Put your translated text files (KO_*.txt) in:
   D:\GOG\Might and Magic 8\Data\Text localization\
+
+[v1.0.12 Static Localization]
+- Stable display tables and selected map strings are loaded once from
+  Data\zz LocKO.T.lod.
+- Runtime localization is restricted to update-sensitive display tables and
+  small post-initialization overrides.
+- Copy the complete release over an older Korean patch. Retired Lua files are
+  included as no-op upgrade stubs so obsolete runtime hooks are disabled.
+- Do not restore KoreanRuntimeFixes.lua, LocalizeSignposts.lua, or the old guild
+  scripts from a previous release.
 
 
 [v1.0.10 Runtime Localization Fix]

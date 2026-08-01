@@ -1,0 +1,5 @@
+MapFile	StringId	Text
+OUT01.STR	13	대포 발사
+OutE3.str	2	뉴 소피갈에 오신 것을 환영합니다
+OutE3.str	12	사과를 땄습니다!
+7out01.str	46	에메랄드 섬에 오신 것을 환영합니다
