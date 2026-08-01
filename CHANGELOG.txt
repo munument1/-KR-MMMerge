@@ -1,3 +1,8 @@
+v1.0.11d Merchant Price Text Test
+- Clarified the regular-Merchant purchase message so the base price and actual
+  purchase price are labeled accurately even when the final price is higher.
+- Preserved the original %24 item, %25 base-price, and %27 final-price tokens.
+
 v1.0.11a DBCS Architecture Test
 - Added a shared KoreanText DBCS conversion and validation layer.
 - Unified runtime encoding calls across tables, history, signposts, stats, runtime fixes, and validator.
