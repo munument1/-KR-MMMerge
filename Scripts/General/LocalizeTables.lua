@@ -29,16 +29,11 @@ local runtimeTranslationConflicts = KoreanLocalization.RuntimeTranslationConflic
 local expectedRuntimeValues = KoreanLocalization.ExpectedRuntimeValues or {}
 local originalNPCNewsTopics = KoreanLocalization.OriginalNPCNewsTopics or {}
 local localizedNPCNewsTopics = KoreanLocalization.LocalizedNPCNewsTopics or {}
--- Merge rewrites the four social-action topic slots whenever NPC dialogue
--- state changes. Keep their localized values separately so they can be
--- restored immediately before the dialogue UI reads them.
-local volatileNPCTopics = KoreanLocalization.VolatileNPCTopics or {}
 KoreanLocalization.RuntimeTranslations = runtimeTranslations
 KoreanLocalization.RuntimeTranslationConflicts = runtimeTranslationConflicts
 KoreanLocalization.ExpectedRuntimeValues = expectedRuntimeValues
 KoreanLocalization.OriginalNPCNewsTopics = originalNPCNewsTopics
 KoreanLocalization.LocalizedNPCNewsTopics = localizedNPCNewsTopics
-KoreanLocalization.VolatileNPCTopics = volatileNPCTopics
 
 local function runtimeKey(TableName, Id, Field)
 	return tostring(TableName) .. "\31" .. tostring(Id) .. "\31" .. tostring(Field or "")
@@ -164,39 +159,6 @@ local function rememberNPCName(original, localized)
 	end
 end
 
-local function migrateCopiedNPCNames()
-	-- Game.NPC can contain unresolved MMExtension memory-backed entries while a
-	-- new game is still being initialized.  Reading npc.Name at that point can
-	-- raise an unreadable-memory exception.  This function is therefore called
-	-- only after map scripts load, and every memory-backed access is protected.
-	if Game and Game.NPC then
-		for _, npc in Game.NPC do
-			if npc then
-				local okRead, original = pcall(function() return npc.Name end)
-				if okRead and type(original) == "string" then
-					local localized = npcNameTranslations[original]
-					if localized then
-						pcall(function() npc.Name = localized end)
-					end
-				end
-			end
-		end
-	end
-
-	-- LoadMapScripts restores this table into Game.NPC for existing saves.
-	-- Migrate it too so the next save does not write the English name back.
-	if vars and type(vars.RndNPCPersist) == "table" then
-		for _, persisted in pairs(vars.RndNPCPersist) do
-			if persisted and type(persisted.Name) == "string" then
-				local localized = npcNameTranslations[persisted.Name]
-				if localized then
-					persisted.Name = localized
-				end
-			end
-		end
-	end
-end
-
 local function lines_binary(file)
 	local txt = file:read("*all")
 	if txt:sub(1, 3) == "\239\187\191" then
@@ -215,6 +177,19 @@ local function lines_binary(file)
 	end
 end
 
+-- Static tables are packaged in zz LocKO.T.lod. Loading their KO source files
+-- again here would overwrite tables and caches after Merge initialization.
+-- Keep only the four update-sensitive display tables, the temporary profession
+-- display table, and the small set of strings overwritten by 03 LocalizeTables.
+local RuntimeKOFiles = {
+	["ko_2devents.txt"] = true,
+	["ko_itemstxt.txt"] = true,
+	["ko_monsters.txt"] = true,
+	["ko_npcnames.txt"] = true,
+	["ko_npcprofessions.txt"] = true,
+	["ko_runtimeoverrides.txt"] = true
+}
+
 local function _RelocalizeTables(PathMask, Options)
 
 	for FilePath in path.find(PathMask) do
@@ -226,7 +201,9 @@ local function _RelocalizeTables(PathMask, Options)
 		local LowerPath = string.lower(tostring(FilePath or "")):gsub("\\", "/")
 		local FileName = LowerPath:match("([^/]+)$") or LowerPath
 		local IsLegacyHistory = string.find(LowerPath, "ko_historytxt.txt", 1, true) ~= nil
-		local IsSkipped = Options and Options.SkipFiles and Options.SkipFiles[FileName]
+		local IsKoreanSource = string.find(LowerPath, "/text localization/ko_", 1, true) ~= nil
+		local IsStaticSource = IsKoreanSource and not RuntimeKOFiles[FileName]
+		local IsSkipped = IsStaticSource or (Options and Options.SkipFiles and Options.SkipFiles[FileName])
 		local TxtTable = not IsLegacyHistory and not IsSkipped and io.open(FilePath, "rb") or nil
 
 		if IsSkipped then
@@ -433,10 +410,6 @@ local function _RelocalizeTables(PathMask, Options)
 							end
 							Count = Count + 1
 						else
-							-- Bribe/Beg/Threat/Exit are volatile Merge-generated topics.
-							if cTable == "NPCTopic" and cId >= 1765 and cId <= 1768 then
-								volatileNPCTopics[cId] = val
-							end
 							local tbl = Game[cTable]
 							local RuntimeTableName = cTable
 							if not tbl and (cTable == "2DEvents" or cTable == "2DEventsTxt") then
@@ -510,19 +483,11 @@ local function _RelocalizeTables(PathMask, Options)
 		end
 	end
 
-	for i, v in Game.QuestsTxt do
-		if #v == 0 then
-			Game.QuestsTxt[i] = "0"
-		end
-	end
-
 end
 
 local EarlySkipFiles = {
 	["ko_npcnames.txt"] = true,
-	["ko_npcprofessions.txt"] = true,
-	["ko_npcnews.txt"] = true,
-	["ko_npcnewstopics.txt"] = true
+	["ko_npcprofessions.txt"] = true
 }
 
 local function applyFixedOverrides()
@@ -537,22 +502,16 @@ end
 -- NPCNewsTopics must also remain untouched until NPCNewsTopics.lua has read
 -- the original body/topic adjacency from the source rows.
 local function RelocalizeSourceTables()
-	captureOriginalNPCNewsTopics()
 	_RelocalizeTables("Data/*LocalizeTables.*txt", {SkipFiles = EarlySkipFiles})
 	_RelocalizeTables("Data/Text localization/KO_*.txt", {SkipFiles = EarlySkipFiles})
-	-- Fixed NPCNews overrides are intentionally late-only for the same reason.
 end
 
 function RelocalizeTables()
-	captureOriginalNPCNewsTopics()
 	_RelocalizeTables("Data/*LocalizeTables.*txt")
 	_RelocalizeTables("Data/Text localization/KO_*.txt")
-	applyFixedOverrides()
-	-- Do not access Game.NPC during GameInitialized2. New-game NPC pointers are
-	-- not guaranteed to be valid until LoadMapScripts has completed.
 end
 
-local function repairLuaStringCache(Root, MaxDepth)
+local function repairNewsCache(Root, MaxDepth)
 	if type(Root) ~= "table" then
 		return 0
 	end
@@ -564,7 +523,10 @@ local function repairLuaStringCache(Root, MaxDepth)
 		end
 		Seen[T] = true
 		for Key, Value in pairs(T) do
-			if type(Value) == "string" then
+			-- These derived news records contain display strings in Name/Text.
+			-- Never rewrite arbitrary strings in gameplay or save-state tables:
+			-- they may be identifiers consumed by Merge logic.
+			if (Key == "Name" or Key == "Text") and type(Value) == "string" then
 				local Localized = translateRuntimeString(Value)
 				if Localized ~= Value then
 					T[Key] = Localized
@@ -613,20 +575,15 @@ local function repairDerivedLocalizationCaches()
 	local CacheNames = {
 		"MapNews",
 		"ContinentNews",
-		"ProfessionNews",
-		"NPCProfessions",
-		"NPCPersonalities"
+		"ProfessionNews"
 	}
 	for _, Name in ipairs(CacheNames) do
 		if Game then
 			local Ok, Cache = pcall(function() return Game[Name] end)
 			if Ok then
-				Fixed = Fixed + repairLuaStringCache(Cache, 6)
+				Fixed = Fixed + repairNewsCache(Cache, 6)
 			end
 		end
-	end
-	if vars and type(vars.RndNPCPersist) == "table" then
-		Fixed = Fixed + repairLuaStringCache(vars.RndNPCPersist, 4)
 	end
 	Fixed = Fixed + repairTownPortalCache()
 	if Fixed > 0 then
@@ -637,52 +594,8 @@ end
 
 KoreanLocalization.RepairDerivedCaches = repairDerivedLocalizationCaches
 
-local function restoreVolatileNPCTopics()
-	if not Game or not Game.NPCTopic then
-		return 0
-	end
-	local Fixed = 0
-	for Id = 1765, 1768 do
-		local Localized = volatileNPCTopics[Id]
-		if type(Localized) == "string" and Localized ~= "" then
-			local Ok, Current = pcall(function() return Game.NPCTopic[Id] end)
-			if Ok and Current ~= Localized then
-				if pcall(function() Game.NPCTopic[Id] = Localized end) then
-					Fixed = Fixed + 1
-				end
-			end
-		end
-	end
-	return Fixed
-end
-
-KoreanLocalization.RestoreVolatileNPCTopics = restoreVolatileNPCTopics
-
-local function localizeActiveNPCTopics(NPCId)
-	if not Game or not Game.NPC or not Game.NPCTopic or type(NPCId) ~= "number" then
-		return
-	end
-	local Ok, NPC = pcall(function() return Game.NPC[NPCId] end)
-	if not Ok or not NPC then
-		return
-	end
-	for Slot = 0, 5 do
-		local EventOk, EventId = pcall(function() return NPC.Events[Slot] end)
-		if EventOk and type(EventId) == "number" and EventId > 0 then
-			local TextOk, Text = pcall(function() return Game.NPCTopic[EventId] end)
-			if TextOk and type(Text) == "string" then
-				local Localized = translateRuntimeString(Text)
-				if Localized ~= Text then
-					pcall(function() Game.NPCTopic[EventId] = Localized end)
-				end
-			end
-		end
-	end
-end
-
 local function localizeNPCGreeting(T)
 	-- This runs after Merge prepares the current dialogue choices.
-	restoreVolatileNPCTopics()
 	if T and type(T.Text) == "string" then
 		T.Text = translateRuntimeString(T.Text)
 	end
@@ -709,32 +622,14 @@ end
 events.GameInitialized2 = RelocalizeSourceTables
 
 function events.ScriptsLoaded() -- register late repair handlers
-	-- Apply the complete set again after all base handlers. This populates the
-	-- custom NPCNames/NPCProfessions tables and repairs any late overwrite.
+	-- Apply only the whitelisted update-sensitive display tables after Merge
+	-- creates NPCNames/NPCProfessions. Static LOD tables are never rewritten.
 	events.GameInitialized2 = function()
 		RelocalizeTables()
-		repairDerivedLocalizationCaches()
-		restoreVolatileNPCTopics()
 	end
 
-	-- Existing saves restore copied random-NPC names during LoadMapScripts.
-	events.LoadMapScripts = function()
-		migrateCopiedNPCNames()
-		repairDerivedLocalizationCaches()
-		restoreVolatileNPCTopics()
-	end
-
-	-- Runtime safety nets for topics and greetings generated after initialization.
-	events.EnterNPC = function(NPCId)
-		localizeActiveNPCTopics(NPCId)
-		restoreVolatileNPCTopics()
-	end
-	events.DrawNPCGreeting = localizeNPCGreeting
-	events.GetTransitionText = localizeTransitionText
 end
 
 function events.TxtFilesReloaded()
 	RelocalizeTables()
-	repairDerivedLocalizationCaches()
-	restoreVolatileNPCTopics()
 end

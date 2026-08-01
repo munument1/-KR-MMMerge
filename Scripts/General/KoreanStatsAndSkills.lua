@@ -284,7 +284,11 @@ end
 
 function events.ScriptsLoaded()
 	LocalizeKoreanStatsAndSkills()
+	-- Merge rebuilds GlobalTxt during initialization. Register one late pass;
+	-- map loading must not rewrite global tables or gameplay-derived state.
+	events.GameInitialized2 = LocalizeKoreanStatsAndSkills
 end
-function events.GameInitialized2()
+
+function events.TxtFilesReloaded()
 	LocalizeKoreanStatsAndSkills()
 end

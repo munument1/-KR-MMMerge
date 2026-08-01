@@ -935,7 +935,7 @@ local function validateGlobalFormatHook(State)
 	end
 end
 
-local function validateDerivedCache(State, Root, RootName, Translations, MaxDepth)
+local function validateDerivedCache(State, Root, RootName, Translations, MaxDepth, AllowedKeys)
 	if type(Root) ~= "table" then
 		return
 	end
@@ -947,7 +947,7 @@ local function validateDerivedCache(State, Root, RootName, Translations, MaxDept
 		Seen[T] = true
 		for Key, Value in pairs(T) do
 			local ChildPath = Path .. "." .. tostring(Key)
-			if type(Value) == "string" then
+			if type(Value) == "string" and (not AllowedKeys or AllowedKeys[Key]) then
 				State.DerivedStringsChecked = State.DerivedStringsChecked + 1
 				local Expected = Translations[Value]
 				if Expected and Expected ~= Value and runtimeIssueAllowed(State) then
@@ -984,25 +984,20 @@ local function validateDerivedCaches(State)
 	local CacheNames = {
 		"MapNews",
 		"ContinentNews",
-		"ProfessionNews",
-		"NPCProfessions",
-		"NPCPersonalities"
+		"ProfessionNews"
 	}
+	local NewsFields = {Name = true, Text = true}
 	for _, Name in ipairs(CacheNames) do
 		if Game then
 			local CacheOk, Cache = pcall(function() return Game[Name] end)
 			if CacheOk then
-				validateDerivedCache(State, Cache, "Game." .. Name, Translations, 6)
+				validateDerivedCache(State, Cache, "Game." .. Name, Translations, 6, NewsFields)
 			end
 		end
 	end
 	if TownPortalControls and type(TownPortalControls.Sets) == "table" then
 		validateDerivedCache(State, TownPortalControls.Sets,
-			"TownPortalControls.Sets", Translations, 5)
-	end
-	if vars and type(vars.RndNPCPersist) == "table" then
-		validateDerivedCache(State, vars.RndNPCPersist,
-			"vars.RndNPCPersist", Translations, 4)
+			"TownPortalControls.Sets", Translations, 5, {Desc = true})
 	end
 end
 
