@@ -1,0 +1,95 @@
+name: Materialize v1.0.13 PR assets
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    if: github.event.pull_request.head.ref == 'agent/unify-spell-terminology'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Materialize source updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/v113-base-translations
+          cp -a 'Data/Text localization' /tmp/v113-base-translations
+          cat tools/v113_bundle_parts/part* > /tmp/v113_bundle.b64
+          base64 --decode /tmp/v113_bundle.b64 > tools/apply_v113_bundle.py
+          python tools/apply_v113_bundle.py
+          python tools/normalize_spell_names.py \
+            --translations 'Data/Text localization' \
+            --terms tools/SPELL_TERMINOLOGY.tsv
+
+      - name: Rebuild targeted static LOD members
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_spell_references_lod.py \
+            --lod 'Data/zz LocKO.T.lod' \
+            --translations 'Data/Text localization' \
+            --base-translations /tmp/v113-base-translations \
+            --output /tmp/v113-references.lod
+          python tools/patch_static_global_lod.py \
+            --lod /tmp/v113-references.lod \
+            --overlay 'Data/Text localization/KO_GlobalTxt.txt' \
+            --output /tmp/v113-global.lod
+          python tools/patch_static_spells_lod.py \
+            --lod /tmp/v113-global.lod \
+            --overlay 'Data/Text localization/KO_SpellsTxt.txt' \
+            --output 'Data/zz LocKO.T.lod'
+
+      - name: Validate generated localization
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_feedback_regressions.py .
+          python tools/validate_spell_names.py .
+          python -m py_compile tools/*.py
+          find tools -type d -name __pycache__ -prune -exec rm -rf {} +
+
+      - name: Finalize and push generated commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf tools/v113_bundle_parts
+          rm -f tools/apply_v113_bundle.py
+          rm -f .github/workflows/generate-v113-assets.yml
+          rmdir .github/workflows 2>/dev/null || true
+          rmdir .github 2>/dev/null || true
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          root = Path('.')
+          paths = [
+              path for path in root.rglob('*')
+              if path.is_file()
+              and '.git' not in path.parts
+              and path.as_posix() != 'SHA256SUMS.txt'
+          ]
+          rows = [
+              f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.as_posix()}"
+              for path in sorted(paths, key=lambda item: item.as_posix().casefold())
+          ]
+          Path('SHA256SUMS.txt').write_text('\n'.join(rows) + '\n', encoding='ascii', newline='\n')
+          PY
+          sha256sum -c SHA256SUMS.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Generate v1.0.13 localization assets'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
