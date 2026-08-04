@@ -1,3 +1,74 @@
+v1.0.13c Map Label and Object Terminology Pass
+- Reviewed every English-only STR field remaining after v1.0.13b.
+- Localized 181 user-visible map, dungeon, shrine, guild, facility, object,
+  and short status labels across 71 map files.
+- Aligned proper names with KO_MapStats and existing quest/dialogue terminology,
+  including 체력의 성소, 인격의 성소, 스테드윅 시, and VARN의 무덤.
+- Expanded KO_MapStrings to 852 exact overlays and rebuilt the 71 affected STR
+  members in zz LocKO.T.lod without modifying unrelated members.
+- Preserved and documented all 76 remaining English-only fields as puzzle
+  answers, cipher fragments, single-letter codes, removed strings, or internal
+  placeholders.
+- Added exact validation for all translated labels, all protected fields, and
+  the complete post-pass English-only STR inventory.
+
+v1.0.13b Map Reaction and Status Translation Pass
+- Reviewed all 209 compiled STR map resources for user-visible English text.
+- Localized 658 exact map-string occurrences across 163 map files, covering
+  609 distinct English source strings.
+- Translated interaction feedback, lock/switch/trap states, stat and resistance
+  effects, travel prompts, signs, riddles, VARN facility messages, and MM6
+  supplemental-dungeon events.
+- Preserved puzzle answer keys, cipher fragments, removed strings, and internal
+  placeholders that may be used by map scripts.
+- Targeted 165 STR members and changed 163 of them byte-for-byte in zz LocKO.T.lod.
+- Added an auditable source-to-Korean TSV, a general static STR patcher, and
+  exact validation for all 658 reviewed translations and 671 total overlays.
+
+v1.0.13a Feedback Hotfix
+- Unified the primary stat labels as 체력 (Endurance) and 인격 (Personality)
+  across Global.TXT and the late runtime UI ownership table.
+- Corrected the Castle Ironfist entrance description that displayed the
+  localized placeholder text instead of the actual transition message.
+- Restored all six missing MM6 service-guild handlers, including Berserker's
+  Fury, without changing the magical-guild implementation.
+- Localized the four Temple of Baa entrance signs, Zap!, and the remaining
+  English feedback strings in 6T1.STR.
+- Added a direct, reproducible LOD patcher and exact regression validation for
+  the reported stat, transition, guild, and map-string contracts.
+
+v1.0.13 Spell Terminology Unification
+- Standardized the 99 primary MM8 spell names and short names using one
+  canonical terminology table.
+- Unified spell scrolls and spellbooks with the spell table, including
+  정신 폭발, 화염구, 유성우, 질량 왜곡, 로이드의 봉화, and 용의 숨결.
+- Corrected additional GlobalTxt spell labels such as 공기 저항, 망치손,
+  생명 보존, 육체 저항, and 도약.
+- Updated unambiguous spell-name references in items, autonotes, NPC text,
+  quests, potion recipes, and system text without replacing unrelated names.
+- Rebuilt Spells.txt, Global.TXT, and spell-reference entries in Autonote,
+  NPCGreet, NPCText, NPCTopic, Quests, scroll, SPCITEMS, and STDITEMS inside
+  zz LocKO.T.lod.
+- Added reproducible normalization and validation tools for all 99 names,
+  MM8 scrolls/spellbooks, 37 GlobalTxt spell labels, Korean particles, Lua
+  ownership, and all 132 static Spells.txt text records.
+- Includes all v1.0.12a feedback fixes, including brazier -> 화로 and the
+  corrected training level/gold/experience placeholder order.
+
+v1.0.12a Feedback Regression Hotfix
+- Localized the exact map-object hint "brazier" as 화로 using a narrow,
+  finite post-load pass that does not restore the retired broad runtime hooks.
+- Corrected GlobalTxt[537] and GlobalTxt[538] so the engine-supplied target
+  level, gold cost, and required experience values appear in the right order.
+- Synchronized eight runtime-owned UI IDs with the canonical static table:
+  근접, 취소, 나가기, 포인트, 퀵스펠, 원거리, and 전문가.
+- Rebuilt Global.TXT inside zz LocKO.T.lod from the corrected overlay so the
+  static archive and late runtime pass display identical text.
+- Added exact runtime and offline regression checks for terminology and the
+  two training placeholder contracts.
+- Preserved the engine-sensitive English labels Empty and Quick Save, which
+  were intentionally restored in v1.0.9a and v1.0.9b.
+
 v1.0.12 Static Localization Stabilization
 - Moved stable Korean display tables into zz LocKO.T.lod so they are loaded once
   instead of repeatedly overwriting Merge tables and save-backed state.

@@ -1,65 +1,45 @@
-MMMerge Korean v1.0.9 integrated test fix
+MMMerge Korean Patch v1.0.13c - STR Translation Coverage
 
-Implemented:
-- New-game-safe NPC name migration (no Game.NPC access during GameInitialized2).
-- Safe Korean string.format: decode -> format -> encode once.
-- Promotion messages keep actual required class names.
-- Corrected MM7 class order: Champion ID 18, Black Knight ID 19.
-- Patched all 209 STR resources for common map labels/effects.
-- STR replacements: 2323 occurrences / 330 distinct English strings.
-- Expanded runtime object/sign dictionary and event scan range.
-- Handles +10 Might Temporary and related stat/resistance formats.
+Scan baseline
+- Compiled STR members inspected: 209
+- Fields containing ASCII English letters before the v1.0.13b pass: 915 occurrences
+- Distinct English-bearing source strings before the v1.0.13b pass: 863
 
-This is a test build. Completely exit the game before overwriting files.
+Translated in v1.0.13b
+- Reviewed reaction, status, effect, sign, and instruction occurrences: 658
+- Distinct English source strings translated: 609
+- Map files covered: 163
 
-Translated source examples:
- +20 Hit Points
- +20 Hit points restored.
- Switch
-+ 10 Might (Temporary)
-+10 Accuracy (Temporary)
-+10 Accuracy and Speed(Permanent)
-+10 Accuracy permanent
-+10 Accuracy temporary.
-+10 Elemental resistance permanent.
-+10 Endurance and Might(Permanent)
-+10 Endurance permanent
-+10 Fire Resistance (Temporary)
-+10 Fire resistance permanent
-+10 Fire resistance permanent.
-+10 Hit Points restored.
-+10 Hit points restored.
-+10 Intellect and Personality temporary.
-+10 Intellect permanent
-+10 Level temporary.
-+10 Luck permanent
-+10 Luck(Permanent)
-+10 Magic resistance permanent
-+10 Magic resistance permanent.
-+10 Might permanent
-+10 Might temporary.
-+10 Personality (Temporary)
-+10 Personality permanent
-+10 Poison resistance permanent
-+10 Seven statistics permanent.
-+10 Speed permanent
-+10 Speed temporary.
-+10 Spell points restored.
-+100 Power temporary.
-+2 Accuracy (Permanent)
-+2 Accuracy permanent.
-+2 Endurance (Permanent)
-+2 Intellect (Permanent)
-+2 Intellect permanent.
-+2 Luck permanent
-+2 Might (Permanent)
-+2 Might permanent
-+2 Personality (Permanent)
-+2 Personality permanent.
-+2 Speed (Permanent)
-+2 Speed permanent.
-+20 AC (Temporary)
-+20 Accuracy and Speed temporary.
-+20 Air Resistance (Temporary)
-+20 All Resistances (Temporary)
-+20 Armor class temporary.
+Translated in v1.0.13c
+- Reviewed map labels, object names, facility names, and short status labels: 181
+- Distinct English source strings translated: 180
+- Map files covered: 71
+- STR members changed byte-for-byte in this pass: 71
+
+Combined static overlay
+- Total KO_MapStrings overlays: 852
+- STR members targeted by the complete overlay: 170
+- Every translated overlay was checked against the compiled LOD payload.
+
+Included categories
+- Interaction success and failure feedback
+- Door, lock, switch, trap, altar, fountain, and chest states
+- Stat, resistance, healing, damage, food, and experience effects
+- Entrance, exit, floor, and direction prompts
+- Signs, riddles, warnings, and facility instructions
+- VARN Pyramid and Control Center long-form display messages
+- Dungeon, region, shrine, guild, facility, and object labels
+- Supplemental MM6 dungeon object descriptions and scripted reactions
+
+Intentionally preserved after v1.0.13c
+- English-only fields remaining: 76 occurrences / 74 distinct strings
+- Single-letter switch or puzzle codes
+- Riddle answer aliases such as dark/darkness and arrow/an arrow
+- Obelisk cipher fragments and encoded password pieces
+- Strings marked (removed)
+- Explicit debug or internal placeholder strings
+
+Audit sources
+- tools/MAP_REACTION_TRANSLATIONS.tsv contains every reviewed reaction/status row.
+- tools/MAP_LABEL_TRANSLATIONS.tsv contains every reviewed label/object row.
+- tools/MAP_LABEL_PROTECTED.tsv records all 76 intentionally preserved fields.

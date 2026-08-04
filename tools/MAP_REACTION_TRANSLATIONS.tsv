@@ -1,0 +1,659 @@
+MapFile	StringId	English	Korean
+6D02.str	5	You've Rescued a child!  How patriarchal of you	아이를 구출했습니다! 참으로 가부장적이군요.
+6D02.str	6	This Rock is covered in bat guano	이 바위는 박쥐 구아노로 뒤덮여 있습니다.
+6D02.str	7	You harvest the guano and put it in your pouch	구아노를 채취해 주머니에 넣습니다.
+6D02.str	8	"""You pick up some guano, but have nowhere to put it."""	"""구아노를 조금 집었지만 담을 곳이 없습니다."""
+6D02.str	10	You open the cage and remove the bones.	우리를 열고 뼈를 꺼냅니다.
+6D04.STR	3	All must have amber.  Take life force!	모두 호박을 지녀야 한다. 생명력을 바쳐라!
+6D04.STR	9	"""Ah, delicious amber!"""	"""아, 맛있는 호박이로군!"""
+6D04.STR	17	Hall of the Fire Lord	불의 군주의 회관
+6D05.STR	25	The bones feel weird (+5 Poison resistance permanent)	뼈에서 이상한 기운이 느껴집니다. (독 저항 +5 영구 증가)
+6D05.STR	26	The bones feel weird (+5 Magic resistance permanent)	뼈에서 이상한 기운이 느껴집니다. (마법 저항 +5 영구 증가)
+6D05.STR	31	The bones feel weird (+5 Might permanent)	뼈에서 이상한 기운이 느껴집니다. (힘 +5 영구 증가)
+6D08.STR	7	Click!	딸깍!
+6D08.STR	11	Ca-Click!	철컥!
+6D08.STR	12	Snick!	찰칵!
+6D08.STR	18	"""You cannot see me, hear me or touch me.  I lie behind the stars and alter what is real, I am what you really fear, Close your eyes and come I near. What am I?"""	"""나를 볼 수도, 들을 수도, 만질 수도 없다. 나는 별들 뒤에 숨어 현실을 뒤바꾸며, 네가 진정 두려워하는 것이다. 눈을 감으면 내가 다가온다. 나는 무엇인가?"""
+6D08.STR	21	Answer?  	정답은?
+6D08.STR	22	Incorrect	틀렸습니다.
+6D08.STR	23	"""I go through an apple, or point out your way, I fit in a bow, then a target, to stay. What am I?"""	"""나는 사과를 꿰뚫고, 길을 가리키기도 한다. 활에 걸렸다가 과녁에 박힌다. 나는 무엇인가?"""
+6D08.STR	26	"""What consumes rocks, levels mountains, destroys wood, pushes the clouds across the sky, and can make a young one old?"""	"""바위를 삼키고 산을 깎으며 나무를 썩게 하고 구름을 하늘로 밀어 보내며 젊은이를 늙게 하는 것은 무엇인가?"""
+6D08.STR	28	"""Alive without breath, as cold as death, never thirsty ever drinking, all in mail never clinking, ever travelling, never walking, mouth ever moving, never talking.  What am I? """	"""숨 없이 살아 있고 죽음처럼 차갑다. 목마르지 않으나 늘 마시며, 비늘 갑옷을 입었으나 소리 나지 않는다. 늘 움직이지만 걷지 않고, 입을 움직이지만 말하지 않는다. 나는 무엇인가?"""
+6D09.STR	7	"""You thumb through the books, but find nothing of interest."""	"""책을 훑어보지만 흥미로운 것은 찾지 못했습니다."""
+6D09.STR	14	You are not smart enough!	지력이 부족합니다!
+6D10.STR	7	Caught!	들켰습니다!
+6D10.STR	8	Rats!	젠장!
+6D10.STR	9	Are those footsteps?	저건 발소리인가?
+6D11.str	4	This Door won't budge.	이 문은 꼼짝도 하지 않습니다.
+6D12.STR	1	Skull Door	해골 문
+6D12.STR	5	"""I am Sir John Silver.  I was most foully murdered by my Lieutenant when I discovered that he was involved with his sorcererous brother and a senior priest in the Temple of Baa in a conspiracy against King Roland.  There are no good men left in the order, and it sickens my soul to say so."""	"""나는 존 실버 경이다. 내 부관이 마법사인 형제와 바의 신전 고위 사제와 함께 롤랜드 왕을 상대로 음모를 꾸미고 있음을 알아낸 뒤, 그 부관에게 비참하게 살해당했다. 기사단에는 더 이상 선한 자가 남아 있지 않다. 이런 말을 해야 한다는 사실이 내 영혼을 병들게 하는구나."""
+6D12.STR	6	"""I am Sir John Silver.  I was most foully murdered by my Lieutenant when I discovered that he was involved with his sorcererous brother and a senior priest in the Temple of Baa in a conspiracy against King Roland.  I am grateful for the rescue of my niece, Melody, from my treacherous Lieutenant by you.  I will open a secret door to a nearby treasure room for you as a reward for your heroism."""	"""나는 존 실버 경이다. 내 부관이 마법사인 형제와 바의 신전 고위 사제와 함께 롤랜드 왕을 상대로 음모를 꾸미고 있음을 알아낸 뒤, 그 부관에게 비참하게 살해당했다. 배신한 부관에게서 내 조카 멜로디를 구해 준 것에 감사한다. 그 영웅적인 행동에 대한 보답으로 가까운 보물방의 비밀문을 열어 주겠다."""
+6D13.STR	2	Druid statue	드루이드 석상
+6D13.STR	3	Strange tree	기묘한 나무
+6D13.STR	5	Sacred Pool	신성한 연못
+6D13.STR	6	Evil Altar	사악한 제단
+6D13.STR	10	You search the tree and find something.	나무를 뒤져 무언가를 찾아냅니다.
+6D13.STR	11	+5 Personality permanent to Druids and Clerics.	드루이드와 성직자의 인격이 영구적으로 5 증가합니다.
+6D13.STR	12	The statue shifts as your touch it.	석상에 손을 대자 움직입니다.
+6D13.STR	13	The rock shifts at your touch.	바위에 손을 대자 움직입니다.
+6D13.STR	14	The pool shimmers as you touch it.	연못에 손을 대자 물결이 반짝입니다.
+6D13.STR	15	The monolith feels strange to the touch.	모놀리스에 손을 대자 이상한 감촉이 느껴집니다.
+6D13.STR	16	You find nothing.	아무것도 찾지 못했습니다.
+6D13.STR	17	The tree shakes at your touch.	나무에 손을 대자 흔들립니다.
+6D13.STR	18	The flowers smell nice.	꽃에서 좋은 향기가 납니다.
+6D13.STR	20	Strange rock	기묘한 바위
+6D14.STR	8	Fumes make you feel sick.	연기 때문에 속이 메스껍습니다.
+6D14.STR	9	You find something among the bones.	뼈 사이에서 무언가를 찾아냅니다.
+6D14.STR	10	The niche is empty.	벽감은 비어 있습니다.
+6D14.STR	13	Tomb of Ethric the Mad	광인 에스릭의 무덤
+6D15.STR	11	The gate will not budge.	문은 꼼짝도 하지 않습니다.
+6D15.STR	12	You find something around the bed.	침대 주변에서 무언가를 찾아냅니다.
+6D15.STR	13	Something rumbles off in the distance.	멀리서 무언가 우르릉거립니다.
+6D15.STR	14	The bed(s) are empty.	침대는 비어 있습니다.
+6D16.STR	5	You are pulled through the door!	문 너머로 끌려갑니다!
+6D16.STR	7	The door is double locked.	문에는 자물쇠가 두 겹으로 걸려 있습니다.
+6D16.STR	8	You were unable to pick the lock.	자물쇠를 따지 못했습니다.
+6D16.STR	10	You have found two keys!	열쇠 두 개를 찾았습니다!
+6D16.STR	11	You have found a key!	열쇠를 찾았습니다!
+6D16.STR	13	The Eagle Statuette!	독수리 조각상입니다!
+6D16.STR	15	This door won't open.	이 문은 열리지 않습니다.
+6D17.STR	5	You find a Pearl.	진주를 찾았습니다.
+6D17.STR	6	Wolf Altar	늑대 제단
+6D17.STR	7	After 7 days.	7일 후.
+6D17.STR	12	The Werewolves butchered us.  Will you avenge us - so our souls may rest in peace?	늑대인간들이 우리를 도륙했습니다. 우리 영혼이 편히 쉴 수 있도록 복수해 주시겠습니까?
+6D17.STR	13	Reply?	대답은?
+6D17.STR	16	Found Scroll	두루마리를 찾았습니다.
+6D17.STR	18	Lair of the Wolf	늑대의 소굴
+6D19.STR	5	Pushing this switch gives you a bad feeling.	이 스위치를 누르자 불길한 느낌이 듭니다.
+6D19.STR	6	Uh oh....	이런...
+6D19.STR	7	Here we go again�.	또 시작이군...
+6D19.STR	8	The switch doesn뭪 seem to work..	스위치가 작동하지 않는 것 같습니다.
+6D20.STR	4	Caves of the Dragon Riders	드래곤 라이더의 동굴
+6T2.STR	4	Full sack	가득 찬 자루
+6T2.STR	7	Empty barrel	빈 통
+6T2.STR	8	The skulls seem to sap your might	해골들이 힘을 빨아들이는 것 같습니다.
+6T2.STR	9	You have destroyed the evil crystal	사악한 수정을 파괴했습니다.
+6T2.STR	10	You pull the torch and it shifts in your hand	횃불을 당기자 손안에서 움직입니다.
+6T2.STR	15	Temple of the Fist	주먹의 신전
+6T4.STR	7	Temple of the Sun	태양의 신전
+6T5.STR	5	Altar of Life	생명의 제단
+6T5.STR	6	Altar of Endurance	체력의 제단
+6T5.STR	7	Altar of Accuracy	정확도의 제단
+6T5.STR	8	Altar of Speed	속도의 제단
+6T5.STR	9	Altar of Luck	행운의 제단
+6T5.STR	10	Altar of the Moon	달의 제단
+6T5.STR	13	You kneel at the altar for a moment of silent prayer.	제단 앞에 무릎을 꿇고 잠시 묵도합니다.
+6T5.STR	14	"""Life above all, Accuracy before Might, Endurance before Speed, and finally, Luck."""	무엇보다 생명을, 힘보다 정확도를, 속도보다 체력을, 그리고 마지막으로 행운을.
+6T5.STR	17	Temple of the Moon	달의 신전
+6T6.STR	9	Trial by Fire	불의 시련
+6T6.STR	10	Altar of Cold	냉기의 제단
+6T6.STR	11	Trial by Cold	냉기의 시련
+6T6.STR	12	Altar of Pain	고통의 제단
+6T6.STR	13	Trial by Pain	고통의 시련
+6T6.STR	17	+10 Electric resistance permanent.	전기 저항이 영구적으로 10 증가합니다.
+6T6.STR	19	+10 Cold resistance permanent.	냉기 저항이 영구적으로 10 증가합니다.
+6T6.STR	22	You're not worthy!	당신은 자격이 없습니다!
+6T7.STR	6	"""Expert Perception is the key and the doors of Baa will let you be.                                                                                                                                                                                                                  The Spiral then each head, talk to Baa or you'll be dead."""	전문가 수준의 지각력이 열쇠이며, 그러면 바의 문이 너를 받아들이리라. 나선을 따른 뒤 각 머리에게 말하라. 그렇지 않으면 죽으리라.
+6T7.STR	8	Baa One here.	바 하나, 여기 있다.
+6T7.STR	10	Baa Two ready.	바 둘, 준비됐다.
+6T7.STR	12	Baa Three standing by.	바 셋, 대기 중이다.
+6T7.STR	14	Baa Four is a go.	바 넷, 실행한다.
+6T7.STR	15	Baa!  Baa!	바! 바!
+6T7.STR	16	Almighty Head of Baa.	전능한 바의 머리.
+6T7.STR	17	You're not worthy of Baa!	당신은 바를 섬길 자격이 없습니다!
+6T7.STR	18	"""Follow Baa!  +50,000 Experience."""	바를 따르라! 경험치 +50,000.
+6T7.STR	19	Go forth and spread the word of Baa!	나아가 바의 말씀을 전파하라!
+6T7.STR	20	Book Case	책장
+6T7.STR	22	Chest Is locked.	상자는 잠겨 있습니다.
+6T7.STR	23	Lava pool	용암 웅덩이
+6T8.STR	5	You easily defeat the lock.	손쉽게 자물쇠를 땄습니다.
+6T8.STR	6	A teleporter!	순간이동 장치입니다!
+6T8.STR	7	You are unable to pick the lock.	자물쇠를 따지 못했습니다.
+6T8.STR	10	Temple of the Snake	뱀의 신전
+7d07.STR	2	Leave Thunderfist Mountain	썬더피스트 산에서 나갑니다.
+7d08.STR	2	Exit the Tularean Caves	툴라리안 동굴에서 나갑니다.
+7d08.STR	13	Cave In !	낙석!
+7d09.STR	2	Leave the Titan Stronghold	타이탄 요새에서 나갑니다.
+7d10.STR	2	Leave the Breeding Zone	번식 구역에서 나갑니다.
+7d11.STR	2	Leave the Walls of Mist	안개의 장벽에서 나갑니다.
+7d12.STR	2	Exit Clanker's Lab	클랭커의 연구소에서 나갑니다.
+7d14.STR	2	Leave the School of Sorcery	마법 학교에서 나갑니다.
+7d15.STR	2	Leave Watchtower 6	제6 감시탑에서 나갑니다.
+7d16.STR	2	Leave the Vampire Family House	뱀파이어 일가의 저택에서 나갑니다.
+7d17.STR	2	Leave the Tidewater Caverns	타이드워터 동굴에서 나갑니다.
+7d17.STR	13	Cave In !	낙석!
+7d18.STR	2	Leave Lord Markham's Manor	마컴 경의 저택에서 나갑니다.
+7d18.STR	20	Enter Lord Markham's Chamber	마컴 경의 방에 들어갑니다.
+7d18.STR	21	This Door has Been Locked	이 문은 잠겨 있습니다.
+7d19.STR	2	Leave the Grand Temple of the Moon	달의 대사원에서 나갑니다.
+7d19.STR	15	You have Purified the Altar	제단을 정화했습니다.
+7d20.STR	2	Leave the Mercenary Guild	용병 길드에서 나갑니다.
+7d20.STR	12	You see nothing of interest	흥미로운 것은 보이지 않습니다.
+7d21.STR	2	Leave the White Cliff Caves	화이트 클리프 동굴에서 나갑니다.
+7d21.STR	13	Cave In !	낙석!
+7d22.STR	2	Leave the Hall Under the Hill	언덕 아래의 회관에서 나갑니다.
+7d22.STR	13	Refreshing !	상쾌합니다!
+7d22.STR	61	You received an apple	사과를 얻었습니다.
+7d23.STR	2	Leave the Lincoln	링컨에서 나갑니다.
+7d23.STR	11	Power Restored	동력이 복구되었습니다.
+7d23.STR	20	You must all be wearing your wetsuits to exit the ship	함선에서 나가려면 모두 잠수복을 착용해야 합니다.
+7d24.STR	2	Leave Stone City	스톤 시티에서 나갑니다.
+7d24.STR	11	Nothing Here	아무것도 없습니다.
+7d24.STR	13	Cave In !	낙석!
+7d25.STR	2	Leave Celeste	셀레스트에서 나갑니다.
+7d25.STR	26	Temple of the Light	빛의 신전
+7d25.STR	30	Enter Castle Lambent	램번트 성에 들어갑니다.
+7d25.STR	31	Enter The Temple of the Light	빛의 신전에 들어갑니다.
+7d25.STR	32	Enter the Walls of Mist	안개의 장벽에 들어갑니다.
+7d25.STR	70	+25 to all Stats(Temporary)	모든 능력치가 일시적으로 25 증가합니다.
+7d26.STR	2	Leave the Pit	구덩이에서 나갑니다.
+7d26.STR	26	Temple of the Dark	어둠의 신전
+7d26.STR	27	The Breeding Zone	번식 구역
+7d26.STR	30	Enter Castle Gloaming	글로밍 성에 들어갑니다.
+7d26.STR	31	Enter The Temple of the Dark	어둠의 신전에 들어갑니다.
+7d26.STR	32	Enter the Breeding Zone	번식 구역에 들어갑니다.
+7d27.STR	2	Leave the Hive	하이브에서 나갑니다.
+7d29.STR	21	The door is blocked	문이 막혀 있습니다.
+7d30.STR	2	Leave Castle Lambent	램번트 성에서 나갑니다.
+7d32.STR	2	Leave Castle Navan	나반 성에서 나갑니다.
+7d34.STR	2	Leave the Red Dwarf Mines	레드 드워프 광산에서 나갑니다.
+7d34.STR	13	Cave In !	낙석!
+7d36.STR	13	Cave In !	낙석!
+7d37.STR	2	Leave the Haunted Mansion	유령 저택에서 나갑니다.
+7d37.STR	13	Cave In !	낙석!
+7out02.STR	31	Enter the White Cliff Caves	화이트 클리프 동굴에 들어갑니다.
+7out02.STR	43	North to the Tularean Forest	북쪽: 툴라리안 숲
+7out02.STR	44	West to Erathia	서쪽: 에라시아
+7out02.STR	45	South to Barrow Downs	남쪽: 고분 지대
+7out02.STR	61	You received an apple	사과를 얻었습니다.
+7out02.STR	72	Maybe that wasn't such a good idea.	좋은 생각이 아니었던 것 같습니다.
+7out02.STR	73	You probably shouldn't do that.	그러지 않는 편이 좋겠습니다.
+7out03.STR	30	Enter The Erathian Sewer	에라시아 하수도에 들어갑니다.
+7out03.STR	33	Enter	들어가기
+7out03.STR	42	East to Harmondale	동쪽: 하몬데일
+7out03.STR	43	North to Deyja Moors	북쪽: 데이자 황무지
+7out03.STR	44	West to Tatalia	서쪽: 타탈리아
+7out03.STR	45	South to the Bracada Desert	남쪽: 브라카다 사막
+7out03.STR	61	You received an apple	사과를 얻었습니다.
+7out03.STR	73	Disease Cured	질병이 치료되었습니다.
+7out04.STR	30	Enter Castle Navan	나반 성에 들어갑니다.
+7out04.STR	31	Enter the Tularean Caves	툴라리안 동굴에 들어갑니다.
+7out04.STR	32	Enter Clanker's Laboratory	클랭커의 연구소에 들어갑니다.
+7out04.STR	61	You received an apple	사과를 얻었습니다.
+7out04.STR	76	+10 Water, Fire, and Air Resistance(Permanent)	물, 불, 공기 저항이 영구적으로 10 증가합니다.
+7out05.STR	20	Ambush	매복!
+7out05.STR	25	Hall of the Pit	구덩이의 회관
+7out05.STR	30	Enter the Hall of the Pit	구덩이의 회관에 들어갑니다.
+7out05.STR	31	Enter Watchtower 6	제6 감시탑에 들어갑니다.
+7out05.STR	73	You Feel Great!!	기분이 아주 좋습니다!
+7out05.STR	75	Haven't you had enough ?	이제 충분하지 않습니까?
+7out05.STR	76	Do you think that's such a good idea ?	그게 정말 좋은 생각일까요?
+7out05.STR	77	+10 Mind, Earth, and Body Resistance(Permanent)	정신, 대지, 육체 저항이 영구적으로 10 증가합니다.
+7out06.STR	30	Enter the School of Sorcery	마법 학교에 들어갑니다.
+7out06.STR	31	Enter the Red Dwarf Mines	레드 드워프 광산에 들어갑니다.
+7out06.STR	33	To Main Square	중앙 광장으로
+7out06.STR	65	You make a wish	소원을 빕니다.
+7out06.STR	70	Suddenly, You Don't Feel too Well	갑자기 몸이 좋지 않습니다.
+7out06.STR	71	You Make a Wish	소원을 빕니다.
+7out06.STR	73	hmmm, You decide against it.	음... 하지 않기로 합니다.
+7out13.STR	26	The Mercenary Guild 	용병 길드
+7out13.STR	30	Enter the Wine Cellar	와인 저장고에 들어갑니다.
+7out13.STR	31	Enter the Mercenary Guild	용병 길드에 들어갑니다.
+7out13.STR	32	Enter the Tidewater Caverns	타이드워터 동굴에 들어갑니다.
+7out13.STR	33	Enter Lord Markham's Manor	마컴 경의 저택에 들어갑니다.
+7out13.STR	42	East to Steadwick	동쪽: 스테드윅
+7out13.STR	70	You do not feel well.	몸이 좋지 않습니다.
+7out13.STR	74	You decide it would be a bad idea to try that again.	다시 시도하는 것은 좋지 않겠다고 판단합니다.
+7out15.STR	25	The Lincoln	링컨
+7out15.STR	30	Enter the Lincoln	링컨에 들어갑니다.
+BrAlvar.str	1	Your friends have disappeared!	동료들이 사라졌습니다!
+BrAlvar.str	2	"Someone shouts: ""Prince Nicolai have been kidnapped!""."	"누군가 외칩니다. ""니콜라이 왕자님이 납치되셨다!"""
+BrAlvar.str	3	Door won't budge!	문은 꼼짝도 하지 않습니다!
+BrAlvar.str	4	Button won't budge.	버튼은 꼼짝도 하지 않습니다.
+BrBase.str	1	Exit Breach Basement.	균열 지하실에서 나갑니다.
+BrBase.str	2	Go up to the %sth floor.	%s층으로 올라갑니다.
+BrBase.str	3	Go down to the %sth floor.	%s층으로 내려갑니다.
+BrBase.str	4	Trap disarmed!	함정을 해제했습니다!
+Breach.STR	1	Once you've put the Telelocator into empty slot, Breach has changed, you can not see any landscape behind it. Will you dare to enter? (Y/N)	빈 홈에 텔레로케이터를 끼우자 균열이 변해 그 너머의 풍경이 보이지 않습니다. 들어가시겠습니까? (예/아니요)
+Breach.STR	3	Stick won't budge.	막대는 꼼짝도 하지 않습니다.
+Breach.STR	4	You put your Telelocator into slot.	텔레로케이터를 홈에 끼웁니다.
+Breach.STR	5	Slot of this Pedestal is empty.	이 받침대의 홈은 비어 있습니다.
+CD1.STR	9	"""Etched into the tree a message reads:                                                                                                                                                                                                                              The first is half the forth plus one, better hurry or you'll be done!"""	나무에 글이 새겨져 있습니다. 첫째는 넷째의 절반에 하나를 더한 것. 서두르지 않으면 끝장이다!
+CD1.STR	10	"""Etched into the tree a message reads:                                                                                                                                                                                                                              The second is next to the third, oh so pretty like a bird!"""	나무에 글이 새겨져 있습니다. 둘째는 셋째의 옆자리, 새처럼 아름답구나!
+CD1.STR	11	"""Etched into the tree a message reads:                                                                                                                                                                                                                              The third is the first of twenty six, A through Z you'll have to mix!"""	나무에 글이 새겨져 있습니다. 셋째는 스물여섯 중 첫 번째. A부터 Z까지 잘 섞어 보아라!
+CD1.STR	12	"""Etched into the tree a message reads:                                                                                                                                                                                                                              The fifth is twice the second, five letters in all I reckon!"""	나무에 글이 새겨져 있습니다. 다섯째는 둘째의 두 배. 모두 다섯 글자일 것이다!
+CD1.STR	13	"""Etched into the tree a message reads:                                                                                                                                                                                                                              The forth is eight from the end, Archibald really is your friend!"""	나무에 글이 새겨져 있습니다. 넷째는 끝에서 여덟 번째. 아치볼드는 정말 네 친구다!
+CD1.STR	14	What's the password?	암호는 무엇입니까?
+CD1.STR	17	Wrong!	틀렸습니다!
+CD1.STR	18	Ok!	좋아!
+CD1.STR	19	"""Who told you!  Alright, you may pass!"""	누가 알려 준 거지! 좋아, 지나가도 된다!
+CD1.STR	21	Restricted area - Keep out.	제한 구역 - 출입 금지.
+CD2.STR	6	There is a hissing sound coming from the wall	벽에서 쉭쉭거리는 소리가 납니다.
+CD2.STR	7	The crimson embers will lead the way	진홍빛 불씨가 길을 인도할 것입니다.
+CD2.STR	9	The way has been cleared	길이 열렸습니다.
+CD2.STR	10	The fires of the dead shall burn forever	죽은 자들의 불길은 영원히 타오르리라.
+CD2.STR	12	The Book is destroyed	책이 파괴되었습니다.
+CD2.STR	13	The Book of Liches is destroyed	리치의 책이 파괴되었습니다.
+CD2.STR	16	Your way is blocked.	길이 막혀 있습니다.
+CD2.STR	19	How Clever!  +20 Skill points	영리하군요! 스킬 포인트 +20
+CD2.STR	20	Steal from the dead?	죽은 자에게서 훔치시겠습니까?
+CD2.STR	21	Steal (Yes/No)?	훔치겠습니까? (예/아니요)
+CD3.STR	9	"""The Guardian of Kriegspire proclaims, 'For 50,000 gold, the secret will be revealed!'"""	"크리그스파이어의 수호자가 선언합니다. ""금화 50,000을 내면 비밀을 알려 주겠다!"""
+CD3.STR	10	Accept (Yes/No)?	수락하시겠습니까? (예/아니요)
+CD3.STR	13	Get Lost!	꺼져라!
+CD3.STR	15	"""The Curator of Kriegspire proclaims, 'For 10,000 gold you shall be healed.'"""	"크리그스파이어의 관리인이 선언합니다. ""금화 10,000을 내면 치료해 주겠다."""
+d01.STR	2	Leave the Erathian Sewer	에라시아 하수도에서 나갑니다.
+d02.STR	2	Leave the Maze	미궁에서 나갑니다.
+d03.STR	2	Leave Castle Gloaming	글로밍 성에서 나갑니다.
+d04.STR	2	Leave the Temple of Baa	바의 신전에서 나갑니다.
+D05.STR	1	Leave the Abandoned Temple	버려진 신전에서 나갑니다.
+D05.STR	30	The button will not move	버튼이 움직이지 않습니다.
+D06.STR	1	Leave the Regnan Pirate Outpost	레그나 해적 전초기지에서 나갑니다.
+D06.STR	14	You don't have the Key	열쇠가 없습니다.
+D07.STR	1	Leave Smuggler's Cove	밀수꾼의 만에서 나갑니다.
+D08.STR	1	Leave the Dire Wolf Den	다이어 울프 소굴에서 나갑니다.
+D08.STR	40	You have killed all of the Dire Wolves	다이어 울프를 모두 처치했습니다.
+D09.STR	1	Leave Merchant House of Alvar	알바르 상인회관에서 나갑니다.
+D11.STR	1	Leave the Wasp Nest	말벌 둥지에서 나갑니다.
+D12.STR	1	Leave the Ogre Raiding Fortress	오우거 요새에서 나갑니다.
+D12.STR	30	You have Killed all of the Ogres	오우거를 모두 처치했습니다.
+D13.STR	1	Leave the Troll Tomb	트롤 무덤에서 나갑니다.
+D13.STR	20	Vilebite is now at rest !	바일바이트는 이제 안식을 얻었습니다!
+D14.STR	1	Leave the Cyclops Larder	사이클롭스 식량창고에서 나갑니다.
+D15.STR	1	Leave the Chain of Fire	불의 사슬에서 나갑니다.
+D16.STR	1	Leave the Dragon Hunter's Camp	드래곤 사냥꾼 야영지에서 나갑니다.
+D16.STR	30	You have killed all of the Dragon Hunters	드래곤 사냥꾼을 모두 처치했습니다.
+D17.STR	1	Leave the dragon cave	드래곤 동굴에서 나갑니다.
+D17.STR	16	The cave is empty	동굴은 비어 있습니다.
+D17.STR	30	You have killed all of the Dragons	드래곤을 모두 처치했습니다.
+D18.STR	1	Leave the Naga Vault	나가 보물고에서 나갑니다.
+D19.STR	1	Leave the Necromancers' Guild	강령술사 길드에서 나갑니다.
+D19.STR	6	Door Beam	문 들보
+D19.STR	7	The lever will not move	레버가 움직이지 않습니다.
+D19.STR	8	The Beam will not move	들보가 움직이지 않습니다.
+D19.STR	10	The Door will not move	문이 움직이지 않습니다.
+D20.STR	1	Leave the Mad Necromancer's Lab	미친 강령술사의 연구소에서 나갑니다.
+D20.STR	12	Refreshing !	상쾌합니다!
+D21.STR	1	Leave the Vampire Crypt	뱀파이어 납골당에서 나갑니다.
+D22.STR	1	Leave the Temple of the Sun	태양의 신전에서 나갑니다.
+D23.STR	1	Leave the Druid Circle	드루이드 서클에서 나갑니다.
+D24.STR	1	Leave Balthazar Lair	발타자르 소굴에서 나갑니다.
+D24.STR	30	Your wounds begin to heal	상처가 아물기 시작합니다.
+D25.STR	1	Leave the Barbarian Fortress	야만인 요새에서 나갑니다.
+D26.STR	1	Leave the Crypt of Korbu	코르부의 납골당에서 나갑니다.
+D27.STR	1	Leave the Castle Air	공기의 성에서 나갑니다.
+D28.STR	1	Leave the Tomb of Lord Brinne	브린 경의 무덤에서 나갑니다.
+D29.STR	1	Leave the Castle of Fire	불의 성에서 나갑니다.
+D30.STR	1	Leave the War Camp	전쟁 야영지에서 나갑니다.
+D31.STR	1	Leave the Pirate Stronghold	해적 거점에서 나갑니다.
+D32.STR	1	Leave the Abandoned Pirate Keep	버려진 해적 성채에서 나갑니다.
+D32.STR	7	The ship begins to sink	배가 가라앉기 시작합니다.
+D33.STR	1	Leave the Passage Under Regna	레그나 지하 통로에서 나갑니다.
+D34.STR	1	Leave the Small Sub Pen	소형 잠수함 격납고에서 나갑니다.
+d35.STR	1	Leave Escaton's Palace	에스카톤의 궁전에서 나갑니다.
+D36.STR	1	Leave the Prison of the Lord of Air	공기의 군주의 감옥에서 나갑니다.
+D37.STR	1	Leave the Prison of the Lord of Fire	불의 군주의 감옥에서 나갑니다.
+D38.STR	1	Leave Prison of the Lord of Water	물의 군주의 감옥에서 나갑니다.
+D39.STR	1	Leave the Prison of the Lord of Earth	대지의 군주의 감옥에서 나갑니다.
+D40.STR	1	Leave the Uplifted Library	떠오른 도서관에서 나갑니다.
+D41.STR	1	Leave the Dark Dwarf Compound	다크 드워프 거주지에서 나갑니다.
+d42.str	10	Talk to the Arena Master	투기장 관리자와 대화합니다.
+d43.str	1	Leave the Ancient Troll Home	고대 트롤의 거처에서 나갑니다.
+d43.str	30	You have Killed all of the Basilisks in this Ancient Troll Home	고대 트롤의 거처에 있는 바실리스크를 모두 처치했습니다.
+d44.str	1	Leave the Grand Temple of Eep	이프 대사원에서 나갑니다.
+d45.str	1	Leave the Chapel of Eep	이프 예배당에서 나갑니다.
+d46.str	1	Leave the Church of Eep	이프 교회에서 나갑니다.
+D47.STR	1	Leave Old Loeb's Cave	늙은 로브의 동굴에서 나갑니다.
+D48.STR	1	Leave Ilsingore's Cave	일싱고어의 동굴에서 나갑니다.
+D49.STR	1	Leave Yaardrake's Cave	야드드레이크의 동굴에서 나갑니다.
+d50.STR	1	Leave New World Computing	뉴 월드 컴퓨팅에서 나갑니다.
+ElemA.STR	1	Leave the Plane of Air	공기의 차원에서 나갑니다.
+ElemA.STR	2	Gate out of the Plane of Air	공기의 차원에서 나가는 차원문.
+ElemA.STR	50	Enter the Castle of Air	공기의 성에 들어갑니다.
+ElemE.STR	1	Leave the Plane of Earth	대지의 차원에서 나갑니다.
+ElemE.STR	2	Gate out of the Plane of Earth	대지의 차원에서 나가는 차원문.
+ElemF.STR	1	Leave the Plane of Fire	불의 차원에서 나갑니다.
+ElemF.STR	2	Gate out of the Plane of Fire	불의 차원에서 나가는 차원문.
+ElemF.STR	50	Enter the Castle of Fire	불의 성에 들어갑니다.
+ElemF.STR	51	Enter the War Camp	전쟁 야영지에 들어갑니다.
+ElemW.STR	1	Leave the Plane of Water	물의 차원에서 나갑니다.
+ElemW.STR	2	Gate out of the Plane of Water	물의 차원에서 나가는 차원문.
+HIVE.STR	4	Warning!  Flush system activated!	경고! 배출 시스템이 작동했습니다!
+HIVE.STR	5	Flush sequence in progress.	배출 절차가 진행 중입니다.
+HIVE.STR	6	Flush system activated.	배출 시스템이 작동했습니다.
+HIVE.STR	7	Flush sequence complete.	배출 절차가 완료되었습니다.
+HIVE.STR	8	Flush system deactivated	배출 시스템이 비활성화되었습니다.
+HIVE.STR	12	The Hive	하이브
+HIVE.STR	13	Poison spray!	독 분사!
+HIVE.STR	15	Protected	보호됨
+MDT10.STR	2	Leave to tower	탑에서 나갑니다.
+MDT11.STR	2	Leave the Hidden tomb	숨겨진 무덤에서 나갑니다.
+ORACLE.STR	4	Not enough memory to operate.	작동에 필요한 메모리가 부족합니다.
+ORACLE.STR	7	Power on.  Status:  All systems functional.	전원 켜짐. 상태: 모든 시스템 정상.
+ORACLE.STR	8	Power off.  Status:  All systems shut down.	전원 꺼짐. 상태: 모든 시스템 정지.
+ORACLE.STR	9	Insert Memory module to activate Melian.	멜리안을 활성화하려면 메모리 모듈을 삽입하십시오.
+ORACLE.STR	10	Memory module restored.	메모리 모듈이 복구되었습니다.
+ORACLE.STR	11	"""+100,000 Experience"""	경험치 +100,000
+ORACLE.STR	12	Stand by�	대기 중...
+OUT01.STR	14	You need a power stone to operate this teleporter	이 순간이동 장치를 작동하려면 파워 스톤이 필요합니다.
+OUT01.STR	21	You receive an apple	사과를 얻었습니다.
+OUT01.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT01.STR	41	Palm tree	야자나무
+OUT01.STR	48	Gate to the Plane of Earth	대지의 차원으로 가는 차원문.
+OUT01.STR	50	Enter the Abandoned Temple	버려진 신전에 들어갑니다.
+OUT01.STR	51	Enter the Regnan Pirate Outpost	레그나 해적 전초기지에 들어갑니다.
+OUT01.STR	52	Enter the Uplifted Library	떠오른 도서관에 들어갑니다.
+OUT01.STR	53	Enter the Plane of Earth	대지의 차원에 들어갑니다.
+OUT01.STR	62	Your Wounds begin to Heal	상처가 아물기 시작합니다.
+OUT02.STR	13	The Vault of Time	시간의 보물고
+OUT02.STR	21	You receive an apple	사과를 얻었습니다.
+OUT02.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT02.STR	44	Enter the Chapel of Eep	이프 예배당에 들어갑니다.
+OUT02.STR	49	The Tomb of Lord Brinne	브린 경의 무덤
+OUT02.STR	50	Enter Smuggler's Cove	밀수꾼의 만에 들어갑니다.
+OUT02.STR	51	Enter the Dire Wolf Den	다이어 울프 소굴에 들어갑니다.
+OUT02.STR	52	Enter the Merchant House of Alvar	알바르 상인회관에 들어갑니다.
+OUT02.STR	54	Enter the Tomb of Lord Brinne	브린 경의 무덤에 들어갑니다.
+OUT02.STR	70	You have killed all of the Dire Wolves	다이어 울프를 모두 처치했습니다.
+OUT02.STR	71	The Invaders have been defeated!	침략자들을 물리쳤습니다!
+OUT03.STR	21	You receive an apple	사과를 얻었습니다.
+OUT03.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT03.STR	40	Pine tree	소나무
+OUT03.STR	50	Enter the Wasp Nest	말벌 둥지에 들어갑니다.
+OUT03.STR	51	Enter the Ogre Raiding Fort	오우거 요새에 들어갑니다.
+OUT03.STR	52	Enter the Dark Dwarf Compound	다크 드워프 거주지에 들어갑니다.
+OUT03.STR	62	You mind clears, and you recover some Mana	정신이 맑아지며 마나를 일부 회복합니다.
+OUT03.STR	70	You have killed all of the Ogres	오우거를 모두 처치했습니다.
+OUT04.STR	21	You receive an apple	사과를 얻었습니다.
+OUT04.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT04.STR	49	Gate to the Plane of Fire	불의 차원으로 가는 차원문.
+OUT04.STR	50	Enter the Troll Tomb	트롤 무덤에 들어갑니다.
+OUT04.STR	51	Enter the Cyclops Larder	사이클롭스 식량창고에 들어갑니다.
+OUT04.STR	52	Enter the Chain of Fire	불의 사슬에 들어갑니다.
+OUT04.STR	54	Enter the Plane of Fire	불의 차원에 들어갑니다.
+OUT05.STR	21	You receive an apple	사과를 얻었습니다.
+OUT05.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT05.STR	46	Dragon Cave	드래곤 동굴
+OUT05.STR	50	Enter the Dragon Hunter's Camp	드래곤 사냥꾼 야영지에 들어갑니다.
+OUT05.STR	51	Enter the Dragon Cave	드래곤 동굴에 들어갑니다.
+OUT05.STR	52	Enter the Naga Vault	나가 보물고에 들어갑니다.
+OUT05.STR	53	Enter the Grand Temple of Eep	이프 대사원에 들어갑니다.
+OUT05.STR	70	You have killed all of the Dragons	드래곤을 모두 처치했습니다.
+OUT05.STR	71	You have killed all of the Dragon Hunters	드래곤 사냥꾼을 모두 처치했습니다.
+OUT06.STR	21	You receive an apple	사과를 얻었습니다.
+OUT06.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT06.STR	50	Enter the Necromancers' Guild	강령술사 길드에 들어갑니다.
+OUT06.STR	51	Enter the Mad Necromancer's Lab	미친 강령술사의 연구소에 들어갑니다.
+OUT06.STR	53	Enter the Vampire Crypt	뱀파이어 납골당에 들어갑니다.
+OUT06.STR	61	You mind clears, and you recover some Mana	정신이 맑아지며 마나를 일부 회복합니다.
+OUT07.STR	21	You receive an apple	사과를 얻었습니다.
+OUT07.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT07.STR	45	The Temple of the Sun	태양의 신전
+OUT07.STR	46	A Druid Circle	드루이드 서클
+OUT07.STR	48	Gate to the Plane of Air	공기의 차원으로 가는 차원문.
+OUT07.STR	50	Enter the Temple of the Sun	태양의 신전에 들어갑니다.
+OUT07.STR	51	Enter the Druid Circle	드루이드 서클에 들어갑니다.
+OUT07.STR	52	Enter the Ancient Troll Home	고대 트롤의 거처에 들어갑니다.
+OUT07.STR	53	Enter the Plane of Air	공기의 차원에 들어갑니다.
+OUT08.STR	21	You receive an apple	사과를 얻었습니다.
+OUT08.STR	23	You receive some berries	열매를 조금 얻었습니다.
+OUT08.STR	47	The Crypt of Korbu	코르부의 납골당
+OUT08.STR	49	Gate to the Plane of Water	물의 차원으로 가는 차원문.
+OUT08.STR	50	Enter the Balthazar Lair	발타자르 소굴에 들어갑니다.
+OUT08.STR	51	Enter the Barbarian Fortress	야만인 요새에 들어갑니다.
+OUT08.STR	52	Enter the Crypt of Korbu	코르부의 납골당에 들어갑니다.
+OUT08.STR	53	Enter the Church of Eep	이프 교회에 들어갑니다.
+OUT08.STR	54	Enter the Plane of Water	물의 차원에 들어갑니다.
+out09.STR	4	Jump into the Well	우물 안으로 뛰어듭니다.
+out09.STR	8	The Pirate Ship Revenge	해적선 리벤지
+out09.STR	25	The Grand Temple of the Moon	달의 대사원
+out09.STR	30	Enter the Grand Temple of the Moon	달의 대사원에 들어갑니다.
+out10.STR	26	The Maze	미궁
+out10.STR	30	Enter Thunderfist Mountain	썬더피스트 산에 들어갑니다.
+out10.STR	31	Enter The Maze	미궁에 들어갑니다.
+out10.STR	71	+2 Skill Points	스킬 포인트 +2
+out10.STR	76	+10 Personality and Intellect(Permanent)	인격과 지력이 영구적으로 10 증가합니다.
+out11.STR	30	Enter Stone City	스톤 시티에 들어갑니다.
+out11.STR	31	Enter Dwarven Barrow	드워프 고분에 들어갑니다.
+out11.STR	32	Enter Mansion	저택에 들어갑니다.
+out11.STR	61	You received an apple	사과를 얻었습니다.
+out11.STR	71	Paralysis Relieved	마비가 해제되었습니다.
+out12.STR	30	Enter Colony Zod	조드 식민지에 들어갑니다.
+out12.STR	65	You make a wish	소원을 빕니다.
+Out13.STR	11	You hear a low rumbling noise	낮게 울리는 소리가 들립니다.
+Out13.STR	13	Fire the cannon !	대포를 발사합니다!
+Out13.STR	18	You do not see the right kind of ammunition anywhere	맞는 종류의 탄약이 보이지 않습니다.
+Out13.STR	21	You receive an apple	사과를 얻었습니다.
+Out13.STR	23	You receive some berries	열매를 조금 얻었습니다.
+Out13.STR	44	Enter the Tower	탑에 들어갑니다.
+Out13.STR	50	Enter the Pirate Stronghold	해적 거점에 들어갑니다.
+Out13.STR	51	Enter the Abandoned Pirate Keep	버려진 해적 성채에 들어갑니다.
+Out13.STR	52	Enter the Tunnel	터널에 들어갑니다.
+Out13.STR	53	Enter the Small Sub Pen	소형 잠수함 격납고에 들어갑니다.
+out14.STR	27	Hall under the Hill	언덕 아래의 회관
+out14.STR	30	Enter the The Titan Stronghold	타이탄 요새에 들어갑니다.
+out14.STR	31	Enter the Temple of Baa	바의 신전에 들어갑니다.
+out14.STR	32	Enter the Hall under the Hill	언덕 아래의 회관에 들어갑니다.
+out14.STR	42	East to the Tularean Forest	동쪽: 툴라리안 숲
+out14.STR	61	You received an apple	사과를 얻었습니다.
+OUTA1.STR	9	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            Itotecthothesaip	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: Itotecthothesaip
+OUTA2.STR	6	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            nhrh_aherheatvdi	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: nhrh_aherheatvdi
+OUTA3.STR	2	Rejuvination!	젊음을 되찾았습니다!
+OUTA3.STR	6	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            _etecpe__ersoede	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: _etecpe__ersoede
+OUTB1.STR	3	You feel Strange.	이상한 기분이 듭니다.
+OUTB1.STR	4	"""+5000 Experience, -5000 Gold."""	경험치 +5,000, 금화 -5,000.
+OUTB1.STR	5	+30 Level temporary.  Look Out!	레벨이 일시적으로 30 증가합니다. 조심하십시오!
+OUTB1.STR	12	You are not a follower of Baa.  Begone!	당신은 바의 추종자가 아니다. 물러가라!
+OUTB1.STR	16	+10 Cold resistance permanent	냉기 저항이 영구적으로 10 증가합니다.
+OUTB1.STR	17	+3 Cold resistance permanent	냉기 저항이 영구적으로 3 증가합니다.
+OUTB1.STR	19	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            t_haat_lt__en_lc	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: t_haat_lt__en_lc
+OUTB1.STR	23	+10 Fire permanent	화염 저항이 영구적으로 10 증가합니다.
+OUTB1.STR	24	+3 Fire permanent	화염 저항이 영구적으로 3 증가합니다.
+OUTB2.STR	9	No one is here.  The Circus has moved.	아무도 없습니다. 서커스단은 떠났습니다.
+OUTB2.STR	16	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            hd_scawehSfdewee	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: hd_scawehSfdewee
+OUTB2.STR	20	+10 Magic permanent	마법 저항이 영구적으로 10 증가합니다.
+OUTB2.STR	21	+3 Magic permanent	마법 저항이 영구적으로 3 증가합니다.
+OUTB3.STR	7	+20 to all stats permanent.	모든 능력치가 영구적으로 20 증가합니다.
+OUTB3.STR	14	"""The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            erbthieaeuu,_o'd"""	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: erbthieaeuu,_o'd
+OUTB3.STR	16	Shrine of the Gods	신들의 성소
+OUTC1.STR	16	"""The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            _ay,enis_nn_ans."""	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: _ay,enis_nn_ans.
+OUTC2.STR	8	Hic�	딸꾹...
+OUTC2.STR	15	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            lg____gtS_cln;__	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: lg____gtS_cln;__
+OUTC2.STR	29	The stone cutter and carpenter begin rebuilding the temple.	석공과 목수가 신전 재건을 시작합니다.
+OUTC2.STR	30	You hand the Sacred Chalice to the monks of the temple who ensconce it in the main altar.	성배를 신전의 수도사들에게 건네자, 그들이 중앙 제단에 안치합니다.
+OUTC3.STR	4	+2 Endurance permenant.	체력이 영구적으로 2 증가합니다.
+OUTC3.STR	6	No one is here.  The Circus has moved.	아무도 없습니다. 서커스단은 떠났습니다.
+OUTC3.STR	7	Mire of the Damned	저주받은 자들의 수렁
+OUTC3.STR	13	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            aoflo'h.hbtid_p_	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: aoflo'h.hbtid_p_
+OUTD1.STR	3	The Sword won't budge!	검은 꼼짝도 하지 않습니다!
+OUTD1.STR	8	WOW!	와!
+OUTD1.STR	17	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            nnaifnt_ieif_tu_	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: nnaifnt_ieif_tu_
+OUTD2.STR	8	Drink from Fountain of Magic	마법의 분수에서 마십니다.
+OUTD2.STR	12	No one is here.  The Circus has moved.	아무도 없습니다. 서커스단은 떠났습니다.
+OUTD2.STR	19	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            d_re_e_Hpfotyhz_	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: d_re_e_Hpfotyhz_
+OUTD3.STR	2	Enter at Own Risk.	위험을 감수하고 출입하십시오.
+OUTD3.STR	3	Keep Off!	접근 금지!
+OUTD3.STR	7	All Hit points restored.	체력을 모두 회복했습니다.
+OUTD3.STR	9	The prince has been kidnapped!  No visitors will be admitted until this crisis has been resolved!	왕자님이 납치되었습니다! 사태가 해결될 때까지 방문객의 출입을 금합니다!
+OUTD3.STR	13	"""Well, thanks for sneaking me out of the Castle.  Sorry about the circus thing뾋 hope I wasn뭪 too much trouble to find.  I뭠l go in myself so no one will see that it was you who kidnapped me.  Thanks again, and goodbye.  I뭠l remember this, and I owe you a favor! """	"""성에서 몰래 빼내 줘서 고마워요. 서커스 일은 미안해요. 나를 찾느라 너무 고생하지 않았으면 좋겠군요. 당신이 나를 납치했다는 걸 아무도 눈치채지 못하도록 이제 혼자 들어갈게요. 다시 한번 고맙고, 안녕히 가세요. 이 일은 기억하겠습니다. 신세를 갚을게요!"""
+OUTD3.STR	14	The Sword won't budge!	검은 꼼짝도 하지 않습니다!
+OUTD3.STR	20	+10 Electricity resistance permanent	전기 저항이 영구적으로 10 증가합니다.
+OUTD3.STR	21	+3 Electricity resistance permanent	전기 저항이 영구적으로 3 증가합니다.
+OUTD3.STR	22	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            _t_staoi_on_oiz_	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: _t_staoi_on_oiz_
+OUTE1.STR	1	The Sword won't budge!	검은 꼼짝도 하지 않습니다!
+OUTE1.STR	11	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            oon_htfdorstusl_	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: oon_htfdorstusl_
+OUTE2.STR	2	There doesn't seem to be anymore apples.	사과가 더는 남아 있지 않은 것 같습니다.
+OUTE2.STR	19	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            f_oteh__fe_h__e_	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: f_oteh__fe_h__e_
+OutE3.str	5	Abbey of the Sun	태양 수도원
+OutE3.str	9	Your purse feels much lighter as you foolishly throw your money into the well.	어리석게도 우물에 돈을 던져 넣자 지갑이 훨씬 가벼워졌습니다.
+OutE3.str	11	There doesn't seem to be anymore apples.	사과가 더는 남아 있지 않은 것 같습니다.
+OutE3.str	19	The Sword won't budge!	검은 꼼짝도 하지 않습니다!
+OutE3.str	21	It's your Lucky Day!  +100 gold.	행운의 날입니다! 금화 +100.
+OutE3.str	27	The surface of the obelisk is blood warm to the touch.  A message swims into view as you remove your hand:                                                                                                                                                            _nrh__tf__cehr__	오벨리스크 표면은 피처럼 따뜻합니다. 손을 떼자 글자가 떠오릅니다: _nrh__tf__cehr__
+PbP.STR	43	A giant's sword	거인의 검
+PbP.STR	46	Prison of the Air Lord	공기의 군주의 감옥
+PbP.STR	47	Prison of the Earth Lord	대지의 군주의 감옥
+PbP.STR	48	Prison of the Fire Lord	불의 군주의 감옥
+PbP.STR	49	Prison of the Water Lord	물의 군주의 감옥
+PbP.STR	50	Enter Escaton's Palace	에스카톤의 궁전에 들어갑니다.
+PbP.STR	51	Enter the Prison of the Air Lord	공기의 군주의 감옥에 들어갑니다.
+PbP.STR	52	Enter the Prison of the Fire Lord	불의 군주의 감옥에 들어갑니다.
+PbP.STR	53	Enter the Prison of the Water Lord	물의 군주의 감옥에 들어갑니다.
+PbP.STR	54	Enter the Prison of the Earth Lord	대지의 군주의 감옥에 들어갑니다.
+PYRAMID.STR	1	Warning!  Sensor array controls are strictly off limits to unauthorized personnel!  Use of the Sign of Sight is restricted to communications technicians only!  A mild electric shock will be transmitted to violators.	경고! 센서 배열 제어 장치는 허가받지 않은 인원의 사용을 엄격히 금합니다! 시야의 표식은 통신 기술자만 사용할 수 있습니다! 위반자에게 약한 전기 충격이 가해집니다.
+PYRAMID.STR	2	Warning!  Cargo lift controls are strictly off limits to unauthorized personnel!  Use of the Sign of the Scarab is restricted to supply officers only!  A mild electric shock will be transmitted to violators.	경고! 화물 승강기 제어 장치는 허가받지 않은 인원의 사용을 엄격히 금합니다! 풍뎅이의 표식은 보급 장교만 사용할 수 있습니다! 위반자에게 약한 전기 충격이 가해집니다.
+PYRAMID.STR	4	Radiation Damage!	방사선 피해!
+PYRAMID.STR	6	The entrance to the central pyramid lies to the South.	중앙 피라미드 입구는 남쪽에 있습니다.
+PYRAMID.STR	9	Flame Door	화염의 문
+PYRAMID.STR	10	Radiation Damage!	방사선 피해!
+PYRAMID.STR	12	Door won't budge.	문은 꼼짝도 하지 않습니다.
+PYRAMID.STR	13	Radiation Damage!	방사선 피해!
+PYRAMID.STR	14	Radiation Damage!	방사선 피해!
+PYRAMID.STR	15	The waters part.	물이 갈라집니다.
+PYRAMID.STR	16	Warning!  Power Fluctuations!  Alert Engineering immediately!	경고! 전력 변동 발생! 즉시 기술부에 알리십시오!
+PYRAMID.STR	17	"""In case of energy leak, bathe in one of the medicated pools placed for your safety and convenience."""	에너지 누출이 발생하면 안전과 편의를 위해 마련된 치료용 연못에서 몸을 씻으십시오.
+PYRAMID.STR	18	Crystal Skull absorbs radiation damage.	수정 해골이 방사선 피해를 흡수합니다.
+PYRAMID.STR	20	Only the one bearing the key may speak the code.	열쇠를 지닌 자만 암호를 말할 수 있습니다.
+PYRAMID.STR	22	Picture Door	그림 문
+PYRAMID.STR	23	Back Door	뒷문
+PYRAMID.STR	26	Cleansing Pool	정화의 연못
+PYRAMID.STR	27	The Well of VARN must be keyed last.	VARN의 우물 암호는 마지막에 입력해야 합니다.
+PYRAMID.STR	32	What is the first mate's code?	일등 항해사의 암호는 무엇입니까?
+PYRAMID.STR	34	What is the navigator's code?	항법사의 암호는 무엇입니까?
+PYRAMID.STR	36	What is the communication officer's code?	통신 장교의 암호는 무엇입니까?
+PYRAMID.STR	38	What is the engineer's code?	기술 장교의 암호는 무엇입니까?
+PYRAMID.STR	40	What is the doctor's code?	의무관의 암호는 무엇입니까?
+PYRAMID.STR	42	What is the Captain's code?	선장의 암호는 무엇입니까?
+PYRAMID.STR	44	Answer?  	정답은?
+PYRAMID.STR	45	Incorrect.	틀렸습니다.
+PYRAMID.STR	46	Access Denied.  All codes must be entered first.	접근 거부. 먼저 모든 암호를 입력해야 합니다.
+PYRAMID.STR	47	Main Power failed.  Emergency power on.	주 전원 고장. 비상 전원을 가동합니다.
+PYRAMID.STR	48	Main Power restored.	주 전원이 복구되었습니다.
+PYRAMID.STR	53	"""With painstaking care, you are able to decipher the message of the hieroglyphs:                                                                                                                                                     Though the Crossing of the Void be a long and arduous journey, the land you find at the end will be sweet and unspoiled by ancestors or the Enemy.  Take heart that your children's children will live in a perfect world free of war, free of famine, and free of fear.  Remember your sacred duty to care for the Ship on her long Voyage and ensure her safe arrival in the Promised Land.  Tend well the Guardian and house it securely away from the ship lest both be lost in a single misfortune."""	"""고된 노력 끝에 상형문자의 내용을 해독했습니다. 공허를 건너는 길은 길고 험난하겠지만, 그 끝에서 만날 땅은 조상이나 적에게 더럽혀지지 않은 풍요로운 곳일 것이다. 너희의 후손이 전쟁과 기근과 공포가 없는 완전한 세상에서 살아갈 것임을 믿어라. 긴 항해 동안 함선을 돌보고 약속의 땅에 안전히 도착하게 하는 것이 너희의 신성한 의무임을 잊지 마라. 한 번의 재난으로 둘을 모두 잃지 않도록 수호자를 잘 보살피되 함선과 떨어진 안전한 곳에 두어라."""
+PYRAMID.STR	54	"""With painstaking care, you are able to decipher the message of the hieroglyphs, intermixed with diagrams of devils:                                                                                          Remember our Enemy, children, and never underestimate the danger they pose.  Though you will never see one during your journey, you must be forever vigilant against invasion from the Void once the Voyage has ended.  Mighty beyond words, the Enemy is nonetheless vulnerable after a Crossing, for their numbers are small and their defenses weak.  Use the energy weapons carried on the Ship to defeat them, and never, ever engage the Enemy with lesser weapons, or you will surely perish."""	"""고된 노력 끝에 악마 그림과 섞인 상형문자의 내용을 해독했습니다. 아이들아, 우리의 적을 기억하고 그 위험을 절대 얕보지 마라. 항해 중에는 그들을 보지 못하겠지만, 항해가 끝난 뒤 공허에서 침공해 올 가능성에 항상 대비해야 한다. 적은 형언할 수 없이 강하지만, 횡단 직후에는 수가 적고 방어가 약해 취약하다. 함선에 실린 에너지 무기로 그들을 물리쳐라. 절대로 그보다 못한 무기로 맞서지 마라. 그러면 반드시 죽을 것이다."""
+SCI-FI.STR	4	It's a short circuit!	합선입니다!
+SCI-FI.STR	11	"""Hello and welcome to this self-guided tour of the Varn Planetary Control Facility.  We gladly welcome all visitors.  As you arrive at each key area, be sure to check any of our display screens for more information.  Enjoy your tour!"""	"""VARN 행성 제어 시설의 자유 관람에 오신 것을 환영합니다. 모든 방문객을 기쁜 마음으로 맞이합니다. 주요 구역에 도착할 때마다 안내 화면을 확인해 자세한 정보를 살펴보십시오. 즐거운 관람 되십시오!"""
+SCI-FI.STR	12	"""This is the main equipment storage and repair facility.  By now, you may have noticed several floating Drone-bots.  They are responsible both for maintaining the key systems of this facility as well as sanitation.  If a unit becomes damaged, it is brought here to be repaired."""	"""이곳은 주요 장비 보관 및 수리 시설입니다. 지금쯤 공중에 떠다니는 드론봇 몇 대를 보셨을 것입니다. 드론봇은 이 시설의 핵심 시스템 유지와 위생 관리를 담당합니다. 장치가 손상되면 이곳으로 옮겨 수리합니다."""
+SCI-FI.STR	13	"""The room to your left is the main meeting hall.  Visiting dignitaries from around the world have feasted at banquets held in their honor.  In fact, it is said that at his 21st birthday party King Sheridan nearly choked to death on a piece of mogred, but was saved by a serving girl who he later married and made his Queen.  Ahh, l뭓mour."""	"""왼쪽 방은 중앙 회의장입니다. 세계 각지에서 온 귀빈들을 위한 연회가 이곳에서 열렸습니다. 셰리던 왕은 스물한 번째 생일 연회에서 모그레드 조각이 목에 걸려 죽을 뻔했으나 한 시녀에게 구조되었고, 훗날 그녀와 결혼해 왕비로 삼았다고 합니다. 아, 사랑이란."""
+SCI-FI.STR	14	"""Chief Engineer Wilson뭩 Personal Log.  I have locked myself in Storage Room #6 but currently have no means of escape.  The drone-bots have gone mad and have started killing everyone in sight.  I was able to access the main control terminal on Level Four despite warnings of a hazardous leak, and I sent a distress signal, but since we have not had contact with any of the colonies for several weeks, I do not believe that a rescue is possible.  I have also managed to seal this facility so that the drones can not escape.  It is my hope that the colonists will be able to mount some sort of defense by the time my encryption codes are broken.  Tell Emma I love her.  Wilson out."""	"""수석 기술자 윌슨의 개인 기록. 나는 6번 보관실에 몸을 가뒀지만 현재 탈출할 방법이 없다. 드론봇들이 미쳐 눈에 보이는 사람을 모조리 죽이고 있다. 위험 물질 누출 경고에도 4층 중앙 제어 단말기에 접근해 구조 신호를 보냈지만, 몇 주째 어느 식민지와도 연락이 닿지 않아 구조될 가능성은 없어 보인다. 드론들이 탈출하지 못하도록 시설도 봉쇄했다. 내 암호화 코드가 풀릴 때쯤에는 식민지 주민들이 방어 태세를 갖추었기를 바란다. 에마에게 사랑한다고 전해 줘. 윌슨, 통신 종료."""
+SCI-FI.STR	15	"""We apologize for any inconvenience, but we ask that all personnel evacuate the facility at this time.  Please do not be alarmed.  Thank you."""	"""불편을 드려 죄송합니다. 모든 인원은 즉시 시설에서 대피해 주십시오. 당황하지 마십시오. 감사합니다."""
+SCI-FI.STR	16	"""Before entering the Planetary Reaction Chamber, please request a pair of Safety Goggles from one of our Drones.  During peak hours of operation, this facility can generate enough power to produce a light bright enough to be seen from space.  Please avoid looking directly into the light."""	"""행성 반응실에 들어가기 전에 드론에게 보안경을 요청하십시오. 최대 출력으로 가동할 때 이 시설은 우주에서도 보일 만큼 밝은 빛을 낼 수 있습니다. 빛을 직접 바라보지 마십시오."""
+SCI-FI.STR	17	"""Alert, environmental controls are offline on Level Four, Sections 18 through 96.  Access restricted to drones until further notice."""	"""경보. 4층 18구역부터 96구역까지 환경 제어 장치가 작동하지 않습니다. 별도 공지가 있을 때까지 드론만 출입할 수 있습니다."""
+SCI-FI.STR	18	"""Warning, intruder alert, Level Four, Section.  All drones proceed to Level Four to intercept intruders.  Reactor is offline.  Encryption integrity at 2.064%.  Warning, intruder alert, Level Four�"""	"""경고, 침입자 경보. 4층 구역. 모든 드론은 4층으로 이동해 침입자를 저지하십시오. 반응로 정지. 암호화 무결성 2.064%. 경고, 침입자 경보, 4층..."""
+SCI-FI.STR	19	"""Blaster weapons provide an effective, accurate ranged attack.  To operate the blaster, hold the grip comfortably in your hand, point the barrel at your target, and gently squeeze the trigger.  Should the weapon misfire, do not look into the barrel- give the weapon to an instructor and let them fix the problem.  Never point a blaster at something you do not want to vaporize."""	"""블래스터는 효과적이고 정확한 원거리 공격 수단입니다. 사용하려면 손잡이를 편안하게 잡고 총구를 목표물에 겨눈 뒤 방아쇠를 부드럽게 당기십시오. 불발되더라도 총구 안을 들여다보지 말고 교관에게 맡겨 수리하십시오. 증발시키고 싶지 않은 대상에게는 절대로 블래스터를 겨누지 마십시오."""
+SEWER.STR	6	Someone's hiding under the bed!	누군가 침대 밑에 숨어 있습니다!
+SEWER.STR	9	Something's stashed here!	무언가가 숨겨져 있습니다!
+t01.STR	2	Leave the Temple of Light	빛의 신전에서 나갑니다.
+t02.STR	2	Leave to Temple of Dark	어둠의 신전에서 나갑니다.
+t03.STR	15	You have Desecrated the altar	제단을 모독했습니다.
+t04.STR	2	Leave the Hall of the Pit	구덩이의 회관에서 나갑니다.
+t04.STR	30	Enter the Pit	구덩이에 들어갑니다.
+ZDDB02.STR	2	You find jerked beef in the sack (+10 food).	자루에서 육포를 찾았습니다. (식량 +10)
+ZDDB02.STR	3	Mead filled barrel.	벌꿀주가 든 통.
+ZDDB02.STR	4	You drink the mead and are feeling good.	벌꿀주를 마시자 기분이 좋아집니다.
+ZDDB02.STR	5	Stew filled bowl.	스튜가 담긴 그릇.
+ZDDB02.STR	6	The stew tasts good - you feel better (+5 hits).	스튜가 맛있습니다. 기분이 나아집니다. (체력 +5)
+ZDDB02.STR	7	Crates filled with wood chips.	나무 조각이 든 상자.
+ZDDB02.STR	10	There is of nothing of value in the crates.	상자 안에는 가치 있는 것이 없습니다.
+ZDDB03.STR	2	You find jerked beef in the sack (+10 food).	자루에서 육포를 찾았습니다. (식량 +10)
+ZDDB03.STR	3	Mead filled barrel.	벌꿀주가 든 통.
+ZDDB03.STR	4	You drink the mead and are feeling good.	벌꿀주를 마시자 기분이 좋아집니다.
+ZDDB03.STR	5	Stew filled bowl.	스튜가 담긴 그릇.
+ZDDB03.STR	6	The stew tastes good - you feel better (+5 hits).	스튜가 맛있습니다. 기분이 나아집니다. (체력 +5)
+ZDDB03.STR	7	Crates filled with wood chips.	나무 조각이 든 상자.
+ZDDB03.STR	10	There is of nothing of value in the crates.	상자 안에는 가치 있는 것이 없습니다.
+ZDDB04.STR	2	You find a small wooden dowl.	작은 나무못을 찾았습니다.
+ZDDB04.STR	4	There seems to be a small hole in the crate.	상자에 작은 구멍이 있는 것 같습니다.
+ZDDB04.STR	5	You fit the dowl into the hole and a small key pops out.	나무못을 구멍에 끼우자 작은 열쇠가 튀어나옵니다.
+ZDDB04.STR	6	The crate is padlocked - you need a key.	상자에 자물쇠가 채워져 있습니다. 열쇠가 필요합니다.
+ZDDB04.STR	7	You fit the key into the padlock and it pops open.	열쇠를 자물쇠에 끼우자 철컥 열립니다.
+ZDDB05.STR	1	Crumbling boulder.	부서져 가는 바위.
+ZDDB05.STR	2	The vent brings in fresh air.	환기구에서 신선한 공기가 들어옵니다.
+ZDDB05.STR	3	Poisonous spores force you back.	독성 포자 때문에 뒤로 물러납니다.
+ZDDB05.STR	4	Vent.	환기구.
+ZDDB05.STR	5	The air smells stale and makes you cough.	공기가 탁해 기침이 납니다.
+ZDDB05.STR	6	"""A small nymph comes out of a hole in the floor thanking you for clearing the spores, he shakes your hand vigorously then disappears down the hole (which somehow disappears after him). +500 experience."""	"""작은 님프가 바닥 구멍에서 나와 포자를 치워 준 것에 감사하며 힘차게 악수합니다. 그러고는 구멍 속으로 사라지는데, 이상하게도 구멍도 함께 사라집니다. 경험치 +500."""
+ZDDB05.STR	7	Small switch.	작은 스위치.
+ZDDB06.STR	1	The mine shakes and shifts around you.	광산이 주위에서 흔들리고 뒤틀립니다.
+ZDDB06.STR	2	Looks like an earthquake hit this mine.	이 광산에 지진이 난 것 같습니다.
+ZDDB06.STR	3	Water filled barrel.	물이 든 통.
+ZDDB06.STR	4	Sack filled with mining equipment.	채굴 장비가 든 자루.
+ZDDB06.STR	6	This room looks really unstable.	이 방은 매우 불안정해 보입니다.
+ZDDB06.STR	8	As you pull the lever rocks fall from above.	레버를 당기자 위에서 돌이 떨어집니다.
+ZDDB06.STR	9	You mine the gold with no problem.	문제없이 금을 채굴합니다.
+ZDDB06.STR	10	Some loose debris overhead falls on you.	머리 위의 느슨한 잔해가 떨어집니다.
+ZDDB06.STR	11	The vein dried up.	광맥이 고갈되었습니다.
+ZDDB06.STR	12	You were fast enough to dodge the bigger rocks.	재빨리 움직여 큰 바위들을 피했습니다.
+ZDDB06.STR	13	Even though the water is dirty it still refreshes.	물은 더럽지만 그래도 상쾌해집니다.
+ZDDB06.STR	14	The dirty water leaves a bad taste in your mouth.	더러운 물 때문에 입안에 나쁜 맛이 남습니다.
+ZDDB06.STR	15	The doors seem stuck.	문들이 걸린 것 같습니다.
+ZDDB06.STR	16	The switch is locked in place.	스위치가 제자리에 고정되어 있습니다.
+ZDDB06.STR	17	Boulders.	바위 더미.
+ZDDB06.STR	18	This cave-in blocks any further access into the mine.	낙석 때문에 광산 안쪽으로 더 들어갈 수 없습니다.
+ZDDB06.STR	19	Small rocks and debris fall from above. 	작은 돌과 잔해가 위에서 떨어집니다.
+ZDDB07.STR	1	There is a strong smell of gas pervading the air.	공기 중에 강한 가스 냄새가 퍼져 있습니다.
+ZDDB07.STR	2	Small glittering pool.	작게 반짝이는 연못.
+ZDDB07.STR	3	The water cools you down.	물이 몸을 식혀 줍니다.
+ZDDB07.STR	5	The torches Ignite and so does the swamp gas.	횃불에 불이 붙으며 늪 가스도 함께 타오릅니다.
+ZDDB07.STR	6	Hundreds of snakes crawl out of the floor and bite you.	수백 마리의 뱀이 바닥에서 기어 나와 물어뜯습니다.
+ZDDB07.STR	7	Swamp gas forces you back couching and gagging.	늪 가스 때문에 기침과 구역질을 하며 뒤로 물러납니다.
+ZDDB07.STR	8	"""You drink the water, with no effect."""	"""물을 마시지만 아무 효과도 없습니다."""
+ZDDB07.STR	9	The switch does not work.	스위치가 작동하지 않습니다.
+ZDDB07.STR	10	Hundreds of snakes crawl out of the floor and bite you. 	수백 마리의 뱀이 바닥에서 기어 나와 물어뜯습니다.
+ZDDB07.STR	11	A voice hisses -Walk the path of the snake-.	"목소리가 쉭쉭거리며 말합니다. ""뱀의 길을 걸어라."""
+ZDDB07.STR	12	"""A voice whispers -I am the spirit of the swamp, congratulations, take what you may and leave in peace-"""	"""목소리가 속삭입니다. 나는 늪의 정령이다. 축하한다. 원하는 것을 가져가고 평안히 떠나라."""
+ZDDB08.STR	1	Shard filled caskets.	수정 조각이 든 관.
+ZDDB08.STR	2	Barrel is filled with crystal shards (worthless).	통에는 가치 없는 수정 조각이 가득합니다.
+ZDDB08.STR	3	Table with implements atop.	도구가 놓인 탁자.
+ZDDB08.STR	4	You see a scattered of refining tools and small crystal shavings.	정제 도구와 작은 수정 부스러기가 흩어져 있습니다.
+ZDDB08.STR	5	Sacks.	자루.
+ZDDB08.STR	6	The sacks are filled with flawed crystal shards (worthless).	자루에는 가치 없는 불량 수정 조각이 들어 있습니다.
+ZDDB08.STR	8	You mine the crystal in its raw form (+300 gold).	원석 상태의 수정을 채굴합니다. (금화 +300)
+ZDDB08.STR	9	You refine the crystal you harvested (+200 to its value).	채굴한 수정을 정제합니다. (가치 +200)
+ZDDB08.STR	10	Someone has gone to a lot of trouble carving all these murals	누군가 이 벽화들을 새기는 데 엄청난 공을 들였습니다.
+ZDDB08.STR	11	 This razor sharp crystal is too immature to harvest.	이 면도날처럼 날카로운 수정은 아직 채굴하기에 너무 덜 자랐습니다.
+ZDDB08.STR	12	You study the mural and get a good feeling inside.	벽화를 살펴보자 마음이 편안해집니다.
+ZDDB08.STR	13	Carved mural.	새겨진 벽화.
+ZDDB08.STR	15	The cabinet is filled with old and broken harvesting tools.	장 안에는 낡고 부서진 채굴 도구가 가득합니다.
+ZDDB10.STR	2	With some muscle you move the switch down.	힘을 써 스위치를 아래로 내립니다.
+ZDDB10.STR	3	"""The switch is stuck, you need someone stronger to move it."""	"""스위치가 걸렸습니다. 더 힘센 사람이 필요합니다."""
+ZDDB10.STR	4	Crates.	상자.
+ZDDB10.STR	5	The crates are all empty.	상자들은 모두 비어 있습니다.
+ZDDB10.STR	7	You need a special key to open this door.	이 문을 열려면 특별한 열쇠가 필요합니다.
+ZDDB10.STR	9	Light red liquid filled keg.	연한 붉은 액체가 든 통.
+ZDDB10.STR	10	Your muscles expand as you take a drink.	한 모금 마시자 근육이 부풀어 오릅니다.
+ZDDB10.STR	11	The liquid has lost its effectiveness.	액체는 더 이상 효과가 없습니다.
+ZDDB10.STR	12	You flip the switch and hear grating off in the distance.	스위치를 젖히자 멀리서 긁히는 소리가 들립니다.
+ZDDB10.STR	13	"""A skeletal knight steps out of a forming mist and says -To let you pass I will need you to say a prayer over my bones found close by, when this is done you can pass-"""	"""안개 속에서 해골 기사가 나타나 말합니다. 지나가려면 근처에 있는 내 뼈 앞에서 기도해 주어야 한다. 그 일을 마치면 통과할 수 있다."""
+ZDDB10.STR	15	The bones feel incredibly cold to the touch.	뼈는 손을 대기 힘들 만큼 차갑습니다.
+ZDDB10.STR	16	You say a prayer over the bones. 	뼈 앞에서 기도합니다.
+ZDDB10.STR	17	"""The skeletal knight appears from the mist, nods and disappears into the mist again."""	"""해골 기사가 안개 속에서 나타나 고개를 끄덕인 뒤 다시 안개 속으로 사라집니다."""
+ZDDB10.STR	18	Something slimey moves behind this brick wall.	이 벽돌 벽 뒤에서 끈적한 무언가가 움직입니다.
+ZDDB10.STR	19	Wall with missing bricks.	벽돌이 빠진 벽.
+ZDDB10.STR	20	You find a grey key where one of the bricks used to be.	벽돌이 빠진 자리에서 회색 열쇠를 찾았습니다.
+ZDDB10.STR	21	You find a silver key where one of the bricks used to be.	벽돌이 빠진 자리에서 은색 열쇠를 찾았습니다.
+ZDDB10.STR	23	You need a key to open this chest.	이 상자를 열려면 열쇠가 필요합니다.
+ZDDB10.STR	24	"""A skeletal looking cleric steps out of a quick forming mist and says - I was tortured down here long ago and my bones were scattered throughout this level, I will let you pass only when you have destroyed what remains of me and return here, you will feel which bones they are when you see them...-  He fades away."""	"""갑자기 피어오른 안개 속에서 해골 같은 성직자가 나타나 말합니다. 오래전 이곳에서 고문당해 내 뼈가 이 층 곳곳에 흩어졌다. 내 유해를 모두 파괴하고 돌아오면 통과시켜 주겠다. 그 뼈를 보면 느낌으로 알 수 있을 것이다... 그는 이내 사라집니다."""
+ZDDB10.STR	25	You find and destroy one of the clerics bones. 	성직자의 뼈 하나를 찾아 파괴합니다.
+ZDDB10.STR	26	The cleric appears again and nods at you -Thank you I will never forget your kindness I can rest in peace at last -  He then fades away.	"성직자가 다시 나타나 고개를 끄덕입니다. ""고맙다. 그 친절을 잊지 않겠다. 이제야 편히 쉴 수 있겠구나."" 그는 다시 사라집니다."
+ZDDB10.STR	27	You get a bad feeling from the bones.	뼈에서 불길한 느낌이 듭니다.
+ZDDB10.STR	29	There's nothing but spikes in the Iron maiden.	아이언 메이든 안에는 가시밖에 없습니다.
+ZDDB10.STR	30	You search the Burial niche and find some gold.	매장 벽감을 뒤져 금화를 찾았습니다.
+ZDDB10.STR	31	The bones seems to charge with electricity !!.	뼈에 전기가 차오르는 것 같습니다!
+ZDDB10.STR	32	These are really old bones...really old.	정말 오래된 뼈입니다... 아주 오래됐습니다.
+ZDDB10.STR	33	You gain knowledge from these ancient bones.	이 고대의 뼈에서 지식을 얻습니다.
+ZDDB10.STR	34	Long dead adventurer.	죽은 지 오래된 모험가.
+ZDDB10.STR	35	You search the body and find some gold.	시신을 뒤져 금화를 찾았습니다.
+ZDDB10.STR	37	"""A mist forms and a shadowy figure of a skeletal noblemen steps in front of you saying -The undead are restless in this tomb, before I can let you leave you must visit each one of them- the noblemen shoves you back and then vanishes."""	"""안개가 피어오르며 해골 귀족의 그림자가 앞을 막고 말합니다. 이 무덤의 언데드들이 안식을 찾지 못하고 있다. 떠나려면 그들을 하나씩 모두 찾아가야 한다. 귀족은 당신을 밀쳐 낸 뒤 사라집니다."""
+ZDDB10.STR	38	"""The skeletal noblemen appears from the mist, nods his head, then vanishes."""	"""해골 귀족이 안개 속에서 나타나 고개를 끄덕인 뒤 사라집니다."""
+ZDDB10.STR	40	Skeleton in a cage.	우리 안의 해골.
+ZDDB10.STR	41	The skeleton grabs for you.	해골이 당신을 붙잡으려 합니다.
+ZDDB10.STR	42	A strange force reaches out of the wall and grabs you.	벽에서 기묘한 힘이 뻗어 나와 당신을 붙잡습니다.
+ZDDB10.STR	45	You find some half decent food in the sack.	자루에서 그럭저럭 먹을 만한 음식을 찾았습니다.
+ZDDB10.STR	46	A scrawled message on the brick reads   2=1  3=2  1=3	벽돌에 휘갈겨 쓴 글이 있습니다.  2=1  3=2  1=3
+ZNWC.STR	4	You found something!	무언가를 찾았습니다!
+ZNWC.STR	5	Nothing here	아무것도 없습니다.
+ZNWC.STR	6	Not enough gold	금화가 부족합니다.
+ZNWC.STR	7	Potions for sale	물약 판매
+ZNWC.STR	8	Bad Food!	상한 음식!
+ZNWC.STR	9	Hic!	딸꾹!

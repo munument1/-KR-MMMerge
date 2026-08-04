@@ -1,5 +1,5 @@
 -- Merge does not register the MM6 non-magic guild events 1696-1701.
--- Restore only the two services reported broken by the Korean patch users.
+-- Restore only those six service-guild topics without touching magical guilds.
 
 local PendingServiceGuildTopic = 0
 
@@ -36,4 +36,8 @@ local function RestoreServiceGuildTopic(TopicId, Cost, InfoText, AutonoteBit)
 end
 
 RestoreServiceGuildTopic(1696, 25, 1832, 629) -- Buccaneers' Lair
+RestoreServiceGuildTopic(1697, 50, 1833, 630) -- Protection Services
+RestoreServiceGuildTopic(1698, 50, 1834, 631) -- Smugglers' Guild
 RestoreServiceGuildTopic(1699, 25, 1835, 632) -- Blade's End
+RestoreServiceGuildTopic(1700, 50, 1836, 633) -- Duelists' Edge
+RestoreServiceGuildTopic(1701, 50, 1837, 634) -- Berserker's Fury

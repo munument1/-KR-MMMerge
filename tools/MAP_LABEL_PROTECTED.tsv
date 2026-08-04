@@ -1,0 +1,77 @@
+MapFile	StringId	English
+6D01.STR	8	A
+6D01.STR	9	B
+6D01.STR	10	C
+6D01.STR	11	D
+6D01.STR	12	E
+6D01.STR	13	F
+6D01.STR	14	G
+6D01.STR	15	H
+6D01.STR	16	I
+6D01.STR	17	J
+6D01.STR	18	K
+6D01.STR	19	L
+6D01.STR	20	M
+6D01.STR	21	N
+6D01.STR	22	O
+6D01.STR	23	P
+6D03.STR	5	(removed) White Wine
+6D03.STR	6	(removed) +1 Luck Permanent
+6D03.STR	7	(removed) +4 Endurance Temporary
+6D03.STR	8	(removed) Hic
+6D03.STR	10	(removed) Suspicious Floor
+6D03.STR	11	(removed) Deleted
+6D03.STR	12	(removed) +10 Hit Points Temporary
+6D03.STR	13	(removed) Stout Malt Ale
+6D03.STR	14	(removed) You're too drunk to find the barrel!
+6D08.STR	15	Spiral Stuff (Bug if this displays).
+6D08.STR	19	dark
+6D08.STR	20	darkness
+6D08.STR	24	arrow
+6D08.STR	25	an arrow
+6D08.STR	27	time
+6D08.STR	29	fish
+6D08.STR	30	a fish
+6D17.STR	15	Y
+6T2.STR	12	(removed) The keg is empty
+6T2.STR	14	(removed) Keg
+7d24.STR	51	___d___d
+7d25.STR	51	eut__i_n
+7d26.STR	51	srhtfnut
+7out02.STR	51	pohuwwba
+7out03.STR	51	ininhil_
+7out04.STR	51	redditoh
+7out05.STR	51	 a_eetcoa
+7out06.STR	51	 ts_rehmu
+7out13.STR	51	e_laru_a
+CD1.STR	15	JBARD
+CD1.STR	16	jbard
+CD2.STR	23	Y
+CD3.STR	12	Y
+d35.STR	100	prison
+d35.STR	101	jail
+d35.STR	102	in
+d35.STR	103	inside
+d35.STR	104	egg
+d35.STR	105	an egg
+OUT01.STR	12	summerday
+OUT02.STR	12	ethesunsh
+OUT03.STR	12	ubjectsap
+OUT04.STR	12	thornskey
+OUT05.STR	12	theunicornkin
+OUT06.STR	12	inesonmid
+OUT07.STR	12	pearswhil
+OUT08.STR	12	amonghiss
+out09.STR	51	 _vehlgpe
+out10.STR	51	fi_eo_od
+out11.STR	51	ivg_whn_
+out12.STR	51	veoseo_l
+Out13.STR	12	gholdsold
+out14.STR	51	__dn_r_n
+OUTD2.STR	3	Place Holder for Prince of Thieves.  Paul needs to provide this.
+PYRAMID.STR	33	kcopS
+PYRAMID.STR	35	uluS
+PYRAMID.STR	37	aruhU
+PYRAMID.STR	39	yttocS
+PYRAMID.STR	41	yoccM
+PYRAMID.STR	43	kriK
