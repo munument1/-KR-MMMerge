@@ -1,0 +1,182 @@
+MapFile	StringId	English	Korean
+6D01.STR	24	GoblinWatch	고블린워치
+6D04.STR	16	Lord of Fire	불의 군주
+6D05.STR	8	Black liquid filled barrel	검은 액체가 든 통
+6D08.STR	31	Magical Wall	마법의 벽
+6D08.STR	34	Shadow Guild	섀도 길드
+6D09.STR	6	Bookshelves	책장
+6D09.STR	15	Snergle's Iron Mines	스너글의 철광산
+6D10.STR	11	Dragoons' Keep	드라군 성채
+6D11.str	7	Corlagon's Estate	코라곤의 영지
+6D13.STR	4	Monolith	모놀리스
+6D13.STR	8	Nice Flower	예쁜 꽃
+6D14.STR	4	Elevator	승강기
+6D14.STR	5	Platform	발판
+6D15.STR	7	Various Foodstuff bags	각종 식량 자루
+6D15.STR	8	Throne	왕좌
+6D15.STR	16	Icewind Keep	아이스윈드 성채
+6D16.STR	9	Chest of Drawers	서랍장
+6D16.STR	16	Warlord's Fortress	군벌의 요새
+6D18.STR	4	Tile	타일
+6D19.STR	10	Chandelier	샹들리에
+6D19.STR	11	Cauldron	가마솥
+6D19.STR	13	Agar's Laboratory	에이거의 연구소
+6T2.STR	3	Evil Crystal	사악한 수정
+6T2.STR	6	Flickering Torch	깜빡이는 횃불
+6T3.STR	4	Cell	감방
+6T3.STR	6	Temple of Tsantsa	찬차의 신전
+6T6.STR	4	Oracle Memory Crystal	오라클 기억 수정
+6T6.STR	7	Supreme Temple of Baa	바의 최고 신전
+6T7.STR	5	Scroll	두루마리
+6T7.STR	7	Baa Head One	바의 머리 1
+6T7.STR	9	Baa Head Two	바의 머리 2
+6T7.STR	11	Baa Head Three	바의 머리 3
+6T7.STR	13	Baa Head Four	바의 머리 4
+6T7.STR	24	Superior Temple of Baa	바의 상급 신전
+7d19.STR	9	Drawer	서랍
+7d25.STR	25	Castle Lambent	램번트 성
+7d25.STR	27	Walls of Mist	안개의 장벽
+7d26.STR	25	Castle Gloaming	글로밍 성
+7d34.STR	9	Mine Car	광산 수레
+7out02.STR	16	Fire	불
+7out02.STR	17	Hatch	해치
+7out02.STR	22	Signal Fire Pit	봉화 화로
+7out02.STR	26	White Cliff Caves	화이트 클리프 동굴
+7out03.STR	25	Sewer	하수도
+7out03.STR	39	Plaza	광장
+7out03.STR	46	City of Steadwick	스테드윅 시
+7out04.STR	25	Castle Navan	나반 성
+7out04.STR	26	Tularean Caves	툴라리안 동굴
+7out04.STR	27	Clanker's Laboratory	클랭커의 연구소
+7out05.STR	26	Watchtower 6	제6 감시탑
+7out06.STR	34	Tavern	선술집
+7out13.STR	25	Wine Cellar	와인 저장고
+7out13.STR	27	Tidewater Caverns	타이드워터 동굴
+7out13.STR	28	Lord Markham's Manor	마컴 경의 저택
+7out13.STR	38	Wharf	부두
+7out13.STR	44	Tatalia	타탈리아
+7out13.STR	55	Stone	돌
+CD1.STR	7	Castle Alamos	알라모스 성
+CD2.STR	15	Forcefield	역장
+CD2.STR	17	Castle Darkmoor	다크무어 성
+CD3.STR	7	Memory crystal	기억 수정
+CD3.STR	8	Guardian of Kriegspire	크리그스파이어의 수호자
+CD3.STR	14	Curator of Kriegspire	크리그스파이어의 관리인
+D28.STR	6	Tomb of Lord Brinne	브린 경의 무덤
+D32.STR	6	Ship	배
+ElemA.STR	45	Castle of Air	공기의 성
+ElemA.STR	46	Raven Man Nest	까마귀 인간 둥지
+ElemF.STR	45	Castle of Fire	불의 성
+ElemF.STR	46	War Camp	전쟁 야영지
+ORACLE.STR	5	Panel	패널
+ORACLE.STR	6	Oracle	오라클
+ORACLE.STR	13	Oracle of Enroth	엔로스의 오라클
+OUT01.STR	1	Dagger Wound Islands	대거 운드 섬
+OUT01.STR	34	Landing Craft	상륙정
+OUT01.STR	42	Flower	꽃
+OUT01.STR	46	Regnan Pirate Outpost	레그나 해적 전초기지
+OUT01.STR	47	Uplifted Library	떠오른 도서관
+OUT02.STR	1	Ravenshore	레이븐쇼어
+OUT02.STR	43	Chapel of Eep	이프 예배당
+OUT02.STR	45	Smuggler's Cove	밀수꾼의 만
+OUT02.STR	46	Dire Wolf Den	다이어 울프 소굴
+OUT02.STR	47	Merchant House of Alvar	알바르 상인회관
+OUT03.STR	1	Alvar	알바르
+OUT03.STR	45	Wasp Nest	말벌 둥지
+OUT03.STR	46	Ogre Raiding Fort	오우거 요새
+OUT03.STR	47	Dark Dwarf Compound	다크 드워프 거주지
+OUT04.STR	1	Ironsand Desert	아이언샌드 사막
+OUT04.STR	39	Destroyed Building	파괴된 건물
+OUT04.STR	40	Cactus	선인장
+OUT04.STR	44	Tomb Stone	묘비
+OUT04.STR	45	Troll Tomb	트롤 무덤
+OUT04.STR	46	Cyclops Larder	사이클롭스 식량창고
+OUT04.STR	47	Chain of Fire	불의 사슬
+OUT05.STR	1	Garrote Gorge	가로트 협곡
+OUT05.STR	41	Flowers	꽃
+OUT05.STR	45	Dragon Hunter Camp	드래곤 사냥꾼 야영지
+OUT05.STR	47	Naga Vault	나가 보물고
+OUT05.STR	48	Grand Temple of Eep	이프 대사원
+OUT06.STR	1	Shadowspire	섀도스파이어
+OUT06.STR	40	Rune post	룬 기둥
+OUT06.STR	45	Necromancers' Guild	강령술사 길드
+OUT06.STR	46	Mad Necromancer's Lab	미친 강령술사의 연구소
+OUT06.STR	48	Vampire Crypt	뱀파이어 납골당
+OUT07.STR	1	Murmurwoods	머머우즈
+OUT07.STR	47	Ancient Troll Home	고대 트롤의 거처
+OUT08.STR	1	Ravage Roaming	라비지 로밍
+OUT08.STR	45	Balthazar Lair	발타자르 소굴
+OUT08.STR	46	Barbarian Fortress	야만인 요새
+OUT08.STR	48	Church of Eep	이프 교회
+out10.STR	25	Thunderfist Mountain	썬더피스트 산
+out11.STR	25	Stone City	스톤 시티
+out11.STR	26	Dwarven Barrow	드워프 고분
+out11.STR	27	Mansion	저택
+out12.STR	25	Colony Zod	조드 식민지
+out12.STR	26	Tunnel Entrance	터널 입구
+Out13.STR	1	Regna	레그나
+Out13.STR	16	Regnan Ship	레그나 함선
+Out13.STR	17	Sunk Regnan Ship	침몰한 레그나 함선
+Out13.STR	45	Pirate Stronghold	해적 거점
+Out13.STR	46	Abandoned Pirate Keep	버려진 해적 성채
+Out13.STR	47	Tunnel	터널
+Out13.STR	48	Small Sub Pen	소형 잠수함 격납고
+out14.STR	25	Titan Stronghold	타이탄 요새
+out14.STR	46	Avlee	아블리
+OUTA1.STR	7	Sweet Water	스위트 워터
+OUTA2.STR	5	Paradise Valley	파라다이스 밸리
+OUTA3.STR	5	Hermit's Isle	은둔자의 섬
+OUTB1.STR	1	Demon Lair	악마 소굴
+OUTB1.STR	13	Kriegspire	크리그스파이어
+OUTB1.STR	14	Shrine of Cold	냉기의 성소
+OUTB3.STR	8	Dragonsand	드래곤샌드
+OUTC1.STR	11	Frozen Highlands	프로즌 하이랜드
+OUTC1.STR	12	Shrine of Endurance	체력의 성소
+OUTC1.STR	18	Castle Stromgard	스트롬가드 성
+OUTC1.STR	19	White Cap	화이트 캡
+OUTC1.STR	20	Rockham/Free Haven	록햄/프리 헤이븐
+OUTC2.STR	11	Shrine of Accuracy	정확도의 성소
+OUTC2.STR	18	Castle Temper	템퍼 성
+OUTC2.STR	20	Darkmoor	다크무어
+OUTC2.STR	21	Guild of Water	물의 길드
+OUTC2.STR	22	Armory	무기고
+OUTC2.STR	24	Rockham	록햄
+OUTC2.STR	25	Whitecap	화이트 캡
+OUTC2.STR	28	Guild of Mind	정신의 길드
+OUTC3.STR	8	Shrine of Speed	속도의 성소
+OUTD1.STR	1	Circle of Stones	돌의 원
+OUTD1.STR	13	Shrine of Personality	인격의 성소
+OUTD2.STR	13	Bootleg Bay	부틀렉 베이
+OUTD2.STR	22	Freehaven	프리 헤이븐
+OUTD2.STR	23	Circus (Winter)	서커스(겨울)
+OUTD3.STR	18	Shrine of Electricity	전기의 성소
+OUTE1.STR	6	Eel-Infested Waters	뱀장어가 들끓는 바다
+OUTE1.STR	7	Shrine of Poison	독의 성소
+OUTE2.STR	13	Welcome to Misty Islands	안개 섬에 오신 것을 환영합니다
+OUTE2.STR	14	Misty Islands	안개 섬
+OUTE2.STR	15	Shrine of Intellect	지력의 성소
+OutE3.str	3	New Sorpigal Temple	뉴 소르피갈 신전
+OutE3.str	4	GoblinWatch	고블린워치
+OutE3.str	23	Shrine of Luck	행운의 성소
+PbP.STR	45	Escaton's Palace	에스카톤의 궁전
+PYRAMID.STR	8	CleansingPool	정화의 연못
+PYRAMID.STR	21	Well of VARN	VARN의 우물
+PYRAMID.STR	25	Water Temple	물의 신전
+PYRAMID.STR	28	Control Room Entry	제어실 입구
+PYRAMID.STR	30	Picture	그림
+PYRAMID.STR	49	Books	책
+PYRAMID.STR	50	Tomb of Varn	VARN의 무덤
+SCI-FI.STR	2	Storage Container	보관 용기
+SCI-FI.STR	3	Computer Terminal	컴퓨터 단말기
+SCI-FI.STR	6	Control Center	제어 센터
+SEWER.STR	5	Sewer Grate	하수구 철창
+SEWER.STR	8	Trash	쓰레기
+SEWER.STR	17	Free Haven Sewer	프리 헤이븐 하수도
+ZDDB04.STR	1	Bench	벤치
+ZDDB10.STR	28	Iron Maiden	아이언 메이든
+ZDTL01.STR	3	Dresser	서랍장
+ZDWJ02.STR	3	Devil Outpost	데빌 전초기지
+ZNWC.STR	3	Shelves	선반
+ZNWC.STR	10	Pantry	식료품 저장실
+ZNWC.STR	11	Counter	카운터
+ZNWC.STR	13	New World Computing	뉴 월드 컴퓨팅

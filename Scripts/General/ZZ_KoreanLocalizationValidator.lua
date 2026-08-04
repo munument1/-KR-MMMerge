@@ -918,6 +918,63 @@ local function validateMergePromotionStrings(State)
 	end
 end
 
+local function validateKoreanGlobalContracts(State)
+	if not Game or not Game.GlobalTxt then
+		addIssue(State, "ERROR", "<runtime>", nil,
+			"Game.GlobalTxt is unavailable for the Korean terminology and training-string checks.")
+		return
+	end
+
+	local Contracts = {
+		[18] = encodeForRuntime("\177\217\193\162"), -- 근접
+		[34] = encodeForRuntime("\195\235\188\210"), -- 취소
+		[79] = encodeForRuntime("\179\170\176\161\177\226"), -- 나가기
+		[168] = encodeForRuntime("\198\247\192\206\198\174"), -- 포인트
+		[170] = encodeForRuntime("\196\252\189\186\198\231"), -- 퀵스펠
+		[172] = encodeForRuntime("\196\252\189\186\198\231"), -- 퀵스펠
+		[203] = encodeForRuntime("\191\248\176\197\184\174"), -- 원거리
+		[433] = encodeForRuntime("\192\252\185\174\176\161"), -- 전문가
+		-- Engine argument order: (target level, gold cost).
+		[537] = encodeForRuntime("\183\185\186\167 %d\177\238\193\246 \200\198\183\195: %d\176\241\181\229"),
+		-- Engine argument order: (experience still needed, target level).
+		[538] = encodeForRuntime("\176\230\199\232\196\161 %d\176\161 \180\245 \192\214\190\238\190\223 \183\185\186\167 %d\177\238\193\246 \200\198\183\195\199\210 \188\246 \192\214\189\192\180\207\180\217"),
+	}
+
+	for Id, Expected in pairs(Contracts) do
+		local Ok, Actual = pcall(function() return Game.GlobalTxt[Id] end)
+		if not Ok or type(Actual) ~= "string" then
+			addIssue(State, "ERROR", "<runtime>", nil,
+				"Cannot read Game.GlobalTxt[" .. tostring(Id) .. "] for the Korean contract check.")
+		elseif Actual ~= Expected then
+			addIssue(State, "ERROR", "<runtime>", nil,
+				"Game.GlobalTxt[" .. tostring(Id) .. "] differs from the canonical Korean text or placeholder order.")
+		end
+	end
+end
+
+
+local function validateTargetedMapHints(State)
+	local KGF = rawget(_G, "KoreanGameplayFeedbackFixes")
+	if type(KGF) ~= "table" or type(KGF.TranslateTargetedMapHint) ~= "function" then
+		addIssue(State, "ERROR", "<runtime>", nil,
+			"The targeted Korean map-hint translator is unavailable.")
+		return
+	end
+
+	local Expected = encodeForRuntime("\200\173\183\206") -- CP949: fire brazier
+	local Ok, Actual = pcall(KGF.TranslateTargetedMapHint, "brazier")
+	if not Ok or Actual ~= Expected then
+		addIssue(State, "ERROR", "<runtime>", nil,
+			"The exact 'brazier' map hint does not translate to the canonical Korean term.")
+	end
+
+	local NarrowOk, Unrelated = pcall(KGF.TranslateTargetedMapHint, "door")
+	if not NarrowOk or Unrelated ~= nil then
+		addIssue(State, "ERROR", "<runtime>", nil,
+			"The v1.0.12a map-hint fallback must remain limited to the reported 'brazier' string.")
+	end
+end
+
 local function validateGlobalFormatHook(State)
 	local KRF = rawget(_G, "KoreanRuntimeFixes")
 	if type(KRF) ~= "table" then
@@ -1071,6 +1128,8 @@ local function runValidation(Trigger)
 	checkExpectedFiles(State)
 	validateRuntimeValues(State)
 	validateMergePromotionStrings(State)
+	validateKoreanGlobalContracts(State)
+	validateTargetedMapHints(State)
 	validateGlobalFormatHook(State)
 	validateDerivedCaches(State)
 	writeReport(State)

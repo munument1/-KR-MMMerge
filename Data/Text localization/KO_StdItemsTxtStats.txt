@@ -9,7 +9,7 @@ StdItemsTxt	0	BonusStat	힘
 	7	BonusStat	생명력
 	8	BonusStat	주문력
 	9	BonusStat	방어도
-	10	BonusStat	불 저항
+	10	BonusStat	화염 저항
 	11	BonusStat	공기 저항
 	12	BonusStat	물 저항
 	13	BonusStat	대지 저항

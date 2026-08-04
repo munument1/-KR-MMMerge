@@ -48,7 +48,7 @@ SpcItemsTxt	0	BonusStat	 모든 저항 +10.
 	46	BonusStat	 주문력 +10. 시간이 지남에 따라 주문력을 재생합니다.
 	47	BonusStat	 체력 +15, 방어도 +5.
 	48	BonusStat	 지력과 행운 +10.
-	49	BonusStat	 불 저항 +30. 시간이 지남에 따라 생명력을 재생합니다.
+	49	BonusStat	 화염 저항 +30. 시간이 지남에 따라 생명력을 재생합니다.
 	50	BonusStat	 주문력, 속도 및 지력 +10.
 	51	BonusStat	 체력과 정확도 +10.
 	52	BonusStat	 힘과 인격 +10.
