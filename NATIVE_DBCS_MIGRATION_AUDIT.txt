@@ -1,0 +1,78 @@
+MMMerge Korean native DBCS migration audit (v1.0.15)
+=====================================================
+
+Reason
+------
+A player continued to reproduce intermittent loss of HUD/ESC/shop 2D UI after
+v1.0.14.  Game logic, audio and invisible hitboxes remained active and a full
+process restart restored the interface.  The report increasingly correlated the
+failure with dialogue and map/region transitions.
+
+v1.0.14 removed a real stale host-font restore hazard, but the same symptom after
+that release means the old glyph-7 scratch renderer itself remained an
+unnecessary low-level risk and was not a sufficient explanation for the bug.
+
+Renderer replacement
+--------------------
+- Added the current native FNT_DBCS.lua renderer from might-and-magic/mm678-i18n.
+- Pinned upstream revision:
+  aea1b22666ef556f34a71b4f3945904b04de1466
+- Pinned original upstream Git blob:
+  867d3d9e5077205ab1cd691a49c25e664bd6f09f
+- The only source modification is public metadata exposing NativeInstalled and
+  the pinned upstream revision for the Korean compatibility layer/validator.
+- Rendering now patches MM8 text measurement/wrapping/draw loops and blits DBCS
+  glyphs directly.  KoreanFont.lua no longer installs executable hooks and no
+  longer writes temporary glyphs into host .fnt memory.
+- Old marker-encoded text remains supported through upstream's legacy marker
+  bridge; new runtime Korean strings remain plain EUC-KR.
+- No automatic legacy renderer fallback ships.  If native installation fails,
+  the patch fails closed instead of combining two renderer hook architectures.
+
+Korean page-font configuration
+------------------------------
+Data/LocalizeConf.ini explicitly selects:
+  encoding=euc_kr
+  fontSizes=14,16,29
+  specialFonts=Autonote:15b
+
+This matches the shipped DBCS_14_*, DBCS_15b_*, DBCS_16_* and DBCS_29_* page
+fonts.  The integration validator requires A1 plus every B0-C8 Hangul page for
+all four font groups.
+
+Map-transition runtime cleanup
+------------------------------
+ZZ_KoreanGameplayFeedbackFixes.lua is now a no-op upgrade stub.  The retired
+version scanned and rewrote evt.str/evt.hint during BeforeLoadMapScripts,
+LoadMapScripts, LoadMap, AfterLoadMap and eight subsequent Tick callbacks.
+Static map localization is owned by zz LocKO.T.lod, so the repeated transition-
+time mutation was removed rather than kept in the UI rebuild window.
+
+Validation
+----------
+The pinned upstream MM8 page-font harness completed 53/53 tests successfully,
+covering installation, GetLineWidth, WordWrap/WordWrap2, legacy marker decode,
+direct D/E/F/G blits, DrawTextLimited, stale page eviction/self-heal and buffer
+limits.
+
+The Korean integration checks additionally require:
+- Lua 5.1 syntax for FNT_DBCS.lua, KoreanFont.lua, KoreanFontText.lua and the
+  retired map-feedback stub.
+- KoreanFont.lua contains no mem.hook, mem.hookfunction, mem.asmpatch,
+  mem.asmhook, mem.copy or host-glyph setter code.
+- KoreanFontLegacy.lua does not ship.
+- The renderer matches the pinned upstream Git blob after removing the two
+  metadata lines.
+- LocalizeConf.ini and all required Korean page-font files are present.
+- No map-load/Tick event handler remains in the retired feedback script.
+
+A permanent GitHub Actions check and tools/validate_native_dbcs_integration.py
+were added to prevent the old renderer architecture from returning silently.
+
+Limit
+-----
+There is still no environment here that can reproduce the original issue through
+long in-game play.  This migration therefore removes the entire legacy scratch-
+glyph rendering architecture and the transition-time map rewrite loop, but it
+must not be described as a confirmed fix until player testing verifies that the
+reported UI disappearance no longer occurs.
