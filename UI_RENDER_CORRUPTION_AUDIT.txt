@@ -1,0 +1,54 @@
+MMMerge Korean UI render corruption audit
+Date: 2026-09-04
+Branch: fix/ui-render-memory-corruption
+
+Reported runtime symptoms
+- World rendering and input continue to work.
+- HUD, ESC menu, shop/stable UI and other 2D interface elements can disappear.
+- Invisible buttons remain clickable and gameplay actions still execute.
+- Entering a shop can leave only the doorway/background visible while shopkeeper audio and purchase/travel logic work.
+- A full process restart restores the UI.
+- A separate MM7 Harmondale entrance corruption report may be related if it appears only after the same long-running session.
+
+Why this points at rendering memory/state, not save/event data
+- Input hitboxes, event logic, audio, purchasing, travel and world simulation remain alive.
+- Restart repairs the failure without repairing the save.
+- The failure crosses unrelated UI screens, which is more consistent with a shared renderer/resource problem than one translated table or one map event.
+
+Concrete risk found in Scripts/General/KoreanFont.lua
+1. The legacy Korean renderer temporarily repurposes source-font glyph 7 for each Korean glyph.
+2. Older code cached the source font's glyph data in cachedCharShape[fontAddr] for the lifetime of the process.
+3. The cached block size was FNT.getHeight(fontAddr)^2*2 rather than the exact byte count being replaced.
+4. stopDbcs() later copied that process-lifetime snapshot back through fontAddr without proving that the address still belonged to the same font allocation.
+5. DBCS page fonts were also cached as naked LoadDataFileFromLod() pointers and only checked for superficially readable height/space-width values.
+
+Why this is specifically suspicious in Merge/GrayFace
+Current upstream mm678-i18n FNT_DBCS.lua explicitly revalidates cached font/page pointers because the engine can reload resources (the upstream source mentions reload after alt-tab surface loss as an example). It stores identity/header information with cached pages and reloads them when the allocation has been evicted/reused. Upstream's newer native renderer also avoids the old glyph-7 replacement design by drawing CJK glyphs directly.
+
+Fix implemented on this branch
+- Removed process-lifetime host-font glyph/space snapshots.
+- Source-font state is now saved per active DBCS span only.
+- Glyph 7 is backed up per Korean glyph using exactly the number of bytes that will be overwritten.
+- That scratch area and glyph-7 ABC metrics are restored on the very next character callback, immediately after the engine has consumed the temporary glyph.
+- Source-font identity is captured from invariant header/glyph-offset fields and checked before every restore.
+- If a font address was reused/reloaded, all stale restores are skipped rather than writing old bytes into the new allocation.
+- DBCS page cache entries now carry an identity token and are reloaded when the pointer no longer matches the loaded page.
+- Existing marker encoding, MM8 patch address/signature and public KoreanFont APIs are retained to minimize unrelated behavior changes.
+
+Offline verification
+- texluac -p Scripts/General/KoreanFont.lua: PASS
+- tools/test_korean_font_memory_guard.lua with texlua: PASS
+  - exact glyph-7 scratch restoration
+  - glyph-7 width/before/after restoration
+  - high/low hidden-byte metric restoration
+  - source space-width restoration
+  - stale DBCS page pointer triggers reload
+  - reused host-font address is not overwritten by stale cached data
+
+What is NOT proven without an actual game run
+- The reported disappearing-UI failure is not proven fixed in MM8/MMMerge itself.
+- The legacy renderer still temporarily writes a Korean glyph into the source font's glyph-data region. The dangerous lifetime/stale-restore behavior is removed, but direct blitting is architecturally safer.
+- Harmondale entrance corruption may be an independent map/texture issue if it reproduces immediately after a clean launch.
+
+Long-term recommendation
+After this conservative guard is validated, migrate to the current upstream native/direct-blit FNT_DBCS renderer rather than extending the legacy marker/glyph-7 renderer indefinitely.
