@@ -1,0 +1,123 @@
+name: Release v1.0.15
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.15.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate native DBCS integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/FNT_DBCS.lua
+          luac5.1 -p Scripts/General/KoreanFont.lua
+          luac5.1 -p Scripts/General/KoreanFontText.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.15"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 \
+              | sort -z \
+              | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum README.txt CHANGELOG.txt FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## v1.0.15 Native DBCS 렌더링 안정화
+
+          v1.0.14 이후에도 NPC 대화/지역 이동 전후에 HUD·ESC·상점 UI가
+          간헐적으로 사라진다는 제보가 계속되어 한글 렌더러 구조 자체를
+          교체했습니다.
+
+          ### 핵심 변경
+          - 기존 glyph-7 scratch renderer 완전 폐기
+          - upstream mm678-i18n의 native FNT_DBCS direct-blit renderer 이식
+          - 원본 MM8 폰트 glyph memory를 한글 출력용으로 덮어쓰지 않음
+          - GetLineWidth / WordWrap / Draw / DrawTextLimited 및 draw loop를 DBCS 대응
+          - legacy marker 문자열은 표시 시 자동 해석, 새 문자열은 plain EUC-KR 유지
+          - 구식 renderer 자동 fallback 제거(fail-closed)
+          - Korean page font를 14/16/29 + Autonote 15b로 명시
+          - 지도 이동 전/중/후 및 8 Tick 동안 evt.str/evt.hint를 반복 수정하던
+            ZZ_KoreanGameplayFeedbackFixes runtime loop 퇴역
+
+          ### 검증
+          - permanent native DBCS integration 검사 통과
+          - Lua 5.1 문법 검사 통과
+          - upstream MM8 page-font harness: 53 passed / 0 failed
+          - pinned upstream source/blob 일치 검사
+          - DBCS page-font 존재/구조 검사
+
+          ### 설치
+          ZIP 전체 내용을 Might and Magic 8 / MMMerge 설치 폴더에 그대로
+          덮어쓰십시오. 예전 KoreanFont.lua를 다시 복사하지 마십시오.
+
+          ### 참고
+          실제 장시간 플레이로 원래 UI 소실을 직접 재현할 환경은 없어,
+          이 버전을 '확정 해결'이라고 단정하지 않습니다. v1.0.15는 v1.0.14로
+          해결되지 않았던 구식 host-font mutation architecture와 map-transition
+          runtime rewrite를 구조적으로 제거한 안정화 버전입니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.15"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" --title "MMMerge 한국어 패치 v1.0.15" --notes-file release-notes.md
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "MMMerge 한국어 패치 v1.0.15" \
+              --notes-file release-notes.md
+          fi
