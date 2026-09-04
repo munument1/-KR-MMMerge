@@ -1,3 +1,33 @@
+v1.0.15 Native DBCS Renderer Migration
+- Replaced the legacy Korean glyph-7 scratch renderer with the native direct-blit
+  FNT_DBCS.lua renderer from might-and-magic/mm678-i18n, pinned to upstream
+  revision aea1b22666ef556f34a71b4f3945904b04de1466.
+- Korean text rendering no longer overwrites or restores glyph bitmaps inside
+  the host MM8 .fnt objects. GetLineWidth, WordWrap, Draw, DrawTextLimited and
+  the per-character drawing loops are DBCS-aware and blit Korean page glyphs
+  directly to the destination surface/buffer.
+- Kept compatibility with marker-encoded text in older saves/resources through
+  the upstream legacy marker bridge while new runtime Korean strings remain
+  plain EUC-KR.
+- Removed the automatic legacy renderer fallback so a partial native install
+  cannot combine two incompatible low-level hook architectures.
+- Added explicit Korean page-font configuration: 14/16/29 plus Autonote 15b.
+- Retired ZZ_KoreanGameplayFeedbackFixes.lua's BeforeLoadMapScripts,
+  LoadMapScripts, LoadMap, AfterLoadMap and eight-Tick evt.str/evt.hint rewrite
+  loop; static map STR localization remains owned by zz LocKO.T.lod.
+- Updated KoreanFontText fixed-string handling to the native EUC-KR trail range
+  and preserved old marker decode/finalization only for compatibility.
+- Added tools/validate_native_dbcs_integration.py and permanent GitHub Actions CI
+  to prevent the retired host-glyph renderer from returning.
+- Pinned-source validation checks that FNT_DBCS.lua matches upstream Git blob
+  867d3d9e5077205ab1cd691a49c25e664bd6f09f after removing the two Korean
+  metadata fields.
+- Upstream MM8 page-font harness: 53 passed, 0 failed. Lua 5.1 syntax and Korean
+  integration checks also passed during the migration workflow.
+- This is a structural renderer replacement prompted by continued UI-loss
+  reports on v1.0.14; no direct long-play reproduction environment is available,
+  so it is not described as a confirmed fix until player testing verifies it.
+
 v1.0.14 UI Renderer Memory-Safety Hotfix
 - Fixed a high-risk stale-pointer path in KoreanFont.lua that could restore old
   font bytes into memory reused after Merge/GrayFace resource reloads.
