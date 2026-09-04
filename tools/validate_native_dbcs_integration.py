@@ -30,7 +30,9 @@ ini_path = ROOT / "Data/LocalizeConf.ini"
 for path in (native_path, compat_path, text_path, feedback_path, ini_path):
     require(path.is_file(), f"missing required file: {path.relative_to(ROOT)}")
 
-native_bytes = native_path.read_bytes()
+# .gitattributes intentionally checks Lua files out as CRLF for the Windows
+# game.  Normalize only for comparison with the pinned upstream LF Git blob.
+native_bytes = native_path.read_bytes().replace(b"\r\n", b"\n")
 native = native_bytes.decode("utf-8")
 compat = compat_path.read_text(encoding="utf-8")
 text_util = text_path.read_text(encoding="utf-8")
