@@ -1,14 +1,14 @@
 -- Shared Korean DBCS text utilities for MM8 / MMMerge.
 --
--- Keep all runtime DBCS conversion decisions in one place. Static translation
--- files remain plain EUC-KR/CP949-compatible bytes and are converted exactly
--- once when copied into a game table. This module intentionally does not patch
--- Lua's global string functions or the executable's formatting routines.
+-- v1.0.15 renders plain EUC-KR directly through FNT_DBCS.lua.  This module
+-- keeps the existing localization API stable and still validates/decodes the
+-- legacy marker format found in older saves and preprocessed resources.  It
+-- intentionally does not patch Lua globals or executable formatting routines.
 
 KoreanText = KoreanText or {}
 local KT = KoreanText
 
-KT.Version = "1.0.11a"
+KT.Version = "1.0.15-native"
 KT.LastError = nil
 KT.WarnedMissingFont = KT.WarnedMissingFont or false
 
@@ -31,9 +31,9 @@ function KT.IsEncoded(text)
             or text:find("\7", 1, true) ~= nil)
 end
 
--- Validate the exact control-byte grammar produced by FNT_DBCS/KoreanFont:
+-- Validate the retired marker grammar kept for old save/resource compatibility:
 --   SO SP SO <high><low> BEL (SP SO <high><low> BEL)* SI
--- ASCII bytes may appear outside encoded spans.
+-- Plain EUC-KR contains none of these control bytes and therefore validates.
 function KT.Validate(text)
     if type(text) ~= "string" then
         return false, "value is not a string"
@@ -97,7 +97,7 @@ function KT.EncodeOnce(text)
         if not valid then
             KT.LastError = reason
         end
-        -- Never feed a partially encoded string through encodeSpecial again.
+        -- Never reinterpret an old or partially encoded marker string.
         return text
     end
 
@@ -120,8 +120,8 @@ function KT.EncodeOnce(text)
     return encoded
 end
 
--- Close a span that was cut by an external fixed-size buffer. This mirrors the
--- safety purpose of FNT_DBCS.truncate without performing an arbitrary byte cut.
+-- Close a legacy marker span cut by an external fixed-size buffer.  Plain
+-- native DBCS strings pass validation unchanged.
 function KT.Finalize(text)
     if type(text) ~= "string" or text == "" then
         return text
@@ -142,7 +142,7 @@ function KT.Finalize(text)
     return text
 end
 
--- Fit text into an MM8 fixed-size C string without cutting a DBCS sequence.
+-- Fit text into an MM8 fixed-size C string without cutting an EUC-KR pair.
 -- `capacity` includes the trailing NUL byte (Player.Name is string(32)).
 function KT.FitFixedString(text, capacity)
     if type(text) ~= "string" or text == "" then
@@ -174,7 +174,7 @@ function KT.FitFixedString(text, capacity)
             or (byte >= 0xB0 and byte <= 0xC8)
             or (byte >= 0xCA and byte <= 0xFD))
         local lowByte = plain:byte(index + 1)
-        if isHighByte and lowByte and lowByte >= 0xA0 then
+        if isHighByte and lowByte and lowByte >= 0xA0 and lowByte <= 0xFE then
             width = 2
         end
         local candidatePlain = accepted .. plain:sub(index, index + width - 1)
