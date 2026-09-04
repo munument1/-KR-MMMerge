@@ -1,6 +1,8 @@
 -- Korean DBCS compatibility API for MMMerge.
 -- v1.0.15 moves rendering to FNT_DBCS.lua's native direct-blit path.
 -- This file installs no executable hooks and never writes host glyph memory.
+-- If the native renderer cannot install, we deliberately fail closed instead
+-- of mixing it with the retired glyph-7 scratch renderer.
 
 KoreanFont = KoreanFont or {}
 local KF = KoreanFont
@@ -9,10 +11,6 @@ KF.Debug = false
 KF.Encoding = "euc_kr"
 KF.NativeRenderer = DBCS and DBCS.NativeInstalled or false
 KF.SafetyVersion = "1.0.15-native-dbcs"
-
-local encodingRegex = {
-    euc_kr = "[\161-\172\176-\200\202-\253][\160-\254]"
-}
 
 function KF.isHighByte(b)
     return b and ((b >= 0xA1 and b <= 0xAC)
@@ -24,22 +22,10 @@ function KF.isLowByte(b)
     return b and b >= 0xA0 and b <= 0xFE
 end
 
-local function markerEncode(str)
-    if type(str) ~= "string" or str == "" or str:find("\7", 1, true) then
-        return str
-    end
-    str = str:gsub("(" .. encodingRegex.euc_kr .. ")", "\14\32\14%1\7\15")
-    return str:gsub("\15\14", "")
-end
-
+-- Native FNT_DBCS consumes plain EUC-KR directly.  Keep this public helper for
+-- the existing localization scripts, but never create new legacy marker spans.
 function KF.encodeSpecial(str)
-    if type(str) ~= "string" or str == "" then
-        return str
-    end
-    if KF.NativeRenderer then
-        return str
-    end
-    return markerEncode(str)
+    return str
 end
 
 function KF.decodeSpecial(str)
@@ -65,6 +51,9 @@ local function lastIndexOf(haystack, needle)
     return previous
 end
 
+-- Retained only for compatibility with KoreanText.Finalize and marker-encoded
+-- values from old saves.  It repairs marker grammar without touching fonts or
+-- executable code.
 function KF.truncate(str)
     if type(str) ~= "string" or not str:find("\14", 1, true) then
         return str
@@ -109,10 +98,8 @@ function KF.setPlayerName(number, name)
     local value
     if KoreanText and type(KoreanText.FitFixedString) == "function" then
         value = KoreanText.FitFixedString(name, 32)
-    elseif KF.NativeRenderer then
-        value = fitPlainDbcs(KF.decodeSpecial(name), 32)
     else
-        value = KF.truncate(markerEncode(name))
+        value = fitPlainDbcs(KF.decodeSpecial(name), 32)
     end
     Party[number - 1].Name = value
     return true
