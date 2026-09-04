@@ -1,0 +1,274 @@
+name: Port and validate native DBCS renderer
+
+on:
+  push:
+    branches:
+      - fix/native-dbcs-ui-renderer
+    paths:
+      - .github/workflows/port-native-dbcs.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  port-native-dbcs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Korean patch branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/native-dbcs-ui-renderer
+          fetch-depth: 0
+
+      - name: Fetch pinned upstream renderer and run its harness
+        shell: bash
+        run: |
+          set -euo pipefail
+          UPSTREAM_REV="aea1b22666ef556f34a71b4f3945904b04de1466"
+          UPSTREAM_BLOB="867d3d9e5077205ab1cd691a49c25e664bd6f09f"
+          git clone --quiet https://github.com/might-and-magic/mm678-i18n.git /tmp/mm678-i18n
+          git -C /tmp/mm678-i18n checkout --quiet "$UPSTREAM_REV"
+          SRC="/tmp/mm678-i18n/assets/scripts_datatables/_common/_all/Scripts/General/FNT_DBCS.lua"
+          test "$(git -C /tmp/mm678-i18n hash-object "$SRC")" = "$UPSTREAM_BLOB"
+          python -m pip install --quiet lupa
+          python /tmp/mm678-i18n/tools/fnt_dbcs_harness/run.py
+          cp "$SRC" Scripts/General/FNT_DBCS.lua
+
+      - name: Install Korean compatibility bridge and retire map-load rewrite loop
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Preserve the v1.0.14 renderer as an emergency fallback.  It only
+          # installs when the native renderer failed before publishing a valid
+          # NativeInstalled=true state.
+          if [ ! -f Scripts/General/KoreanFontLegacy.lua ]; then
+            cp Scripts/General/KoreanFont.lua Scripts/General/KoreanFontLegacy.lua
+          fi
+          python - <<'PY'
+          from pathlib import Path
+
+          legacy = Path('Scripts/General/KoreanFontLegacy.lua')
+          text = legacy.read_text(encoding='utf-8')
+          guard = '''-- Emergency fallback only.  The native direct-blit renderer in FNT_DBCS.lua\n-- owns the MM8 text hooks whenever it installed successfully.\nif DBCS and DBCS.NativeInstalled then\n    return\nend\n\n'''
+          if not text.startswith('-- Emergency fallback only.'):
+              legacy.write_text(guard + text, encoding='utf-8', newline='\n')
+
+          native = Path('Scripts/General/FNT_DBCS.lua')
+          text = native.read_text(encoding='utf-8')
+          needle = 'DBCS = {\n'
+          replacement = ('DBCS = {\n'
+                         '\tNativeInstalled = not installFailed,\n'
+                         '\tUpstreamRevision = "aea1b22666ef556f34a71b4f3945904b04de1466",\n')
+          if 'NativeInstalled = not installFailed' not in text:
+              if needle not in text:
+                  raise SystemExit('Could not find DBCS public API block')
+              text = text.replace(needle, replacement, 1)
+          native.write_text(text, encoding='utf-8', newline='\n')
+          PY
+
+          cat > Scripts/General/KoreanFont.lua <<'LUA'
+          -- Korean DBCS compatibility API for MMMerge.
+          --
+          -- v1.0.15 moves actual rendering to FNT_DBCS.lua's native direct-blit
+          -- renderer.  This file intentionally installs NO executable hooks and
+          -- performs NO writes into host .fnt glyph memory.  It only preserves
+          -- the public helpers used by existing Korean localization scripts and
+          -- old marker-encoded saves/data.
+
+          KoreanFont = KoreanFont or {}
+          local KF = KoreanFont
+
+          KF.Debug = false
+          KF.Encoding = "euc_kr"
+          KF.NativeRenderer = DBCS and DBCS.NativeInstalled or false
+          KF.SafetyVersion = "1.0.15-native-dbcs"
+
+          local encodingRegex = {
+              euc_kr = "[\161-\172\176-\200\202-\253][\160-\254]"
+          }
+
+          function KF.isHighByte(b)
+              return b and ((b >= 0xA1 and b <= 0xAC)
+                  or (b >= 0xB0 and b <= 0xC8)
+                  or (b >= 0xCA and b <= 0xFD))
+          end
+
+          function KF.isLowByte(b)
+              return b and b >= 0xA0 and b <= 0xFE
+          end
+
+          local function markerEncode(str)
+              if type(str) ~= "string" or str == "" or str:find("\7", 1, true) then
+                  return str
+              end
+              str = str:gsub("(" .. encodingRegex.euc_kr .. ")", "\14\32\14%1\7\15")
+              return str:gsub("\15\14", "")
+          end
+
+          -- Native FNT_DBCS consumes plain EUC-KR directly.  Keep marker input
+          -- untouched for old saves, but do not create new marker spans when the
+          -- native renderer is active.  If native installation failed, retain the
+          -- old encoding contract for KoreanFontLegacy.lua.
+          function KF.encodeSpecial(str)
+              if type(str) ~= "string" or str == "" then
+                  return str
+              end
+              if KF.NativeRenderer then
+                  return str
+              end
+              return markerEncode(str)
+          end
+
+          function KF.decodeSpecial(str)
+              if type(str) ~= "string" or str == "" then
+                  return str
+              end
+              if DBCS and type(DBCS.decodeSpecial) == "function" then
+                  return DBCS.decodeSpecial(str)
+              end
+              str = str:gsub("\32\14(..)\7", "%1")
+              str = str:gsub("\14([^\15]*)\15", "%1")
+              return str:gsub("[\14\15]", "")
+          end
+
+          local function lastIndexOf(haystack, needle)
+              local previous
+              local found
+              local position = 0
+              repeat
+                  previous = found
+                  found, position = haystack:find(needle, position + 1, true)
+              until found == nil
+              return previous
+          end
+
+          -- Only legacy marker strings need grammar repair.  Plain native DBCS
+          -- strings are length-fitted by KoreanText.FitFixedString instead.
+          function KF.truncate(str)
+              if type(str) ~= "string" or not str:find("\14", 1, true) then
+                  return str
+              end
+              local position = lastIndexOf(str, "\15") or 0
+              position = str:find("\14", position)
+              if not position then
+                  return str
+              end
+              while str:sub(position + 5, position + 5) == "\7"
+                  and str:sub(position + 1, position + 1) == "\32"
+                  and str:sub(position + 2, position + 2) == "\14"
+                  and position + 5 < #str do
+                  position = position + 5
+              end
+              return str:sub(1, position) .. "\15"
+          end
+
+          local function fitPlainDbcs(str, capacity)
+              local maxPayload = math.max(0, (tonumber(capacity) or 32) - 1)
+              local out = ""
+              local i = 1
+              while i <= #str do
+                  local b = str:byte(i)
+                  local width = 1
+                  if KF.isHighByte(b) and KF.isLowByte(str:byte(i + 1)) then
+                      width = 2
+                  end
+                  if #out + width > maxPayload then
+                      break
+                  end
+                  out = out .. str:sub(i, i + width - 1)
+                  i = i + width
+              end
+              return out
+          end
+
+          function KF.setPlayerName(number, name)
+              if type(name) ~= "string" then
+                  return false
+              end
+              local value
+              if KoreanText and type(KoreanText.FitFixedString) == "function" then
+                  value = KoreanText.FitFixedString(name, 32)
+              elseif KF.NativeRenderer then
+                  value = fitPlainDbcs(KF.decodeSpecial(name), 32)
+              else
+                  value = KF.truncate(markerEncode(name))
+              end
+              Party[number - 1].Name = value
+              return true
+          end
+          LUA
+
+          cat > Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua <<'LUA'
+          -- Retired in v1.0.15.
+          --
+          -- Older packages repeatedly rewrote evt.str/evt.hint during
+          -- BeforeLoadMapScripts, LoadMapScripts, LoadMap, AfterLoadMap and the
+          -- following eight Tick events to translate one "brazier" hint.  Map
+          -- STR localization is now owned by zz LocKO.T.lod, and touching event
+          -- proxies throughout a map transition adds avoidable work exactly when
+          -- Merge is rebuilding its 2D/UI state.  Keep this upgrade stub so old
+          -- installations are overwritten by a harmless file.
+          KoreanGameplayFeedbackFixes = KoreanGameplayFeedbackFixes or {}
+          LUA
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/LocalizeConf.ini')
+          p.write_text('[Settings]\nencoding=euc_kr\nfontSizes=14,16,29\nspecialFonts=Autonote:15b\n', encoding='ascii', newline='\n')
+          PY
+
+      - name: Validate integrated Korean renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/FNT_DBCS.lua
+          luac5.1 -p Scripts/General/KoreanFont.lua
+          luac5.1 -p Scripts/General/KoreanFontLegacy.lua
+          luac5.1 -p Scripts/General/KoreanFontText.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+
+          python - <<'PY'
+          from pathlib import Path
+          native = Path('Scripts/General/FNT_DBCS.lua').read_text(encoding='utf-8')
+          compat = Path('Scripts/General/KoreanFont.lua').read_text(encoding='utf-8')
+          legacy = Path('Scripts/General/KoreanFontLegacy.lua').read_text(encoding='utf-8')
+          feedback = Path('Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua').read_text(encoding='utf-8')
+          ini = Path('Data/LocalizeConf.ini').read_text(encoding='ascii')
+
+          required_native = [
+              'BlitGlyph', 'DrawTextLimited', 'GetLineWidth', 'WordWrap',
+              'decodeSpecial', 'NativeInstalled = not installFailed',
+              'euc_kr    = {leadMin = 0xA1'
+          ]
+          for token in required_native:
+              assert token in native, token
+          assert 'mem.hook' not in compat
+          assert 'mem.asmpatch' not in compat
+          assert 'mem.copy' not in compat
+          assert 'if DBCS and DBCS.NativeInstalled then' in legacy
+          assert 'function events.Tick' not in feedback
+          assert 'function events.LoadMap' not in feedback
+          assert 'fontSizes=14,16,29' in ini
+          assert 'specialFonts=Autonote:15b' in ini
+          print('PASS: native direct-blit renderer integrated; legacy hook gated; map rewrite loop retired')
+          PY
+
+      - name: Commit generated port
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Scripts/General/FNT_DBCS.lua Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontLegacy.lua Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Data/LocalizeConf.ini
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit"
+            exit 0
+          fi
+          git commit -m "Port native DBCS renderer and retire map-load rewrites"
+          git push origin HEAD:fix/native-dbcs-ui-renderer
