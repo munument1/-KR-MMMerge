@@ -53,7 +53,7 @@ jobs:
           ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
           printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
 
-          cat > release-notes.md <<EOF
+          cat > release-notes.md <<'EOF'
           ## v1.0.14 UI 렌더링 안정화 핫픽스
 
           장시간 플레이 중 HUD, ESC 메뉴, 상점·마구간 등 2D 인터페이스가 사라지지만
@@ -74,7 +74,7 @@ jobs:
 
           ### 설치
           ZIP의 내용을 Might and Magic 8 / MMMerge 설치 폴더에 그대로 덮어쓰십시오.
-          구버전의 `Scripts/General/KoreanFont.lua`를 다시 복사하지 마십시오.
+          구버전의 Scripts/General/KoreanFont.lua를 다시 복사하지 마십시오.
 
           ### 검증 상태
           코드상 확인된 메모리 오염 가능 경로와 stale pointer 복구 경로를 차단했고,
@@ -82,9 +82,8 @@ jobs:
           직접 재현할 환경은 없어 사용자 제보 기반 안정화 핫픽스로 배포합니다.
 
           ZIP SHA-256:
-
-          `${ZIP_SHA}`
           EOF
+          printf '\n%s\n' "$ZIP_SHA" >> release-notes.md
 
           echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
 
