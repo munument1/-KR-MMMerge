@@ -1,11 +1,21 @@
 ============================================================
-MMMerge 한국어 패치 v1.0.14
+MMMerge 한국어 패치 v1.0.15
 ============================================================
 
 이 패치는 Might and Magic 6·7·8 Merge(MMMerge)의 한국어 번역 패치입니다.
-v1.0.14는 장시간 플레이 중 HUD·ESC·상점 UI 등 2D 인터페이스가
-사라질 수 있는 한글 폰트 렌더러의 메모리 안전성 문제를 보강한
-안정화 핫픽스입니다. v1.0.13c까지의 모든 번역 보강을 포함합니다.
+v1.0.15는 장시간 플레이 중 HUD·ESC·상점 UI 등 2D 인터페이스가
+간헐적으로 사라진다는 제보를 계속 추적하면서 한글 출력 구조 자체를
+교체한 렌더링 안정화 버전입니다. v1.0.14 및 v1.0.13c까지의 모든
+번역·안정화 변경을 포함합니다.
+
+중요:
+- v1.0.14의 stale font pointer 방어는 실제 위험 경로를 제거했지만,
+  제보자의 동일 증상이 계속 발생해 그것만으로는 원인이 아니었음을 확인했습니다.
+- v1.0.15는 구식 glyph-7 임시 덮어쓰기 렌더러를 완전히 폐기하고
+  upstream의 native direct-blit DBCS 렌더러로 교체했습니다.
+- 실제 장시간 플레이 재현 환경이 없으므로 UI 소실 문제가 완전히 해결됐다고
+  단정하지 않습니다. 이번 버전은 남아 있던 저수준 렌더러 구조 자체를 제거한
+  근본적인 안정화 변경입니다.
 
 1. 설치 방법
 ------------------------------------------------------------
@@ -19,111 +29,129 @@ v1.0.14는 장시간 플레이 중 HUD·ESC·상점 UI 등 2D 인터페이스가
 예시 설치 경로:
   D:\GOG\Might and Magic 8\
 
-정상 설치 후 주요 파일 위치:
+정상 설치 후 주요 파일:
   Data\zz LocKO.T.lod
+  Data\LocalizeConf.ini
   Data\Text localization\KO_*.txt
   DataFiles\DBCS_*.fnt
+  Scripts\General\FNT_DBCS.lua
   Scripts\General\KoreanFont.lua
+  Scripts\General\KoreanFontText.lua
   Scripts\General\LocalizeTables.lua
 
 2. 기존 버전에서 업데이트
 ------------------------------------------------------------
-- 가능하면 변경 파일만 넣지 말고 전체 설치본을 다시 덮어쓰십시오.
-- 구버전에서 따로 보관한 Lua 또는 번역 파일을 다시 복원하지 마십시오.
-- 특히 예전 KoreanFont.lua를 다시 넣으면 v1.0.14의 렌더링 안정화 수정이
-  사라지므로 반드시 최신 파일로 덮어쓰십시오.
-- 업데이트 전에는 저장 파일을 별도로 백업하는 것을 권장합니다.
+- 변경 파일만 골라 넣지 말고 전체 설치본을 다시 덮어쓰는 것을 권장합니다.
+- 구버전의 KoreanFont.lua를 따로 백업해 두었다가 다시 복사하지 마십시오.
+- v1.0.15는 예전 glyph-7 scratch renderer와 동시에 사용할 수 없습니다.
+- 구버전에서 남은 ZZ_KoreanGameplayFeedbackFixes.lua도 최신 무동작 파일로
+  반드시 덮어써야 지도 이동 중 반복 evt.str/evt.hint 수정이 사라집니다.
+- 업데이트 전 저장 파일 백업을 권장합니다.
 
-3. v1.0.14 UI 렌더링 안정화
+3. v1.0.15 native DBCS 렌더러
 ------------------------------------------------------------
-제보 증상:
-- 플레이 중 HUD와 ESC 메뉴가 보이지 않음
-- 상점에 들어가도 문 배경만 보이고 상점 UI가 표시되지 않음
-- 상점 주인 음성, 메뉴 클릭 판정, 구매, 마구간 이동 등은 정상 작동
-- 월드 3D 화면과 조작은 정상
-- 게임을 완전히 종료하고 다시 실행하면 정상화
+기존 한글 출력 방식은 한글 한 글자를 표시할 때 MM8 원본 폰트의 glyph 7을
+임시 버퍼처럼 덮어쓰고 엔진이 그린 뒤 다시 복구하는 구조였습니다.
 
-이번 버전에서는 한글 글리프를 그릴 때 원본 MM8 폰트 메모리를
-임시로 사용하는 KoreanFont.lua의 복구 방식을 보강했습니다.
+v1.0.15에서는 이 방식을 사용하지 않습니다.
 
-주요 수정:
-- 프로세스 전체 수명 동안 보관하던 원본 폰트 메모리 스냅샷 제거
-- DBCS 출력 구간마다 현재 폰트 identity를 저장하고 복구 전에 재검증
-- 같은 주소가 다른 리소스로 재사용된 경우 오래된 데이터를 쓰지 않음
-- glyph 7 백업 범위를 height^2*2가 아니라 실제 덮어쓰는 바이트 수로 제한
-- glyph 7의 bitmap뿐 아니라 width/before/after를 함께 정확히 복구
-- 임시 한글 글리프는 엔진이 사용한 다음 callback에서 즉시 복구
-- DBCS 페이지 폰트 캐시도 stale 여부를 확인하고 필요하면 다시 로드
+- upstream mm678-i18n의 FNT_DBCS.lua native renderer 이식
+- upstream revision:
+  aea1b22666ef556f34a71b4f3945904b04de1466
+- MM8 GetLineWidth / WordWrap / Draw / DrawTextLimited 및 문자 draw loop를
+  DBCS 대응으로 처리
+- 한글 glyph를 원본 MM8 폰트 메모리에 복사하지 않고 화면 버퍼로 직접 blit
+- DBCS page font가 reload/evict된 경우 stale pointer를 검사하고 재취득
+- 기존 세이브나 리소스에 남아 있는 옛 marker 문자열은 그리는 순간 자동 해석
+- 새 런타임 한국어 문자열은 plain EUC-KR 상태로 유지
+- native renderer가 설치되지 못한 경우 구식 renderer를 자동 재활성화하지 않음
+  (서로 다른 저수준 hook이 겹치지 않도록 fail-closed)
 
-오프라인 fake-FNT 메모리 하네스로 다음 항목을 검증했습니다.
-- glyph bitmap 정확 복구
-- glyph 7 ABC metric 복구
-- 숨김 처리한 high/low byte metric 복구
-- space width 복구
-- stale DBCS 페이지 재로드
-- 재사용된 host-font 주소에 오래된 데이터를 쓰지 않음
+현재 한국어 폰트 자산에 맞춰 Data\LocalizeConf.ini에 다음을 명시합니다.
+  encoding=euc_kr
+  fontSizes=14,16,29
+  specialFonts=Autonote:15b
 
-실제 장시간 플레이에서 동일 제보를 직접 재현할 환경은 없으므로,
-이번 수정은 코드상 확인된 메모리 오염 가능 경로를 차단한 핫픽스입니다.
-문제가 다시 발생하면 아래 문제 제보 항목의 정보를 함께 남겨 주십시오.
-
-4. v1.0.13c 지도명·오브젝트 용어 보강
+4. 지도 이동 중 runtime rewrite 제거
 ------------------------------------------------------------
-- v1.0.13b 이후 남아 있던 영문 지도·던전·시설·오브젝트 명칭을
-  다시 전수 조사했습니다.
-- 71개 지도 파일의 표시 항목 181개를 추가로 한국어화했습니다.
-- 지역명과 던전명은 KO_MapStats 및 기존 퀘스트·대화 번역에 맞췄습니다.
-- 체력·인격·지력·정확도 등 성소 이름도 현재 능력치 용어와 통일했습니다.
-- 대표적인 추가 번역:
-    GoblinWatch -> 고블린워치
-    Shrine of Endurance -> 체력의 성소
-    City of Steadwick -> 스테드윅 시
-    Computer Terminal -> 컴퓨터 단말기
-    Tomb of Varn -> VARN의 무덤
-    Signal Fire Pit -> 봉화 화로
-- 전체 KO_MapStrings 오버레이는 852개이며 정적 LOD와 일치합니다.
-- 영문만 남은 76개는 수수께끼 정답, 암호 조각, 한 글자 코드,
-  삭제 문자열, 개발용 자리표시자로 확인해 의도적으로 보존했습니다.
+과거 화로(brazier) 표시 보정을 위해 ZZ_KoreanGameplayFeedbackFixes.lua가
+다음 시점마다 evt.str / evt.hint를 반복 순회·수정하고 있었습니다.
 
-감사 자료:
-  tools\MAP_REACTION_TRANSLATIONS.tsv
-  tools\MAP_LABEL_TRANSLATIONS.tsv
-  tools\MAP_LABEL_PROTECTED.tsv
+- BeforeLoadMapScripts
+- LoadMapScripts
+- LoadMap
+- AfterLoadMap
+- 이후 8 Tick
 
-5. v1.0.13b 반응·상태 문구 번역
+현재 지도 STR 번역은 zz LocKO.T.lod의 정적 리소스가 담당하므로 이 반복
+수정 경로를 퇴역시켰습니다. v1.0.15의 해당 파일은 구버전 설치를 덮어쓰기
+위한 무동작 stub입니다.
+
+5. 검증
 ------------------------------------------------------------
-- 209개 STR 지도 리소스를 전수 조사했습니다.
-- 163개 지도 파일에서 사용자에게 실제로 표시되는 영문 문구
-  658개를 한국어로 번역했습니다.
-- 상호작용 반응, 자물쇠·함정 상태, 능력치 효과, 입장·퇴장 안내,
-  표지판, VARN 시설 안내, MM6 추가 던전 이벤트를 포함합니다.
+upstream MM8 page-font 오프라인 하네스:
+  53 passed / 0 failed
 
-6. v1.0.13a 제보 수정
+검증 범위:
+- native hook 설치
+- GetLineWidth
+- WordWrap / WordWrap2
+- DBCS pair 경계 줄바꿈
+- legacy marker decode
+- main / limited / scroll / centered direct glyph blit
+- stale DBCS page eviction 및 self-heal
+- buffer 길이 제한
+
+한국어 패치 통합 검사:
+- FNT_DBCS.lua / KoreanFont.lua / KoreanFontText.lua Lua 5.1 문법 검사
+- KoreanFont.lua에 mem.hook / asmpatch / asmhook / mem.copy 없음
+- 구식 KoreanFontLegacy.lua 미포함 확인
+- FNT_DBCS.lua가 지정한 upstream blob과 일치하는지 검사
+- DBCS_14 / 15b / 16 / 29의 A1 및 B0-C8 페이지 존재 확인
+- map-load / Tick runtime rewrite가 퇴역 상태인지 검사
+
+개발자용 검사:
+  python tools\validate_native_dbcs_integration.py .
+
+자세한 분석:
+  NATIVE_DBCS_MIGRATION_AUDIT.txt
+  UI_RENDER_CORRUPTION_AUDIT.txt
+
+6. UI 소실 문제 제보 시 확인할 항목
 ------------------------------------------------------------
-- Endurance를 체력, Personality를 인격으로 통일했습니다.
-- 아이언피스트 성 입장 화면의 자리표시자 표시 오류를 수정했습니다.
-- MM6 비마법 길드 가입 이벤트 6종을 복구했습니다.
-- 바의 신전 초입 표지판 4종과 Zap! 등 남은 문구를 번역했습니다.
+문제가 다시 발생하면 가능하면 다음을 확인해 주십시오.
 
-7. v1.0.13 주문명 통일
+- 발생 직전 행동: NPC 대화, 상점 진입, 지역 이동, Alt+Tab 등
+- 문제가 난 상태에서 F4로 창모드/전체화면 전환했을 때 UI가 살아나는지
+- HUD뿐 아니라 ESC 메뉴도 보이지 않는지
+- 보이지 않는 메뉴 위치를 클릭했을 때 기능은 계속 동작하는지
+- 키보드 저장 후 게임을 완전히 재실행하면 정상화되는지
+- Hardware Accelerated 3D / Software 3D 여부
+- dgVoodoo 사용 여부
+- 사용 중인 MMMerge 버전과 한국어 패치 버전
+- 가능하면 문제 화면과 재현 가능한 저장 파일
+
+F4 전환으로 즉시 UI가 복구된다면 한글 텍스트 데이터보다는
+DirectDraw/2D surface 복구 계층을 더 우선적으로 의심할 수 있습니다.
+
+7. 기존 번역 범위
 ------------------------------------------------------------
-- MM8 기본 주문 99개의 이름과 짧은 이름을 하나의 기준으로 통일했습니다.
-- 주문 목록, 주문서, 마법서, 관련 시스템 문구와 정적 LOD를 맞췄습니다.
-- 대표적인 변경 예시:
-    마인드 블래스트 -> 정신 폭발
-    파이어볼 -> 화염구
-    메테오 샤워 -> 유성우
-    대규모 왜곡 -> 질량 왜곡
-    로이드의 신호기 -> 로이드의 봉화
-    드래곤 브레스 / 드래곤의 숨결 -> 용의 숨결
-- 화로 오브젝트의 brazier 표시를 화로로 수정했습니다.
-- 훈련 문구의 레벨·골드·필요 경험치 숫자 순서를 수정했습니다.
+v1.0.13c까지 다음 항목을 포함해 지도·던전·시설·오브젝트 및 상호작용
+문구를 대규모로 정리했습니다.
 
-자세한 변경 내역은 CHANGELOG.txt를 확인하십시오.
+- 71개 지도 파일의 표시 항목 181개 추가 한국어화
+- 209개 STR 리소스 검토
+- 163개 지도 파일의 사용자 표시 문구 658개 한국어화
+- KO_MapStrings 오버레이 852개
+- MM8 기본 주문 99개 명칭/짧은 이름 통일
+- 성소·길드·시설·지역명·던전명 용어 통일
+- 수수께끼 정답, 암호 조각, 내부 코드 등 판정용 문자열은 의도적으로 보존
+
+자세한 이전 버전 내역은 CHANGELOG.txt를 확인하십시오.
 
 8. 의도적으로 영문을 유지하는 항목
 ------------------------------------------------------------
-다음 표기는 저장 슬롯과 퀵세이브 처리에 민감해 영문으로 유지합니다.
+저장 슬롯과 퀵세이브 처리에 민감한 다음 표기는 영문으로 유지합니다.
   Empty
   Quick Save
 
@@ -131,69 +159,25 @@ v1.0.14는 장시간 플레이 중 HUD·ESC·상점 UI 등 2D 인터페이스가
 - 수수께끼 정답과 암호 입력값
 - 오벨리스크 암호 조각
 - 한 글자 스위치 코드
-- (removed)로 표시된 삭제 문자열
+- (removed) 삭제 문자열
 - 개발용 자리표시자와 디버그 문자열
 
-9. 설치 후 확인할 항목
-------------------------------------------------------------
-- 장시간 플레이 후 HUD와 ESC 메뉴가 계속 표시되는지 확인합니다.
-- 상점·마구간 화면이 정상적으로 표시되는지 확인합니다.
-- Alt+Tab 또는 화면 전환 뒤 인터페이스가 정상적으로 유지되는지 확인합니다.
-- 캐릭터 능력치와 아이템 보너스가 체력·인격으로 일치하는지 확인합니다.
-- 광전사의 분노 가입 항목이 정상적으로 반응하는지 확인합니다.
-- 바의 신전 초입 표지판과 전기 장치 반응이 한국어인지 확인합니다.
-- 문, 상자, 스위치, 함정, 제단, 분수의 반응 문구가 한국어인지 확인합니다.
-- VARN의 무덤과 제어 센터 안내 화면이 정상적으로 표시되는지 확인합니다.
-- 지도명, 던전명, 성소·길드·시설·오브젝트 이름이 한국어인지 확인합니다.
-- 주문 목록과 주문서·마법서 이름이 일치하는지 확인합니다.
-
-10. 자동 검사기와 개발자용 검사
-------------------------------------------------------------
-일반 사용자는 검사기를 실행할 필요가 없습니다.
-자동 검사는 기본적으로 꺼져 있습니다.
-
-자동 검사를 켜려면:
-  Data\KO_LocalizationValidator.ini
-  Enabled=0 -> Enabled=1
-
-검사 결과:
-  Data\KO_LocalizationValidation.log
-
-개발 환경 검사:
-  python tools\validate_spell_names.py .
-  python tools\validate_feedback_regressions.py .
-  python tools\validate_v113a_feedback.py .
-  python tools\validate_map_reactions.py .
-  python tools\validate_map_labels.py .
-
-v1.0.14 메모리 안전성 하네스:
-  tools\test_korean_font_memory_guard.lua
-
-11. 문제 제보 시 필요한 정보
-------------------------------------------------------------
-다음 정보를 함께 남기면 확인이 빠릅니다.
-- 문제가 발생하기 직전에 한 행동(상점 진입, 맵 이동, Alt+Tab 등)
-- 문제 화면 스크린샷
-- 사용 중인 MMMerge 버전과 한국어 패치 버전
-- Hardware Accelerated 3D / Software 3D 여부
-- dgVoodoo 사용 여부
-- 게임을 재실행했을 때 같은 저장에서 정상화되는지 여부
-- 가능하면 재현 가능한 저장 파일
-
-저장소:
-  https://github.com/munument1/-KR-MMMerge
-
-12. 파일 안내
+9. 파일 안내
 ------------------------------------------------------------
 README.txt                         설치와 사용 안내
 CHANGELOG.txt                      전체 변경 이력
+NATIVE_DBCS_MIGRATION_AUDIT.txt    v1.0.15 렌더러 교체 분석/검증
+UI_RENDER_CORRUPTION_AUDIT.txt     v1.0.14 UI 소실 원인 분석
 STR_TRANSLATION_COVERAGE.txt       지도 STR 번역 범위와 제외 기준
 FONT_LICENSES.md                   포함 글꼴 라이선스 안내
-UI_RENDER_CORRUPTION_AUDIT.txt     v1.0.14 렌더링 문제 분석 기록
 Data\Text localization\          번역 원본 테이블
 Data\zz LocKO.T.lod               게임에서 읽는 정적 한국어 리소스
-DataFiles\                        한글 출력용 DBCS 글꼴
-Scripts\                          런타임 호환 및 제한적 보정 스크립트
+DataFiles\                        한글 출력용 DBCS 페이지 폰트
+Scripts\General\FNT_DBCS.lua     native direct-blit DBCS 렌더러
+Scripts\General\KoreanFont.lua    한국어 호환 API(저수준 hook 없음)
 tools\                            빌드·검사·번역 감사용 개발 도구
+
+저장소:
+  https://github.com/munument1/-KR-MMMerge
 
 ============================================================
