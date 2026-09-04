@@ -1,3 +1,20 @@
+v1.0.14 UI Renderer Memory-Safety Hotfix
+- Fixed a high-risk stale-pointer path in KoreanFont.lua that could restore old
+  font bytes into memory reused after Merge/GrayFace resource reloads.
+- Replaced process-lifetime host-font snapshots with per-DBCS-span snapshots
+  guarded by font identity checks before every restore.
+- Limited temporary glyph-7 backup/restore to the exact byte count overwritten
+  for the current Korean glyph instead of height^2*2 bytes.
+- Restored glyph-7 width, space-before, and space-after metrics together with
+  its bitmap immediately after the engine consumes the temporary glyph.
+- Added stale DBCS page detection/reload and blocked all stale writes when a
+  host-font address is reused for different content.
+- Added an offline fake-FNT memory harness covering exact restoration, page
+  reload, and reused-address protection.
+- This hotfix targets reports where HUD/ESC/shop UI disappears during play while
+  world rendering, sound, hitboxes, purchasing/travel logic remain active and a
+  full process restart restores the interface.
+
 v1.0.13c Map Label and Object Terminology Pass
 - Reviewed every English-only STR field remaining after v1.0.13b.
 - Localized 181 user-visible map, dungeon, shrine, guild, facility, object,
@@ -123,10 +140,10 @@ v1.0.9c TEST
 - Added one-time mm8.ini backup before updating QuickSavesCount, QuickSavesName, and SpaceBeforeQuicksaveDigit.
 
 v1.0.9b TEST
-- Restored GlobalTxt[748] from Korean "���� ����" to the original English label "Quick Save".
+- Restored GlobalTxt[748] from Korean "빠른 저장" to the original English label "Quick Save".
 
 v1.0.9a TEST
-- Restored the save-slot label GlobalTxt[72] from Korean "��ĭ" to the original English "Empty" after user feedback.
+- Restored the save-slot label GlobalTxt[72] from Korean "빈칸" to the original English "Empty" after user feedback.
 
 v1.0.9 TEST
 - Integrated STR map-label translation, safe Korean formatting, temporary-stat parser, and new-game crash fix.
@@ -143,10 +160,12 @@ v1.0.9 TEST HOTFIX
 - Removed unsupported GlobalTxt records 750-757.
 
 v1.0.6
-- Fixed English NPC names copied into existing save files remaining untranslated.
-- Preserved English-to-Korean NPC name mappings while loading localization tables.
-- Migrated persisted random NPC names after map loading so they remain Korean after saving again.
-- Verified Margaret the Docent is displayed as ?��?��?�� 마거�? in the game.
+- Fixed untranslated and partially untranslated NPC dialogue, including greetings.
+- Added Korean localization for 539 male/female random NPC name pairs.
+- Added Korean localization for all 132 spell entries, including names,
+  descriptions, and Normal/Expert/Master/Grandmaster effects.
+- Normalized NPC dialogue records so multiline source text is loaded in full.
+- Improved Korean byte encoding and multiline localization table handling.
 
 v1.0.5
 - Fixed MM8 Day of the Destroyer history remaining visible in MM6.
