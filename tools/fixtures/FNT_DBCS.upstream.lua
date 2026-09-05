@@ -1,4 +1,3 @@
--- Korean UI investigation test1: owned long-wrap buffer and bounded cache.
 -- FNT_DBCS.lua -- native (marker-free) DBCS rendering for MM8 / MM Merge (GrayFace Patch + MMExtension)
 -- Plain GB2312/GBK/Big5/EUC bytes in game text render directly with DBCS page fonts;
 -- word wrap can break after any CJK character, with basic kinsoku punctuation rules.
@@ -130,13 +129,8 @@ local function dlog(msg)
 	end
 end
 
-local diagnosticState = {errors = 0, lastError = "", installError = ""}
 local loggedOnce = {}
 local function dlogOnce(key, msg)
-	if key:sub(1, 4) == "err:" then
-		diagnosticState.errors = diagnosticState.errors + 1
-		diagnosticState.lastError = msg:sub(1, 500)
-	end
 	if not loggedOnce[key] then
 		loggedOnce[key] = true
 		dlog(msg)
@@ -181,8 +175,11 @@ local ENGINES = {
 		BlitGlyphShadow = 0x4A4E9F, -- thiscall(screen; x, y, glyph, w, h, pal, color, shadow)
 		BlitGlyphToBuf  = 0x410AA5, -- fastcall(dest, glyph; w, h, pal, color, pitch*2)
 		Strlen          = 0x4DA190,
-		Cap = 4095,         -- capacity of our OWN long-text allocation, not WrapBuf
-		EngineCap = 2047,   -- original MM8 WordWrappedText including NUL is 2048
+		Cap = 4095,         -- WordWrappedText is nominally 2048 bytes, but the
+		                    -- vanilla ENGLISH history texts already make the
+		                    -- original in-place wrap write up to 3709 bytes
+		                    -- there (entry 1) - so up to 4095 is no worse than
+		                    -- what the vanilla game does on every history view
 		L1 = {0x449D26, 1}, -- GetTextHeight:  push ebx      -> push eax (wrap result)
 		L2 = {0x449DB8, 3}, -- GetTextHeight2: push [ebp+8]  -> push eax
 		L3 = {0x449E4C, 1}, -- PageBreak:      push esi      -> push eax
@@ -275,47 +272,6 @@ local ENGINES = {
 }
 local ADDR = ENGINES[mmver]
 local WRAP_CAP = ADDR.Cap
-local ENGINE_WRAP_CAP = ADDR.EngineCap or WRAP_CAP
--- Do not use adjacent engine globals as extra capacity. Short results keep the
--- old address; only long results use this process-owned allocation.
-local longWrapBuffer = mem.StaticAlloc(WRAP_CAP + 1)
-local lastLongWrap = false
-
-local function safePrefix(s, capacity)
-	local i, last = 1, 0
-	while i <= #s do
-		local c = byte(s, i)
-		local n = 1
-		-- Control operands must not be cut either (tab=3 digits, color=5).
-		if c == 9 then n = 4
-		elseif c == 12 then n = 6
-		elseif c >= enc.leadMin and i < #s then
-			local hi, lo = false, false
-			for _, r in ipairs(enc.hi) do if c >= r[1] and c <= r[2] then hi = true end end
-			for _, r in ipairs(enc.lo) do
-				local b = byte(s, i + 1)
-				if b >= r[1] and b <= r[2] then lo = true end
-			end
-			if hi and lo then n = 2 end
-		end
-		if i + n - 1 > capacity or i + n - 1 > #s then break end
-		last, i = i + n - 1, i + n
-	end
-	return s:sub(1, last)
-end
-
-local function storeWrapped(out)
-	lastLongWrap = #out > ENGINE_WRAP_CAP
-	if lastLongWrap then
-		copy(longWrapBuffer, out .. "\0")
-		-- Legacy Lua consumers of Game.WordWrappedText still get a valid,
-		-- bounded prefix. Native render/height/page consumers use the return ptr.
-		copy(ADDR.WrapBuf, safePrefix(out, ENGINE_WRAP_CAP) .. "\0")
-		return longWrapBuffer
-	end
-	copy(ADDR.WrapBuf, out .. "\0")
-	return ADDR.WrapBuf
-end
 
 local leadMin = enc.leadMin
 
@@ -1243,33 +1199,7 @@ local function tokenize(s, font1, font2)
 	return toks
 end
 
--- Lua 5.1 does not collect strings from weak-value tables. Bound both the
--- count and bytes instead; discard the oldest inserted result when full.
-local CACHE_MAX_ENTRIES, CACHE_MAX_BYTES = 256, 512 * 1024
-local wrapCache, cacheQueue = {}, {}
-local cacheHead, cacheCount, cacheBytes = 1, 0, 0
-local function clearWrapCache()
-	wrapCache, cacheQueue = {}, {}
-	cacheHead, cacheCount, cacheBytes = 1, 0, 0
-end
-local function cacheResult(key, value)
-	local cost = #key + #value
-	if cost > CACHE_MAX_BYTES then return end
-	while cacheCount > 0 and (cacheCount >= CACHE_MAX_ENTRIES or cacheBytes + cost > CACHE_MAX_BYTES) do
-		local old = cacheQueue[cacheHead]
-		cacheBytes = cacheBytes - #old - #wrapCache[old]
-		wrapCache[old], cacheQueue[cacheHead] = nil, nil
-		cacheHead = cacheHead % CACHE_MAX_ENTRIES + 1
-		cacheCount = cacheCount - 1
-	end
-	local tail = (cacheHead + cacheCount - 1) % CACHE_MAX_ENTRIES + 1
-	cacheQueue[tail], wrapCache[key] = key, value
-	cacheCount, cacheBytes = cacheCount + 1, cacheBytes + cost
-end
-local function cacheStats()
-	return {entries = cacheCount, bytes = cacheBytes,
-		maxEntries = CACHE_MAX_ENTRIES, maxBytes = CACHE_MAX_BYTES}
-end
+local wrapCache = setmetatable({}, {__mode = "v"})
 
 local function wrapText(s, font1, font2, W, x0)
 	local ck = s .. "\1" .. font1 .. "\1" .. (font2 or 0) .. "\1" .. W .. "\1" .. x0
@@ -1371,7 +1301,7 @@ local function wrapText(s, font1, font2, W, x0)
 		total = total + #b
 	end
 	local out = table.concat(parts)
-	cacheResult(ck, out)
+	wrapCache[ck] = out
 	return out
 end
 
@@ -1403,7 +1333,6 @@ local function trace(msg)
 end
 
 local function wrapHandler(str, font1, font2, dlg, x, keepR)
-	lastLongWrap = false
 	if str == 0 then
 		u1[ADDR.WrapBuf] = 0
 		return ADDR.WrapBuf
@@ -1414,7 +1343,7 @@ local function wrapHandler(str, font1, font2, dlg, x, keepR)
 		s = decodeSpecial(s)
 		decoded = true
 	end
-	if #s <= ENGINE_WRAP_CAP and not decoded and not s:find("[\129-\255]") then
+	if not decoded and not s:find("[\129-\255]") then
 		return nil -- pure ASCII: original engine path
 	end
 	if keepR == 0 and s:find("\13", 1, true) then
@@ -1425,9 +1354,9 @@ local function wrapHandler(str, font1, font2, dlg, x, keepR)
 	trace(format("%s len=%d f1=%X f2=%X W=%d x=%d",
 		font2 and "wrap2" or "wrap", #s, font1, font2 or 0, i4[dlg + 8], x))
 	local out = wrapText(s, font1, font2, i4[dlg + 8], x)
-	local result = storeWrapped(out)
+	copy(ADDR.WrapBuf, out .. "\0")
 	trace("  -> " .. #out .. " bytes")
-	return result
+	return ADDR.WrapBuf
 end
 
 -- shared pair fetch/validation; returns hi, lo (or nil if not a renderable pair)
@@ -1751,22 +1680,6 @@ end
 -- ============ INSTALLATION ============
 -- every step is pcall'd and logged; patch A goes last and only on full success
 
--- The MMExtension Lua wrapper historically ignores WordWrap's return pointer
--- for ReturnPointer=true. Preserve its byte-array contract for long output.
--- This class method is shared by existing Fnt objects (RSMem class lookup).
-if mmver == 8 and structs and structs.Fnt and structs.Fnt.WordWrap then
-	local original = structs.Fnt.WordWrap
-	local longView = mem.struct(function(define)
-		define.array(WRAP_CAP + 1).u1 "Bytes"
-	end):new(longWrapBuffer).Bytes
-	structs.Fnt.WordWrap = function(self, str, dlg, x, keepR, returnPointer)
-		lastLongWrap = false
-		local result = original(self, str, dlg, x, keepR, returnPointer)
-		if returnPointer and lastLongWrap then return longView end
-		return result
-	end
-end
-
 local installFailed = false
 local function step(name, fn)
 	local ok, err = pcall(fn)
@@ -1774,7 +1687,6 @@ local function step(name, fn)
 		dlog("install " .. name .. ": ok")
 	else
 		installFailed = true
-		diagnosticState.installError = name .. ": " .. tostring(err)
 		dlog("install " .. name .. ": FAILED: " .. tostring(err))
 	end
 end
@@ -2046,7 +1958,6 @@ dlog(installFailed and "install INCOMPLETE - native DBCS disabled" or "install c
 -- old saves stored marker-encoded names/biographies; normalize them to plain text
 
 function events.AfterLoadMap()
-	clearWrapCache()
 	local ok, err = pcall(function()
 		local n = 0
 		for i, pl in Party.PlayersArray do
@@ -2073,12 +1984,6 @@ end
 -- ============ DEMO / PUBLIC API ============
 
 DBCS = {
-	NativeInstalled = not installFailed,
-	SafetyRevision = "ui-test1",
-	Diagnostics = diagnosticState,
-	getWrapCacheStats = cacheStats,
-	clearWrapCache = clearWrapCache,
-	UpstreamRevision = "aea1b22666ef556f34a71b4f3945904b04de1466",
 	decodeSpecial = decodeSpecial,
 	measureLine = measureLine,
 	wrapText = wrapText,

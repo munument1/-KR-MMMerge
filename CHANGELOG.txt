@@ -1,3 +1,10 @@
+UI investigation test1 (2026-09-05, 비정식 테스트본)
+- 긴 줄바꿈 출력용 독립 버퍼로 원래 게임 버퍼 경계 밖 쓰기 제거
+- 줄바꿈 캐시 개수/문자열 용량 제한 및 지도 로드 후 초기화
+- UI 상태 기록, Ctrl+Alt+F10 발생 표시, 제한된 로그 회전
+- 기존 53개 + 추가 18개 오프라인 검사 통과; 실제 게임 재현 미검증
+- 자세한 설명: UI_TEST1_README.txt / UI_TEST1_NOTES.md
+
 v1.0.15 Native DBCS Renderer Migration
 - Replaced the legacy Korean glyph-7 scratch renderer with the native direct-blit
   FNT_DBCS.lua renderer from might-and-magic/mm678-i18n, pinned to upstream

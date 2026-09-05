@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - fix/native-dbcs-ui-renderer
+      - codex/ui-render-diagnostics
     paths:
       - Scripts/General/FNT_DBCS.lua
       - Scripts/General/KoreanFont.lua
@@ -13,6 +14,10 @@ on:
       - Data/LocalizeConf.ini
       - DataFiles/DBCS_*.fnt
       - tools/validate_native_dbcs_integration.py
+      - tools/test_ui_safety.py
+      - tools/fixtures/**
+      - Scripts/General/ZZ_KoreanUIDiagnostics.lua
+      - Data/KO_UIDiagnostics.ini
       - .github/workflows/validate-native-dbcs.yml
   pull_request:
     paths:
@@ -23,6 +28,10 @@ on:
       - Data/LocalizeConf.ini
       - DataFiles/DBCS_*.fnt
       - tools/validate_native_dbcs_integration.py
+      - tools/test_ui_safety.py
+      - tools/fixtures/**
+      - Scripts/General/ZZ_KoreanUIDiagnostics.lua
+      - Data/KO_UIDiagnostics.ini
       - .github/workflows/validate-native-dbcs.yml
 
 permissions:
@@ -47,6 +56,7 @@ jobs:
           luac5.1 -p Scripts/General/KoreanFont.lua
           luac5.1 -p Scripts/General/KoreanFontText.lua
           luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanUIDiagnostics.lua
 
       - name: Upstream MM8 page-font harness
         shell: bash
@@ -58,7 +68,7 @@ jobs:
           python -m pip install --quiet lupa
           REPO_ROOT="$GITHUB_WORKSPACE" python - <<'PY'
           import os
-          import lupa
+          import lupa.lua51 as lupa
           here = '/tmp/mm678-i18n/tools/fnt_dbcs_harness'
           target = os.path.join(os.environ['REPO_ROOT'], 'Scripts', 'General', 'FNT_DBCS.lua')
           os.chdir(here)
@@ -67,3 +77,6 @@ jobs:
           with open(os.path.join(here, 'harness.lua'), 'rb') as f:
               lua.execute(f.read().decode('latin-1'))
           PY
+
+      - name: Korean safety and diagnostic regressions (Lua 5.1)
+        run: python -m unittest discover -s tools -p test_ui_safety.py -v
