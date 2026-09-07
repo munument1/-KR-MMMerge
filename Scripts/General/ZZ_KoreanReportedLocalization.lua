@@ -1,6 +1,6 @@
 -- Targeted fixes for player-reported strings that are not owned by the normal
--- localization tables. Keep this file narrow: exact UI literals and the MM7
--- history foreword only.
+-- localization tables. Keep this file narrow: exact UI literals, continent
+-- chooser labels, and the MM7 history foreword only.
 
 KoreanReportedLocalization = KoreanReportedLocalization or {}
 
@@ -66,6 +66,43 @@ end
 
 installCustomUIHooks()
 
+-- The stock continent chooser uses picture-only buttons. Add a compact game
+-- number to each globe so players who do not know the continent names can see
+-- immediately which Might & Magic campaign they are starting.
+local function installContinentGameLabels()
+    if KoreanReportedLocalization.ContinentLabelsInstalled or
+            not CustomUI or type(CustomUI.CreateText) ~= "function" or
+            not const or not const.Screens or not const.Screens.ChooseContinent or
+            not Game or not Game.Smallnum_fnt then
+        return
+    end
+
+    local screen = const.Screens.ChooseContinent
+    local labels = {
+        {Text = "M&M 8", X = 290, Y = 207}, -- Jadame
+        {Text = "M&M 7", X = 404, Y = 404}, -- Antagarich
+        {Text = "M&M 6", X = 176, Y = 404}  -- Enroth
+    }
+
+    for index, label in ipairs(labels) do
+        CustomUI.CreateText{
+            Key = "KoreanContinentGameLabel" .. index,
+            Text = label.Text,
+            Font = Game.Smallnum_fnt,
+            ColorStd = 0xFFFF,
+            AlignLeft = true,
+            Layer = 2,
+            Screen = screen,
+            X = label.X,
+            Y = label.Y,
+            Width = 70,
+            Height = 16
+        }
+    end
+
+    KoreanReportedLocalization.ContinentLabelsInstalled = true
+end
+
 -- The compact MM7 history table embedded in the Korean LOD is intentionally
 -- retained because loading the full history source can exceed an engine-side
 -- buffer. The full source translation already contains the foreword, so copy
@@ -89,8 +126,10 @@ local function applyMM7Foreword()
 end
 
 function events.GameInitialized2()
-    -- Some Merge builds initialize CustomUI later than script load.
+    -- Some Merge builds initialize CustomUI later than script load. The
+    -- continent chooser screen is also created by MenuChooseContinent here.
     installCustomUIHooks()
+    installContinentGameLabels()
 end
 
 function events.LoadMap()
@@ -103,3 +142,4 @@ end
 
 KoreanReportedLocalization.TranslateUI = translateUI
 KoreanReportedLocalization.ApplyMM7Foreword = applyMM7Foreword
+KoreanReportedLocalization.InstallContinentGameLabels = installContinentGameLabels
