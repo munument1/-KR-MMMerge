@@ -22,6 +22,15 @@ def read_legacy_text(path: pathlib.Path) -> str:
     raise SystemExit(f"cannot decode localization source: {path}")
 
 
+def contains_encoded(data: bytes, text: str) -> bool:
+    encodings = []
+    for encoding in ("utf-8", "cp949"):
+        encoded = text.encode(encoding)
+        if encoded not in encodings:
+            encodings.append(encoded)
+    return any(encoded in data for encoded in encodings)
+
+
 overrides = overrides_path.read_text(encoding="utf-8-sig")
 ui = ui_path.read_text(encoding="utf-8-sig")
 history = read_legacy_text(history_path)
@@ -53,6 +62,9 @@ required_ui_fragments = [
     '["Smaller potion bottles"] = "작은 물약병"',
     'Title = "저자의 서문"',
     "continent == 2",
+    '{Text = "M&M 8"',
+    '{Text = "M&M 7"',
+    '{Text = "M&M 6"',
 ]
 
 for fragment in required_ui_fragments:
@@ -61,5 +73,36 @@ for fragment in required_ui_fragments:
 
 if not history.startswith("#\tText\tTime\tPage Title\n1\t마크햄 경은"):
     raise SystemExit("MM7 history source no longer starts with the translated Markham foreword")
+
+# Prevent the player-reported mistranslations from quietly surviving in a
+# different Korean source table. Search raw bytes because many legacy .txt
+# files are intentionally CP949 and marked binary in git.
+stale_terms = [
+    "자다메",
+    "안타가리",
+    "마컴",
+    "사드래곤",
+    "과부쥐",
+    "포피스냅스",
+    "가넷은",
+    "가넷을",
+    "늑대 눈은",
+    "늑대 눈을",
+    "(이동 속도 +30",
+]
+
+scan_roots = [root / "Data" / "Text localization", root / "Scripts"]
+violations: list[str] = []
+for scan_root in scan_roots:
+    for path in scan_root.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in {".txt", ".tsv", ".lua"}:
+            continue
+        data = path.read_bytes()
+        for term in stale_terms:
+            if contains_encoded(data, term):
+                violations.append(f"{path.relative_to(root)}: {term}")
+
+if violations:
+    raise SystemExit("stale reported translations remain:\n" + "\n".join(violations))
 
 print("reported localization fixes: OK")
