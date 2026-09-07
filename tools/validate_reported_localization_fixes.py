@@ -88,16 +88,16 @@ if not history.startswith("#\tText\tTime\tPage Title\n1\t마크햄 경은"):
 # files are intentionally CP949 and marked binary in git.
 stale_terms = [
     "자다메",
+    "자데임",
     "안타가리",
     "마컴",
     "사드래곤",
     "과부쥐",
-    "포피스냅스",
-    "가넷은",
-    "가넷을",
+    "포피스냅",
+    "가넷",
     "늑대 눈은",
     "늑대 눈을",
-    "(이동 속도 +30",
+    "이동 속도 +30",
 ]
 
 scan_roots = [root / "Data" / "Text localization", root / "Scripts"]
