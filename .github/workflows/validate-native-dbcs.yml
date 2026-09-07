@@ -10,9 +10,13 @@ on:
       - Scripts/General/KoreanFont.lua
       - Scripts/General/KoreanFontText.lua
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+      - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Data/LocalizeConf.ini
+      - Data/Text localization/KO_RuntimeOverrides.txt
+      - Data/Text localization/MM7History_KO.txt
       - DataFiles/DBCS_*.fnt
       - tools/validate_native_dbcs_integration.py
+      - tools/validate_reported_localization_fixes.py
       - .github/workflows/validate-native-dbcs.yml
   pull_request:
     paths:
@@ -20,9 +24,13 @@ on:
       - Scripts/General/KoreanFont.lua
       - Scripts/General/KoreanFontText.lua
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+      - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Data/LocalizeConf.ini
+      - Data/Text localization/KO_RuntimeOverrides.txt
+      - Data/Text localization/MM7History_KO.txt
       - DataFiles/DBCS_*.fnt
       - tools/validate_native_dbcs_integration.py
+      - tools/validate_reported_localization_fixes.py
       - .github/workflows/validate-native-dbcs.yml
 
 permissions:
@@ -37,6 +45,9 @@ jobs:
       - name: Validate pinned integration
         run: python tools/validate_native_dbcs_integration.py .
 
+      - name: Validate reported localization fixes
+        run: python tools/validate_reported_localization_fixes.py .
+
       - name: Lua 5.1 syntax
         shell: bash
         run: |
@@ -47,6 +58,7 @@ jobs:
           luac5.1 -p Scripts/General/KoreanFont.lua
           luac5.1 -p Scripts/General/KoreanFontText.lua
           luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
 
       - name: Upstream MM8 page-font harness
         shell: bash
