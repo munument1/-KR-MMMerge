@@ -12,11 +12,13 @@ on:
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Data/LocalizeConf.ini
-      - Data/Text localization/KO_RuntimeOverrides.txt
+      - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
       - Data/zz LocKO.T.lod
       - DataFiles/DBCS_*.fnt
+      - tools/apply_reported_term_fixes.py
+      - tools/patch_reported_terms_lod.py
       - tools/patch_static_stats_lod.py
       - tools/validate_native_dbcs_integration.py
       - tools/validate_reported_localization_fixes.py
@@ -29,11 +31,13 @@ on:
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Data/LocalizeConf.ini
-      - Data/Text localization/KO_RuntimeOverrides.txt
+      - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
       - Data/zz LocKO.T.lod
       - DataFiles/DBCS_*.fnt
+      - tools/apply_reported_term_fixes.py
+      - tools/patch_reported_terms_lod.py
       - tools/patch_static_stats_lod.py
       - tools/validate_native_dbcs_integration.py
       - tools/validate_reported_localization_fixes.py
@@ -53,6 +57,12 @@ jobs:
 
       - name: Validate reported localization fixes
         run: python tools/validate_reported_localization_fixes.py .
+
+      - name: Validate reported terminology in LOD
+        run: |
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
 
       - name: Validate character stats tooltips
         run: |
