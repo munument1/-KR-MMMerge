@@ -3,7 +3,8 @@
 
 The archive already contains DBCS-special encoded Korean.  Replace only exact
 encoded byte sequences, preserving every unrelated byte, member order, and the
-original compression state.
+original compression state.  The operation is idempotent so CI can safely run
+it again after the binary archive has already been updated.
 """
 
 from __future__ import annotations
