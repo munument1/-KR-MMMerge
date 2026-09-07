@@ -13,8 +13,11 @@ on:
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Data/LocalizeConf.ini
       - Data/Text localization/KO_RuntimeOverrides.txt
+      - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
+      - Data/zz LocKO.T.lod
       - DataFiles/DBCS_*.fnt
+      - tools/patch_static_stats_lod.py
       - tools/validate_native_dbcs_integration.py
       - tools/validate_reported_localization_fixes.py
       - .github/workflows/validate-native-dbcs.yml
@@ -27,8 +30,11 @@ on:
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Data/LocalizeConf.ini
       - Data/Text localization/KO_RuntimeOverrides.txt
+      - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
+      - Data/zz LocKO.T.lod
       - DataFiles/DBCS_*.fnt
+      - tools/patch_static_stats_lod.py
       - tools/validate_native_dbcs_integration.py
       - tools/validate_reported_localization_fixes.py
       - .github/workflows/validate-native-dbcs.yml
@@ -47,6 +53,13 @@ jobs:
 
       - name: Validate reported localization fixes
         run: python tools/validate_reported_localization_fixes.py .
+
+      - name: Validate character stats tooltips
+        run: |
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
 
       - name: Lua 5.1 syntax
         shell: bash
