@@ -28,6 +28,7 @@ REPLACEMENTS = [
     ("과부쥐 열매", "위도우스위프 열매"),
     ("포피스냅스", "양귀비꽃"),
     ("포피스냅은", "양귀비꽃은"),
+    ("포피스냅", "양귀비꽃"),
     ("가넷", "석류석"),
     ("늑대 눈은", "늑대의 눈은"),
     ("늑대 눈을", "늑대의 눈을"),
@@ -44,11 +45,17 @@ def decode_with_encoding(data: bytes) -> tuple[str, str]:
         return data.decode("cp949"), "cp949"
 
 
+def source_paths() -> list[pathlib.Path]:
+    paths = set(loc_dir.glob("KO_*.txt"))
+    paths.update(loc_dir.glob("MM*History_KO.txt"))
+    return sorted(paths)
+
+
 def main() -> None:
     changed_files = 0
     total_replacements = 0
 
-    for path in sorted(loc_dir.glob("KO_*.txt")):
+    for path in source_paths():
         original = path.read_bytes()
         try:
             text, encoding = decode_with_encoding(original)
