@@ -339,7 +339,7 @@ NPCDataTxt	0	Name
 	337	Name	성직자 농민
 	338	Name	레그나 농민
 	339	Name	미노타우로스 농민
-	340	Name	마컴 경
+	340	Name	마크햄 경
 	341	Name	판사 토머스
 	342	Name	도슨트 마거릿
 	343	Name	음유시인 알리사
@@ -740,7 +740,7 @@ NPCDataTxt	0	Name
 	738	Name	리시아 리븐록
 	739	Name	펠드스파 툴먼
 	740	Name	재스퍼 피셔
-	741	Name	켈리 가넷
+	741	Name	켈리 석류석
 	742	Name	레지나 펀
 	743	Name	테드 로빈슨
 	744	Name	타샤 베일

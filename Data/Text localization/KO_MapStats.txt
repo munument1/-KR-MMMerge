@@ -91,7 +91,7 @@ MapStats	0	Name
 	89	Name	제6 감시탑
 	90	Name	와인 저장고
 	91	Name	타이드워터 동굴
-	92	Name	마컴 경의 저택
+	92	Name	마크햄 경의 저택
 	93	Name	달의 대사원
 	94	Name	용병 길드
 	95	Name	화이트 클리프 동굴
