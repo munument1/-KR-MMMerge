@@ -22,6 +22,15 @@ def read_legacy_text(path: pathlib.Path) -> str:
     raise SystemExit(f"cannot decode localization source: {path}")
 
 
+def decode_legacy_bytes(data: bytes) -> str:
+    for encoding in ("utf-8-sig", "cp949"):
+        try:
+            return data.decode(encoding).replace("\r\n", "\n").replace("\r", "\n")
+        except UnicodeDecodeError:
+            pass
+    return ""
+
+
 def contains_encoded(data: bytes, text: str) -> bool:
     encodings = []
     for encoding in ("utf-8", "cp949"):
@@ -98,9 +107,22 @@ for scan_root in scan_roots:
         if not path.is_file() or path.suffix.lower() not in {".txt", ".tsv", ".lua"}:
             continue
         data = path.read_bytes()
-        for term in stale_terms:
-            if contains_encoded(data, term):
-                violations.append(f"{path.relative_to(root)}: {term}")
+        matched = [term for term in stale_terms if contains_encoded(data, term)]
+        if not matched:
+            continue
+        decoded = decode_legacy_bytes(data)
+        rel = path.relative_to(root)
+        for term in matched:
+            found_context = False
+            for line_no, line in enumerate(decoded.splitlines(), 1):
+                if term in line:
+                    excerpt = line.strip().replace("\t", " | ")
+                    if len(excerpt) > 240:
+                        excerpt = excerpt[:237] + "..."
+                    violations.append(f"{rel}:{line_no}: {term}: {excerpt}")
+                    found_context = True
+            if not found_context:
+                violations.append(f"{rel}: {term}")
 
 if violations:
     raise SystemExit("stale reported translations remain:\n" + "\n".join(violations))
