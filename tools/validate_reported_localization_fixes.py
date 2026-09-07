@@ -15,7 +15,8 @@ def read_legacy_text(path: pathlib.Path) -> str:
     data = path.read_bytes()
     for encoding in ("utf-8-sig", "cp949"):
         try:
-            return data.decode(encoding).replace("\r\n", "\n")
+            text = data.decode(encoding)
+            return text.replace("\r\n", "\n").replace("\r", "\n")
         except UnicodeDecodeError:
             pass
     raise SystemExit(f"cannot decode localization source: {path}")
