@@ -10,9 +10,20 @@ overrides_path = root / "Data" / "Text localization" / "KO_RuntimeOverrides.txt"
 ui_path = root / "Scripts" / "General" / "ZZ_KoreanReportedLocalization.lua"
 history_path = root / "Data" / "Text localization" / "MM7History_KO.txt"
 
+
+def read_legacy_text(path: pathlib.Path) -> str:
+    data = path.read_bytes()
+    for encoding in ("utf-8-sig", "cp949"):
+        try:
+            return data.decode(encoding).replace("\r\n", "\n")
+        except UnicodeDecodeError:
+            pass
+    raise SystemExit(f"cannot decode localization source: {path}")
+
+
 overrides = overrides_path.read_text(encoding="utf-8-sig")
 ui = ui_path.read_text(encoding="utf-8-sig")
-history = history_path.read_text(encoding="utf-8-sig")
+history = read_legacy_text(history_path)
 
 required_override_fragments = [
     "ItemsTxt\t200\tNotes\t연금술적 성질을 지닌 재료인 위도우스위프 열매",
