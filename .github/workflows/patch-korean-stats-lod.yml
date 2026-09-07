@@ -1,0 +1,50 @@
+name: Patch Korean stats tooltips
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Data/Text localization/KO_StatsDescriptions.tsv
+      - tools/patch_static_stats_lod.py
+      - .github/workflows/patch-korean-stats-lod.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch stats.txt in Korean localization LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --output /tmp/LocKO-stats-patched.lod
+          mv /tmp/LocKO-stats-patched.lod "Data/zz LocKO.T.lod"
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+      - name: Commit patched LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- "Data/zz LocKO.T.lod"; then
+            echo "Korean stats tooltips are already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Data/zz LocKO.T.lod"
+          git commit -m "fix(korean): localize full character stats tooltips"
+          git push
