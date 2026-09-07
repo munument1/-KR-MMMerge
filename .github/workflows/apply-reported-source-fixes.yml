@@ -1,0 +1,41 @@
+name: Apply reported Korean source fixes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - tools/apply_reported_term_fixes.py
+      - .github/workflows/apply-reported-source-fixes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply binary-safe source corrections
+        run: python tools/apply_reported_term_fixes.py .
+
+      - name: Verify reported terminology is clean
+        run: python tools/validate_reported_localization_fixes.py .
+
+      - name: Commit corrected legacy source tables
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- "Data/Text localization"; then
+            echo "Reported source corrections are already applied."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Data/Text localization"
+          git commit -m "fix(korean): apply reported terminology across source tables"
+          git push
