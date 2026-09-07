@@ -74,6 +74,16 @@ required_ui_fragments = [
     '{Text = "M&M 8"',
     '{Text = "M&M 7"',
     '{Text = "M&M 6"',
+    "[4] = {",
+    "NPCText = 2324",
+    "학습 기술에 +5 보너스를 주고 아이템을 무제한으로 식별합니다. 학습 숙련도 배율이 적용됩니다.",
+    "[13] = {",
+    "NPCText = 2333",
+    "학습 기술에 +10 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다.",
+    "[14] = {",
+    "NPCText = 2334",
+    "학습 기술에 +15 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다.",
+    "Game.NPCProf[profession].Description = localized",
 ]
 
 for fragment in required_ui_fragments:
