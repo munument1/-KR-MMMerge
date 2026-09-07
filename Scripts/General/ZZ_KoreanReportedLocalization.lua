@@ -1,6 +1,6 @@
 -- Targeted fixes for player-reported strings that are not owned by the normal
 -- localization tables. Keep this file narrow: exact UI literals, continent
--- chooser labels, and the MM7 history foreword only.
+-- chooser labels, MM7 history foreword, and player-reported hireling mechanics.
 
 KoreanReportedLocalization = KoreanReportedLocalization or {}
 
@@ -103,6 +103,42 @@ local function installContinentGameLabels()
     KoreanReportedLocalization.ContinentLabelsInstalled = true
 end
 
+-- Merge implements Scholar/Teacher/Instructor as raw Learning skill bonuses,
+-- not flat experience percentages. Learning mastery then multiplies the effect
+-- of those skill points, so +5/+10/+15 can display as +10/+20/+30 at Expert.
+-- Keep gameplay untouched and make the Korean descriptions match the actual
+-- Merge implementation instead of implying a fixed +5/+10/+15 percent bonus.
+local HIRELING_LEARNING_DESCRIPTIONS = {
+    [4] = {
+        NPCText = 2324,
+        Text = "모든 캐릭터의 학습 기술에 +5 보너스를 주고 아이템을 무제한으로 식별합니다. 학습 숙련도 배율이 적용됩니다."
+    },
+    [13] = {
+        NPCText = 2333,
+        Text = "모든 캐릭터의 학습 기술에 +10 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다."
+    },
+    [14] = {
+        NPCText = 2334,
+        Text = "모든 캐릭터의 학습 기술에 +15 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다."
+    }
+}
+
+local function applyHirelingLearningDescriptions()
+    if not Game then
+        return
+    end
+
+    for profession, entry in pairs(HIRELING_LEARNING_DESCRIPTIONS) do
+        local localized = encodeKorean(entry.Text)
+        if Game.NPCText then
+            Game.NPCText[entry.NPCText] = localized
+        end
+        if Game.NPCProf and Game.NPCProf[profession] then
+            Game.NPCProf[profession].Description = localized
+        end
+    end
+end
+
 -- The compact MM7 history table embedded in the Korean LOD is intentionally
 -- retained because loading the full history source can exceed an engine-side
 -- buffer. The full source translation already contains the foreword, so copy
@@ -130,16 +166,20 @@ function events.GameInitialized2()
     -- continent chooser screen is also created by MenuChooseContinent here.
     installCustomUIHooks()
     installContinentGameLabels()
+    applyHirelingLearningDescriptions()
 end
 
 function events.LoadMap()
     applyMM7Foreword()
+    applyHirelingLearningDescriptions()
 end
 
 function events.AfterLoadMap()
     applyMM7Foreword()
+    applyHirelingLearningDescriptions()
 end
 
 KoreanReportedLocalization.TranslateUI = translateUI
 KoreanReportedLocalization.ApplyMM7Foreword = applyMM7Foreword
+KoreanReportedLocalization.ApplyHirelingLearningDescriptions = applyHirelingLearningDescriptions
 KoreanReportedLocalization.InstallContinentGameLabels = installContinentGameLabels
