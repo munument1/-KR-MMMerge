@@ -1,0 +1,51 @@
+name: Patch reported Korean terms in LOD
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - tools/patch_reported_terms_lod.py
+      - .github/workflows/patch-reported-terms-lod.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch reported terms in localization LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --output /tmp/LocKO-reported-patched.lod
+          mv /tmp/LocKO-reported-patched.lod "Data/zz LocKO.T.lod"
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+      - name: Commit patched LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- "Data/zz LocKO.T.lod"; then
+            echo "Reported terminology is already current in the Korean LOD."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Data/zz LocKO.T.lod"
+          git commit -m "fix(korean): propagate reported terminology into localization LOD"
+          git push
