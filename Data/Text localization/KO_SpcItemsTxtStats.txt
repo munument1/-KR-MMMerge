@@ -46,15 +46,15 @@ SpcItemsTxt	0	BonusStat	 모든 저항 +10.
 	44	BonusStat	 속도와 정확도 +5.
 	45	BonusStat	화염 피해 10~20 추가. 힘 +25.
 	46	BonusStat	 주문력 +10. 시간이 지남에 따라 주문력을 재생합니다.
-	47	BonusStat	 체력 +15, 방어도 +5.
-	48	BonusStat	 지력과 행운 +10.
+	47	BonusStat	 인내력 +15, 방어도 +5.
+	48	BonusStat	 지력과 운 +10.
 	49	BonusStat	 화염 저항 +30. 시간이 지남에 따라 생명력을 재생합니다.
-	50	BonusStat	 주문력, 속도 및 지력 +10.
+	50	BonusStat	 주문력, 속도 및 지능 +10.
 	51	BonusStat	 체력과 정확도 +10.
 	52	BonusStat	 힘과 인격 +10.
-	53	BonusStat	 체력 +15. 시간이 지남에 따라 생명력을 재생합니다.
-	54	BonusStat	 행운 +15. 시간이 지남에 따라 주문력을 재생합니다.
-	55	BonusStat	 힘과 체력 +5.
+	53	BonusStat	 인내력 +15. 시간이 지남에 따라 생명력을 재생합니다.
+	54	BonusStat	 운 +15. 시간이 지남에 따라 주문력을 재생합니다.
+	55	BonusStat	 힘과 인내력 +5.
 	56	BonusStat	 지력과 인격 +5.
 	57	BonusStat	가치가 증가합니다.
 	58	BonusStat	무기 공격 속도가 증가합니다.
