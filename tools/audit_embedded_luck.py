@@ -29,3 +29,5 @@ for path in sorted(loc.glob("KO_*")):
             count += 1
             print(f"{path.name}:{no}: {line[:500]}")
 print(f"embedded-luck suspicious lines: {count}")
+if count:
+    raise SystemExit("embedded-luck corruption remains")

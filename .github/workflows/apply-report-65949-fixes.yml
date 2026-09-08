@@ -8,8 +8,9 @@ on:
       - tools/apply_report_65949_fixes.py
       - tools/run_report_65949_source_fixes.py
       - tools/patch_report_65949_lod.py
-      - tools/validate_report_65949.py
-      - Data/Text localization/KO_mm8lang.ini.utf8
+      - tools/apply_report_65949_followup_fixes.py
+      - tools/patch_report_65949_followup_lod.py
+      - tools/validate_report_65949_followup.py
       - .github/workflows/apply-report-65949-fixes.yml
   workflow_dispatch:
 
@@ -29,6 +30,7 @@ jobs:
         run: |
           set -euo pipefail
           python tools/run_report_65949_source_fixes.py .
+          python tools/apply_report_65949_followup_fixes.py .
 
       - name: Propagate corrections into Korean LOD
         shell: bash
@@ -47,13 +49,21 @@ jobs:
             --output /tmp/LocKO-stats.lod
           mv /tmp/LocKO-stats.lod "Data/zz LocKO.T.lod"
 
+          python tools/patch_report_65949_followup_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --output /tmp/LocKO-report65949-followup.lod
+          mv /tmp/LocKO-report65949-followup.lod "Data/zz LocKO.T.lod"
+
       - name: Validate report corrections
         shell: bash
         run: |
           set -euo pipefail
           python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
           python tools/validate_reported_localization_fixes.py .
           python tools/patch_report_65949_lod.py \
+            --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_report_65949_followup_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
           python tools/patch_reported_terms_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
@@ -73,5 +83,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "Data/Text localization" "Data/zz LocKO.T.lod" mm8lang.ini
-          git commit -m "fix(korean): apply report 65949 localization QA"
+          git commit -m "fix(korean): finish report 65949 grammar and reagent cleanup"
           git push

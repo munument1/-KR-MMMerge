@@ -4,8 +4,10 @@ on:
   push:
     branches: [main]
     paths:
+      - Data/Text localization/KO_ItemsTxt.txt
       - tools/audit_report_65949.py
       - tools/audit_embedded_luck.py
+      - tools/validate_report_65949_followup.py
       - .github/workflows/audit-report-65949.yml
   workflow_dispatch:
 
@@ -21,3 +23,5 @@ jobs:
         run: python tools/audit_report_65949.py .
       - name: Audit embedded luck corruption
         run: python tools/audit_embedded_luck.py .
+      - name: Validate grammar and reagent follow-up
+        run: python tools/validate_report_65949_followup.py .
