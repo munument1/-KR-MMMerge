@@ -1,0 +1,20 @@
+name: Audit report 65960
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/audit_report_65960.py
+      - .github/workflows/audit-report-65960.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan report terms
+        run: python tools/audit_report_65960.py .
