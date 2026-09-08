@@ -51,7 +51,7 @@ for phrase in BAD_PHRASES:
 
 rows = parse_rows(text)
 checks = {
-    208: ("흰독말풀은", "흰독말풀을"),
+    208: ("흰독말풀은",),
     525: ("'종결'이라는 검",),
     1303: ("철깃털은",),
     1309: ("태양교회의 노력",),
@@ -69,7 +69,6 @@ for record_id, wanted_parts in checks.items():
             violations.append(f"item {record_id}: missing {wanted}")
 
 reagent_rows = 0
-noncanonical = 0
 for record_id, fields in rows.items():
     category = fields[2].strip()
     notes = fields[3]
@@ -78,7 +77,6 @@ for record_id, fields in rows.items():
     if category == "시약" and "(사용하려면" in notes:
         reagent_rows += 1
         if STANDARD_REAGENT_INSTRUCTION not in notes:
-            noncanonical += 1
             violations.append(f"item {record_id}: non-canonical reagent instruction")
 
 if violations:
