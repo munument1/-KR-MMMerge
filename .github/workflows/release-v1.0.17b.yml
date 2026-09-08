@@ -1,0 +1,174 @@
+name: Release v1.0.17b
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.17b.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Korean integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua; do
+            luac5.1 -p "$f"
+          done
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.17b"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+
+          cat > release-stage/RELEASE_v1.0.17b.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.17b
+
+          v1.0.17a 후속 긴급 핫픽스입니다.
+
+          수정 사항:
+          - NEW GAME 대륙 선택에서 M&M 6 / M&M 7 / M&M 8 라벨이 모두
+            사라질 수 있던 v1.0.17a 회귀 수정
+          - 기존 M&M 8 라벨을 유지하고 M&M 6 / M&M 7 버튼의 레이어만
+            조정하여 세 라벨이 모두 보이도록 수정
+          - MM8 / MM7 역사 기록을 각 한국어 역사 파일에서 다시 직접 로드
+          - MM6 엔로스 한국어 서문 유지
+          - 맵 로딩 종료 단계에서 현재 대륙의 한국어 역사 기록을 다시 적용하여
+            MM6/MM7/MM8 기록이 영어로 되돌아가는 회귀 방지
+          - v1.0.17a의 CharacterOptions/Extra Settings 시작 오류 수정 유지
+
+          설치:
+          ZIP 전체를 Might and Magic 8 / MMMerge 설치 폴더에 그대로 덮어쓰십시오.
+          기존 v1.0.17 또는 v1.0.17a 위에 전체 덮어쓰기를 권장합니다.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum mm8lang.ini README.txt CHANGELOG.txt RELEASE_v1.0.17b.txt FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.17b
+
+          **v1.0.17a 후속 긴급 핫픽스**입니다.
+
+          ### 수정
+          - NEW GAME 대륙 선택에서 **기존 M&M 8까지 포함해 M&M 6 / M&M 7 / M&M 8 라벨이 모두 사라질 수 있던 회귀** 수정
+          - 기존 라벨을 비활성화하지 않고, MM6/MM7 대륙 버튼의 레이어만 조정하여 세 라벨을 유지
+          - MM8 역사는 `MM8History_KO.txt`, MM7 역사는 `MM7History_KO.txt`에서 직접 다시 로드하도록 복구
+          - MM6은 한국어 엔로스 서문 유지
+          - 맵 로딩이 끝난 뒤 현재 대륙의 한국어 역사 데이터를 최종 재적용하여 **MM6/MM7/MM8 역사 기록이 영어로 되돌아가는 현상** 방지
+          - v1.0.17a의 `CharacterOptions`/Extra Settings 시작 오류 수정 유지
+
+          ### 유지되는 v1.0.17 변경
+          - 사용자 제보 65949 번역/아이템 QA
+          - Extra Settings 한국어 이미지 LOD 및 런타임 번역
+          - 학자/교사/강사 Learning 설명 수정
+          - 에메랄드 섬 우물 저장/불러오기 타이머 호환성 보정
+          - `mm8lang.ini` 런타임 한국어 문자열
+
+          ### 검증
+          - native DBCS / 제보 QA / LOD / 능력치 툴팁 검사 통과
+          - Extra Settings optional-screen 회귀 테스트 통과
+          - NEW GAME M&M6/7/8 라벨 회귀 테스트 통과
+          - MM6/MM7/MM8 전체 역사 로드/재적용 회귀 테스트 통과
+
+          ### 설치
+          ZIP 전체 내용을 Might and Magic 8 / MMMerge 설치 폴더에 덮어쓰십시오. **v1.0.17 또는 v1.0.17a 위에 전체 덮어쓰기**를 권장합니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.17b"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" --title "MMMerge 한국어 패치 v1.0.17b" --notes-file release-notes.md --latest
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" --target "$GITHUB_SHA" --title "MMMerge 한국어 패치 v1.0.17b" --notes-file release-notes.md --latest
+          fi
