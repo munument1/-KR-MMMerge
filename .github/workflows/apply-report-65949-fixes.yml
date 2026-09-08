@@ -11,6 +11,9 @@ on:
       - tools/apply_report_65949_followup_fixes.py
       - tools/patch_report_65949_followup_lod.py
       - tools/validate_report_65949_followup.py
+      - tools/apply_report_65949_item_review2.py
+      - tools/patch_report_65949_item_review2_lod.py
+      - tools/validate_report_65949_item_review2.py
       - .github/workflows/apply-report-65949-fixes.yml
   workflow_dispatch:
 
@@ -31,6 +34,7 @@ jobs:
           set -euo pipefail
           python tools/run_report_65949_source_fixes.py .
           python tools/apply_report_65949_followup_fixes.py .
+          python tools/apply_report_65949_item_review2.py .
 
       - name: Propagate corrections into Korean LOD
         shell: bash
@@ -54,16 +58,24 @@ jobs:
             --output /tmp/LocKO-report65949-followup.lod
           mv /tmp/LocKO-report65949-followup.lod "Data/zz LocKO.T.lod"
 
+          python tools/patch_report_65949_item_review2_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --output /tmp/LocKO-report65949-review2.lod
+          mv /tmp/LocKO-report65949-review2.lod "Data/zz LocKO.T.lod"
+
       - name: Validate report corrections
         shell: bash
         run: |
           set -euo pipefail
           python tools/validate_report_65949.py .
           python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
           python tools/validate_reported_localization_fixes.py .
           python tools/patch_report_65949_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
           python tools/patch_report_65949_followup_lod.py \
+            --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_report_65949_item_review2_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
           python tools/patch_reported_terms_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
@@ -83,5 +95,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "Data/Text localization" "Data/zz LocKO.T.lod" mm8lang.ini
-          git commit -m "fix(korean): finish report 65949 grammar and reagent cleanup"
+          git commit -m "fix(korean): apply second source-backed item QA pass"
           git push
