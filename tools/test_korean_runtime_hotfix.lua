@@ -2,7 +2,6 @@
 
 events = {}
 
-local shown = {}
 CustomUI = {
     ActiveElements = {
         [97] = {
@@ -12,17 +11,22 @@ CustomUI = {
                     KoreanContinentGameLabel2 = {Active = true},
                     KoreanContinentGameLabel3 = {Active = true},
                 }
+            },
+            Buttons = {
+                [0] = {
+                    antag = {IUpSrc = "SlAntagDw", Layer = 0, Key = "antag"},
+                    enroth = {IUpSrc = "SlEnrothDw", Layer = 0, Key = "enroth"},
+                },
+                [1] = {
+                    jadam = {IUpSrc = "SlJadamDw", Layer = 1, Key = "jadam"},
+                }
             }
         }
-    },
-    ShowText = function(text, font, x, y, shift, r, g, b, wt, ht, xof, yof, color, left)
-        shown[#shown + 1] = {Text = text, X = x, Y = y}
-    end
+    }
 }
 
 const = {Screens = {ChooseContinent = 97}}
 Game = {
-    CurrentScreen = 97,
     Smallnum_fnt = {},
     HistoryTxt = {
         [1] = {Text = "OLD1", Title = "OLD1"},
@@ -37,19 +41,41 @@ TownPortalControls = {
     end
 }
 
+KoreanReportedLocalization = {
+    InstallContinentGameLabels = function()
+        -- The real installer is idempotent. Labels are already registered in
+        -- this harness, exactly as they are before the late hotfix runs.
+    end
+}
+
 dofile("Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua")
 
 events.GameInitialized2()
+
+-- v1.0.17a disabled these three labels and relied on an FGInterfaceUpd redraw;
+-- in the real chooser that redraw was not visible, so even M&M8 disappeared.
 for i = 1, 3 do
-    assert(CustomUI.ActiveElements[97].Texts[0]["KoreanContinentGameLabel" .. i].Active == false,
-        "legacy continent label remained active: " .. i)
+    assert(CustomUI.ActiveElements[97].Texts[0]["KoreanContinentGameLabel" .. i].Active == true,
+        "continent label was disabled: " .. i)
 end
 
-events.FGInterfaceUpd()
-assert(#shown == 3, "expected three topmost continent labels")
-assert(shown[1].Text == "M&M 8", "missing M&M 8 label")
-assert(shown[2].Text == "M&M 7", "missing M&M 7 label")
-assert(shown[3].Text == "M&M 6", "missing M&M 6 label")
+local buttons = CustomUI.ActiveElements[97].Buttons
+assert(buttons[0].antag == nil, "Antagarich button remained on layer 0")
+assert(buttons[0].enroth == nil, "Enroth button remained on layer 0")
+assert(buttons[1].antag and buttons[1].antag.IUpSrc == "SlAntagDw",
+    "Antagarich button was not promoted to layer 1")
+assert(buttons[1].enroth and buttons[1].enroth.IUpSrc == "SlEnrothDw",
+    "Enroth button was not promoted to layer 1")
+assert(buttons[1].antag.Layer == 1 and buttons[1].enroth.Layer == 1,
+    "promoted continent button Layer field is wrong")
+assert(buttons[1].jadam and buttons[1].jadam.IUpSrc == "SlJadamDw" and buttons[1].jadam.Layer == 1,
+    "Jadam button was modified unexpectedly")
+
+-- Reapplying must be harmless.
+assert(KoreanRuntimeHotfix.PromoteLowerContinentButtons() == 0,
+    "continent button promotion was not idempotent")
+assert(KoreanRuntimeHotfix.EnsureContinentLabelsActive() == 3,
+    "all three continent labels were not retained")
 
 local records = KoreanRuntimeHotfix.ParseMM7History()
 assert(records and records[1] and records[2] and records[3], "failed to parse MM7 history source")
