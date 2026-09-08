@@ -111,7 +111,7 @@ def main() -> None:
     runtime = overlay_rows(loc / "KO_RuntimeOverrides.txt")
     require(runtime[2043], "석화 면역, 방패 주문 효과 상시 유지, 운 +20, 민첩성 -20", "runtime Aegis")
 
-    skills = (root / "Scripts" / "General" / "KoreanStatsAndSkills.lua").read_text(encoding="utf-8")
+    skills = decode(root / "Scripts" / "General" / "KoreanStatsAndSkills.lua")
     if "[8]=\"방패 주문 효과 자동 부여\"" not in skills:
         raise SystemExit("Shield GM description is not the canonical Korean wording")
     if "보호막(Shield)" in skills:
