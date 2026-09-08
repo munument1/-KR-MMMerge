@@ -1,6 +1,6 @@
 Table (of Game struct)	Id	Field	New text
 SpcItemsTxt	0	NameAdd	[보호]
-	1	NameAdd	[신들]
+	1	NameAdd	[신]
 	2	NameAdd	[대학살]
 	3	NameAdd	[냉기]
 	4	NameAdd	[서리]

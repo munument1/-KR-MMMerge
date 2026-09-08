@@ -1,6 +1,6 @@
 Table (of Game struct)	Id	Field	New text
 SpcItemsTxt	0	BonusStat	 모든 저항 +10.
-	1	BonusStat	 7대 능력치 모두 +10.
+	1	BonusStat	 모든 능력치 +10.
 	2	BonusStat	폭발 충격!
 	3	BonusStat	냉기 피해 3~4 추가.
 	4	BonusStat	냉기 피해 6~8 추가.
