@@ -1,11 +1,17 @@
--- Keep Merge's continent-specific history state while loading translated text
--- from the static Korean LOD. No external KO history table is reapplied.
+-- Keep Merge's continent-specific history state while loading translated text.
+-- The external KO history tables are raw game-encoding bytes; do not UTF-8 encode them again.
 
 local LastContinent = -1
 
-local HistoryFiles = {
-	[1] = "history.txt",
-	[2] = "mm7history.txt"
+local HistorySources = {
+	[1] = {
+		Localized = "Data/Text localization/MM8History_KO.txt",
+		Fallback = "history.txt"
+	},
+	[2] = {
+		Localized = "Data/Text localization/MM7History_KO.txt",
+		Fallback = "mm7history.txt"
+	}
 }
 
 local ForwardHistory = {
@@ -19,12 +25,7 @@ local MM6Introduction = {
 	Text = "\191\163\183\206\189\186\192\199 \191\170\187\231\180\194 \186\176\182\203\186\176\192\199 \185\227\176\250 \199\212\178\178 \189\195\192\219\181\203\180\207\180\217. \190\198\192\204\190\240\199\199\189\186\198\174 \191\213 \183\209\183\163\181\229\176\161 \189\199\193\190\181\199\176\237 \197\169\184\174\176\199\192\199 \196\167\176\248\192\184\183\206 \189\186\192\167\198\174 \191\246\197\205\176\161 \198\196\177\171\181\200 \181\218, \191\169\188\184 \191\181\193\214\176\161 \191\213\177\185\192\199 \191\238\184\237\192\187 \181\209\183\175\189\206\176\237 \180\235\184\179\199\213\180\207\180\217. \191\169\183\175\186\208\192\186 \180\186 \188\210\199\199\176\165\191\161\188\173 \191\169\193\164\192\187 \189\195\192\219\199\216 \191\169\188\184 \191\181\193\214\192\199 \189\194\192\206\192\187 \190\242\176\237, \199\193\184\174 \199\236\192\204\186\236\192\199 \191\192\182\243\197\172\192\187 \186\185\177\184\199\207\191\169 \197\169\184\174\176\199\192\187 \185\176\184\174\196\165 \185\230\185\253\192\187 \195\163\190\198\190\223 \199\213\180\207\180\217."
 }
 
-local function encodeKorean(text)
-	if KoreanText and KoreanText.EncodeOnce then
-		return KoreanText.EncodeOnce(text)
-	end
-	return text
-end
+local historyCache = {}
 
 local function currentHistory(continent)
 	vars.History = vars.History or {}
@@ -39,53 +40,99 @@ local function clearHistoryText()
 	end
 end
 
+local function readRawFile(path)
+	local file = io.open(path, "rb")
+	if not file then
+		return nil
+	end
+	local data = file:read("*a")
+	file:close()
+	return data
+end
+
+local function parseHistoryRecords(data)
+	if not data or data == "" then
+		return nil
+	end
+
+	local records = {}
+	for row in string.gmatch(data, "[^\r]+") do
+		-- The tables use CR record separators and may contain LF paragraph breaks
+		-- inside the text field. Strip only the LF left behind by CRLF separators.
+		row = string.gsub(row, "^\n+", "")
+		local tab1 = string.find(row, "\t", 1, true)
+		local tab2 = tab1 and string.find(row, "\t", tab1 + 1, true)
+		local tab3 = tab2 and string.find(row, "\t", tab2 + 1, true)
+		if tab1 and tab2 and tab3 then
+			local id = tonumber(string.sub(row, 1, tab1 - 1))
+			if id then
+				records[id] = {
+					Text = string.sub(row, tab1 + 1, tab2 - 1),
+					Title = string.sub(row, tab3 + 1)
+				}
+			end
+		end
+	end
+
+	if next(records) then
+		return records
+	end
+	return nil
+end
+
+local function loadHistoryRecords(continent)
+	if historyCache[continent] then
+		return historyCache[continent]
+	end
+
+	local source = HistorySources[continent]
+	if not source then
+		return nil
+	end
+
+	local data = readRawFile(source.Localized)
+	if (not data or data == "") and Game.LoadTextFileFromLod then
+		data = Game.LoadTextFileFromLod(source.Fallback)
+	end
+
+	local records = parseHistoryRecords(data)
+	if records then
+		historyCache[continent] = records
+	end
+	return records
+end
+
 local function updateHistoryText(continent)
 	clearHistoryText()
-	local source = HistoryFiles[continent]
-	if not source then
-		if continent == 3 and Game.HistoryTxt[1] then
-			Game.HistoryTxt[1].Title = encodeKorean(MM6Introduction.Title)
-			Game.HistoryTxt[1].Text = encodeKorean(MM6Introduction.Text)
+
+	if continent == 3 then
+		-- MM6 has no native history table in Merge. Keep the dedicated Korean
+		-- Enroth introduction instead of leaking another continent's history.
+		if Game.HistoryTxt[1] then
+			Game.HistoryTxt[1].Title = MM6Introduction.Title
+			Game.HistoryTxt[1].Text = MM6Introduction.Text
 		end
 		return
 	end
 
-	local text = Game.LoadTextFileFromLod(source)
-	if not text or text == "" then
+	local records = loadHistoryRecords(continent)
+	if not records then
 		return
 	end
-	local lines = string.split(text:gsub("\r\n", "\n"):gsub("\r", "\n"), "\n")
-	table.remove(lines, 1)
-	local record
-	local function commit()
-		if not record then return end
-		local item = Game.HistoryTxt[record.id]
+
+	for id, record in pairs(records) do
+		local item = Game.HistoryTxt[id]
 		if item then
-			item.Text = encodeKorean(record.text or "")
-			if record.title and record.title ~= "" then
-				item.Title = encodeKorean(record.title)
-			end
+			item.Text = record.Text or ""
+			item.Title = record.Title or ""
 		end
 	end
-	for _, line in ipairs(lines) do
-		local words = string.split(line, "\9")
-		local id = tonumber(words[1])
-		if id then
-			commit()
-			record = {id = id, text = words[2] or "", title = words[4] or ""}
-		elseif record and #line > 0 then
-			if #words > 1 and (words[#words] == "Forward" or words[#words - 1] == "Forward") then
-				record.title = words[#words]
-			else
-				record.text = record.text .. "\n" .. line
-			end
-		end
-	end
-	commit()
 end
 
 KoreanHistory = KoreanHistory or {}
 KoreanHistory.ApplyForContinent = updateHistoryText
+KoreanHistory.ParseRecords = parseHistoryRecords
+KoreanHistory.LoadRecords = loadHistoryRecords
 
 function events.LoadMap()
 	local continent = TownPortalControls.MapOfContinent(Map.MapStatsIndex)
@@ -104,6 +151,10 @@ function events.AfterLoadMap()
 			Game.HistoryTxt[value].Time = i
 		end
 	end
+
+	-- Merge can refresh the native history table during the map-load sequence.
+	-- Reapply Korean text here as well so MM8/MM7/MM6 cannot fall back to English.
+	updateHistoryText(continent)
 end
 
 function events.LeaveMap()
