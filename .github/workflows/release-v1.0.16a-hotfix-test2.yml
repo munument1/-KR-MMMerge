@@ -1,0 +1,159 @@
+name: Release v1.0.16a hotfix test2
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.16a-hotfix-test2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Korean integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_reported_localization_fixes.py .
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/FNT_DBCS.lua
+          luac5.1 -p Scripts/General/KoreanFont.lua
+          luac5.1 -p Scripts/General/KoreanFontText.lua
+          luac5.1 -p Scripts/General/KoreanStatsAndSkills.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+          luac5.1 -p tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+
+      - name: Build hotfix test package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.16a-hotfix-test2"
+          ASSET="MMMerge_Korean_${VERSION}.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+
+          cat > release-stage/HOTFIX_TEST_README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.16a-hotfix-test2
+
+          이 빌드는 v1.0.16 사용자 제보 회귀와 에메랄드 섬 우물 문제를 확인하기 위한 사전 테스트판입니다.
+          정식 안정판이 아닙니다.
+
+          우선 확인할 항목:
+          1. NEW GAME 대륙 선택 화면에 M&M 6 / M&M 7 / M&M 8 표기가 보이는지
+          2. 캐릭터 생성 클래스/초상화 제한 해제·재활성 안내문이 한글로 정상 출력되는지
+          3. Controls 화면의 Interface / UI depends on continent / Increase view range 문구가 한글로 정상 출력되는지
+          4. MM7 시작 후 역사책 첫 항목(저자의 서문)이 깨지지 않고 한글로 표시되는지
+          5. 기존 세이브에서 캐릭터 경험치(Experience)를 우클릭해도 강제종료하지 않고 툴팁이 정상 표시되는지
+          6. 새 MM7 게임의 에메랄드 섬에서 우물을 사용하기 전에 저장 후 불러온 뒤에도 HP/SP 회복 우물과 행운 우물이 정상 작동하는지
+          7. 우물 사용 횟수를 소비한 뒤 저장/불러오기가 공짜 재충전 수단이 되지 않는지
+
+          에메랄드 섬 우물 핫픽스:
+          - 구형 MMMerge RefillTimer가 저장/불러오기 중 이미 도래한 리필 콜백을 실행하지 않고 다음 시각으로 넘길 수 있는 경로를 보정합니다.
+          - 우물의 MapVar 사용 횟수를 직접 초기화하지 않습니다.
+          - HP/SP/행운 우물의 원래 사용 횟수 및 리필 주기는 그대로 유지합니다.
+          - 에메랄드 섬의 기본형 RefillTimer에만 적용하며 다른 맵의 타이머는 건드리지 않습니다.
+
+          알려진 별도 과제:
+          - General settings / Bolster multipliers / Keybinds의 일부 문구는 이미지 리소스 기반이라 별도 작업 대상입니다.
+          - UI 전환 후 하단에 MM8 프레임 일부가 남는 현상은 Merge UI 로딩 동작과 별도로 조사합니다.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 \
+              | sort -z \
+              | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum README.txt CHANGELOG.txt HOTFIX_TEST_README.txt FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## v1.0.16a-hotfix-test2 — 사전 테스트판
+
+          **정식 안정판이 아닙니다.** test1의 UI/문자열 핫픽스에 에메랄드 섬 우물 저장/불러오기 문제의 호환성 보정을 추가했습니다.
+
+          ### 추가 확인: 에메랄드 섬 우물
+          MM7 에메랄드 섬의 HP/SP 회복 우물과 행운 우물은 `MapVar` 사용 횟수를 `RefillTimer` 콜백으로 채우는 구조입니다. 구형 MMMerge 타이머 코어에서는 저장/불러오기 때 이미 도래한 콜백의 다음 시각만 갱신하고 콜백 자체를 건너뛸 수 있는 경로가 있습니다.
+
+          test2는 에메랄드 섬의 기본형 리필 타이머에 한해서 최신 코어와 같은 방식으로 **도래한 콜백을 다음 틱에 실제 실행**하도록 보정합니다.
+
+          - 우물 횟수를 직접 리셋하지 않음
+          - 저장/불러오기로 공짜 재충전되지 않음
+          - 원래 HP/SP/행운 우물 사용 제한과 리필 주기 유지
+          - 다른 맵의 RefillTimer는 원본 MMMerge 동작 유지
+
+          ### test1에서 계속 확인할 것
+          - NEW GAME의 **M&M 6 / M&M 7 / M&M 8** 라벨 표시
+          - 클래스/초상화 제한 안내문의 한글 출력
+          - Controls의 Interface 관련 런타임 문구 한글 출력
+          - MM7 역사책 첫 항목 **저자의 서문** 한글 출력
+          - 기존 세이브에서 **Experience 우클릭 CTD** 재현 여부
+
+          ### 우물 재현 절차
+          1. 새 게임을 **M&M7 / 에메랄드 섬**에서 시작
+          2. HP/SP/행운 우물을 한 번도 사용하지 않은 상태로 저장
+          3. 바로 해당 저장을 불러오기
+          4. 치료소/신전 부근 HP·SP 우물과 서쪽 행운 우물 사용 확인
+          5. 일부 횟수를 사용한 뒤 다시 저장/불러오기하여 사용 횟수가 부당하게 초기화되지 않는지도 확인
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.16a-hotfix-test2"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" \
+              --title "MMMerge 한국어 패치 v1.0.16a-hotfix-test2" \
+              --notes-file release-notes.md \
+              --prerelease
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "MMMerge 한국어 패치 v1.0.16a-hotfix-test2" \
+              --notes-file release-notes.md \
+              --prerelease
+          fi
