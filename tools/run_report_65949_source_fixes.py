@@ -10,6 +10,10 @@ import apply_report_65949_fixes as fixes
 root = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 loc = root / "Data" / "Text localization"
 
+EXTRA_ITEM_FIXES = [
+    ("기벳", "교수대"),
+]
+
 
 def main() -> None:
     total = 0
@@ -22,7 +26,7 @@ def main() -> None:
     # normalization. Several source strings contain "행운 +", "속도 +",
     # "지력 +" etc.; normalizing those first would make the exact fixes miss.
     for path in [loc / "KO_ItemsTxt.txt", loc / "KO_RuntimeOverrides.txt"]:
-        total += fixes.rewrite(path, fixes.ITEM_FIXES)
+        total += fixes.rewrite(path, fixes.ITEM_FIXES + EXTRA_ITEM_FIXES)
 
     # Normalize only mechanical stat notation, not ordinary Korean prose.
     for path in [
