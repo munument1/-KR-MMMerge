@@ -111,7 +111,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- "Data/zz LocKO.icons.lod"; then
+          if [ -z "$(git status --porcelain -- "Data/zz LocKO.icons.lod")" ]; then
             echo "Korean Extra Settings icons archive is already current."
             exit 0
           fi
