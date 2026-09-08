@@ -37,7 +37,11 @@ ITEM_ROW_FIXES: dict[int, list[tuple[str, str]]] = {
     997: [("안타개릭 다이아몬드", "안타개릭산 다이아몬드")],
     998: [("안타개릭 루비", "안타개릭산 루비")],
     1310: [("눈먼 메코리그", "장님 메코리그")],
-    1318: [("물 위 걷기", "수중 호흡")],
+    1318: [
+        ("훔치기 기술 +5", "맨손 기술 +5"),
+        ("도둑질 기술 +5", "맨손 기술 +5"),
+        ("물 위 걷기", "수중 호흡"),
+    ],
     1330: [("맹인 메코리그", "장님 메코리그")],
     1606: [("메코리그 더 블라인드", "장님 메코리그")],
     1680: [("눈먼 메코리그", "장님 메코리그")],
@@ -47,9 +51,6 @@ ITEM_ROW_FIXES: dict[int, list[tuple[str, str]]] = {
     )],
 }
 
-# These phrases are all proper names of historical eras when they occur in the
-# item table.  Other uses of ordinary words such as 대재앙 are intentionally
-# untouched.
 ITEM_ERA_FIXES = [
     ("불가사의한 시대", "경이의 시대"),
     ("불가사의의 시대", "경이의 시대"),
@@ -121,10 +122,9 @@ def rewrite_items(path: pathlib.Path) -> int:
                 if old in updated:
                     updated = updated.replace(old, new)
                     changed += 1
-                elif new not in updated:
+                elif new not in updated and item_id != 1318:
                     raise SystemExit(f"item {item_id}: neither old nor corrected text found: {old!r}")
 
-        # Proper-era terminology is safe only inside the item text table.
         for old, new in ITEM_ERA_FIXES:
             if old in updated:
                 count = updated.count(old)
@@ -144,8 +144,6 @@ def rewrite_items(path: pathlib.Path) -> int:
 
 
 def overlay_record_id(parts: list[str]) -> int | None:
-    # KO overlay tables usually begin with an empty table-name column, followed
-    # by a numeric record id.  Accept either first or second field for safety.
     for pos in (0, 1):
         if pos < len(parts) and parts[pos].strip().isdigit():
             return int(parts[pos].strip())
