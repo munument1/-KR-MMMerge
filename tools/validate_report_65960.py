@@ -56,8 +56,6 @@ def main() -> None:
     items_text = decode(items_path)
     items = numeric_rows(items_path)
 
-    # Proper-era terminology. These stale variants should no longer exist in
-    # the item table; unrelated Cataclysm/대재앙 prose is deliberately allowed.
     for stale in ("불가사의한 시대", "불가사의의 시대", "경이로운 시대", "대침묵의 시대"):
         if stale in items_text:
             raise SystemExit(f"KO_ItemsTxt still contains stale era term: {stale}")
@@ -66,19 +64,21 @@ def main() -> None:
     require(items[821], "경이의 시대에 만들어진 이 단검은", "item 821 Wonder Dagger")
     require(items[1621], "경이의 시대", "item 1621 Jeweled Dagger")
 
-    # Mekorig proper-name consistency, scoped to the known item references.
     for item_id in (806, 840, 880, 1310, 1330, 1606, 1680):
         require(items[item_id], "장님 메코리그", f"item {item_id} Mekorig")
         for stale in ("메코리그 더 블라인드", "맹인 메코리그", "눈먼 메코리그"):
             forbid(items[item_id], stale, f"item {item_id} Mekorig")
 
-    # Exact item wording/mechanics from the report and Merge code.
     require(items[121], "드래곤의 가죽 벨트", "item 121 Artificer's Belt")
     require(items[522], "깃털 낙하", "item 522 Archangel Wings")
     require(items[531], "활 기술 +5", "item 531 Tournament Bow")
     require(items[832], "참수자의 장대도끼는", "item 832 Headsman's Poleaxe")
     forbid(items[832], "헤드스맨 폴액스는", "item 832 Headsman's Poleaxe")
+    require(items[1318], "맨손 기술 +5", "item 1318 Hareck's Leather")
+    require(items[1318], "함정 해제 기술 +5", "item 1318 Hareck's Leather")
     require(items[1318], "수중 호흡", "item 1318 Hareck's Leather")
+    forbid(items[1318], "훔치기 기술 +5", "item 1318 Hareck's Leather")
+    forbid(items[1318], "도둑질 기술 +5", "item 1318 Hareck's Leather")
     forbid(items[1318], "물 위 걷기", "item 1318 Hareck's Leather")
     require(items[1327], "민첩성 +50", "item 1327 Twilight")
     require(items[2024], "공격 회복 속도 증가, 주문력 +40", "item 2024 Merlin")
@@ -86,8 +86,6 @@ def main() -> None:
     require(items[2043], "방패 주문 효과 상시 유지", "item 2043 Aegis")
     forbid(items[2043], "방패 기술 +20", "item 2043 Aegis")
 
-    # Gem provenance: every Jadame/Antagarich gem description in the affected
-    # blocks now uses the same -산 construction as the already-correct rows.
     for item_id in range(177, 187):
         if item_id in items:
             require(items[item_id], "제이덤산", f"Jadame gem {item_id}")
