@@ -8,6 +8,7 @@ on:
       - tools/validate_report_65960.py
       - tools/patch_report_65960_lod.py
       - tools/validate_report_65949.py
+      - tools/apply_report_65949_item_review4.py
       - .github/workflows/apply-report-65960-fixes.yml
   workflow_dispatch:
 
