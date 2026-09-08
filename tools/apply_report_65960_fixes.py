@@ -184,8 +184,8 @@ def rewrite_overlay(path: pathlib.Path, fixes: dict[int, list[tuple[str, str]]])
 
 
 def rewrite_lua(path: pathlib.Path) -> int:
-    original = path.read_text(encoding="utf-8")
-    text = original
+    original_bytes = path.read_bytes()
+    text, encoding = decode_legacy(original_bytes)
     changed = 0
     for old, new in LUA_FIXES:
         if old in text:
@@ -193,8 +193,9 @@ def rewrite_lua(path: pathlib.Path) -> int:
             changed += 1
         elif new not in text:
             raise SystemExit(f"{path.name}: missing shield GM text")
-    if text != original:
-        path.write_text(text, encoding="utf-8", newline="")
+    wanted = text.encode(encoding)
+    if wanted != original_bytes:
+        path.write_bytes(wanted)
     return changed
 
 
