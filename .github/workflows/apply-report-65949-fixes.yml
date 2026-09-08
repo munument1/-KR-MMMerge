@@ -1,0 +1,72 @@
+name: Apply report 65949 fixes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/apply-report-65949-fixes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply source corrections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/run_report_65949_source_fixes.py .
+
+      - name: Propagate corrections into Korean LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_report_65949_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --output /tmp/LocKO-report65949.lod
+          mv /tmp/LocKO-report65949.lod "Data/zz LocKO.T.lod"
+
+          # stats.txt is structured and is safest to rebuild from the dedicated
+          # 26-row translation table after the terminology pass.
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --output /tmp/LocKO-stats.lod
+          mv /tmp/LocKO-stats.lod "Data/zz LocKO.T.lod"
+
+      - name: Validate report corrections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_report_65949.py .
+          python tools/validate_reported_localization_fixes.py .
+          python tools/patch_report_65949_lod.py \
+            --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+      - name: Commit source and LOD updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- "Data/Text localization" "Data/zz LocKO.T.lod" mm8lang.ini; then
+            echo "Report 65949 corrections are already applied."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Data/Text localization" "Data/zz LocKO.T.lod" mm8lang.ini
+          git commit -m "fix(korean): apply report 65949 localization QA"
+          git push
