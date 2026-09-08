@@ -12,7 +12,6 @@ on:
       - tools/patch_report_65949_followup_lod.py
       - tools/validate_report_65949_followup.py
       - tools/apply_report_65949_item_review2.py
-      - tools/patch_report_65949_item_review2_lod.py
       - tools/validate_report_65949_item_review2.py
       - .github/workflows/apply-report-65949-fixes.yml
   workflow_dispatch:
@@ -36,7 +35,7 @@ jobs:
           python tools/apply_report_65949_followup_fixes.py .
           python tools/apply_report_65949_item_review2.py .
 
-      - name: Propagate corrections into Korean LOD
+      - name: Propagate static corrections into Korean LOD
         shell: bash
         run: |
           set -euo pipefail
@@ -45,8 +44,9 @@ jobs:
             --output /tmp/LocKO-report65949.lod
           mv /tmp/LocKO-report65949.lod "Data/zz LocKO.T.lod"
 
-          # stats.txt is structured and is safest to rebuild from the dedicated
-          # 26-row translation table after the terminology pass.
+          # ItemsTxt is shipped in Data/Text localization and is not a member
+          # of zz LocKO.T.lod.  Only tables actually present in the LOD are
+          # patched here.
           python tools/patch_static_stats_lod.py \
             --lod "Data/zz LocKO.T.lod" \
             --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
@@ -57,11 +57,6 @@ jobs:
             --lod "Data/zz LocKO.T.lod" \
             --output /tmp/LocKO-report65949-followup.lod
           mv /tmp/LocKO-report65949-followup.lod "Data/zz LocKO.T.lod"
-
-          python tools/patch_report_65949_item_review2_lod.py \
-            --lod "Data/zz LocKO.T.lod" \
-            --output /tmp/LocKO-report65949-review2.lod
-          mv /tmp/LocKO-report65949-review2.lod "Data/zz LocKO.T.lod"
 
       - name: Validate report corrections
         shell: bash
@@ -74,8 +69,6 @@ jobs:
           python tools/patch_report_65949_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
           python tools/patch_report_65949_followup_lod.py \
-            --lod "Data/zz LocKO.T.lod" --check
-          python tools/patch_report_65949_item_review2_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
           python tools/patch_reported_terms_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
