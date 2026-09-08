@@ -1,0 +1,142 @@
+name: Release v1.0.16a hotfix test1
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.16a-hotfix-test1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Korean integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_reported_localization_fixes.py .
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/FNT_DBCS.lua
+          luac5.1 -p Scripts/General/KoreanFont.lua
+          luac5.1 -p Scripts/General/KoreanFontText.lua
+          luac5.1 -p Scripts/General/KoreanStatsAndSkills.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
+
+      - name: Build hotfix test package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.16a-hotfix-test1"
+          ASSET="MMMerge_Korean_${VERSION}.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+
+          cat > release-stage/HOTFIX_TEST_README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.16a-hotfix-test1
+
+          이 빌드는 v1.0.16 사용자 제보 회귀를 확인하기 위한 사전 테스트판입니다.
+          정식 안정판이 아닙니다.
+
+          우선 확인할 항목:
+          1. NEW GAME 대륙 선택 화면에 M&M 6 / M&M 7 / M&M 8 표기가 보이는지
+          2. 캐릭터 생성 클래스/초상화 제한 해제·재활성 안내문이 한글로 정상 출력되는지
+          3. Controls 화면의 Interface / UI depends on continent / Increase view range 문구가 한글로 정상 출력되는지
+          4. MM7 시작 후 역사책 첫 항목(저자의 서문)이 깨지지 않고 한글로 표시되는지
+          5. 기존 세이브에서 캐릭터 경험치(Experience)를 우클릭해도 강제종료하지 않고 툴팁이 정상 표시되는지
+
+          알려진 별도 과제:
+          - General settings / Bolster multipliers / Keybinds의 일부 문구는 이미지 리소스 기반이라 별도 작업 대상입니다.
+          - UI 전환 후 하단에 MM8 프레임 일부가 남는 현상은 Merge UI 로딩 동작과 별도로 조사합니다.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 \
+              | sort -z \
+              | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum README.txt CHANGELOG.txt HOTFIX_TEST_README.txt FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## v1.0.16a-hotfix-test1 — 사전 테스트판
+
+          **정식 안정판이 아닙니다.** v1.0.16에서 새로 제보된 런타임 UI/문자열 회귀를 확인하기 위한 핫픽스 테스트 빌드입니다.
+
+          ### 이번 테스트에서 확인할 것
+          - NEW GAME의 **M&M 6 / M&M 7 / M&M 8** 라벨 표시
+          - 클래스/초상화 제한 해제 및 재활성 안내문의 한글 출력
+          - Controls의 Interface 관련 런타임 문구 한글 출력
+          - MM7 역사책 첫 항목 **저자의 서문** 한글 출력
+          - 기존 세이브에서 **Experience 우클릭 CTD 재현 여부** 및 툴팁 출력
+
+          ### 이번 핫픽스의 핵심
+          - 대륙 선택 라벨을 배경 뒤가 아닌 전면 레이어에 표시하도록 수정
+          - native DBCS 모드에서 새 런타임 한국어 문자열이 UTF-8 그대로 유입되지 않도록 보정
+          - 제한 재활성(`disabled now`) 안내문 추가
+          - 경험치/훈련 관련 동적 GlobalTxt 문자열을 안전한 EUC-KR 바이트로 적용
+          - 같은 회귀가 다시 들어오면 CI에서 실패하도록 정적 검사 추가
+
+          ### 아직 별도 조사 중
+          - General settings / Bolster multipliers / Keybinds 일부는 이미지 리소스 기반 문자열
+          - UI 변경 후 하단에 MM8 프레임 일부가 남는 현상
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.16a-hotfix-test1"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" \
+              --title "MMMerge 한국어 패치 v1.0.16a-hotfix-test1" \
+              --notes-file release-notes.md \
+              --prerelease
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "MMMerge 한국어 패치 v1.0.16a-hotfix-test1" \
+              --notes-file release-notes.md \
+              --prerelease
+          fi
