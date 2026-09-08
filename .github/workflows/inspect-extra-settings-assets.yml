@@ -1,0 +1,72 @@
+name: Inspect Extra Settings assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/inspect-extra-settings-assets.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch reference assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          REV=aea1b22666ef556f34a71b4f3945904b04de1466
+          BASE="https://raw.githubusercontent.com/might-and-magic/mm678-i18n/${REV}/assets/img/prod/zh_CN/mmmerge/Data/icons"
+          mkdir -p /tmp/extras
+          for f in ExSetScr.bmp ExSetScr2.bmp ExSetScrK.bmp ExtSetDw.bmp ExtSetUp.bmp; do
+            curl -fL --retry 3 "$BASE/$f" -o "/tmp/extras/$f"
+          done
+
+      - name: Build inspection sheet
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw
+
+          src = Path('/tmp/extras')
+          out = Path('/tmp/inspection')
+          out.mkdir(parents=True, exist_ok=True)
+          names = ['ExSetScr.bmp','ExSetScr2.bmp','ExSetScrK.bmp','ExtSetDw.bmp','ExtSetUp.bmp']
+          report=[]
+          imgs=[]
+          for name in names:
+              im=Image.open(src/name).convert('RGB')
+              report.append(f'{name}: size={im.size} mode={Image.open(src/name).mode} colors={len(im.getcolors(maxcolors=1_000_000) or [])}')
+              im.save(out/(Path(name).stem+'.png'))
+              imgs.append((name,im))
+          (out/'asset_report.txt').write_text('\n'.join(report)+'\n', encoding='utf-8')
+
+          pad=20
+          label_h=30
+          width=max(im.width for _,im in imgs)+pad*2
+          height=sum(im.height+label_h+pad for _,im in imgs)+pad
+          sheet=Image.new('RGB',(width,height),'white')
+          draw=ImageDraw.Draw(sheet)
+          y=pad
+          for name,im in imgs:
+              draw.text((pad,y),name,fill='black')
+              y+=label_h
+              sheet.paste(im,(pad,y))
+              y+=im.height+pad
+          sheet.save(out/'contact_sheet.png')
+          PY
+          cat /tmp/inspection/asset_report.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extra-settings-asset-inspection
+          path: /tmp/inspection
+          if-no-files-found: error
