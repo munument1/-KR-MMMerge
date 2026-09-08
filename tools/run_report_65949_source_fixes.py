@@ -19,6 +19,19 @@ EXTRA_ITEM_FIXES = [
     ),
 ]
 
+# Later source-backed item QA deliberately standardizes the generic elemental
+# aggregate as "원소 저항력".  Keep the older broad MECHANICAL table available
+# for compatibility, but do not let this orchestrator immediately undo that
+# reviewed wording on every run.
+MECHANICAL = [
+    (old, new)
+    for old, new in fixes.MECHANICAL
+    if old not in ("원소 저항력 +", "원소 저항력 -")
+]
+
+# Ignore accidental no-op replacements such as ("지능은", "지능은").
+STATS_FIXES = [(old, new) for old, new in fixes.STATS_FIXES if old != new]
+
 
 def main() -> None:
     total = 0
@@ -40,10 +53,10 @@ def main() -> None:
         loc / "KO_SpcItemsTxtStats.txt",
         loc / "KO_StdItemsTxtStats.txt",
     ]:
-        total += fixes.rewrite(path, fixes.MECHANICAL)
+        total += fixes.rewrite(path, MECHANICAL)
 
     total += fixes.rewrite(loc / "KO_GlobalTxt.txt", fixes.GLOBAL_FIXES)
-    total += fixes.rewrite(loc / "KO_StatsDescriptions.tsv", fixes.STATS_FIXES)
+    total += fixes.rewrite(loc / "KO_StatsDescriptions.tsv", STATS_FIXES)
 
     # GrayFace/MMExtension reads this beside MM8.exe. Keep a UTF-8 source in
     # Data/Text localization, but ship the runtime file as CP949/EUC-KR bytes.
