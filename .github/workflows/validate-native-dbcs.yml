@@ -9,6 +9,7 @@ on:
       - Scripts/General/FNT_DBCS.lua
       - Scripts/General/KoreanFont.lua
       - Scripts/General/KoreanFontText.lua
+      - Scripts/General/KoreanHistory.lua
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
@@ -18,6 +19,7 @@ on:
       - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
+      - Data/Text localization/MM8History_KO.txt
       - Data/zz LocKO.T.lod
       - Data/zz LocKO.icons.lod
       - DataFiles/DBCS_*.fnt
@@ -44,6 +46,7 @@ on:
       - tools/build_korean_extra_settings_icons.py
       - tools/test_emerald_well_timer_fix.lua
       - tools/test_korean_extra_settings_overlay.lua
+      - tools/test_korean_history.lua
       - tools/test_korean_runtime_hotfix.lua
       - .github/workflows/build-korean-extra-settings-icons.yml
       - .github/workflows/validate-native-dbcs.yml
@@ -52,6 +55,7 @@ on:
       - Scripts/General/FNT_DBCS.lua
       - Scripts/General/KoreanFont.lua
       - Scripts/General/KoreanFontText.lua
+      - Scripts/General/KoreanHistory.lua
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
@@ -61,6 +65,7 @@ on:
       - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
+      - Data/Text localization/MM8History_KO.txt
       - Data/zz LocKO.T.lod
       - Data/zz LocKO.icons.lod
       - DataFiles/DBCS_*.fnt
@@ -87,6 +92,7 @@ on:
       - tools/build_korean_extra_settings_icons.py
       - tools/test_emerald_well_timer_fix.lua
       - tools/test_korean_extra_settings_overlay.lua
+      - tools/test_korean_history.lua
       - tools/test_korean_runtime_hotfix.lua
       - .github/workflows/build-korean-extra-settings-icons.yml
       - .github/workflows/validate-native-dbcs.yml
@@ -156,6 +162,7 @@ jobs:
           luac5.1 -p Scripts/General/FNT_DBCS.lua
           luac5.1 -p Scripts/General/KoreanFont.lua
           luac5.1 -p Scripts/General/KoreanFontText.lua
+          luac5.1 -p Scripts/General/KoreanHistory.lua
           luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
           luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
           luac5.1 -p Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
@@ -163,9 +170,11 @@ jobs:
           luac5.1 -p Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua
           luac5.1 -p tools/test_emerald_well_timer_fix.lua
           luac5.1 -p tools/test_korean_extra_settings_overlay.lua
+          luac5.1 -p tools/test_korean_history.lua
           luac5.1 -p tools/test_korean_runtime_hotfix.lua
           lua5.1 tools/test_emerald_well_timer_fix.lua
           lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_history.lua
           lua5.1 tools/test_korean_runtime_hotfix.lua
 
       - name: Upstream MM8 page-font harness
