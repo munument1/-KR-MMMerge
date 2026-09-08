@@ -15,6 +15,8 @@ on:
       - tools/validate_report_65949_item_review2.py
       - tools/apply_report_65949_item_review3.py
       - tools/validate_report_65949_item_review3.py
+      - tools/apply_report_65949_item_review4.py
+      - tools/validate_report_65949_item_review4.py
       - .github/workflows/apply-report-65949-fixes.yml
   workflow_dispatch:
 
@@ -37,6 +39,7 @@ jobs:
           python tools/apply_report_65949_followup_fixes.py .
           python tools/apply_report_65949_item_review2.py .
           python tools/apply_report_65949_item_review3.py .
+          python tools/apply_report_65949_item_review4.py .
 
       - name: Propagate static corrections into Korean LOD
         shell: bash
@@ -69,6 +72,7 @@ jobs:
           python tools/validate_report_65949_followup.py .
           python tools/validate_report_65949_item_review2.py .
           python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
           python tools/validate_reported_localization_fixes.py .
           python tools/patch_report_65949_lod.py \
             --lod "Data/zz LocKO.T.lod" --check
@@ -92,5 +96,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "Data/Text localization" "Data/zz LocKO.T.lod" mm8lang.ini
-          git commit -m "fix(korean): apply third source-backed item QA pass"
+          git commit -m "fix(korean): apply fourth source-backed item QA pass"
           git push
