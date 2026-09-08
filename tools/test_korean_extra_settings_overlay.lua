@@ -17,6 +17,13 @@ Game = {
 }
 
 CustomUI = {
+    -- Main Extra Settings and keybind pages exist in this simulated Merge build.
+    -- CharacterOptions (94) is deliberately absent to reproduce the v1.0.17
+    -- AddElement crash reported by players.
+    ActiveElements = {
+        [98] = {},
+        [96] = {},
+    },
     CreateIcon = function(settings)
         table.insert(createdIcons, settings)
         return settings
@@ -64,6 +71,7 @@ const.Screens.ExtraSettings = 98
 const.Screens.ExtraKeybinds = 96
 const.Screens.CharacterOptions = 94
 
+-- Must not attempt CustomUI.CreateText on missing screen 94.
 events.GameInitialized2()
 
 local expectedKeys = {
@@ -73,17 +81,23 @@ local expectedKeys = {
     KoreanWeatherEffects = true,
     KoreanInfinityView = true,
     KoreanImprovedPathfinding = true,
-    KoreanCharacterOptionsTitle = true,
 }
 
+local sawCharacterTitle = false
 for _, settings in ipairs(createdTexts) do
     if settings.Key then
         expectedKeys[settings.Key] = nil
+        if settings.Key == "KoreanCharacterOptionsTitle" then
+            sawCharacterTitle = true
+        end
     end
 end
 
 for key in pairs(expectedKeys) do
     error("missing Korean settings overlay label: " .. key)
 end
+assert(not sawCharacterTitle, "created CharacterOptions title on an unregistered screen")
+assert(KoreanExtraSettingsOverlay.ScreenIsRegistered(94) == false,
+    "unregistered CharacterOptions screen was treated as valid")
 
 print("Korean Extra Settings overlay: OK")
