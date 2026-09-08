@@ -36,6 +36,8 @@ on:
       - tools/validate_report_65949_item_review3.py
       - tools/apply_report_65949_item_review4.py
       - tools/validate_report_65949_item_review4.py
+      - tools/apply_report_65949_item_review5.py
+      - tools/validate_report_65949_item_review5.py
       - tools/test_emerald_well_timer_fix.lua
       - .github/workflows/validate-native-dbcs.yml
   pull_request:
@@ -70,6 +72,8 @@ on:
       - tools/validate_report_65949_item_review3.py
       - tools/apply_report_65949_item_review4.py
       - tools/validate_report_65949_item_review4.py
+      - tools/apply_report_65949_item_review5.py
+      - tools/validate_report_65949_item_review5.py
       - tools/test_emerald_well_timer_fix.lua
       - .github/workflows/validate-native-dbcs.yml
 
@@ -97,6 +101,7 @@ jobs:
           python tools/validate_report_65949_item_review2.py .
           python tools/validate_report_65949_item_review3.py .
           python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
 
       - name: Validate reported terminology in LOD
         run: |
