@@ -22,9 +22,13 @@ GLOBAL_VALUES = {
     291: "육체 마법",
 }
 
+EXTRA_ITEM_FIXES = [
+    ("기벳", "교수대"),
+]
+
 STALE_CRITICAL = [
     "날카로행운", "아름다행운", "가까행운", "갑작스러행운", "기행운", "불행운",
-    "파이널리티", "구울스베인", "아이언 페더", "아르테무스", "샤렐레",
+    "파이널리티", "기벳", "구울스베인", "아이언 페더", "아르테무스", "샤렐레",
     "타이탄의 벨트", "울리세스", "물 마법 사용 시 속도 +40",
     "무장 해제 기술 +5", "살을 돌로 변하게 하는 효과 면역",
     "방패 사용 시 행운 +20", "재생력 +10",
@@ -82,7 +86,7 @@ def patch_phrases(raw: bytes):
     # Exact item phrases first. Mechanical stat normalization deliberately
     # runs last, otherwise it changes the source text that exact corrections
     # are supposed to match (e.g. "속도 +40" / "행운 +20").
-    replacements = SAFE_ALL + ITEM_FIXES + MECHANICAL
+    replacements = SAFE_ALL + ITEM_FIXES + EXTRA_ITEM_FIXES + MECHANICAL
     for old, new in replacements:
         if old == new:
             continue
