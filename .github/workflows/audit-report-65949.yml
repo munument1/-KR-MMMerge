@@ -1,0 +1,20 @@
+name: Audit report 65949
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/audit_report_65949.py
+      - .github/workflows/audit-report-65949.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit reported terminology and items
+        run: python tools/audit_report_65949.py .
