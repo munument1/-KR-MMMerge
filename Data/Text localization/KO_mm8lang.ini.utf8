@@ -1,0 +1,20 @@
+[Settings]
+QuickSavesName=
+SpaceBeforeQuicksaveDigit=0
+RecoveryTimeInfo=회복 시간: %d
+PlayerNotActive=해당 캐릭터는 행동할 수 없습니다
+DoubleSpeed=2배속
+NormalSpeed=일반 속도
+ArmorHalvedMessage=%s이(가) %s의 방어력을 절반으로 낮춥니다
+ChooseAttackSpell=공격 주문 없음
+SetAttackSpell=공격 주문으로 설정
+SwitchAttackSpell=공격 주문 변경 (%s)
+RemoveAttackSpell=공격 주문 해제 (%s)
+Duration=지속 시간:
+DurationYr= %d년
+DurationMo= %d개월
+DurationDy= %d일
+DurationHr= %d시간
+DurationMn= %d분
+Energy=에너지
+N/A=N/A
