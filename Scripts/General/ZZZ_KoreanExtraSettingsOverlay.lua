@@ -67,20 +67,18 @@ local function installHooks()
         return
     end
 
-    -- ExSetScr and ExSetScrK contain English text baked into the bitmap.
-    -- Merge also ships ExSetScr2 as the same settings background without labels,
-    -- so use it as the localized canvas and draw Korean labels dynamically.
+    -- The normal Extra Settings page bakes its option labels into ExSetScr.
+    -- Use ExSetScr2 as the blank canvas and draw those labels dynamically.
+    -- ExtraKeybinds is different: its ExSetScrK bitmap also contains the key
+    -- grid itself, so it must remain ExSetScrK.  zz LocKO.icons.lod provides a
+    -- Korean ExSetScrK with the same grid and a localized heading.
     if type(CustomUI.CreateIcon) == "function" then
         local originalCreateIcon = CustomUI.CreateIcon
         CustomUI.CreateIcon = function(settings, ...)
-            if type(settings) == "table" then
-                if settings.Icon == "ExSetScr" and
-                        screenMatches(settings.Screen, "ExtraSettings", 98) then
-                    settings.Icon = "ExSetScr2"
-                elseif settings.Icon == "ExSetScrK" and
-                        screenMatches(settings.Screen, "ExtraKeybinds", 96) then
-                    settings.Icon = "ExSetScr2"
-                end
+            if type(settings) == "table" and
+                    settings.Icon == "ExSetScr" and
+                    screenMatches(settings.Screen, "ExtraSettings", 98) then
+                settings.Icon = "ExSetScr2"
             end
             return originalCreateIcon(settings, ...)
         end
@@ -122,13 +120,12 @@ local function installPageLabels()
     end
 
     local extraSettings = const and const.Screens and const.Screens.ExtraSettings or 98
-    local extraKeybinds = const and const.Screens and const.Screens.ExtraKeybinds or 96
     local characterOptions = const and const.Screens and const.Screens.CharacterOptions or 94
 
     -- Main Extra Settings page. Coordinates follow MenuExtraSettings.lua's
     -- tumbler rows (175, 251, 288, 326) and bolster amount row (220).
     createLabel(extraSettings, "KoreanExtraSettingsTitle",
-        "\192\207\185\221 \188\179\193\164", 220, 135, 220)
+        "\192\207\185\221 \188\179\193\164", 220, 151, 220)
     createLabel(extraSettings, "KoreanMonsterBolster",
         "\184\243\189\186\197\205 \176\173\200\173", 220, 177, 260)
     createLabel(extraSettings, "KoreanBolsterAmount",
@@ -140,16 +137,14 @@ local function installPageLabels()
     createLabel(extraSettings, "KoreanImprovedPathfinding",
         "\199\226\187\243\181\200 \177\230\195\163\177\226", 220, 328, 280)
 
-    -- Extra quick-spell keybind page. The six row labels themselves are
-    -- translated by the CreateText hook above.
-    createLabel(extraKeybinds, "KoreanExtraKeybindsTitle",
-        "\195\223\176\161 \197\176 \188\179\193\164", 220, 160, 240)
+    -- ExSetScrK in the Korean icons archive already carries the localized
+    -- "추가 키 설정" heading and the key grid.  Its six Q. SPELL rows and
+    -- key names are translated dynamically by the CreateText hook above.
 
-    -- CharacterOptions already uses ExSetScr2; add the title that would
-    -- otherwise be absent on the blank template. Its remaining labels are
-    -- translated by the same CreateText hook.
+    -- CharacterOptions uses ExSetScr2, so give this otherwise blank page a
+    -- section heading.  Its CharacterName / melee / ranged labels are dynamic.
     createLabel(characterOptions, "KoreanCharacterOptionsTitle",
-        "\196\179\184\175\197\205 \188\179\193\164", 220, 140, 240)
+        "\196\179\184\175\197\205 \188\179\193\164", 220, 151, 240)
 
     KoreanExtraSettingsOverlay.PageLabelsInstalled = true
 end
