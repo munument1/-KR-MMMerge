@@ -23,6 +23,19 @@ on:
       - tools/patch_static_stats_lod.py
       - tools/validate_native_dbcs_integration.py
       - tools/validate_reported_localization_fixes.py
+      - tools/apply_report_65949_fixes.py
+      - tools/run_report_65949_source_fixes.py
+      - tools/patch_report_65949_lod.py
+      - tools/validate_report_65949.py
+      - tools/apply_report_65949_followup_fixes.py
+      - tools/patch_report_65949_followup_lod.py
+      - tools/validate_report_65949_followup.py
+      - tools/apply_report_65949_item_review2.py
+      - tools/validate_report_65949_item_review2.py
+      - tools/apply_report_65949_item_review3.py
+      - tools/validate_report_65949_item_review3.py
+      - tools/apply_report_65949_item_review4.py
+      - tools/validate_report_65949_item_review4.py
       - tools/test_emerald_well_timer_fix.lua
       - .github/workflows/validate-native-dbcs.yml
   pull_request:
@@ -44,6 +57,19 @@ on:
       - tools/patch_static_stats_lod.py
       - tools/validate_native_dbcs_integration.py
       - tools/validate_reported_localization_fixes.py
+      - tools/apply_report_65949_fixes.py
+      - tools/run_report_65949_source_fixes.py
+      - tools/patch_report_65949_lod.py
+      - tools/validate_report_65949.py
+      - tools/apply_report_65949_followup_fixes.py
+      - tools/patch_report_65949_followup_lod.py
+      - tools/validate_report_65949_followup.py
+      - tools/apply_report_65949_item_review2.py
+      - tools/validate_report_65949_item_review2.py
+      - tools/apply_report_65949_item_review3.py
+      - tools/validate_report_65949_item_review3.py
+      - tools/apply_report_65949_item_review4.py
+      - tools/validate_report_65949_item_review4.py
       - tools/test_emerald_well_timer_fix.lua
       - .github/workflows/validate-native-dbcs.yml
 
@@ -61,6 +87,16 @@ jobs:
 
       - name: Validate reported localization fixes
         run: python tools/validate_reported_localization_fixes.py .
+
+      - name: Validate report 65949 source-backed QA passes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
 
       - name: Validate reported terminology in LOD
         run: |
