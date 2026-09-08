@@ -32,8 +32,10 @@ dofile("Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua")
 local mainBg = CustomUI.CreateIcon{Icon = "ExSetScr", Screen = 98}
 assert(mainBg.Icon == "ExSetScr2", "main Extra Settings background was not replaced")
 
+-- ExSetScrK contains the key grid and is localized as an image in
+-- zz LocKO.icons.lod. Replacing it with ExSetScr2 would erase the grid.
 local keysBg = CustomUI.CreateIcon{Icon = "ExSetScrK", Screen = 96}
-assert(keysBg.Icon == "ExSetScr2", "Extra Keybinds background was not replaced")
+assert(keysBg.Icon == "ExSetScrK", "Extra Keybinds grid artwork was incorrectly replaced")
 
 local unrelated = CustomUI.CreateIcon{Icon = "UIExample", Screen = 28}
 assert(unrelated.Icon == "UIExample", "unrelated icon was modified")
@@ -71,7 +73,6 @@ local expectedKeys = {
     KoreanWeatherEffects = true,
     KoreanInfinityView = true,
     KoreanImprovedPathfinding = true,
-    KoreanExtraKeybindsTitle = true,
     KoreanCharacterOptionsTitle = true,
 }
 
