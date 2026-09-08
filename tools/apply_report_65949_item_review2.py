@@ -56,6 +56,10 @@ ROW_FIXES: dict[int, list[tuple[str, str]]] = {
     2048: [("착용자의 지력을 크게 향상시키지만", "착용자의 지능을 크게 향상시키지만")],
 }
 
+# Review 3 intentionally refined item 1335 from attack/weapon recovery to hit
+# recovery.  Keep this pass re-runnable without forcing the older wording back.
+SUPERSEDED_BY_LATER_PASSES = {1335}
+
 
 def decode_with_encoding(data: bytes) -> tuple[str, str]:
     if data.startswith(b"\xef\xbb\xbf"):
@@ -88,7 +92,7 @@ def main() -> None:
             if old in updated:
                 updated = updated.replace(old, new)
                 changed += 1
-            elif new not in updated:
+            elif new not in updated and item_id not in SUPERSEDED_BY_LATER_PASSES:
                 raise SystemExit(f"item {item_id}: neither old nor corrected phrase found: {old!r}")
         lines[index] = updated
 

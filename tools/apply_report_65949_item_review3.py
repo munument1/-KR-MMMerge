@@ -36,6 +36,10 @@ ROW_FIXES: dict[int, list[tuple[str, str]]] = {
     2035: [("(특수 능력: 독 피해 +20, 운 +20, 도둑질 +20, 생명력 지속 감소)", "(특수 능력: 독 피해 +20, 운 +20, 함정 해제/도둑질 성공 확률 2배, 생명력 지속 감소)")],
 }
 
+# Review 4 only refines the Korean UI terminology of these already-correct
+# mechanics.  Accept the later wording so this pass stays idempotent.
+SUPERSEDED_BY_REVIEW4 = {1338, 2026, 2030, 2035}
+
 
 def decode_with_encoding(data: bytes) -> tuple[str, str]:
     if data.startswith(b"\xef\xbb\xbf"):
@@ -68,7 +72,7 @@ def main() -> None:
             if old in updated:
                 updated = updated.replace(old, new)
                 changed += 1
-            elif new not in updated:
+            elif new not in updated and item_id not in SUPERSEDED_BY_REVIEW4:
                 raise SystemExit(f"item {item_id}: neither old nor corrected phrase found: {old!r}")
         lines[index] = updated
 

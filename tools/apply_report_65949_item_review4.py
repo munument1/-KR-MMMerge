@@ -24,6 +24,7 @@ ROW_FIXES: dict[int, list[tuple[str, str]]] = {
     1319: [("엘프 학살", "엘프 사냥")],
     1323: [("(빛 마법, 인격 +15, 힘 +15, 운 -40, 선함)", "(빛 마법, 인격 +15, 힘 +15, 운 -40, 선)")],
     1338: [("모든 저항 +10", "모든 저항력 +10")],
+    2026: [("모든 저항 +10, 생명력 +25", "모든 저항력 +10, 생명력 +25")],
     2030: [("함정 해제/도둑질 성공 확률 2배", "함정 해제/훔치기 성공 확률 2배")],
     2035: [("함정 해제/도둑질 성공 확률 2배", "함정 해제/훔치기 성공 확률 2배")],
     2040: [("원소 저항 -10", "원소 저항력 -10")],
@@ -65,7 +66,6 @@ def main() -> None:
         lines[i] = new_line
 
     out = newline.join(lines)
-    # utf-8-sig already supplies BOM when encoded; CP949 remains byte-compatible.
     path.write_bytes(out.encode(enc))
     print(f"report 65949 item review 4: {changes} source corrections ({enc})")
 
