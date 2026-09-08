@@ -9,54 +9,67 @@ local CONTINENT_LABEL_KEYS = {
     "KoreanContinentGameLabel3"
 }
 
-local CONTINENT_LABELS = {
-    {Text = "M&M 8", X = 290, Y = 207},
-    {Text = "M&M 7", X = 404, Y = 404},
-    {Text = "M&M 6", X = 176, Y = 404}
+local LOWER_CONTINENT_BUTTONS = {
+    SlAntagDw = true,
+    SlEnrothDw = true
 }
 
-local function deactivateLegacyContinentLabels()
+local function ensureContinentLabelsActive()
+    if KoreanReportedLocalization and
+            type(KoreanReportedLocalization.InstallContinentGameLabels) == "function" then
+        KoreanReportedLocalization.InstallContinentGameLabels()
+    end
+
     if not CustomUI or not CustomUI.ActiveElements or
             not const or not const.Screens or not const.Screens.ChooseContinent then
-        return
+        return 0
     end
 
     local screen = CustomUI.ActiveElements[const.Screens.ChooseContinent]
     local layer = screen and screen.Texts and screen.Texts[0]
     if not layer then
-        return
+        return 0
     end
 
+    local enabled = 0
     for _, key in ipairs(CONTINENT_LABEL_KEYS) do
         local element = layer[key]
         if element then
-            element.Active = false
+            element.Active = true
+            enabled = enabled + 1
         end
     end
+    return enabled
 end
 
-local function drawContinentLabelsOnTop()
-    if not CustomUI or type(CustomUI.ShowText) ~= "function" or
-            not const or not const.Screens or not const.Screens.ChooseContinent or
-            not Game or Game.CurrentScreen ~= const.Screens.ChooseContinent or
-            not Game.Smallnum_fnt then
-        return
+local function promoteLowerContinentButtons()
+    if not CustomUI or not CustomUI.ActiveElements or
+            not const or not const.Screens or not const.Screens.ChooseContinent then
+        return 0
     end
 
-    for _, label in ipairs(CONTINENT_LABELS) do
-        CustomUI.ShowText(
-            label.Text,
-            Game.Smallnum_fnt,
-            label.X,
-            label.Y,
-            3,
-            0, 0, 0,
-            70, 16,
-            0, 0,
-            0xFFFF,
-            true
-        )
+    local screen = CustomUI.ActiveElements[const.Screens.ChooseContinent]
+    local buttons = screen and screen.Buttons
+    local front = buttons and buttons[0]
+    local middle = buttons and buttons[1]
+    if not front or not middle then
+        return 0
     end
+
+    local moves = {}
+    for key, button in pairs(front) do
+        if button and LOWER_CONTINENT_BUTTONS[button.IUpSrc] then
+            moves[#moves + 1] = {Key = key, Button = button}
+        end
+    end
+
+    for _, move in ipairs(moves) do
+        front[move.Key] = nil
+        move.Button.Layer = 1
+        middle[move.Key] = move.Button
+    end
+
+    return #moves
 end
 
 local MM7_HISTORY_PATH = "Data/Text localization/MM7History_KO.txt"
@@ -124,17 +137,13 @@ local function applyAllMM7History()
 end
 
 function events.GameInitialized2()
-    -- ZZ_KoreanReportedLocalization.lua registers the legacy labels earlier in
-    -- the load order, so disable them here. We redraw after layer-0 buttons.
-    deactivateLegacyContinentLabels()
-end
-
-function events.FGInterfaceUpd()
-    -- InterfaceManager calls FGInterfaceUpd after processing layer-0 Texts and
-    -- Buttons. This keeps MM6/MM7 labels from being painted over by their
-    -- layer-0 continent buttons. (MM8 happened to work because its button is
-    -- layer 1.)
-    drawContinentLabelsOnTop()
+    -- MenuChooseContinent creates Jadam on layer 1, but Antagarich and Enroth
+    -- buttons on layer 0. InterfaceManager renders Texts before Buttons inside
+    -- one layer, so layer-0 MM7/MM6 labels were covered by those two buttons.
+    -- Keep the normal layer-0 labels (including the already-working M&M8 one)
+    -- and move only the two lower continent buttons to layer 1.
+    ensureContinentLabelsActive()
+    promoteLowerContinentButtons()
 end
 
 function events.LoadMap()
@@ -145,7 +154,7 @@ function events.AfterLoadMap()
     applyAllMM7History()
 end
 
-KoreanRuntimeHotfix.DeactivateLegacyContinentLabels = deactivateLegacyContinentLabels
-KoreanRuntimeHotfix.DrawContinentLabelsOnTop = drawContinentLabelsOnTop
+KoreanRuntimeHotfix.EnsureContinentLabelsActive = ensureContinentLabelsActive
+KoreanRuntimeHotfix.PromoteLowerContinentButtons = promoteLowerContinentButtons
 KoreanRuntimeHotfix.ParseMM7History = parseMM7History
 KoreanRuntimeHotfix.ApplyAllMM7History = applyAllMM7History
