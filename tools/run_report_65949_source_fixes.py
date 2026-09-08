@@ -19,9 +19,10 @@ def main() -> None:
         total += fixes.rewrite(path, fixes.SAFE_ALL)
 
     # Exact artifact/relic/reagent corrections must run before mechanical
-    # normalization.  Several source strings contain "행운 +", "속도 +",
+    # normalization. Several source strings contain "행운 +", "속도 +",
     # "지력 +" etc.; normalizing those first would make the exact fixes miss.
-    total += fixes.rewrite(loc / "KO_ItemsTxt.txt", fixes.ITEM_FIXES)
+    for path in [loc / "KO_ItemsTxt.txt", loc / "KO_RuntimeOverrides.txt"]:
+        total += fixes.rewrite(path, fixes.ITEM_FIXES)
 
     # Normalize only mechanical stat notation, not ordinary Korean prose.
     for path in [
@@ -35,7 +36,7 @@ def main() -> None:
     total += fixes.rewrite(loc / "KO_GlobalTxt.txt", fixes.GLOBAL_FIXES)
     total += fixes.rewrite(loc / "KO_StatsDescriptions.tsv", fixes.STATS_FIXES)
 
-    # GrayFace/MMExtension reads this beside MM8.exe.  Keep a UTF-8 source in
+    # GrayFace/MMExtension reads this beside MM8.exe. Keep a UTF-8 source in
     # Data/Text localization, but ship the runtime file as CP949/EUC-KR bytes.
     template = loc / "KO_mm8lang.ini.utf8"
     output = root / "mm8lang.ini"
