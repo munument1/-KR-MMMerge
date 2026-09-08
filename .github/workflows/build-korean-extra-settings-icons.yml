@@ -1,0 +1,122 @@
+name: Build Korean Extra Settings icons
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/build_korean_extra_settings_icons.py
+      - .github/workflows/build-korean-extra-settings-icons.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install image/archive tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk fontconfig >/dev/null
+          python -m pip install --quiet pillow
+          npm install -g mmarch >/dev/null
+          mmarch --version || true
+
+      - name: Fetch upstream reference art
+        shell: bash
+        run: |
+          set -euo pipefail
+          REV=aea1b22666ef556f34a71b4f3945904b04de1466
+          BASE="https://raw.githubusercontent.com/might-and-magic/mm678-i18n/${REV}/assets/img/prod/zh_CN/mmmerge/Data/icons"
+          mkdir -p /tmp/ko-extra/source
+          for f in ExSetScr2.bmp ExSetScrK.bmp ExtSetDw.bmp ExtSetUp.bmp; do
+            curl -fL --retry 3 "$BASE/$f" -o "/tmp/ko-extra/source/$f"
+          done
+
+      - name: Generate Korean BMP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          FONT="$(fc-match -f '%{file}\n' 'Noto Serif CJK KR:style=Bold' | head -n1)"
+          test -n "$FONT"
+          echo "Using font: $FONT"
+          python tools/build_korean_extra_settings_icons.py \
+            --source /tmp/ko-extra/source \
+            --output /tmp/ko-extra/icons \
+            --font "$FONT"
+
+      - name: Pack and verify icons LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/ko-extra/icons
+          rm -f "zz LocKO.icons.lod"
+          mmarch create "zz LocKO.icons.lod" mmiconslod . \
+            ExSetScr2.bmp ExSetScrK.bmp ExtSetDw.bmp ExtSetUp.bmp
+          mmarch list "zz LocKO.icons.lod" > /tmp/ko-extra/archive-list.txt
+          cat /tmp/ko-extra/archive-list.txt
+          for name in ExSetScr2 ExSetScrK ExtSetDw ExtSetUp; do
+            grep -qi "$name" /tmp/ko-extra/archive-list.txt
+          done
+
+          mkdir -p /tmp/ko-extra/extracted
+          mmarch extract "zz LocKO.icons.lod" /tmp/ko-extra/extracted
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          root=Path('/tmp/ko-extra/extracted')
+          expected={
+              'exsetscr2': (640,480),
+              'exsetscrk': (640,480),
+              'extsetdw': (118,92),
+              'extsetup': (118,92),
+          }
+          found={}
+          for p in root.iterdir():
+              if p.is_file():
+                  try:
+                      im=Image.open(p)
+                  except Exception:
+                      continue
+                  found[p.stem.lower()] = im.size
+          for key,size in expected.items():
+              if found.get(key) != size:
+                  raise SystemExit(f'{key}: expected {size}, extracted {found.get(key)}; all={found}')
+          print('Korean Extra Settings icons archive: OK')
+          PY
+
+      - name: Install generated LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "/tmp/ko-extra/icons/zz LocKO.icons.lod" "Data/zz LocKO.icons.lod"
+
+      - name: Upload visual QA preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: korean-extra-settings-icons-preview
+          path: |
+            /tmp/ko-extra/icons/*.png
+            /tmp/ko-extra/archive-list.txt
+          if-no-files-found: error
+
+      - name: Commit generated icons archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- "Data/zz LocKO.icons.lod"; then
+            echo "Korean Extra Settings icons archive is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "Data/zz LocKO.icons.lod"
+          git commit -m "fix(korean): add localized Extra Settings icon archive"
+          git push
