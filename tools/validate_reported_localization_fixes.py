@@ -64,31 +64,42 @@ for fragment in required_override_fragments:
     if fragment not in overrides:
         raise SystemExit(f"missing reported-fix override: {fragment!r}")
 
+# ZZ_KoreanReportedLocalization.lua is loaded by Lua as source text, while the
+# v1.0.15+ native renderer consumes EUC-KR game bytes. Player reports proved
+# that raw UTF-8 Hangul literals become mojibake and can reach unsafe tooltip
+# paths. Keep this targeted runtime file ASCII-only and express Korean strings
+# through Lua decimal byte escapes.
+if not ui.isascii():
+    raise SystemExit("ZZ_KoreanReportedLocalization.lua contains raw non-ASCII runtime text")
+
 required_ui_fragments = [
     '["Free class / portrait combinations are allowed now."]',
-    '["UI depends on continent"] = "대륙에 따라 UI 변경"',
-    '["Increase view range"] = "시야 거리 증가"',
-    '["Smaller potion bottles"] = "작은 물약병"',
-    'Title = "저자의 서문"',
+    '["Free class / portrait combinations are disabled now."]',
+    '["Interface settings"]',
+    '["General settings"]',
+    '["Bolster multipliers"]',
+    '["Keybinds"]',
+    'Title = "\\192\\250\\192\\218\\192\\199 \\188\\173\\185\\174"',
     "continent == 2",
     '{Text = "M&M 8"',
     '{Text = "M&M 7"',
     '{Text = "M&M 6"',
-    "[4] = {",
+    "Layer = 0",
     "NPCText = 2324",
-    "학습 기술에 +5 보너스를 주고 아이템을 무제한으로 식별합니다. 학습 숙련도 배율이 적용됩니다.",
-    "[13] = {",
     "NPCText = 2333",
-    "학습 기술에 +10 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다.",
-    "[14] = {",
     "NPCText = 2334",
-    "학습 기술에 +15 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다.",
     "Game.NPCProf[profession].Description = localized",
+    "local EXPERIENCE_TEXT = {",
+    '[17] = "\\176\\230\\199\\232\\196\\161"',
+    '[83] = "\\176\\230\\199\\232\\196\\161"',
+    "[537] =",
+    "[538] =",
+    "applyExperienceTextSafety()",
 ]
 
 for fragment in required_ui_fragments:
     if fragment not in ui:
-        raise SystemExit(f"missing UI/history runtime fix: {fragment!r}")
+        raise SystemExit(f"missing UI/history hotfix contract: {fragment!r}")
 
 if not history.startswith("#\tText\tTime\tPage Title\n1\t마크햄 경은"):
     raise SystemExit("MM7 history source no longer starts with the translated Markham foreword")
