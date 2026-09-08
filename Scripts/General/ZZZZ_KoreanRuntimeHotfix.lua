@@ -1,5 +1,5 @@
 -- Runtime hotfixes for v1.0.17 regressions.
--- Keep this file ASCII-only. MM7History_KO.txt is read as raw game-encoding bytes.
+-- Keep this file ASCII-only.
 
 KoreanRuntimeHotfix = KoreanRuntimeHotfix or {}
 
@@ -72,89 +72,41 @@ local function promoteLowerContinentButtons()
     return #moves
 end
 
-local MM7_HISTORY_PATH = "Data/Text localization/MM7History_KO.txt"
-local mm7HistoryRecords
-
-local function parseMM7History()
-    if mm7HistoryRecords then
-        return mm7HistoryRecords
-    end
-
-    local file = io.open(MM7_HISTORY_PATH, "rb")
-    if not file then
+local function reapplyLocalizedHistory()
+    if not KoreanHistory or type(KoreanHistory.ApplyForContinent) ~= "function" or
+            not TownPortalControls or not Map then
         return nil
     end
 
-    local data = file:read("*a")
-    file:close()
-
-    local records = {}
-    for row in string.gmatch(data, "[^\r]+") do
-        -- Support either CR-only records or CRLF records without touching the
-        -- intentional LF paragraph breaks embedded inside the Text field.
-        row = string.gsub(row, "^\n+", "")
-        if row ~= "" and string.sub(row, 1, 2) ~= "#\t" then
-            local tab1 = string.find(row, "\t", 1, true)
-            local tab2 = tab1 and string.find(row, "\t", tab1 + 1, true)
-            local tab3 = tab2 and string.find(row, "\t", tab2 + 1, true)
-            if tab1 and tab2 and tab3 then
-                local id = tonumber(string.sub(row, 1, tab1 - 1))
-                if id then
-                    records[id] = {
-                        Text = string.sub(row, tab1 + 1, tab2 - 1),
-                        Title = string.sub(row, tab3 + 1)
-                    }
-                end
-            end
-        end
-    end
-
-    mm7HistoryRecords = records
-    return records
-end
-
-local function applyAllMM7History()
-    if not Game or not Game.HistoryTxt or not TownPortalControls or not Map then
-        return
-    end
-
     local ok, continent = pcall(TownPortalControls.MapOfContinent, Map.MapStatsIndex)
-    if not ok or continent ~= 2 then
-        return
+    if not ok or not continent then
+        return nil
     end
 
-    local records = parseMM7History()
-    if not records then
-        return
-    end
-
-    for id, record in pairs(records) do
-        if Game.HistoryTxt[id] then
-            Game.HistoryTxt[id].Text = record.Text
-            Game.HistoryTxt[id].Title = record.Title
-        end
-    end
+    KoreanHistory.ApplyForContinent(continent)
+    return continent
 end
 
 function events.GameInitialized2()
     -- MenuChooseContinent creates Jadam on layer 1, but Antagarich and Enroth
     -- buttons on layer 0. InterfaceManager renders Texts before Buttons inside
     -- one layer, so layer-0 MM7/MM6 labels were covered by those two buttons.
-    -- Keep the normal layer-0 labels (including the already-working M&M8 one)
-    -- and move only the two lower continent buttons to layer 1.
+    -- Keep all three normal labels active and move only the two lower buttons
+    -- behind the layer-0 labels. M&M8 remains on the path that already worked.
     ensureContinentLabelsActive()
     promoteLowerContinentButtons()
 end
 
 function events.LoadMap()
-    applyAllMM7History()
+    -- ZZZZ loads after the normal localization scripts, so this is a final
+    -- guard against Merge reloading native English history during map setup.
+    reapplyLocalizedHistory()
 end
 
 function events.AfterLoadMap()
-    applyAllMM7History()
+    reapplyLocalizedHistory()
 end
 
 KoreanRuntimeHotfix.EnsureContinentLabelsActive = ensureContinentLabelsActive
 KoreanRuntimeHotfix.PromoteLowerContinentButtons = promoteLowerContinentButtons
-KoreanRuntimeHotfix.ParseMM7History = parseMM7History
-KoreanRuntimeHotfix.ApplyAllMM7History = applyAllMM7History
+KoreanRuntimeHotfix.ReapplyLocalizedHistory = reapplyLocalizedHistory
