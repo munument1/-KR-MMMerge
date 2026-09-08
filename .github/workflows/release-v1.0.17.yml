@@ -1,0 +1,206 @@
+name: Release v1.0.17
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.17.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Korean integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/FNT_DBCS.lua
+          luac5.1 -p Scripts/General/KoreanFont.lua
+          luac5.1 -p Scripts/General/KoreanFontText.lua
+          luac5.1 -p Scripts/General/KoreanStatsAndSkills.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
+          luac5.1 -p Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+          luac5.1 -p Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua
+          luac5.1 -p tools/test_emerald_well_timer_fix.lua
+          luac5.1 -p tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.17"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('release-stage/README.txt')
+          text = p.read_text(encoding='utf-8')
+          import re
+          text = re.sub(r'MMMerge 한국어 패치 v[^\r\n]+', 'MMMerge 한국어 패치 v1.0.17', text, count=1)
+          marker = '이 패치는 Might and Magic 6·7·8 Merge(MMMerge)의 한국어 번역 패치입니다.\n'
+          note = (
+              'v1.0.17은 사용자 번역 제보와 UI 미번역을 정리한 정식 보완 릴리스입니다.\n'
+              'v1.0.16 계열의 native DBCS 안정화 및 핫픽스 변경을 모두 포함합니다.\n\n'
+              'v1.0.17 주요 변경:\n'
+              '- NEW GAME 대륙 선택 화면에 M&M 6 / M&M 7 / M&M 8 표기 추가\n'
+              '- 캐릭터 생성 안내문, 능력치 우클릭 툴팁, MM7 역사책 첫 기록 한국어화\n'
+              '- 제이덤 / 안타개릭 / 마크햄 및 다수 아이템·설명 용어 교정\n'
+              '- Controls > Extra Settings / 추가 키 설정 / 캐릭터 설정 화면 한국어화\n'
+              '- Extra Settings 이미지 자산을 Data\\zz LocKO.icons.lod로 배포\n'
+              '- 에메랄드 섬 우물 저장/불러오기 타이머 호환성 보정 포함\n'
+              '- mm8lang.ini를 설치 루트에 포함하여 런타임 한국어 문자열 누락 방지\n\n'
+          )
+          if marker in text:
+              text = text.replace(marker, marker + note, 1)
+          p.write_text(text, encoding='utf-8')
+          PY
+
+          cat > release-stage/RELEASE_v1.0.17.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.17
+
+          사용자 제보 반영 및 UI 미번역 보완 정식 릴리스입니다.
+
+          주요 변경:
+          - NEW GAME 대륙 선택 화면 M&M 6 / M&M 7 / M&M 8 표기
+          - 캐릭터 생성 클래스/초상화 제한 안내문 한국어화
+          - 캐릭터 능력치 우클릭 툴팁 26종 한국어화
+          - MM7 역사책 첫 기록(저자의 서문) 한국어화
+          - Jadame -> 제이덤, Antagarich -> 안타개릭, Markham -> 마크햄 통일
+          - 사드래곤, 늑대 눈, 과부쥐 열매, 포피스냅스, 가넷, 이동 속도 +30 등 제보 오역 수정
+          - Controls > Extra Settings 화면 및 추가 키 설정/캐릭터 설정 한국어화
+          - 한국어 Extra Settings 이미지 아카이브 Data/zz LocKO.icons.lod 추가
+          - 학자/교사/강사 설명을 Merge 실제 Learning 스킬 보너스 동작에 맞게 정리
+          - 에메랄드 섬 우물 저장/불러오기 타이머 호환성 보정 포함
+          - 설치 루트용 mm8lang.ini 포함
+
+          설치:
+          ZIP 전체 내용을 Might and Magic 8 / MMMerge 설치 폴더에 그대로 덮어쓰십시오.
+          변경 파일만 골라 넣지 말고 전체 덮어쓰기를 권장합니다.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 \
+              | sort -z \
+              | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum mm8lang.ini README.txt CHANGELOG.txt RELEASE_v1.0.17.txt FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.17
+
+          사용자 번역 제보와 **Controls > Extra Settings** 미번역을 정리한 정식 보완 릴리스입니다. v1.0.16 계열의 native DBCS 안정화 및 핫픽스 변경을 모두 포함합니다.
+
+          ### 주요 변경
+          - NEW GAME 대륙 선택 화면에 **M&M 6 / M&M 7 / M&M 8** 표기 추가
+          - 캐릭터 생성 클래스/초상화 제한 안내문 한국어화
+          - 캐릭터 능력치 우클릭 툴팁 **26종** 한국어화
+          - MM7 역사책 첫 기록 **저자의 서문** 한국어화
+          - **Jadame → 제이덤**, **Antagarich → 안타개릭**, **Markham → 마크햄** 통일
+          - `사드래곤`, `늑대 눈`, `과부쥐 열매`, `포피스냅스`, `가넷`, `이동 속도 +30` 등 제보 오역 수정
+          - **Extra Settings / 추가 키 설정 / 캐릭터 설정** 런타임 문구 한국어화
+          - `ExSetScr2`, `ExSetScrK`, `ExtSetDw`, `ExtSetUp` 한국어 이미지 자산을 `Data/zz LocKO.icons.lod`로 추가
+          - 학자/교사/강사 설명을 Merge 실제 Learning 스킬 보너스 방식에 맞게 정리
+          - 에메랄드 섬 우물의 저장/불러오기 타이머 호환성 보정 포함
+          - 설치 루트용 `mm8lang.ini` 포함
+
+          ### Extra Settings
+          영문 문구가 이미지에 박혀 있던 설정 화면은 한국어 전용 icons LOD와 런타임 텍스트 오버레이를 함께 사용합니다. 추가 키 설정 화면은 원래 키 입력 그리드를 유지하면서 제목 및 Q. SPELL / NO KEY 문구를 한국어로 표시합니다.
+
+          ### 검증
+          - native DBCS integration 검사 통과
+          - 사용자 제보 65949 전체 source-backed QA 검사 통과
+          - 정적 LOD 용어 검사 통과
+          - 능력치 툴팁 검사 통과
+          - Extra Settings icons LOD 필수 엔트리 검사 통과
+          - Lua 5.1 문법 및 Extra Settings/에메랄드 우물 회귀 테스트 통과
+
+          ### 설치
+          ZIP 전체 내용을 Might and Magic 8 / MMMerge 설치 폴더에 그대로 덮어쓰십시오. 기존 버전에서 업데이트할 때도 변경 파일만 골라 넣기보다 **전체 덮어쓰기**를 권장합니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.17"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" \
+              --title "MMMerge 한국어 패치 v1.0.17" \
+              --notes-file release-notes.md \
+              --latest
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "MMMerge 한국어 패치 v1.0.17" \
+              --notes-file release-notes.md \
+              --latest
+          fi
