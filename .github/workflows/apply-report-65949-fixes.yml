@@ -5,6 +5,11 @@ on:
     branches:
       - main
     paths:
+      - tools/apply_report_65949_fixes.py
+      - tools/run_report_65949_source_fixes.py
+      - tools/patch_report_65949_lod.py
+      - tools/validate_report_65949.py
+      - Data/Text localization/KO_mm8lang.ini.utf8
       - .github/workflows/apply-report-65949-fixes.yml
   workflow_dispatch:
 
