@@ -79,7 +79,10 @@ def build_record(original: bytes, raw: bytes, compressed: bool):
 
 def patch_phrases(raw: bytes):
     changed = 0
-    replacements = SAFE_ALL + MECHANICAL + ITEM_FIXES
+    # Exact item phrases first. Mechanical stat normalization deliberately
+    # runs last, otherwise it changes the source text that exact corrections
+    # are supposed to match (e.g. "속도 +40" / "행운 +20").
+    replacements = SAFE_ALL + ITEM_FIXES + MECHANICAL
     for old, new in replacements:
         if old == new:
             continue
