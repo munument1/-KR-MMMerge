@@ -26,18 +26,12 @@ CustomUI = {
 }
 
 const = {Screens = {ChooseContinent = 97}}
-Game = {
-    Smallnum_fnt = {},
-    HistoryTxt = {
-        [1] = {Text = "OLD1", Title = "OLD1"},
-        [2] = {Text = "ENGLISH_SENTINEL", Title = "History Gone By"},
-        [3] = {Text = "OLD3", Title = "OLD3"},
-    }
-}
 Map = {MapStatsIndex = 1}
+
+local currentContinent = 1
 TownPortalControls = {
     MapOfContinent = function(index)
-        return 2
+        return currentContinent
     end
 }
 
@@ -45,6 +39,13 @@ KoreanReportedLocalization = {
     InstallContinentGameLabels = function()
         -- The real installer is idempotent. Labels are already registered in
         -- this harness, exactly as they are before the late hotfix runs.
+    end
+}
+
+local applied = {}
+KoreanHistory = {
+    ApplyForContinent = function(continent)
+        applied[#applied + 1] = continent
     end
 }
 
@@ -77,15 +78,14 @@ assert(KoreanRuntimeHotfix.PromoteLowerContinentButtons() == 0,
 assert(KoreanRuntimeHotfix.EnsureContinentLabelsActive() == 3,
     "all three continent labels were not retained")
 
-local records = KoreanRuntimeHotfix.ParseMM7History()
-assert(records and records[1] and records[2] and records[3], "failed to parse MM7 history source")
-assert(records[2].Text and #records[2].Text > 100, "MM7 history record 2 text is unexpectedly short")
-assert(records[2].Title and #records[2].Title > 0, "MM7 history record 2 title is missing")
-
-events.LoadMap()
-assert(Game.HistoryTxt[1].Text ~= "OLD1", "MM7 history record 1 was not applied")
-assert(Game.HistoryTxt[2].Text ~= "ENGLISH_SENTINEL", "MM7 history record 2 was not applied")
-assert(Game.HistoryTxt[2].Title ~= "History Gone By", "MM7 history record 2 title remained English")
-assert(Game.HistoryTxt[3].Text ~= "OLD3", "MM7 history record 3 was not applied")
+-- The late ZZZZ guard must reapply whichever continent is actually loaded,
+-- not only MM7. This catches the MM6/MM8 English-history regression.
+for continent = 1, 3 do
+    currentContinent = continent
+    assert(KoreanRuntimeHotfix.ReapplyLocalizedHistory() == continent,
+        "late history reapply returned wrong continent")
+    assert(applied[#applied] == continent,
+        "late history reapply did not call KoreanHistory for continent " .. continent)
+end
 
 print("Korean runtime hotfix: OK")
