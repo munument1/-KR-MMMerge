@@ -18,6 +18,7 @@ on:
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
       - Data/zz LocKO.T.lod
+      - Data/zz LocKO.icons.lod
       - DataFiles/DBCS_*.fnt
       - tools/apply_reported_term_fixes.py
       - tools/patch_reported_terms_lod.py
@@ -39,8 +40,10 @@ on:
       - tools/validate_report_65949_item_review4.py
       - tools/apply_report_65949_item_review5.py
       - tools/validate_report_65949_item_review5.py
+      - tools/build_korean_extra_settings_icons.py
       - tools/test_emerald_well_timer_fix.lua
       - tools/test_korean_extra_settings_overlay.lua
+      - .github/workflows/build-korean-extra-settings-icons.yml
       - .github/workflows/validate-native-dbcs.yml
   pull_request:
     paths:
@@ -56,6 +59,7 @@ on:
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
       - Data/zz LocKO.T.lod
+      - Data/zz LocKO.icons.lod
       - DataFiles/DBCS_*.fnt
       - tools/apply_reported_term_fixes.py
       - tools/patch_reported_terms_lod.py
@@ -77,8 +81,10 @@ on:
       - tools/validate_report_65949_item_review4.py
       - tools/apply_report_65949_item_review5.py
       - tools/validate_report_65949_item_review5.py
+      - tools/build_korean_extra_settings_icons.py
       - tools/test_emerald_well_timer_fix.lua
       - tools/test_korean_extra_settings_overlay.lua
+      - .github/workflows/build-korean-extra-settings-icons.yml
       - .github/workflows/validate-native-dbcs.yml
 
 permissions:
@@ -119,6 +125,23 @@ jobs:
             --lod "Data/zz LocKO.T.lod" \
             --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
             --check
+
+      - name: Validate Korean Extra Settings icons archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [name.decode('ascii') for name in required if name not in data]
+          if missing:
+              raise SystemExit('Extra Settings icons archive is missing entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
 
       - name: Lua 5.1 syntax and runtime regressions
         shell: bash
