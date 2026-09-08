@@ -92,6 +92,12 @@ jobs:
           print('Korean Extra Settings icons archive: OK')
           PY
 
+      - name: Sync latest main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git pull --ff-only origin main
+
       - name: Install generated LOD
         shell: bash
         run: |
