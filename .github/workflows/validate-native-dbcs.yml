@@ -12,6 +12,7 @@ on:
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+      - Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua
       - Data/LocalizeConf.ini
       - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
@@ -39,6 +40,7 @@ on:
       - tools/apply_report_65949_item_review5.py
       - tools/validate_report_65949_item_review5.py
       - tools/test_emerald_well_timer_fix.lua
+      - tools/test_korean_extra_settings_overlay.lua
       - .github/workflows/validate-native-dbcs.yml
   pull_request:
     paths:
@@ -48,6 +50,7 @@ on:
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+      - Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua
       - Data/LocalizeConf.ini
       - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
@@ -75,6 +78,7 @@ on:
       - tools/apply_report_65949_item_review5.py
       - tools/validate_report_65949_item_review5.py
       - tools/test_emerald_well_timer_fix.lua
+      - tools/test_korean_extra_settings_overlay.lua
       - .github/workflows/validate-native-dbcs.yml
 
 permissions:
@@ -116,7 +120,7 @@ jobs:
             --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
             --check
 
-      - name: Lua 5.1 syntax and Emerald well timer regression
+      - name: Lua 5.1 syntax and runtime regressions
         shell: bash
         run: |
           set -euo pipefail
@@ -128,8 +132,11 @@ jobs:
           luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
           luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
           luac5.1 -p Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+          luac5.1 -p Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua
           luac5.1 -p tools/test_emerald_well_timer_fix.lua
+          luac5.1 -p tools/test_korean_extra_settings_overlay.lua
           lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
 
       - name: Upstream MM8 page-font harness
         shell: bash
