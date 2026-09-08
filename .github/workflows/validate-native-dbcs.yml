@@ -10,6 +10,7 @@ on:
       - Scripts/General/KoreanFont.lua
       - Scripts/General/KoreanFontText.lua
       - Scripts/General/KoreanHistory.lua
+      - Scripts/General/KoreanStatsAndSkills.lua
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
@@ -43,6 +44,9 @@ on:
       - tools/validate_report_65949_item_review4.py
       - tools/apply_report_65949_item_review5.py
       - tools/validate_report_65949_item_review5.py
+      - tools/apply_report_65960_fixes.py
+      - tools/validate_report_65960.py
+      - tools/patch_report_65960_lod.py
       - tools/build_korean_extra_settings_icons.py
       - tools/test_emerald_well_timer_fix.lua
       - tools/test_korean_extra_settings_overlay.lua
@@ -56,6 +60,7 @@ on:
       - Scripts/General/KoreanFont.lua
       - Scripts/General/KoreanFontText.lua
       - Scripts/General/KoreanHistory.lua
+      - Scripts/General/KoreanStatsAndSkills.lua
       - Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
       - Scripts/General/ZZ_KoreanReportedLocalization.lua
       - Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
@@ -89,6 +94,9 @@ on:
       - tools/validate_report_65949_item_review4.py
       - tools/apply_report_65949_item_review5.py
       - tools/validate_report_65949_item_review5.py
+      - tools/apply_report_65960_fixes.py
+      - tools/validate_report_65960.py
+      - tools/patch_report_65960_lod.py
       - tools/build_korean_extra_settings_icons.py
       - tools/test_emerald_well_timer_fix.lua
       - tools/test_korean_extra_settings_overlay.lua
@@ -122,6 +130,15 @@ jobs:
           python tools/validate_report_65949_item_review3.py .
           python tools/validate_report_65949_item_review4.py .
           python tools/validate_report_65949_item_review5.py .
+
+      - name: Validate report 65960 source and static LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
 
       - name: Validate reported terminology in LOD
         run: |
@@ -163,6 +180,7 @@ jobs:
           luac5.1 -p Scripts/General/KoreanFont.lua
           luac5.1 -p Scripts/General/KoreanFontText.lua
           luac5.1 -p Scripts/General/KoreanHistory.lua
+          luac5.1 -p Scripts/General/KoreanStatsAndSkills.lua
           luac5.1 -p Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua
           luac5.1 -p Scripts/General/ZZ_KoreanReportedLocalization.lua
           luac5.1 -p Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
