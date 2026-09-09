@@ -199,4 +199,6 @@ jobs:
             translations/ko/PO_BASELINE.json \
             translations/ko/PO_BOOTSTRAP_REPORT.json
           git commit -m "build(i18n): bootstrap Korean gettext catalog from text sources"
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:${GITHUB_REF_NAME}"
