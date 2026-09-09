@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - po-localization-bootstrap
+      - '**'
     paths:
+      - Data/Text localization/**
       - Scripts/**/*.lua
+      - config/runtime_override_keys.tsv
+      - tools/rebuild_runtime_overrides.py
+      - tools/rebuild_stats_skills_runtime.py
       - tools/audit_runtime_translation_ownership.py
       - tools/audit_lua_korean_literals.py
       - .github/workflows/audit-runtime-translation-ownership.yml
@@ -83,6 +87,10 @@ jobs:
               raise SystemExit(
                   f"canonical-backed runtime overrides differ from canonical text: {sample}"
               )
+          if ownership['runtime_override_unique_keys'] != 0:
+              raise SystemExit(
+                  f"runtime-only translation overrides are forbidden: {ownership['runtime_override_unique_keys']}"
+              )
           if ownership['lua_literal_maps_with_static_overlap'] != 0:
               raise SystemExit(
                   'hard-coded Lua translation maps overlap canonical static data'
@@ -106,6 +114,7 @@ jobs:
 
           print('runtime ownership policy: OK')
           print('  canonical-backed overrides with wording drift: 0')
+          print('  runtime-only override keys: 0')
           print('  unexpected Korean-literal Lua files: 0')
           print('  exact Lua/static Korean duplicates: 0')
           PY
