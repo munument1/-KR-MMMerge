@@ -109,11 +109,25 @@ def main() -> None:
     runtime = overlay_rows(loc / "KO_RuntimeOverrides.txt")
     require(runtime[2043], "석화 면역, 방패 주문 효과 상시 유지, 운 +20, 민첩성 -20", "runtime Aegis")
 
-    skills = decode(root / "Scripts" / "General" / "KoreanStatsAndSkills.lua")
-    if "[8]=\"방패 주문 효과 자동 부여\"" not in skills:
-        raise SystemExit("Shield GM description is not the canonical Korean wording")
-    if "보호막(Shield)" in skills:
-        raise SystemExit("Shield GM description still contains 보호막(Shield)")
+    # Skills are now owned by KO_Skilldes/PO and projected into
+    # KO_StatsSkillsRuntime. Do not require (or permit) the old Lua literal map.
+    skill_rows = numeric_rows(loc / "KO_Skilldes.txt")
+    require(skill_rows[8], "방패 주문 효과 자동 부여", "Shield GM canonical source")
+    forbid(skill_rows[8], "보호막(Shield)", "Shield GM canonical source")
+
+    skill_runtime = decode(loc / "KO_StatsSkillsRuntime.txt").replace("\r\n", "\n").replace("\r", "\n")
+    marker = "SkillDesGM\t0\t\t"
+    if marker not in skill_runtime:
+        raise SystemExit("generated skill runtime is missing SkillDesGM table")
+    gm_block = skill_runtime.split(marker, 1)[1]
+    require(gm_block, "\n\t8\t\t방패 주문 효과 자동 부여", "Shield GM generated runtime")
+    forbid(gm_block, "보호막(Shield)", "Shield GM generated runtime")
+
+    skills_lua = decode(root / "Scripts" / "General" / "KoreanStatsAndSkills.lua")
+    if "방패 주문 효과 자동 부여" in skills_lua:
+        raise SystemExit("Shield GM wording is duplicated in Lua instead of canonical KO_Skilldes/PO")
+    if "보호막(Shield)" in skills_lua:
+        raise SystemExit("Shield GM description still contains 보호막(Shield) in Lua")
 
     print("report 65960 source validation: OK")
 
