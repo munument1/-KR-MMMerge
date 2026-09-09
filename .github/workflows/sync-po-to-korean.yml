@@ -153,7 +153,7 @@ jobs:
             --require-byte-identical
           python - <<'PY'
           from pathlib import Path
-          raw = Path('Data/Text localization/KO_ItemsTxt.txt').read_text(encoding='utf-8-sig')
+          raw = Path('Data/Text localization/KO_ItemsTxt.txt').read_text(encoding='cp949')
           rows = [line for line in raw.splitlines() if line.startswith('262\t')]
           if len(rows) != 1:
               raise SystemExit(f'expected exactly one item 262 row, found {len(rows)}')
