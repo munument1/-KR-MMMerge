@@ -10,12 +10,14 @@ on:
       - translations/ko/PO_BASELINE.json
       - translations/ko/PO_BOOTSTRAP_REPORT.json
       - tools/build_korean_from_po.py
+      - tools/build_mm8lang_from_po.py
       - tools/po_catalog_stats.py
       - tools/rebuild_runtime_overrides.py
       - tools/rebuild_stats_skills_runtime.py
       - tools/audit_runtime_translation_ownership.py
       - tools/audit_lua_korean_literals.py
       - config/runtime_override_keys.tsv
+      - mm8lang.ini
       - .github/workflows/sync-po-to-korean.yml
 
 permissions:
@@ -51,13 +53,14 @@ jobs:
             --baseline translations/ko/PO_BASELINE.json \
             --no-regress \
             --fail-fuzzy \
-            --min-translated 25034
+            --min-translated 25051
 
-      - name: Materialize canonical Korean tables from PO
+      - name: Materialize canonical Korean runtime sources from PO
         shell: bash
         run: |
           set -euo pipefail
           python tools/build_korean_from_po.py --write
+          python tools/build_mm8lang_from_po.py --write
 
       - name: Refresh generated runtime projections
         shell: bash
@@ -116,18 +119,21 @@ jobs:
           python tools/build_korean_from_po.py \
             --output-root build/po-sync-check \
             --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-sync-check.ini \
+            --require-byte-identical
 
       - name: Commit generated Korean runtime sources
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "$(git status --porcelain -- 'Data/Text localization')" ]]; then
+          if [[ -z "$(git status --porcelain -- 'Data/Text localization' mm8lang.ini)" ]]; then
             echo 'Korean runtime sources already match PO.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add 'Data/Text localization'
+          git add 'Data/Text localization' mm8lang.ini
           git commit -m 'build(i18n): sync Korean runtime sources from PO'
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
