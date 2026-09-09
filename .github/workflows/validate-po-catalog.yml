@@ -1,0 +1,68 @@
+name: Validate Korean gettext catalog
+
+on:
+  pull_request:
+    paths:
+      - translations/ko/**
+      - tools/po_catalog_stats.py
+      - .github/workflows/validate-po-catalog.yml
+  push:
+    branches:
+      - po-localization-bootstrap
+    paths:
+      - translations/ko/**
+      - tools/po_catalog_stats.py
+      - .github/workflows/validate-po-catalog.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  MM678_I18N_REV: aea1b22666ef556f34a71b4f3945904b04de1466
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib OpenCC
+
+      - name: Check catalog completeness regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f translations/ko/mm678.po
+          test -f translations/ko/PO_BASELINE.json
+          python tools/po_catalog_stats.py \
+            translations/ko/mm678.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 500
+
+      - name: Clone pinned mm678-i18n checker
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
+          git -C vendor/mm678-i18n checkout --detach "$MM678_I18N_REV"
+          cp translations/ko/mm678.po vendor/mm678-i18n/translations/ko/mm678.po
+
+      - name: Run upstream hard-error checks for Korean only
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd vendor/mm678-i18n
+          python -m mm678i18n check po --langs ko
