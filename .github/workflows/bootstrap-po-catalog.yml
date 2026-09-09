@@ -6,6 +6,7 @@ on:
     branches:
       - po-localization-bootstrap
     paths:
+      - 'Data/Text localization/**'
       - .github/workflows/bootstrap-po-catalog.yml
       - tools/bootstrap_po_from_utf8.py
       - tools/po_catalog_stats.py
