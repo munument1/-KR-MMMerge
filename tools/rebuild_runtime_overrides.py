@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Generate KO_RuntimeOverrides.txt from canonical Korean translation tables.
 
-The manifest says *which* values must be re-applied late at runtime.  It does
-not duplicate their wording.  For every key that exists in a normal KO table,
-this generator copies the current canonical Korean text.  Only genuinely
+The manifest says *which* values must be re-applied late at runtime. It does
+not duplicate their wording. For every key that exists in a normal KO table,
+this generator copies the current canonical Korean text. Only genuinely
 runtime-only keys may carry literal text in the manifest.
 
-This keeps Merge's late-reapply behavior while preventing an old runtime
-translation from overwriting a newer PO/static translation.
+The output uses Merge's native long-overlay syntax. Multiline values are
+written as an ordinary first record line followed by raw continuation lines;
+they are never CSV-quoted because LocalizeTables.lua does not unquote CSV
+fields when loading generic long-overlay records.
 """
 
 from __future__ import annotations
@@ -51,12 +53,6 @@ def decode_field(raw: str) -> str:
     if len(raw) >= 2 and raw.startswith('"') and raw.endswith('"'):
         return raw[1:-1].replace('""', '"')
     return raw
-
-
-def encode_field(value: str) -> str:
-    if any(ch in value for ch in ('\t', '\r', '\n', '"')):
-        return '"' + value.replace('"', '""') + '"'
-    return value
 
 
 def is_long(path: Path) -> bool:
@@ -106,7 +102,6 @@ def infer_wide_table(path: Path) -> str:
     stem = path.stem
     if stem.startswith("KO_"):
         stem = stem[3:]
-    # Current wide tables use their Game table name in the filename.
     return stem
 
 
@@ -199,10 +194,19 @@ def render(resolved) -> str:
     lines = ["Table (of Game struct)\tId\tField\tNew text"]
     previous_table = None
     for (table, record_id, field), text, _sources in resolved:
+        normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+        physical_lines = normalized.split("\n")
+        if any("\t" in line for line in physical_lines):
+            raise ValueError(
+                f"runtime override {table}[{record_id}] {field or '<default>'} "
+                "contains a tab that Merge's long-overlay loader cannot represent safely"
+            )
         table_cell = table if table != previous_table else ""
-        lines.append(f"{table_cell}\t{record_id}\t{field}\t{encode_field(text)}")
+        lines.append(f"{table_cell}\t{record_id}\t{field}\t{physical_lines[0]}")
+        lines.extend(physical_lines[1:])
         previous_table = table
-    # Merge's loader splits this file explicitly on CRLF.
+    # Merge's loader splits this file explicitly on CRLF and treats any line
+    # without a numeric id as continuation text for the current record.
     return "\r\n".join(lines) + "\r\n"
 
 
