@@ -122,6 +122,8 @@ jobs:
           PY
 
       - name: Build PO from English source and this patch's Korean text
+        id: build_po
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -133,7 +135,44 @@ jobs:
             --report "translations/ko/PO_BOOTSTRAP_REPORT.json" \
             --source-revision "$MM678_I18N_REV"
 
+      - name: Print pairing diagnostics
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -f translations/ko/PO_BOOTSTRAP_REPORT.json ]]; then
+            echo "PO bootstrap report was not created."
+            exit 0
+          fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path('translations/ko/PO_BOOTSTRAP_REPORT.json').read_text(encoding='utf-8'))
+          print('\nPer-file pairing diagnostics:')
+          for name, details in sorted(report['files'].items(), key=lambda item: item[0].casefold()):
+              missing = len(details.get('missing_korean', []))
+              ko_only = len(details.get('korean_only', []))
+              source_miss = len(details.get('missing_files', [])) + len(details.get('missing_indexes', []))
+              if missing or ko_only or source_miss:
+                  print(f"  {name}: missing_ko={missing}, ko_only={ko_only}, source_miss={source_miss}, entries={details.get('entries', details.get('mapped', 0))}")
+                  if missing:
+                      print('    first missing:', details['missing_korean'][:5])
+                  if ko_only:
+                      print('    first ko-only:', details['korean_only'][:5])
+          print('unmapped Korean files:', report.get('unmapped_korean_files', []))
+          print('source-only files:', report.get('source_only_files', []))
+          PY
+
+      - name: Stop on unsafe bootstrap
+        if: steps.build_po.outcome != 'success'
+        shell: bash
+        run: |
+          echo "PO bootstrap safety check failed; diagnostics are printed above."
+          exit 1
+
       - name: Record completeness baseline
+        if: steps.build_po.outcome == 'success'
         shell: bash
         run: |
           set -euo pipefail
@@ -144,6 +183,7 @@ jobs:
             --source-revision "$MM678_I18N_REV"
 
       - name: Commit generated PO and reports
+        if: steps.build_po.outcome == 'success'
         shell: bash
         run: |
           set -euo pipefail
