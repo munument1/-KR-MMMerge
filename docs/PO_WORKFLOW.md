@@ -41,8 +41,8 @@ LOD 역수확 결과는 인코딩 손상이 확인되어 폐기했고, 실제 `K
 
 1. `translations/ko/mmmerge.po`를 Poedit 등 gettext 편집기로 연다.
 2. `msgid` 영어 원문과 `msgctxt` 문맥을 확인하고 `msgstr`만 수정한다.
-3. PO 변경을 커밋한다.
-4. `Sync Korean runtime sources from PO` workflow가 자동으로 다음 작업을 한다.
+3. 작업 브랜치에 PO 변경을 커밋한다.
+4. `Sync Korean runtime sources from PO` workflow가 해당 브랜치에서 자동으로 다음 작업을 한다.
    - PO 완전성 검사
    - PO -> 30개 canonical `KO_*` 파일 materialize
    - `KO_RuntimeOverrides.txt` 재생성
@@ -112,12 +112,14 @@ python tools/rebuild_stats_skills_runtime.py --write
 `config/runtime_override_keys.tsv`에는 Merge 초기화 뒤 다시 적용해야 하는
 **키**만 기록하고, 문구는 canonical Korean source에서 자동으로 가져온다.
 
-현재 runtime override는 162개이며:
+현재 runtime override는 **160개**이며 전부 canonical 번역에서 자동 생성된다.
 
 - canonical 번역에서 자동 생성: **160개**
-- 진짜 runtime-only: **2개**
-  - `Houses[45].Name` = `니혼 터널`
-  - `Houses[48].Name` = `이오폴로 가는 터널`
+- runtime-only: **0개**
+
+기존 runtime-only였던 `Houses[45].Name` (`니혼 터널`)과
+`Houses[48].Name` (`이오폴로 가는 터널`)도 이제 `KO_2DEvents.txt`의
+canonical Name 필드와 PO에서 관리한다.
 
 이 구조 때문에 오래된 Lua/override 문구가 최신 번역을 다시 덮어쓰는 일을
 CI가 탐지할 수 있다.
@@ -182,7 +184,8 @@ PO에만 존재하는 미반영 변경이 있는 상태에서 실행해서는 �
   - 25,034개 coverage 기준
   - untranslated/fuzzy/duplicate/replacement character 회귀 검사
 - `Sync Korean runtime sources from PO`
-  - 정상적인 PO -> KO 생성 경로
+  - 모든 저장소 작업 브랜치에서 정상적인 PO -> KO 생성 경로
+  - PO 변경 뒤 생성된 KO/runtime projection을 같은 브랜치에 자동 커밋
 - `Validate PO round trip`
   - PO와 canonical KO의 byte equivalence
   - 각 파일 형식의 실제 쓰기 경로 테스트

@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-      - po-localization-bootstrap
+      - '**'
     paths:
       - translations/ko/mmmerge.po
       - translations/ko/PO_BASELINE.json
@@ -87,6 +86,10 @@ jobs:
           if bad_runtime:
               sample = [f"{x['table']}[{x['id']}] {x['field'] or '<default>'}" for x in bad_runtime[:10]]
               raise SystemExit(f'canonical-backed runtime wording drift: {sample}')
+          if ownership['runtime_override_unique_keys'] != 0:
+              raise SystemExit(
+                  f"runtime-only overrides are no longer allowed: {ownership['runtime_override_unique_keys']}"
+              )
           if ownership['lua_literal_maps_with_static_overlap'] != 0:
               raise SystemExit('hard-coded Lua translation maps overlap canonical static data')
 
@@ -102,7 +105,7 @@ jobs:
               raise SystemExit(
                   f"Lua contains {literals['exact_static_duplicate_occurrences']} exact duplicates of canonical Korean data"
               )
-          print('PO-driven runtime ownership: OK')
+          print('PO-driven runtime ownership: OK (runtime-only overrides: 0)')
           PY
 
       - name: Require materialized files to round-trip back to PO exactly
