@@ -58,6 +58,9 @@ v1.0.15는 장시간 플레이 중 HUD·ESC·상점 UI 등 2D 인터페이스가
 - v1.0.15는 예전 glyph-7 scratch renderer와 동시에 사용할 수 없습니다.
 - 구버전에서 남은 ZZ_KoreanGameplayFeedbackFixes.lua도 최신 무동작 파일로
   반드시 덮어써야 지도 이동 중 반복 evt.str/evt.hint 수정이 사라집니다.
+- 과거 한국어 패치는 Scripts\Maps\out01.lua를 배포했습니다. 기존 설치에 이 파일이
+  남아 있다면 Rodril MMMerge 원본 out01.lua를 다시 복원한 뒤 한국어 패치를 적용하십시오.
+  파일만 삭제하면 원본 지도 스크립트도 없어지므로 반드시 Rodril 원본으로 복원해야 합니다.
 - 업데이트 전 저장 파일 백업을 권장합니다.
 
 3. v1.0.15 native DBCS 렌더러
