@@ -8,6 +8,18 @@ v1.0.15는 장시간 플레이 중 HUD·ESC·상점 UI 등 2D 인터페이스가
 교체한 렌더링 안정화 버전입니다. v1.0.14 및 v1.0.13c까지의 모든
 번역·안정화 변경을 포함합니다.
 
+지원 기준:
+- 공식 호환 기준은 Rodril의 MMMerge 저장소입니다.
+  https://gitlab.com/letr.rod/mmmerge
+- 기준 브랜치: Rodril_nightly_build
+- 현재 감사 기준 커밋:
+  c0b6b4e9532e80413d1a3c27cbe25f57538c9a29 (2024-10-30)
+- 이 저장소는 MMMerge 전체 포크가 아니라 기존 Rodril MMMerge 위에 설치하는
+  한국어 로컬라이제이션 오버레이입니다.
+- Revamp, MAW, Waffle/커뮤니티 배포판 등은 기본 호환 기준에 포함하지 않으며,
+  필요한 경우 별도 호환 레이어로 관리합니다.
+- upstream 추적 정책과 의도적 파일 교체 목록은 UPSTREAM_BASELINE.md를 참조하십시오.
+
 중요:
 - v1.0.14의 stale font pointer 방어는 실제 위험 경로를 제거했지만,
   제보자의 동일 증상이 계속 발생해 그것만으로는 원인이 아니었음을 확인했습니다.
@@ -109,13 +121,16 @@ upstream MM8 page-font 오프라인 하네스:
 - FNT_DBCS.lua가 지정한 upstream blob과 일치하는지 검사
 - DBCS_14 / 15b / 16 / 29의 A1 및 B0-C8 페이지 존재 확인
 - map-load / Tick runtime rewrite가 퇴역 상태인지 검사
+- Rodril upstream 경계 검사: map script override 0, 의도적 upstream script 교체 1
 
 개발자용 검사:
   python tools\validate_native_dbcs_integration.py .
+  python tools\validate_rodril_overlay_boundary.py
 
 자세한 분석:
   NATIVE_DBCS_MIGRATION_AUDIT.txt
   UI_RENDER_CORRUPTION_AUDIT.txt
+  UPSTREAM_BASELINE.md
 
 6. UI 소실 문제 제보 시 확인할 항목
 ------------------------------------------------------------
@@ -165,6 +180,7 @@ v1.0.13c까지 다음 항목을 포함해 지도·던전·시설·오브젝트 �
 9. 파일 안내
 ------------------------------------------------------------
 README.txt                         설치와 사용 안내
+UPSTREAM_BASELINE.md              Rodril 기준판/오버레이 경계 정책
 CHANGELOG.txt                      전체 변경 이력
 NATIVE_DBCS_MIGRATION_AUDIT.txt    v1.0.15 렌더러 교체 분석/검증
 UI_RENDER_CORRUPTION_AUDIT.txt     v1.0.14 UI 소실 원인 분석
