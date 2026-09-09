@@ -1,0 +1,118 @@
+name: Migrate remaining canonical Lua wording
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - po-localization-bootstrap
+    paths:
+      - tools/migrate_remaining_lua_wording.py
+      - .github/workflows/migrate-remaining-lua-wording.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: migrate-remaining-lua-wording-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fix literal replacement helper
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('tools/migrate_remaining_lua_wording.py')
+          text = p.read_text(encoding='utf-8')
+          old = 'updated, count = re.subn(pattern, replacement, text, count=1, flags=flags)'
+          new = 'updated, count = re.subn(pattern, lambda _match: replacement, text, count=1, flags=flags)'
+          if old in text:
+              text = text.replace(old, new, 1)
+              p.write_text(text, encoding='utf-8', newline='')
+              print('patched replacement helper')
+          elif new in text:
+              print('replacement helper already patched')
+          else:
+              raise SystemExit('replacement helper signature changed unexpectedly')
+          PY
+
+      - name: Migrate wording ownership
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/migrate_remaining_lua_wording.py --write
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+
+      - name: Verify remaining Lua literals are runtime UI only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/audit_lua_korean_literals.py --json build/LUA_KOREAN_LITERAL_AUDIT.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('build/LUA_KOREAN_LITERAL_AUDIT.json').read_text(encoding='utf-8'))
+          allowed = {
+              'Scripts/General/ZZ_KoreanReportedLocalization.lua',
+              'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+          }
+          actual = set(r['scripts'])
+          if actual != allowed:
+              raise SystemExit(f'unexpected Lua files with Korean literals: {sorted(actual)}')
+          if r['exact_static_duplicate_occurrences'] != 0:
+              raise SystemExit(f"static duplicate Korean literals remain: {r['exact_static_duplicate_occurrences']}")
+          print('remaining Korean Lua literals are runtime UI only')
+          print('  files:', r['lua_files_with_korean'])
+          print('  occurrences:', r['literal_occurrences'])
+          print('  unique:', r['unique_korean_texts'])
+          PY
+
+      - name: Verify runtime projections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/RUNTIME_TRANSLATION_OWNERSHIP.json
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          paths=(
+            'Data/Text localization/KO_NPCText.txt'
+            'Data/Text localization/MM6History_KO.txt'
+            'Data/Text localization/KO_RuntimeOverrides.txt'
+            'config/runtime_override_keys.tsv'
+            'Scripts/General/ZZ_KoreanReportedLocalization.lua'
+            'Scripts/General/KoreanHistory.lua'
+            'Scripts/General/ZZ_KoreanLocalizationValidator.lua'
+            'Scripts/General/LocalizeTables.lua'
+            'Scripts/Maps/out01.lua'
+            'tools/migrate_remaining_lua_wording.py'
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo 'Remaining Lua wording is already migrated.'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${paths[@]}"
+          git commit -m 'refactor(i18n): centralize remaining canonical Lua wording'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
