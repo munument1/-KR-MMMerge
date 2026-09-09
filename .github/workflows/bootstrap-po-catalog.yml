@@ -140,6 +140,11 @@ jobs:
             --english "vendor/mm678-i18n/source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt" \
             --po "translations/ko/mmmerge.po" \
             --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
+          python tools/augment_po_mm8lang.py \
+            --korean "mm8lang.ini" \
+            --english "vendor/mm678-i18n/source/en/mm8/mm8lang.ini" \
+            --po "translations/ko/mmmerge.po" \
+            --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
 
       - name: Record completeness baseline
         shell: bash
@@ -148,8 +153,14 @@ jobs:
           python tools/po_catalog_stats.py \
             translations/ko/mmmerge.po \
             --json translations/ko/PO_BASELINE.json \
-            --min-translated 25034 \
+            --min-translated 25051 \
             --source-revision "$MM678_I18N_REV"
+          python tools/build_korean_from_po.py \
+            --output-root build/legacy-import-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/legacy-import-mm8lang.ini \
+            --require-byte-identical
 
       - name: Refresh and audit generated runtime projections
         shell: bash
