@@ -12,6 +12,7 @@ on:
       - tools/rebuild_runtime_overrides.py
       - tools/rebuild_stats_skills_runtime.py
       - tools/audit_runtime_translation_ownership.py
+      - tools/audit_lua_korean_literals.py
       - .github/workflows/audit-runtime-translation-ownership.yml
   pull_request:
     paths:
@@ -21,6 +22,7 @@ on:
       - tools/rebuild_runtime_overrides.py
       - tools/rebuild_stats_skills_runtime.py
       - tools/audit_runtime_translation_ownership.py
+      - tools/audit_lua_korean_literals.py
       - .github/workflows/audit-runtime-translation-ownership.yml
 
 permissions:
@@ -57,23 +59,45 @@ jobs:
           python tools/audit_runtime_translation_ownership.py \
             --json build/RUNTIME_TRANSLATION_OWNERSHIP.json
 
+      - name: Inventory Korean literals still embedded in Lua
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/audit_lua_korean_literals.py \
+            --json build/LUA_KOREAN_LITERAL_AUDIT.json
+
       - name: Add report to job summary
         if: always()
         shell: bash
         run: |
-          if [[ -f build/RUNTIME_TRANSLATION_OWNERSHIP.json ]]; then
-            python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
           import json
           from pathlib import Path
-          r = json.loads(Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json').read_text(encoding='utf-8'))
-          print('## Runtime translation ownership')
-          print()
-          print(f"- Runtime override records: **{r['runtime_override_records']}**")
-          print(f"- Override keys also present in other Korean tables: **{r['runtime_override_duplicate_keys']}**")
-          print(f"- Runtime-only override keys: **{r['runtime_override_unique_keys']}**")
-          print(f"- Hard-coded Lua literal maps found: **{len(r['lua_literal_maps'])}**")
-          print(f"- Hard-coded Lua literal maps overlapping static data: **{r['lua_literal_maps_with_static_overlap']}**")
-          print()
-          print('Both generated runtime projections are hard-checked against canonical wording.')
+
+          ownership = Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json')
+          if ownership.is_file():
+              r = json.loads(ownership.read_text(encoding='utf-8'))
+              print('## Runtime translation ownership')
+              print()
+              print(f"- Runtime override records: **{r['runtime_override_records']}**")
+              print(f"- Override keys also present in other Korean tables: **{r['runtime_override_duplicate_keys']}**")
+              print(f"- Runtime-only override keys: **{r['runtime_override_unique_keys']}**")
+              print(f"- Hard-coded Lua literal maps found: **{len(r['lua_literal_maps'])}**")
+              print(f"- Hard-coded Lua literal maps overlapping static data: **{r['lua_literal_maps_with_static_overlap']}**")
+              print()
+              print('Both generated runtime projections are hard-checked against canonical wording.')
+              print()
+
+          literal_audit = Path('build/LUA_KOREAN_LITERAL_AUDIT.json')
+          if literal_audit.is_file():
+              r = json.loads(literal_audit.read_text(encoding='utf-8'))
+              print('## Korean Lua literal inventory')
+              print()
+              print(f"- Lua files with Korean literals: **{r['lua_files_with_korean']}**")
+              print(f"- Literal occurrences: **{r['literal_occurrences']}**")
+              print(f"- Unique Korean texts: **{r['unique_korean_texts']}**")
+              print(f"- Exact duplicates of static Korean data: **{r['exact_static_duplicate_occurrences']}**")
+              print(f"- No static wording match: **{r['no_static_match_occurrences']}**")
+              print()
+              print('Exact duplicates are migration candidates; unmatched strings require runtime/context review.')
           PY
-          fi
