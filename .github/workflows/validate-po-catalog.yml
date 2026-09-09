@@ -8,8 +8,7 @@ on:
       - .github/workflows/validate-po-catalog.yml
   push:
     branches:
-      - main
-      - po-localization-bootstrap
+      - '**'
     paths:
       - translations/ko/**
       - tools/po_catalog_stats.py
