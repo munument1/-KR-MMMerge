@@ -67592,7 +67592,7 @@ msgstr "시약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1764|field=Name"
 msgid "Widoweeps Berries"
-msgstr "위도우윕 열매"
+msgstr "위도우스위프 열매"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -67602,8 +67602,8 @@ msgid ""
 " potions.  (To use, pick the herb up and right-click over an empty potion "
 "bottle.)"
 msgstr ""
-"특이한 효능을 지닌 마법의 약초입니다. 과부딸기는 물약을 만드는 데 사용할 수 있습니다. (사용하려면 시약을 집어 빈 물약 병 위에서 "
-"마우스 오른쪽 버튼을 클릭하세요.)"
+"특이한 효능을 지닌 마법의 약초입니다. 위도우스위프 열매는 물약을 만드는 데 사용할 수 있습니다. (사용하려면 시약을 집어 빈 물약 병 "
+"위에서 마우스 오른쪽 버튼을 클릭하세요.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
