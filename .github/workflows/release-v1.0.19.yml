@@ -1,0 +1,228 @@
+# v1.0.19 release workflow
+name: Release v1.0.19
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/release-v1.0.19.yml
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.19.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+
+      - name: Validate canonical PO and generated Korean sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25051
+
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate Korean runtime integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua; do
+            luac5.1 -p "$f"
+          done
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.19"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+
+          cat > release-stage/RELEASE_v1.0.19.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.19
+
+          번역 소스 구조를 gettext PO 중심으로 전환한 정식 릴리즈입니다.
+          실제 게임 런타임 형식은 기존 MMMerge/GrayFace 호환 형식을 유지합니다.
+
+          주요 변경:
+          - translations/ko/mmmerge.po를 핵심 한국어 번역의 편집 원본으로 승격
+          - 25,051개 PO 항목을 검증된 한국어 번역으로 유지
+          - 30개 KO 번역 파일과 mm8lang.ini를 PO에서 재생성 가능하도록 전환
+          - PO -> KO/mm8lang byte-identical round-trip 검증 추가
+          - 능력치/기술 및 런타임 override의 중복 Lua 번역 소유권 제거
+          - MM6/7/8 역사 텍스트의 canonical source/runtime 재적용 구조 정리
+          - 런타임 전용 한국어 문자열 감사를 CI에 추가
+          - 기존 native DBCS 렌더러와 v1.0.18 번역/아이템 QA 유지
+
+          설치:
+          ZIP 전체를 Might and Magic 8 / MMMerge 설치 폴더에 그대로 덮어쓰십시오.
+          기존 한국어 패치 위에 전체 덮어쓰기를 권장합니다.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum mm8lang.ini README.txt CHANGELOG.txt RELEASE_v1.0.19.txt FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.19
+
+          이번 릴리즈는 **한국어 번역 소스 구조를 gettext PO 중심으로 전환**한 정식 버전입니다. 게임에서 사용하는 DBCS/LOD/Lua 런타임 형식은 유지하면서, 번역 원문과 생성물을 분리해 이후 수정·검증을 훨씬 안정적으로 만들었습니다.
+
+          ### PO 기반 번역 체계
+          - `translations/ko/mmmerge.po`를 핵심 한국어 번역의 편집 원본으로 승격
+          - **25,051 / 25,051** 매핑 항목을 번역 완료 상태로 검증
+          - 구조적 `msgctxt`로 파일/테이블/ID/필드 단위 소유권 구분
+          - MM8 상속 데이터와 MM6 NPC 직업명, Skilldes, `mm8lang.ini`까지 canonical PO 범위에 포함
+          - upstream 한국어 번역은 가져오지 않고 기존 한국어 패치 문구를 보존
+
+          ### 런타임 중복 제거
+          - 능력치/기술 문구를 하드코딩하던 Lua 번역 맵 제거
+          - `KO_StatsSkillsRuntime.txt`를 canonical 데이터에서 생성
+          - `KO_RuntimeOverrides.txt`를 manifest 기반 생성물로 전환
+          - 마지막 runtime-only 집 이름 2개도 canonical `KO_2DEvents`/PO 소유권으로 이동
+          - `mm8lang.ini`의 17개 런타임 문자열도 PO에서 CP949 형식으로 재생성 가능
+
+          ### 검증 강화
+          - PO → KO 파일 **byte-identical round trip**
+          - PO → `mm8lang.ini` CP949 round trip
+          - runtime translation ownership audit
+          - Lua Korean literal audit
+          - native DBCS 통합 검사
+          - MM6/7/8 역사/NEW GAME 회귀 검사
+          - 제보 65949 / 65960 전체 회귀 검사
+          - Lua 5.1 문법 및 런타임 테스트
+
+          ### 기존 수정 유지
+          - v1.0.18의 아이템/용어 QA 전체
+          - NEW GAME M&M6 / M&M7 / M&M8 라벨
+          - MM6 / MM7 / MM8 역사 기록 한국어
+          - Extra Settings 한국어화
+          - 에메랄드 섬 우물 저장/불러오기 타이머 수정
+          - native direct-blit DBCS 렌더러
+
+          ### 설치
+          ZIP 전체 내용을 Might and Magic 8 / MMMerge 설치 폴더에 덮어쓰십시오. 기존 한국어 패치 위에 **전체 덮어쓰기**를 권장합니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.19"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" --title "MMMerge 한국어 패치 v1.0.19" --notes-file release-notes.md --latest
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" --target "$GITHUB_SHA" --title "MMMerge 한국어 패치 v1.0.19" --notes-file release-notes.md --latest
+          fi
