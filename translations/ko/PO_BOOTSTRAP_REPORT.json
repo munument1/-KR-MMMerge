@@ -1,5 +1,5 @@
 {
-  "entries": 24800,
+  "entries": 25034,
   "files": {
     "KO_2DEvents.txt": {
       "entries": 3471,
@@ -175,6 +175,14 @@
       "missing_korean": [],
       "source_records": 1720
     },
+    "KO_Skilldes.txt": {
+      "entries": 234,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
     "KO_SpcItemsTxtNames.txt": {
       "entries": 73,
       "format": "long",
@@ -233,25 +241,27 @@
     }
   },
   "generated_korean_files": [
-    "KO_RuntimeOverrides.txt"
+    "KO_RuntimeOverrides.txt",
+    "KO_StatsSkillsRuntime.txt"
   ],
   "korean_only_records": 0,
   "map_source_misses": 0,
   "missing_korean_records": 0,
-  "paired_files": 29,
-  "schema": 3,
+  "paired_files": 30,
+  "schema": 4,
   "source_only_files": [
     "LANG_Placemon.txt"
   ],
   "source_revision": "aea1b22666ef556f34a71b4f3945904b04de1466",
-  "special_entries_added": 1673,
+  "special_entries_added": 1907,
   "special_mapped_files": [
     "KO_GlobalTxt.txt",
     "KO_NPCProfessions.txt",
+    "KO_Skilldes.txt",
     "KO_SpellsTxt.txt",
     "KO_StatsDescriptions.tsv"
   ],
-  "translated": 24800,
+  "translated": 25034,
   "unmapped_korean_files": [],
   "untranslated": 0
 }

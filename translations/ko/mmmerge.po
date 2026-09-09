@@ -11223,6 +11223,1786 @@ msgctxt ""
 msgid "Congratulations!"
 msgstr "축하합니다!"
 
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=0|field=<default>"
+msgid ""
+"Staves are blunt two-handed pole weapons effective on both offense and "
+"defense. At expert rank, skill increases your armor class. Masters have a "
+"chance of stunning their opponents, and grandmasters gain a bonus to their "
+"attack damage."
+msgstr "스태프 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=10|field=<default>"
+msgid ""
+"Chain armor is the medium armor type.  It provides more protection than "
+"leather and less than plate, but it also slows your character down more than"
+" leather.  Chain armor skill increases the protection offered by chain "
+"armor.  "
+msgstr "사슬 갑옷 착용 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=11|field=<default>"
+msgid ""
+"Plate armor is the heaviest armor type.  It provides the most protection, "
+"but it slows your character down more than leather or chain.  Plate armor "
+"skill increases the protection offered by plate armor."
+msgstr "판금 갑옷 착용 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=12|field=<default>"
+msgid ""
+"All fire magic spells are all combat-oriented and include some of the "
+"strongest direct damage spells. At higher ranks you can learn more powerful "
+"spells and cast the ones you know with greater effect."
+msgstr "화염 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=13|field=<default>"
+msgid ""
+"Air magic has a mixture of combat, informational and maneuvering spells, "
+"including the very useful, Fly. At higher ranks you can learn more powerful "
+"spells and cast the ones you know with greater effect."
+msgstr "대기 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=14|field=<default>"
+msgid ""
+"While it does have some combat spells, water magic is more loaded with "
+"travel and item spells. At higher ranks you can learn more powerful spells "
+"and cast the ones you know with greater effect."
+msgstr "물 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=15|field=<default>"
+msgid ""
+"Earth magic has a balanced mix of offensive and defensive spells, and "
+"includes some healing and adventuring magic.  At higher ranks you can learn "
+"more powerful spells and cast the ones you know with greater effect."
+msgstr "대지 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=16|field=<default>"
+msgid ""
+"Spirit magic concentrates on spells involving life and death.  Included are "
+"spells to raise the dead, which affect the undead, and which increase combat"
+" effectiveness.  At higher ranks you can learn more powerful spells and cast"
+" the ones you know with greater effect."
+msgstr "영혼 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=17|field=<default>"
+msgid ""
+"Mind magic spells directly affect the minds of their targets. They can heal "
+"or cause mental states, and cause direct damage. At higher ranks you can "
+"learn more powerful spells and cast the ones you know with greater effect."
+msgstr "정신 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=18|field=<default>"
+msgid ""
+"While body magic includes some direct damage spells, it is the magic most "
+"concerned with healing. At higher ranks you can learn more powerful spells "
+"and cast the ones you know with greater effect."
+msgstr "신체 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=19|field=<default>"
+msgid ""
+"Light magic includes some of the most powerful offensive an protective "
+"spells, but is only usable by clerics. At higher ranks you can learn more "
+"powerful spells and cast the ones you know with greater effect."
+msgstr "빛 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=1|field=<default>"
+msgid ""
+"The sword skill covers most types of blades longer than a knife.  Expert "
+"swordsmen gain quicker attacks. Masters may use any one-handed sword in "
+"their left hand and another weapon in their right."
+msgstr "검 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=20|field=<default>"
+msgid ""
+"Only usable by necromancers, dark magic has the most spectacular damaging "
+"and creature controlling spells available. At higher ranks you can learn "
+"more powerful spells and cast the ones you know with greater effect."
+msgstr "어둠 계열 마법 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=21|field=<default>"
+msgid ""
+"Dark Elves are born with abilities not shared by other races. Like the "
+"racial abilities of Vampires and Dragons, Dark Elven abilities are cast like"
+" spells, but are acquired like skills. Dark Elves start out able to cast "
+"Glamour, then gain Travelers' Boon, Blind, and Darkfire Bolt as they gain "
+"expert, master and grandmaster ranking."
+msgstr "다크 엘프 종족 특수 능력 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=22|field=<default>"
+msgid ""
+"Vampires are innately powerful creatures with special abilities. Like the "
+"racial abilities of Dragons and Dark Elves, Vampire abilities are cast like "
+"spells, but are acquired like skills. All Vampires can cast Lifedrain, and "
+"gain Levitate, Charm and Mistform at expert, master and grandmaster "
+"rankings."
+msgstr "뱀파이어 종족 특수 능력 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=23|field=<default>"
+msgid ""
+"Dragons are powerful creatures with innate abilities. Like the racial "
+"abilities of Dark Elves and Vampires, Dragon abilities are cast like spells,"
+" but are acquired like skills. Dragons begin able to cast Fear, then gain a "
+"second breath weapon, Flight, and Wing Buffet at expert, master and "
+"grandmaster rankings. Skill in Dragon ability increases both Armor Class and"
+" breath weapon damage."
+msgstr "드래곤 종족 특수 능력 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=24|field=<default>"
+msgid ""
+"The identify item skill is automatically applied when you right-click on an "
+"unidentified inventory item. If your character's skill is high enough, the "
+"item becomes identified."
+msgstr "미식별 아이템을 식별하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=25|field=<default>"
+msgid ""
+"Merchant skill helps adjust prices in your favor, whether you are buying or "
+"selling."
+msgstr "상점에서 물품 구매 및 판매 가격을 우대받는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=26|field=<default>"
+msgid ""
+"The repair skill allows your characters to repair broken equipment. Higher "
+"skill levels allow them to repair better items. The skill is automatically "
+"applied when you right-click on a broken item in your inventory."
+msgstr "손상된 무기 및 방어구를 수리하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=27|field=<default>"
+msgid ""
+"Bodybuilding skill adds hit points directly to your characters' hit point "
+"totals. Hit points gained are equal to a character's Base Hit Points/Level "
+"time skill. Expert ranking doubles this total and master triples it."
+msgstr "캐릭터의 최대 생명력을 증가시키는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=28|field=<default>"
+msgid ""
+"Meditation skill adds spell points directly to your characters' spell point "
+"totals.  Spell points gained are equal to a character's Base Spell "
+"Points/Level times skill. Expert ranking doubles this total and master "
+"triples it."
+msgstr "캐릭터의 최대 주문력을 증가시키는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=29|field=<default>"
+msgid ""
+"The perception skill gives your characters a chance to notice hidden doors "
+"and traps, and to avoid damage from traps when they are triggered. At expert"
+" and master levels, your characters will notice more. Grandmasters will see "
+"all hidden objects."
+msgstr "숨겨진 보물과 함정을 감지하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=2|field=<default>"
+msgid ""
+"While daggers don뭪 do the kind of damage that a sword or an axe can deliver,"
+" they are very quick뾱ometimes letting you get two attacks for every one of "
+"your slower opponents'.  Expert dagger fighters can wield a dagger in their "
+"left hand while using another weapon in their right.  Master dagger fighters"
+" have a chance of doing a triple damage attack."
+msgstr "단검 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=30|field=<default>"
+msgid ""
+"Characters with the regeneration skill will slowly regain lost hit points "
+"over time. Higher skill levels increase how quickly damage is healed."
+msgstr "시간 경과 시 생명력을 자동으로 회복하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=31|field=<default>"
+msgid ""
+"The disarm traps skill is checked automatically when you open a trapped "
+"chest or other container.  A higher skill in disarm traps gives a better "
+"chance of disarming the trap.  Experts and masters enjoy an increased chance"
+" of disarming traps, while grandmasters always succeed."
+msgstr "보물상자 및 문에 설치된 함정을 해제하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=32|field=<default>"
+msgid ""
+"Dodging skill can be used only when you are not wearing armor or using a "
+"shield.  Additional ranks of dodging will increase your armor class while "
+"not wearing armor."
+msgstr "갑옷을 입지 않았을 때 방어력을 높여주는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=33|field=<default>"
+msgid ""
+"Unarmed skill is your ability to use only your hands and feet in combat, no "
+"weapons.  This skill only works with your hands empty.  Additional ranks of "
+"unarmed skill will increase your chance to hit."
+msgstr "무기를 착용하지 않고 맨손으로 공격할 때의 효율입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=34|field=<default>"
+msgid ""
+"The identify monster skill is applied when you right-click on a monster. At "
+"basic level, the skill allows you to see a monster's hit points and armor "
+"class. At higher expertise levels, more information is displayed."
+msgstr "몬스터의 상세 정보와 체력을 파악하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=35|field=<default>"
+msgid ""
+"Armsmaster skill represents the warrior's tricks of the trade.  Initially, "
+"armsmaster reduces the recovery times of your melee weapons. At higher "
+"expertise levels it gives you a bonus to hit then to damage."
+msgstr "공격 속도 및 무기 효율을 높여주는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=36|field=<default>"
+msgid ""
+"Stealing allows you to take items that don't belong to you from shops, or to"
+" steal money or items from people.  Being caught, however, can lead to "
+"severe fines-- and outstanding debt is a punishable offense in castles."
+msgstr "대상의 소지품이나 물건을 훔치는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=37|field=<default>"
+msgid ""
+"The alchemy skill allows you to mix potions.  Without the alchemy skill, you"
+" barely have the knowledge to make a simple potion, though alchemy skill is "
+"added to the strength value of the base ingredient to determine the strength"
+" of a simple potion. Higher rankings allow you to mix more complicated "
+"potions."
+msgstr "물약을 제조하고 합성하는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=38|field=<default>"
+msgid ""
+"The learning skill directly increases the experience a character receives.  "
+"Every point of skill is a percent of awarded experience that is given as a "
+"bonus (plus a starting bonus of 9%).  Five skill points would turn a 100 "
+"experience point award into a 114 experience point award.  Expert doubles "
+"and master triples this bonus, so 10 points of learning at master rank would"
+" give a 39% bonus to all experience point gain."
+msgstr "획득하는 경험치 양을 추가로 증가시키는 능력입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=3|field=<default>"
+msgid ""
+"While slow on the attack, axes do a lot of damage when they hit.  Expert axe"
+" fighters gain a little more speed on their attacks while master axe "
+"fighters can deliver extra damage."
+msgstr "도끼 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=4|field=<default>"
+msgid ""
+"The spear skill allows use of bladed pole weapons. Expert spearmen strike "
+"for greater damage, and masters can wield spears in one hand."
+msgstr "창 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=5|field=<default>"
+msgid ""
+"Bow skill covers both bow and crossbow usage.  Expert archers gain a speed "
+"increase with their weapon, while master archers can fire two arrows with "
+"every attack."
+msgstr "활 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=6|field=<default>"
+msgid ""
+"Mace skill covers all kinds of blunt trauma weapons ranging from large clubs"
+" to flails.  Expert mace swingers do extra damage with their weapons. "
+"Masters and grandmasters can stun or paralyze their opponents."
+msgstr "메이스 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=7|field=<default>"
+msgid ""
+"A weapon from before the Silence, their making has long since been lost.  "
+"Expert and master blasters gain double and triple accuracy with these "
+"awesome weapons."
+msgstr "블래스터 무기 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=8|field=<default>"
+msgid ""
+"Shield skill directly improves a character뭩 armor class while a shield is "
+"employed.  Expert and master rankings in the shield increase this defensive "
+"bonus."
+msgstr "방패 착용 및 방어 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDescriptions|id=9|field=<default>"
+msgid ""
+"Leather armor is the lightest armor a character can wear.  While leather "
+"provides less protection than chain or plate armor, it also slows your "
+"character down the least.  Leather armor skill increases the protection "
+"offered by leather armor. "
+msgstr "가죽 갑옷 착용 숙련도입니다."
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=0|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=10|field=<default>"
+msgid "Recovery penalty halved"
+msgstr "속도 패널티 절반 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=11|field=<default>"
+msgid "Recovery penalty halved"
+msgstr "속도 패널티 절반 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=12|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=13|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=14|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=15|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=16|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=17|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=18|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=19|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=1|field=<default>"
+msgid "Skill reduces recovery time"
+msgstr "공격 회복 시간(딜레이) 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=20|field=<default>"
+msgid "Effects vary per spell"
+msgstr "상위 주문 사용 및 효과 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=21|field=<default>"
+msgid ""
+"Can cast Travelers' Boon which has effects of Torchlight, Wizard Eye and "
+"Feather Fall."
+msgstr "여행자의 축복(Travelers' Boon) 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=22|field=<default>"
+msgid ""
+"Can cast Levitate to move party over harmful surfaces taking no damage."
+msgstr "공중 부양(Levitate) 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=23|field=<default>"
+msgid "Gains Breath Weapon which launches an exploding fireball."
+msgstr "폭발성 브레스(Breath Weapon) 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=24|field=<default>"
+msgid "Double effect of skill"
+msgstr "식별 성공률 및 능력 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=25|field=<default>"
+msgid "Double effect of skill"
+msgstr "상술 효과 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=26|field=<default>"
+msgid "Double effect of skill"
+msgstr "수리 성공률 및 능력 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=27|field=<default>"
+msgid "Double effect of skill"
+msgstr "생명력 보너스 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=28|field=<default>"
+msgid "Double effect of skill"
+msgstr "주문력 보너스 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=29|field=<default>"
+msgid "Double effect of skill"
+msgstr "함정 피해 감소 및 감지율 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=2|field=<default>"
+msgid "Permits use of dagger in left hand"
+msgstr "왼손에 단검 착용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=30|field=<default>"
+msgid "Increases hit points regained over time"
+msgstr "생명력 회복 속도 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=31|field=<default>"
+msgid "Double effect of skill"
+msgstr "함정 해제 성공률 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=32|field=<default>"
+msgid "Skill added to Armor Class (double effect)"
+msgstr "회피 방어력 보너스 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=33|field=<default>"
+msgid "Skill added to damage."
+msgstr "맨손 공격 피해량 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=34|field=<default>"
+msgid "Learn Attack type and damage of monster"
+msgstr "몬스터 저항력 및 정보 확인"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=35|field=<default>"
+msgid "Skill added to Attack Bonus of all melee weapons"
+msgstr "근접 공격 보너스 및 속도 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=36|field=<default>"
+msgid "Double effect of skill"
+msgstr "소매치기 성공률 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=37|field=<default>"
+msgid "Allows mixing of complex potions to make compound potions"
+msgstr "중급 물약 합성 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=38|field=<default>"
+msgid "Double effect of skill"
+msgstr "획득 경험치 추가 증가 (+스킬당 2%)"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=3|field=<default>"
+msgid "Skill reduces recovery time"
+msgstr "공격 회복 시간(딜레이) 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=4|field=<default>"
+msgid "Skill added to damage."
+msgstr "공격 피해량에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=5|field=<default>"
+msgid "Skill reduces recovery time"
+msgstr "공격 회복 시간(딜레이) 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=6|field=<default>"
+msgid "Skill added to Attack Damage"
+msgstr "공격 피해량에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=7|field=<default>"
+msgid "Skill added to Attack Bonus (double effect)"
+msgstr "공격 보너스 2배 적용"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=8|field=<default>"
+msgid "Recovery penalty eliminated"
+msgstr "방패 착용 속도 패널티 제거"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=9|field=<default>"
+msgid "Recovery penalty eliminated"
+msgstr "가죽 갑옷 속도 패널티 제거"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=0|field=<default>"
+msgid "Skill added to Attack Damage"
+msgstr "공격 피해량에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=10|field=<default>"
+msgid "Receive 2/3 damage from physical attacks."
+msgstr "물리 피해 2/3로 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=11|field=<default>"
+msgid "Recovery penalty eliminated"
+msgstr "속도 패널티 완벽 제거"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=12|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=13|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=14|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=15|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=16|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=17|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=18|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=19|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=1|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=20|field=<default>"
+msgid "Effects vary per spell"
+msgstr "궁극 주문 사용 및 효과 극대화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=21|field=<default>"
+msgid "Can cast Darkfire, a magic bolt which does Dark and Fire damage."
+msgstr "암흑 화염(Darkfire Bolt) 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=22|field=<default>"
+msgid ""
+"Can assume Mistform. In mistform a vampire cannot take or deal physical "
+"damage."
+msgstr "안개 형태(Mistform) 변신 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=23|field=<default>"
+msgid "Gains Wing Buffet which pushes back opponents."
+msgstr "날개 치기(Wing Buffet) 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=24|field=<default>"
+msgid "100% success"
+msgstr "모든 아이템 100% 식별 성공"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=25|field=<default>"
+msgid "Buy and sell items at cost."
+msgstr "모든 물품 원가 구매 및 판매"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=26|field=<default>"
+msgid "100% success"
+msgstr "모든 아이템 100% 수리 성공"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=27|field=<default>"
+msgid "Quintuple effect of skill"
+msgstr "생명력 보너스 5배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=28|field=<default>"
+msgid "Quintuple effect of skill"
+msgstr "주문력 보너스 5배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=29|field=<default>"
+msgid "100% success"
+msgstr "함정 피해 완벽 무효화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=2|field=<default>"
+msgid "Skill added to Attack Damage"
+msgstr "공격 피해량에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=30|field=<default>"
+msgid "Largest increase of hit points regained over time"
+msgstr "생명력 회복 속도 5배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=31|field=<default>"
+msgid "100% success"
+msgstr "모든 함정 100% 해제 성공"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=32|field=<default>"
+msgid "Skill is usable while wearing leather armor"
+msgstr "회피 방어력 보너스 5배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=33|field=<default>"
+msgid "Chance to evade an incoming attack equal to skill"
+msgstr "일정 확률로 대상 기절 효과"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=34|field=<default>"
+msgid "Learn the monster's resistances"
+msgstr "몬스터 모든 정보 100% 완전 공개"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=35|field=<default>"
+msgid "Double all the previous bonuses"
+msgstr "모든 근접 공격 보너스 2배 적용"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=36|field=<default>"
+msgid "Quintuple effect of skill"
+msgstr "발각 없이 100% 소매치기 성공"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=37|field=<default>"
+msgid "Allows mixing of white potions to make black potions"
+msgstr "전설적인 검은 물약(Black Potion) 합성 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=38|field=<default>"
+msgid "Quintuple effect of skill"
+msgstr "획득 경험치 극대화 (+스킬당 5%)"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=3|field=<default>"
+msgid "Chance to halve the Armor Class of the target."
+msgstr "일정 확률로 대상 방어력 절반 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=4|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=5|field=<default>"
+msgid "Skill added to damage."
+msgstr "공격 피해량에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=6|field=<default>"
+msgid "Chance to paralyze equal to skill."
+msgstr "일정 확률로 대상 마비 효과"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=7|field=<default>"
+msgid "Skill added to Attack Bonus (quintuple effect)"
+msgstr "공격 보너스 5배 적용"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=8|field=<default>"
+msgid "Protection as per Shield spell."
+msgstr "방패 주문 효과 자동 부여"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=9|field=<default>"
+msgid "Skill added to Elemental (Fire/Earth/Air/Water) Resistances."
+msgstr "원소 저항력에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=0|field=<default>"
+msgid "Chance to stun equal to skill"
+msgstr "스킬 레벨 확률로 기절 효과 발생"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=10|field=<default>"
+msgid "Recovery penalty eliminated"
+msgstr "속도 패널티 완벽 제거"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=11|field=<default>"
+msgid "Receive 1/2 damage from physical attacks."
+msgstr "물리 피해 1/2로 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=12|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=13|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=14|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=15|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=16|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=17|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=18|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=19|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=1|field=<default>"
+msgid "Permits use of sword in left hand"
+msgstr "왼손에 검 착용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=20|field=<default>"
+msgid "Effects vary per spell"
+msgstr "고위 주문 사용 및 효과 대폭 강화"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=21|field=<default>"
+msgid ""
+"Can cast Blind. Targets of the spell wander aimlessly and cannot use spells "
+"or missiles."
+msgstr "실명(Blind) 주문 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=22|field=<default>"
+msgid "Can cast the Charm spell on nearby targets."
+msgstr "유혹(Charm) 주문 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=23|field=<default>"
+msgid "Gains Flight which allows dragon to carry party through the air."
+msgstr "비행(Flight) 능력 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=24|field=<default>"
+msgid "Triple effect of skill"
+msgstr "식별 성공률 및 능력 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=25|field=<default>"
+msgid "Triple effect of skill"
+msgstr "상술 효과 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=26|field=<default>"
+msgid "Triple effect of skill"
+msgstr "수리 성공률 및 능력 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=27|field=<default>"
+msgid "Triple effect of skill"
+msgstr "생명력 보너스 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=28|field=<default>"
+msgid "Triple effect of skill"
+msgstr "주문력 보너스 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=29|field=<default>"
+msgid "Triple effect of skill"
+msgstr "함정 피해 대폭 감소 및 감지율 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=2|field=<default>"
+msgid "Chance to cause triple damage equal to skill"
+msgstr "스킬 레벨 확률로 3배 피해 발생"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=30|field=<default>"
+msgid "Larger increase to hit points regained over time"
+msgstr "생명력 회복 속도 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=31|field=<default>"
+msgid "Triple effect of skill"
+msgstr "함정 해제 성공률 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=32|field=<default>"
+msgid "Skill added to Armor Class (triple effect)"
+msgstr "회피 방어력 보너스 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=33|field=<default>"
+msgid "Skill added to Attack Bonus and damage (double effect)"
+msgstr "맨손 공격 보너스 2배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=34|field=<default>"
+msgid "Learn which spells the monster can cast."
+msgstr "몬스터 공격력 및 특성 완전 파악"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=35|field=<default>"
+msgid "Skill added to damage of all melee weapons"
+msgstr "근접 공격 피해량 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=36|field=<default>"
+msgid "Triple effect of skill"
+msgstr "소매치기 성공률 3배"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=37|field=<default>"
+msgid "Allows mixing of compound potions to make white potions"
+msgstr "상급 물약 합성 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=38|field=<default>"
+msgid "Triple effect of skill"
+msgstr "획득 경험치 대폭 증가 (+스킬당 3%)"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=3|field=<default>"
+msgid "Skill added to Attack Damage"
+msgstr "공격 피해량에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=4|field=<default>"
+msgid "Ability to use a spear in one hand."
+msgstr "한 손으로 창 착용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=5|field=<default>"
+msgid "Bow fires two arrows on every attack"
+msgstr "공격 시 화살 2발 연속 발사"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=6|field=<default>"
+msgid "Chance to stun equal to skill"
+msgstr "스킬 레벨 확률로 기절 효과 발생"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=7|field=<default>"
+msgid "Skill added to Attack Bonus (triple effect)"
+msgstr "공격 보너스 3배 적용"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=8|field=<default>"
+msgid "Skill added to Armor Class (double effect)"
+msgstr "방어력(AC) 보너스 2배 적용"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=9|field=<default>"
+msgid "Skill added to Armor Class (double effect)"
+msgstr "방어력(AC) 보너스 2배 적용"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=0|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=10|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=11|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=12|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=13|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=14|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=15|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=16|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=17|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=18|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=19|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=1|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=20|field=<default>"
+msgid "Effects vary per spell"
+msgstr "주문 효과 및 지속시간 향상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=21|field=<default>"
+msgid "Can cast Glamour which increases caster's appeal to others."
+msgstr "매혹(Glamour) 주문 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=22|field=<default>"
+msgid "Can cast Lifedrain which harms its target and heals the caster."
+msgstr "생명력 흡수(Lifedrain) 주문 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=23|field=<default>"
+msgid "Can cast Fear which causes its targets to flee."
+msgstr "공포(Fear) 주문 사용 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=24|field=<default>"
+msgid "Ability to identify items"
+msgstr "아이템 식별 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=25|field=<default>"
+msgid "Skill adjusts shop prices in your favor"
+msgstr "상점 가격 우대"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=26|field=<default>"
+msgid "Ability to repair items"
+msgstr "손상된 아이템 수리 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=27|field=<default>"
+msgid "Skill adds to Hit Points"
+msgstr "최대 생명력(HP) 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=28|field=<default>"
+msgid "Skill adds to Spell Points"
+msgstr "최대 주문력(SP) 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=29|field=<default>"
+msgid "Skill increases chance to avoid traps and notice treasures"
+msgstr "함정 및 비밀 통로 감지"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=2|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=30|field=<default>"
+msgid "Increases hit points regained over time"
+msgstr "생명력 자동 회복"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=31|field=<default>"
+msgid "Skill increases chance to disarm traps on chests"
+msgstr "함정 해제 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=32|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "갑옷 미착용 시 방어력 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=33|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "맨손 공격 보너스 증가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=34|field=<default>"
+msgid "Learn Hit Points and Armor Class of monster"
+msgstr "몬스터 체력 및 정보 확인"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=35|field=<default>"
+msgid "Skill reduces the recovery time of all melee weapons"
+msgstr "근접 공격 딜레이 감소"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=36|field=<default>"
+msgid "Skill gives chance to steal"
+msgstr "소매치기 시도 가능"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=37|field=<default>"
+msgid "Allows mixing of simple potions to make complex potions"
+msgstr "기본 물약 제조 및 합성"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=38|field=<default>"
+msgid "Skill increases amount of experience received"
+msgstr "획득 경험치 증가 (+스킬당 1%)"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=3|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=4|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=5|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=6|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=7|field=<default>"
+msgid "Skill added to Attack Bonus"
+msgstr "공격 보너스에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=8|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=9|field=<default>"
+msgid "Skill added to Armor Class"
+msgstr "방어력(AC)에 스킬 레벨 추가"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=0|field=<default>"
+msgid "Staff"
+msgstr "스태프"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=10|field=<default>"
+msgid "Chain"
+msgstr "사슬 갑옷"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=11|field=<default>"
+msgid "Plate"
+msgstr "판금 갑옷"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=12|field=<default>"
+msgid "Fire"
+msgstr "화염 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=13|field=<default>"
+msgid "Air"
+msgstr "대기 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=14|field=<default>"
+msgid "Water"
+msgstr "물 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=15|field=<default>"
+msgid "Earth"
+msgstr "대지 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=16|field=<default>"
+msgid "Spirit"
+msgstr "영혼 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=17|field=<default>"
+msgid "Mind"
+msgstr "정신 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=18|field=<default>"
+msgid "Body"
+msgstr "신체 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=19|field=<default>"
+msgid "Light"
+msgstr "빛 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=1|field=<default>"
+msgid "Sword"
+msgstr "검"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=20|field=<default>"
+msgid "Dark"
+msgstr "어둠 마법"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=21|field=<default>"
+msgid "Dark Elf Ability"
+msgstr "다크 엘프 능력"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=22|field=<default>"
+msgid "Vampire Ability"
+msgstr "뱀파이어 능력"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=23|field=<default>"
+msgid "Dragon Ability"
+msgstr "드래곤 능력"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=24|field=<default>"
+msgid "Identify Item"
+msgstr "아이템 식별"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=25|field=<default>"
+msgid "Merchant"
+msgstr "상술"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=26|field=<default>"
+msgid "Repair"
+msgstr "아이템 수리"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=27|field=<default>"
+msgid "Bodybuilding"
+msgstr "체력 단련"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=28|field=<default>"
+msgid "Meditation"
+msgstr "명상"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=29|field=<default>"
+msgid "Perception"
+msgstr "지각"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=2|field=<default>"
+msgid "Dagger"
+msgstr "단검"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=30|field=<default>"
+msgid "Regeneration"
+msgstr "재생"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=31|field=<default>"
+msgid "Disarm Traps"
+msgstr "함정 해제"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=32|field=<default>"
+msgid "Dodging"
+msgstr "회피"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=33|field=<default>"
+msgid "Unarmed"
+msgstr "맨손 전투"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=34|field=<default>"
+msgid "Identify Monster"
+msgstr "몬스터 식별"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=35|field=<default>"
+msgid "Armsmaster"
+msgstr "무술"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=36|field=<default>"
+msgid "Stealing"
+msgstr "소매치기"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=37|field=<default>"
+msgid "Alchemy"
+msgstr "연금술"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=38|field=<default>"
+msgid "Learning"
+msgstr "학습"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=3|field=<default>"
+msgid "Axe"
+msgstr "도끼"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=4|field=<default>"
+msgid "Spear"
+msgstr "창"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=5|field=<default>"
+msgid "Bow"
+msgstr "활"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=6|field=<default>"
+msgid "Mace"
+msgstr "메이스"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=7|field=<default>"
+msgid "Blaster"
+msgstr "블래스터"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=8|field=<default>"
+msgid "Shield"
+msgstr "방패"
+
+#. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
+#. KO: Data/Text localization/KO_Skilldes.txt
+msgctxt ""
+"mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=9|field=<default>"
+msgid "Leather"
+msgstr "가죽 갑옷"
+
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
 msgctxt ""
