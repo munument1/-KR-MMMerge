@@ -66,7 +66,20 @@ local function promoteLowerContinentButtons()
     for _, move in ipairs(moves) do
         front[move.Key] = nil
         move.Button.Layer = 1
-        middle[move.Key] = move.Button
+
+        -- CustomUI generates numeric keys independently for each layer.
+        -- Reusing a layer-0 key after moving the button can overwrite an
+        -- existing layer-1 button (Jadame/MM8 is normally middle[1]).
+        -- Give promoted buttons stable, layer-unique string keys instead.
+        local newKey = "KoreanPromoted_" .. tostring(move.Button.IUpSrc or move.Key)
+        local suffix = 2
+        while middle[newKey] and middle[newKey] ~= move.Button do
+            newKey = "KoreanPromoted_" .. tostring(move.Button.IUpSrc or move.Key) .. "_" .. suffix
+            suffix = suffix + 1
+        end
+
+        move.Button.Key = newKey
+        middle[newKey] = move.Button
     end
 
     return #moves
