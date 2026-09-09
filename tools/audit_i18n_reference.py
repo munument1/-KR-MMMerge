@@ -20,6 +20,11 @@ REFERENCE_URL = (
 HANGUL_RE = re.compile(r"[\uac00-\ud7a3]")
 LATIN_RE = re.compile(r"[A-Za-z]")
 SAFE_EXTENSIONS = {".txt", ".tsv", ".utf8"}
+STRUCT_HEADER = ["Table (of Game struct)", "Id", "Field", "New text"]
+HEADER_WORDS = {
+    "id", "name", "notes", "description", "text", "field", "new text",
+    "notidentifiedname", "notidentifiedname ", "type", "picture", "value",
+}
 
 
 @dataclass(frozen=True)
@@ -85,6 +90,18 @@ def parse_cells(line: str) -> list[str]:
         return line.split("\t")
 
 
+def clean_cell(cell: str) -> str:
+    return cell.strip().strip('"')
+
+
+def looks_like_header(cells: list[str]) -> bool:
+    cleaned = [clean_cell(c).lower() for c in cells if clean_cell(c)]
+    if not cleaned:
+        return False
+    known = sum(1 for c in cleaned if c in HEADER_WORDS)
+    return known >= 2 and known >= len(cleaned) // 2
+
+
 def iter_localization_cells(root: pathlib.Path):
     loc = root / "Data" / "Text localization"
     if not loc.is_dir():
@@ -98,11 +115,28 @@ def iter_localization_cells(root: pathlib.Path):
             print(f"warning: skipped undecodable file: {path}: {exc}", file=sys.stderr)
             continue
         rel = path.relative_to(root).as_posix()
-        for line_no, line in enumerate(text.splitlines(), 1):
+        lines = text.splitlines()
+        first_cells = parse_cells(lines[0]) if lines else []
+        structured = [clean_cell(c) for c in first_cells[:4]] == STRUCT_HEADER
+
+        for line_no, line in enumerate(lines, 1):
             if not line or line.lstrip().startswith("#"):
                 continue
-            for col_no, cell in enumerate(parse_cells(line), 1):
-                value = cell.strip().strip('"')
+            cells = parse_cells(line)
+            if line_no == 1 and (structured or looks_like_header(cells)):
+                continue
+
+            # The bulk of KR-MMMerge runtime override tables intentionally keep
+            # English metadata in columns 1-3 (table/id/field). Only column 4 is
+            # displayed text. Scanning metadata created thousands of fake hits
+            # such as Name/Master, so never treat those columns as translations.
+            if structured:
+                selected = [(4, cells[3])] if len(cells) >= 4 else []
+            else:
+                selected = list(enumerate(cells, 1))
+
+            for col_no, cell in selected:
+                value = clean_cell(cell)
                 if value:
                     yield Occurrence(rel, line_no, col_no, value)
 
@@ -143,7 +177,7 @@ def build_report(root: pathlib.Path, refs: list[Reference], reference_label: str
     print("Reference policy: mm678-i18n Korean data is advisory only; never auto-applied.", file=out)
     print(f"Usable Korean reference rows: {len(refs)}", file=out)
     print(f"Unique English msgids: {len(by_msgid)}", file=out)
-    print(f"Localization cells scanned: {len(occurrences)}", file=out)
+    print(f"Displayed/localized cells scanned: {len(occurrences)}", file=out)
     print(f"Exact English residual candidates: {len(exact_english)}", file=out)
     print(f"Legacy-reference Korean cells already in use: {len(legacy_in_use)}", file=out)
     print(f"Relevant legacy translation conflicts: {len(conflicts)}", file=out)
@@ -152,9 +186,9 @@ def build_report(root: pathlib.Path, refs: list[Reference], reference_label: str
     print("[A] EXACT ENGLISH RESIDUAL CANDIDATES", file=out)
     print("-------------------------------------", file=out)
     print(
-        "These are exact cells in the Korean payload that equal an English msgid for which "
-        "mm678-i18n has a Korean legacy/retail-derived reference. Review manually; proper "
-        "names and intentionally untranslated tokens can be false positives.",
+        "These are displayed/localized cells in the Korean payload that exactly equal an "
+        "English msgid for which mm678-i18n has a Korean legacy/retail-derived reference. "
+        "Review manually; proper names and intentionally untranslated tokens can be false positives.",
         file=out,
     )
     if not exact_english:
@@ -173,8 +207,9 @@ def build_report(root: pathlib.Path, refs: list[Reference], reference_label: str
     print("[B] LEGACY REFERENCE TERMS ALREADY PRESENT", file=out)
     print("------------------------------------------", file=out)
     print(
-        "Exact Korean cells that also occur in the legacy reference. This is not a problem "
-        "by itself; it helps identify where old official terminology is already inherited.",
+        "Exact Korean displayed/localized cells that also occur in the legacy reference. "
+        "This is not a problem by itself; it helps identify where old official terminology "
+        "is already inherited.",
         file=out,
     )
     if not legacy_in_use:
