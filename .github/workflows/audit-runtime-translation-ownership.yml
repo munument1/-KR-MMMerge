@@ -8,12 +8,16 @@ on:
     paths:
       - Data/Text localization/**
       - Scripts/**/*.lua
+      - config/runtime_override_keys.tsv
+      - tools/rebuild_runtime_overrides.py
       - tools/audit_runtime_translation_ownership.py
       - .github/workflows/audit-runtime-translation-ownership.yml
   pull_request:
     paths:
       - Data/Text localization/**
       - Scripts/**/*.lua
+      - config/runtime_override_keys.tsv
+      - tools/rebuild_runtime_overrides.py
       - tools/audit_runtime_translation_ownership.py
       - .github/workflows/audit-runtime-translation-ownership.yml
 
@@ -31,6 +35,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Require generated runtime overrides to match canonical wording
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/rebuild_runtime_overrides.py --check
 
       - name: Audit static vs runtime ownership
         shell: bash
@@ -55,6 +65,6 @@ jobs:
           print(f"- Runtime-only override keys: **{r['runtime_override_unique_keys']}**")
           print(f"- Hard-coded Lua literal maps overlapping static data: **{r['lua_literal_maps_with_static_overlap']}**")
           print()
-          print('This audit is informational during PO migration; known runtime exceptions are not failures yet.')
+          print('Runtime override wording drift is a hard failure. Other runtime ownership findings remain informational during PO migration.')
           PY
           fi
