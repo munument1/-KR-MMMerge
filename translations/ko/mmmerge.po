@@ -31412,7 +31412,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=45|field=Name"
 msgid "Placeholder"
-msgstr "자리표시자"
+msgstr "니혼 터널"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -32171,7 +32171,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=48|field=Name"
 msgid "Placeholder"
-msgstr "자리표시자"
+msgstr "이오폴로 가는 터널"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt

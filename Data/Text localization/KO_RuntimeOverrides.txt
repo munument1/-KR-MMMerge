@@ -1,6 +1,4 @@
 Table (of Game struct)	Id	Field	New text
-Houses	45	Name	니혼 터널
-	48	Name	이오폴로 가는 터널
 GlobalTxt	0		방어
 	1		정확도
 	4		공포
