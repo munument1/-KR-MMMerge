@@ -187,7 +187,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- translations/ko; then
+          if [[ -z "$(git status --porcelain -- translations/ko)" ]]; then
             echo "Catalog is already up to date."
             exit 0
           fi
