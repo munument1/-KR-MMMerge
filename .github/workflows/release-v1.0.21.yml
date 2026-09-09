@@ -1,0 +1,228 @@
+# v1.0.21 one-shot release workflow.
+# Automatic push execution is limited to this workflow file itself so later
+# source changes cannot silently rebuild an already-published version.
+name: Release v1.0.21
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.21.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate canonical PO and generated Korean sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25051
+
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate Korean runtime integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/ZZ_KoreanDaggerWoundHints.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_korean_dagger_wound_hints.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua; do
+            luac5.1 -p "$f"
+          done
+
+          lua5.1 tools/test_korean_dagger_wound_hints.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.21"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+          cp UPSTREAM_BASELINE.md release-stage/
+          cp MIGRATION_v1.0.20.txt release-stage/
+
+          test ! -f release-stage/Scripts/Maps/out01.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanDaggerWoundHints.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+          ! grep -Eq '^[[:space:]]*RefillTimer[[:space:]]*=' release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+
+          cat > release-stage/RELEASE_v1.0.21.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.21
+
+          v1.0.20 이후 확인된 런타임 호환 회귀를 수정하고 한국어 패치의
+          게임플레이 개입 범위를 더 엄격히 제한한 릴리즈입니다.
+
+          주요 변경:
+          - NEW GAME에서 MM8/Jadame 버튼이 클릭되지 않던 CustomUI key 충돌 수정
+          - MM7/MM6 버튼 승격 시 MM8 layer-1 key 보존 회귀 테스트 추가
+          - 에메랄드 섬 RefillTimer 전역 후킹 퇴역 및 no-op 업그레이드 stub 전환
+          - Korean overlay의 Timer/RefillTimer 등 게임플레이 전역 교체를 CI에서 차단
+          - v1.0.20 자동 재빌드 중단, 버전별 릴리즈 고정 정책 적용
+          - Rodril baseline 및 기존 번역/DBCS 구조 유지
+
+          v1.0.20 사용자는 이 ZIP을 그대로 덮어쓴 뒤 게임을 완전히 재시작하십시오.
+          v1.0.19 이하 사용자는 MIGRATION_v1.0.20.txt 절차대로 Rodril 원본을
+          먼저 재적용한 뒤 이 패치를 설치하십시오.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum mm8lang.ini README.txt CHANGELOG.txt RELEASE_v1.0.21.txt \
+              MIGRATION_v1.0.20.txt UPSTREAM_BASELINE.md FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.21
+
+          이번 버전은 **v1.0.20의 MM8 새 게임 선택 회귀를 수정하고, 한국어 패치가 게임플레이 로직을 건드리지 않도록 경계를 강화한 안정화 릴리즈**입니다.
+
+          ### MM8 새 게임 버튼 수정
+          - Rodril의 대륙 선택 UI에서 MM8/Jadame은 layer 1의 numeric key 1을 사용합니다.
+          - 한국어 런타임 핫픽스가 MM7/MM6 버튼을 layer 1으로 이동시키면서 기존 numeric key를 재사용해 MM8 버튼을 덮어쓰던 문제를 수정했습니다.
+          - 이동되는 버튼은 이제 KoreanPromoted_* 고유 key를 사용합니다.
+          - 실제 numeric-key 구조를 재현한 회귀 테스트가 MM8 버튼 보존을 검증합니다.
+
+          ### 게임플레이 후킹 퇴역
+          - 과거 에메랄드 섬 호환용 `ZZ_KoreanEmeraldWellTimerFix.lua`가 전역 `RefillTimer`를 교체하던 동작을 제거했습니다.
+          - Rodril 기준판은 이미 IsInit-aware refill 처리 경로를 갖고 있으므로 한국어 패치가 타이머 의미를 바꾸지 않습니다.
+          - 파일은 no-op stub으로 남겨 기존 설치의 옛 후킹 파일을 안전하게 덮어씁니다.
+
+          ### CI 경계 강화
+          - Korean/ZZ_Korean 오버레이가 `Timer`, `RefillTimer`, `RemoveTimer`, `Sleep`, `Sleep2`를 교체하면 검증이 실패합니다.
+          - `Scripts/Maps/*.lua`, Core/Modules/Structs vendoring 금지 정책도 유지합니다.
+
+          ### 버전 고정
+          - v1.0.20 자동 릴리즈 워크플로를 동결했습니다.
+          - v1.0.21 릴리즈는 이미 같은 태그가 존재하면 덮어쓰지 않고 실패합니다.
+
+          ### 설치
+          - v1.0.20 사용자는 v1.0.21을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하는 `MIGRATION_v1.0.20.txt`에 따라 Rodril 원본을 먼저 재적용하십시오.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish immutable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.21"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists and is immutable; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.21" \
+            --notes-file release-notes.md \
+            --latest
