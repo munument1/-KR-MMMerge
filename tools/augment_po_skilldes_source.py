@@ -86,8 +86,8 @@ def main() -> int:
 
     if sorted(korean) != list(range(39)):
         raise SystemExit(f"KO_Skilldes indexes must be 0..38; got {sorted(korean)}")
-    if len(english_rows) < 39:
-        raise SystemExit(f"MM8 Skilldes has only {len(english_rows)} usable rows")
+    if len(english_rows) != 39:
+        raise SystemExit(f"MM8 Skilldes must contain exactly 39 usable rows; got {len(english_rows)}")
 
     po = polib.pofile(str(args.po))
     seen = {entry.msgctxt or "" for entry in po if not entry.obsolete}
@@ -125,6 +125,8 @@ def main() -> int:
         raise SystemExit(
             f"KO_Skilldes contains {len(untranslated)} untranslated cells; first={untranslated[:10]}"
         )
+    if added != 39 * len(FIELDS):
+        raise SystemExit(f"expected 234 skill PO entries, added {added}")
 
     po.sort(key=lambda e: ((e.msgctxt or "").casefold(), e.msgid.casefold()))
     po.save(str(args.po))
