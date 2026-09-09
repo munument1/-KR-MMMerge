@@ -1,0 +1,113 @@
+name: Validate PO round trip
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - po-localization-bootstrap
+    paths:
+      - translations/ko/mmmerge.po
+      - translations/ko/PO_BOOTSTRAP_REPORT.json
+      - tools/build_korean_from_po.py
+      - .github/workflows/validate-po-roundtrip.yml
+  pull_request:
+    paths:
+      - translations/ko/mmmerge.po
+      - translations/ko/PO_BOOTSTRAP_REPORT.json
+      - tools/build_korean_from_po.py
+      - 'Data/Text localization/KO_*.txt'
+      - 'Data/Text localization/KO_*.tsv'
+      - .github/workflows/validate-po-roundtrip.yml
+
+permissions:
+  contents: read
+
+jobs:
+  roundtrip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PO dependency
+        run: python -m pip install --disable-pip-version-check polib
+
+      - name: Require current PO to reproduce canonical Korean bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build/po-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-roundtrip \
+            --require-byte-identical
+
+      - name: Exercise every materializer format with temporary PO edits
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import polib
+
+          selected = [
+              'KO_AwardsTxt.txt',
+              'KO_ItemsTxt.txt',
+              'KO_MapStrings.txt',
+              'KO_GlobalTxt.txt',
+              'KO_StatsDescriptions.tsv',
+              'KO_NPCProfessions.txt',
+              'KO_Skilldes.txt',
+              'KO_NPCNames.txt',
+          ]
+          po = polib.pofile('translations/ko/mmmerge.po')
+          changed = {}
+          for target in selected:
+              marker = f'KO: Data/Text localization/{target}'
+              entry = next((e for e in po if not e.obsolete and marker in (e.comment or '')), None)
+              if entry is None:
+                  raise SystemExit(f'no PO entry found for {target}')
+              entry.msgstr = entry.msgstr + ' RT'
+              changed[target] = entry.msgctxt
+          Path('build').mkdir(exist_ok=True)
+          po.save('build/mmmerge-mutated.po')
+          for target, context in changed.items():
+              print(f'mutated {target}: {context}')
+          PY
+
+          rm -rf build/po-mutated build/po-mutated-second
+          python tools/build_korean_from_po.py \
+            --po build/mmmerge-mutated.po \
+            --output-root build/po-mutated
+
+          python - <<'PY'
+          from pathlib import Path
+
+          selected = [
+              'KO_AwardsTxt.txt',
+              'KO_ItemsTxt.txt',
+              'KO_MapStrings.txt',
+              'KO_GlobalTxt.txt',
+              'KO_StatsDescriptions.tsv',
+              'KO_NPCProfessions.txt',
+              'KO_Skilldes.txt',
+              'KO_NPCNames.txt',
+          ]
+          for name in selected:
+              original = Path('Data/Text localization') / name
+              generated = Path('build/po-mutated/Data/Text localization') / name
+              if original.read_bytes() == generated.read_bytes():
+                  raise SystemExit(f'materializer did not change exercised target: {name}')
+              print(f'write path exercised: {name}')
+          PY
+
+          python tools/build_korean_from_po.py \
+            --po build/mmmerge-mutated.po \
+            --source-root 'build/po-mutated/Data/Text localization' \
+            --output-root build/po-mutated-second \
+            --require-byte-identical
