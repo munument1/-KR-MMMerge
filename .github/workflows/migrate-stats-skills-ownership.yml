@@ -1,0 +1,60 @@
+name: Migrate stats and skills translation ownership
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - po-localization-bootstrap
+    paths:
+      - .github/workflows/migrate-stats-skills-ownership.yml
+      - tools/rebuild_stats_skills_runtime.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: migrate-stats-skills-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Create canonical skill source and runtime projection
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/rebuild_stats_skills_runtime.py --write --migrate-lua
+          python tools/rebuild_stats_skills_runtime.py --check
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          paths=(
+            'Data/Text localization/KO_Skilldes.txt'
+            'Data/Text localization/KO_StatsSkillsRuntime.txt'
+            'Scripts/General/KoreanStatsAndSkills.lua'
+            'Scripts/General/LocalizeTables.lua'
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo 'Stats/skills ownership is already migrated.'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${paths[@]}"
+          git commit -m 'refactor(i18n): move stats and skills wording out of runtime Lua'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
