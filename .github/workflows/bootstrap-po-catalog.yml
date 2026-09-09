@@ -7,6 +7,7 @@ on:
       - po-localization-bootstrap
     paths:
       - 'Data/Text localization/**'
+      - config/runtime_override_keys.tsv
       - .github/workflows/bootstrap-po-catalog.yml
       - tools/bootstrap_po_from_utf8.py
       - tools/augment_po_special_sources.py
@@ -163,6 +164,42 @@ jobs:
           python tools/rebuild_runtime_overrides.py --check
           python tools/rebuild_stats_skills_runtime.py --write
           python tools/rebuild_stats_skills_runtime.py --check
+
+      - name: Audit regenerated ownership
+        if: steps.build_po.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/audit_runtime_translation_ownership.py \
+            --json build/RUNTIME_TRANSLATION_OWNERSHIP.json
+          python tools/audit_lua_korean_literals.py \
+            --json build/LUA_KOREAN_LITERAL_AUDIT.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          ownership = json.loads(Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json').read_text(encoding='utf-8'))
+          bad_runtime = [x for x in ownership['runtime_override_duplicates'] if not x.get('same_text')]
+          if bad_runtime:
+              sample = [f"{x['table']}[{x['id']}] {x['field'] or '<default>'}" for x in bad_runtime[:10]]
+              raise SystemExit(f'canonical-backed runtime wording drift: {sample}')
+          if ownership['lua_literal_maps_with_static_overlap'] != 0:
+              raise SystemExit('hard-coded Lua translation maps overlap canonical static data')
+
+          literals = json.loads(Path('build/LUA_KOREAN_LITERAL_AUDIT.json').read_text(encoding='utf-8'))
+          allowed_runtime_ui = {
+              'Scripts/General/ZZ_KoreanReportedLocalization.lua',
+              'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+          }
+          unexpected = set(literals['scripts']) - allowed_runtime_ui
+          if unexpected:
+              raise SystemExit(f'Korean literals appeared in non-runtime-UI Lua files: {sorted(unexpected)}')
+          if literals['exact_static_duplicate_occurrences'] != 0:
+              raise SystemExit(
+                  f"Lua contains {literals['exact_static_duplicate_occurrences']} exact duplicates of canonical Korean data"
+              )
+          print('regenerated ownership policy: OK')
+          PY
 
       - name: Print pairing diagnostics
         if: always()
