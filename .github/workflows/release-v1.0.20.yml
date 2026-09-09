@@ -11,6 +11,7 @@ on:
       - Scripts/**
       - tools/validate_rodril_overlay_boundary.py
       - tools/test_korean_dagger_wound_hints.lua
+      - tools/test_korean_runtime_hotfix.lua
   push:
     branches:
       - main
@@ -22,6 +23,7 @@ on:
       - Scripts/**
       - tools/validate_rodril_overlay_boundary.py
       - tools/test_korean_dagger_wound_hints.lua
+      - tools/test_korean_runtime_hotfix.lua
   workflow_dispatch:
 
 permissions:
