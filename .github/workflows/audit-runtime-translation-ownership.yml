@@ -6,11 +6,7 @@ on:
     branches:
       - po-localization-bootstrap
     paths:
-      - Data/Text localization/**
       - Scripts/**/*.lua
-      - config/runtime_override_keys.tsv
-      - tools/rebuild_runtime_overrides.py
-      - tools/rebuild_stats_skills_runtime.py
       - tools/audit_runtime_translation_ownership.py
       - tools/audit_lua_korean_literals.py
       - .github/workflows/audit-runtime-translation-ownership.yml
