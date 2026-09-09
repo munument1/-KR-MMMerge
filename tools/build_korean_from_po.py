@@ -109,6 +109,8 @@ def load_catalog(po_path: Path, expected_files: set[str]):
 
         target = parse_target_from_comment(entry)
         if target is None:
+            if "KO-ROOT: " in (entry.comment or ""):
+                continue
             unexpected.append(f"{context}: no KO target comment")
             continue
         if target in GENERATED:

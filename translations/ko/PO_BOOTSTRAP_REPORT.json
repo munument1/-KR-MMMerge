@@ -1,5 +1,5 @@
 {
-  "entries": 25034,
+  "entries": 25051,
   "files": {
     "KO_2DEvents.txt": {
       "entries": 3471,
@@ -248,6 +248,17 @@
   "map_source_misses": 0,
   "missing_korean_records": 0,
   "paired_files": 30,
+  "root_entries_added": 17,
+  "root_files": {
+    "mm8lang.ini": {
+      "entries": 17,
+      "format": "ini",
+      "source": "source/en/mm8/mm8lang.ini"
+    }
+  },
+  "root_mapped_files": [
+    "mm8lang.ini"
+  ],
   "schema": 4,
   "source_only_files": [
     "LANG_Placemon.txt"
@@ -261,7 +272,7 @@
     "KO_SpellsTxt.txt",
     "KO_StatsDescriptions.tsv"
   ],
-  "translated": 25034,
+  "translated": 25051,
   "unmapped_korean_files": [],
   "untranslated": 0
 }
