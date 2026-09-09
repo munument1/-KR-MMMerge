@@ -1,0 +1,88 @@
+name: Finalize PO source direction
+
+on:
+  push:
+    branches:
+      - po-localization-bootstrap
+    paths:
+      - .github/workflows/finalize-po-source-direction.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Make legacy importer manual-only and avoid PO sync races
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          bootstrap = Path('.github/workflows/bootstrap-po-catalog.yml')
+          text = bootstrap.read_text(encoding='utf-8')
+          pattern = re.compile(
+              r'\Aname: Bootstrap Korean gettext catalog\n\non:\n.*?\n\npermissions:',
+              re.S,
+          )
+          replacement = (
+              'name: Import Korean gettext catalog from legacy tables\n\n'
+              '# Recovery/upstream-refresh path only. Normal translation flow is PO -> KO.\n'
+              'on:\n'
+              '  workflow_dispatch:\n\n'
+              'permissions:'
+          )
+          text2, count = pattern.subn(replacement, text, count=1)
+          if count != 1 and 'name: Import Korean gettext catalog from legacy tables' not in text:
+              raise SystemExit('could not patch bootstrap workflow trigger')
+          bootstrap.write_text(text2, encoding='utf-8', newline='')
+
+          roundtrip = Path('.github/workflows/validate-po-roundtrip.yml')
+          text = roundtrip.read_text(encoding='utf-8')
+          old = '''    paths:\n      - translations/ko/mmmerge.po\n      - translations/ko/PO_BOOTSTRAP_REPORT.json\n      - tools/build_korean_from_po.py\n      - 'Data/Text localization/KO_*.txt'\n      - 'Data/Text localization/KO_*.tsv'\n      - .github/workflows/validate-po-roundtrip.yml\n  pull_request:\n'''
+          new = '''    paths:\n      # PO pushes are materialized and round-trip checked by sync-po-to-korean.yml.\n      # This standalone push gate watches generated/source structure changes.\n      - tools/build_korean_from_po.py\n      - 'Data/Text localization/KO_*.txt'\n      - 'Data/Text localization/KO_*.tsv'\n      - .github/workflows/validate-po-roundtrip.yml\n  pull_request:\n'''
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif '# PO pushes are materialized' not in text:
+              raise SystemExit('could not patch roundtrip push paths')
+          roundtrip.write_text(text, encoding='utf-8', newline='')
+
+          validate = Path('.github/workflows/validate-po-catalog.yml')
+          text = validate.read_text(encoding='utf-8')
+          old = '''  push:\n    branches:\n      - po-localization-bootstrap\n'''
+          new = '''  push:\n    branches:\n      - main\n      - po-localization-bootstrap\n'''
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif '      - main\n      - po-localization-bootstrap' not in text:
+              raise SystemExit('could not add main to PO validation')
+          validate.write_text(text, encoding='utf-8', newline='')
+          PY
+
+          git diff --check
+
+      - name: Commit direction switch
+        shell: bash
+        run: |
+          set -euo pipefail
+          paths=(
+            .github/workflows/bootstrap-po-catalog.yml
+            .github/workflows/validate-po-roundtrip.yml
+            .github/workflows/validate-po-catalog.yml
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo 'PO source direction is already finalized.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "${paths[@]}"
+          git commit -m 'refactor(i18n): make PO the forward translation source'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
