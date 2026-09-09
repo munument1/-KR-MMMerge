@@ -1,0 +1,53 @@
+name: Sync runtime overrides from canonical Korean
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - po-localization-bootstrap
+    paths:
+      - config/runtime_override_keys.tsv
+      - tools/rebuild_runtime_overrides.py
+      - .github/workflows/sync-runtime-overrides.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-runtime-overrides-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Rebuild runtime override text from canonical Korean tables
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+
+      - name: Commit synchronized runtime overrides
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$(git status --porcelain -- 'Data/Text localization/KO_RuntimeOverrides.txt')" ]]; then
+            echo "Runtime overrides are already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'Data/Text localization/KO_RuntimeOverrides.txt'
+          git commit -m "build(i18n): sync runtime overrides with canonical translations"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
