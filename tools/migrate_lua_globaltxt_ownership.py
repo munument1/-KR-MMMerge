@@ -6,6 +6,9 @@ config/runtime_override_keys.tsv.  tools/rebuild_runtime_overrides.py then
 copies wording from canonical KO_GlobalTxt.txt.  This script removes only the
 now-redundant Lua wording tables/functions, not unrelated stats/skills or UI
 runtime mechanics.
+
+Legacy Korean Lua sources are a mixture of UTF-8 and CP949.  Their original
+encoding is preserved byte-for-byte apart from the intended textual edit.
 """
 
 from __future__ import annotations
@@ -22,12 +25,16 @@ REPORTED_LUA = ROOT / "Scripts/General/ZZ_KoreanReportedLocalization.lua"
 MANIFEST = ROOT / "config/runtime_override_keys.tsv"
 
 
-def read(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+def read_preserving_encoding(path: Path) -> tuple[str, str]:
+    data = path.read_bytes()
+    try:
+        return data.decode("utf-8-sig"), "utf-8"
+    except UnicodeDecodeError:
+        return data.decode("cp949"), "cp949"
 
 
-def write(path: Path, text: str) -> None:
-    path.write_text(text, encoding="utf-8", newline="")
+def write_preserving_encoding(path: Path, text: str, encoding: str) -> None:
+    path.write_bytes(text.encode(encoding))
 
 
 def extract_numeric_ids(body: str) -> set[int]:
@@ -36,39 +43,39 @@ def extract_numeric_ids(body: str) -> set[int]:
 
 def migrate_stats(text: str) -> tuple[str, set[int]]:
     pattern = re.compile(
-        r"(?P<indent>\t)-- 6\. Game\.GlobalTxt UI 레이블 정밀 매핑 \(Global\.TXT 전용 인덱스\)\n"
-        r"\tlocal globalTxts = \{(?P<body>.*?)\n\t\}\n"
-        r"\tfor i, v in pairs\(globalTxts\) do\n"
-        r"\t\tif Game\.GlobalTxt and Game\.GlobalTxt\[i\] then\n"
-        r"\t\t\tGame\.GlobalTxt\[i\] = enc\(v\)\n"
-        r"\t\tend\n"
-        r"\tend\n",
+        r"\t-- 6\. Game\.GlobalTxt UI 레이블 정밀 매핑 \(Global\.TXT 전용 인덱스\)\r?\n"
+        r"\tlocal globalTxts = \{(?P<body>.*?)\r?\n\t\}\r?\n"
+        r"\tfor i, v in pairs\(globalTxts\) do\r?\n"
+        r"\t\tif Game\.GlobalTxt and Game\.GlobalTxt\[i\] then\r?\n"
+        r"\t\t\tGame\.GlobalTxt\[i\] = enc\(v\)\r?\n"
+        r"\t\tend\r?\n"
+        r"\tend\r?\n",
         re.S,
     )
     match = pattern.search(text)
     if not match:
-        # Idempotent rerun after migration.
         if "globalTxts" not in text:
             return text, set()
         raise RuntimeError("could not isolate KoreanStatsAndSkills.globalTxts block")
     ids = extract_numeric_ids(match.group("body"))
     if not ids:
         raise RuntimeError("globalTxts block contained no numeric ids")
+    newline = "\r\n" if "\r\n" in match.group(0) else "\n"
     replacement = (
-        "\t-- 6. GlobalTxt wording is owned by KO_GlobalTxt/PO.\n"
-        "\t-- Required late-reapply ids are generated into KO_RuntimeOverrides.txt.\n"
+        "\t-- 6. GlobalTxt wording is owned by KO_GlobalTxt/PO." + newline
+        + "\t-- Required late-reapply ids are generated into KO_RuntimeOverrides.txt." + newline
     )
     return text[: match.start()] + replacement + text[match.end() :], ids
 
 
 def migrate_reported(text: str) -> tuple[str, set[int]]:
     pattern = re.compile(
-        r"-- Experience right-click uses a mixture of stats\.txt and GlobalTxt strings\.\n"
-        r"-- Reapply the dynamic labels/formats as known-good EUC-KR bytes so UTF-8 Lua\n"
-        r"-- source bytes cannot reach the native DBCS drawing/wrapping paths\.\n"
-        r"local EXPERIENCE_TEXT = \{(?P<body>.*?)\n\}\n\n"
-        r"local function applyExperienceTextSafety\(\)\n"
-        r".*?\nend\n\n",
+        r"-- Experience right-click uses a mixture of stats\.txt and GlobalTxt strings\.\r?\n"
+        r"-- Reapply the dynamic labels/formats as known-good EUC-KR bytes so UTF-8 Lua\r?\n"
+        r"-- source bytes cannot reach the native DBCS drawing/wrapping paths\.\r?\n"
+        r"local EXPERIENCE_TEXT = \{(?P<body>.*?)\r?\n\}\r?\n\r?\n"
+        r"local function applyExperienceTextSafety\(\)\r?\n"
+        r".*?\r?\nend\r?\n\r?\n",
         re.S,
     )
     match = pattern.search(text)
@@ -76,9 +83,10 @@ def migrate_reported(text: str) -> tuple[str, set[int]]:
         ids = extract_numeric_ids(match.group("body"))
         if not ids:
             raise RuntimeError("EXPERIENCE_TEXT block contained no ids")
+        newline = "\r\n" if "\r\n" in match.group(0) else "\n"
         replacement = (
-            "-- Experience/GlobalTxt wording is owned by KO_GlobalTxt/PO and is\n"
-            "-- re-applied through generated KO_RuntimeOverrides.txt.\n\n"
+            "-- Experience/GlobalTxt wording is owned by KO_GlobalTxt/PO and is" + newline
+            + "-- re-applied through generated KO_RuntimeOverrides.txt." + newline + newline
         )
         text = text[: match.start()] + replacement + text[match.end() :]
     else:
@@ -86,9 +94,9 @@ def migrate_reported(text: str) -> tuple[str, set[int]]:
             raise RuntimeError("could not isolate EXPERIENCE_TEXT runtime block")
         ids = set()
 
-    text = re.sub(r"^\s*applyExperienceTextSafety\(\)\s*\n", "", text, flags=re.M)
+    text = re.sub(r"^[ \t]*applyExperienceTextSafety\(\)[ \t]*\r?\n", "", text, flags=re.M)
     text = re.sub(
-        r"^KoreanReportedLocalization\.ApplyExperienceTextSafety\s*=\s*applyExperienceTextSafety\s*\n",
+        r"^KoreanReportedLocalization\.ApplyExperienceTextSafety\s*=\s*applyExperienceTextSafety\s*\r?\n",
         "",
         text,
         flags=re.M,
@@ -113,8 +121,6 @@ def update_manifest(ids: set[int]) -> int:
             existing.add(key)
             added += 1
 
-    # Keep the manifest deterministic: runtime-only Houses first, then tables
-    # alphabetically, numeric ids numerically, and field last.
     header, data = rows[0], rows[1:]
     data.sort(
         key=lambda row: (
@@ -127,23 +133,25 @@ def update_manifest(ids: set[int]) -> int:
     out = io.StringIO(newline="")
     writer = csv.writer(out, delimiter="\t", lineterminator="\n")
     writer.writerows([header, *data])
-    write(MANIFEST, out.getvalue())
+    MANIFEST.write_text(out.getvalue(), encoding="utf-8", newline="")
     return added
 
 
 def main() -> int:
-    stats_before = read(STATS_LUA)
-    reported_before = read(REPORTED_LUA)
+    stats_before, stats_encoding = read_preserving_encoding(STATS_LUA)
+    reported_before, reported_encoding = read_preserving_encoding(REPORTED_LUA)
 
     stats_after, stats_ids = migrate_stats(stats_before)
     reported_after, reported_ids = migrate_reported(reported_before)
     all_ids = stats_ids | reported_ids
 
-    write(STATS_LUA, stats_after)
-    write(REPORTED_LUA, reported_after)
+    write_preserving_encoding(STATS_LUA, stats_after, stats_encoding)
+    write_preserving_encoding(REPORTED_LUA, reported_after, reported_encoding)
     added = update_manifest(all_ids)
 
     print("GlobalTxt Lua ownership migration")
+    print(f"  KoreanStatsAndSkills encoding:      {stats_encoding}")
+    print(f"  ReportedLocalization encoding:      {reported_encoding}")
     print(f"  ids from KoreanStatsAndSkills:      {len(stats_ids)}")
     print(f"  ids from ReportedLocalization:      {len(reported_ids)}")
     print(f"  unique GlobalTxt late-reapply ids:  {len(all_ids)}")
