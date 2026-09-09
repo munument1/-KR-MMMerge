@@ -79416,7 +79416,7 @@ msgid ""
 "character's portrait.  To mix, pick the potion up and right-click over "
 "another potion.)"
 msgstr ""
-"취한 상태를 치료합니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을 집어 들고 다른 물약을 오른쪽"
+"석화 상태를 치료합니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을 집어 들고 다른 물약을 오른쪽"
 " 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
