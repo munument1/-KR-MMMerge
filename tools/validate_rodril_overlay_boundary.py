@@ -2,6 +2,7 @@
 """Guard the Korean patch from silently becoming a gameplay fork of Rodril MMMerge."""
 
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,10 +29,35 @@ FORBIDDEN_UPSTREAM_AREAS = (
     "Scripts/Structs",
 )
 
+# A translation overlay may observe game events and alter text/UI presentation,
+# but it must not replace Rodril/MMExtension's core gameplay scheduling API.
+# v1.0.20 accidentally carried a RefillTimer wrapper; keep that class of hook
+# from silently returning under a harmless-looking Korean-prefixed filename.
+PROTECTED_GAMEPLAY_GLOBALS = {
+    "Timer",
+    "RefillTimer",
+    "RemoveTimer",
+    "Sleep",
+    "Sleep2",
+}
+
 
 def is_korean_overlay_name(name: str) -> bool:
     lower = name.lower()
     return lower.startswith("korean") or lower.startswith("zz_korean") or lower.startswith("zzz_korean") or lower.startswith("zzzz_korean")
+
+
+def gameplay_global_overrides(path: Path) -> list[str]:
+    if not is_korean_overlay_name(path.name):
+        return []
+    text = path.read_text(encoding="utf-8", errors="replace")
+    found: list[str] = []
+    for name in sorted(PROTECTED_GAMEPLAY_GLOBALS):
+        assign = re.compile(rf"(?m)^\s*{re.escape(name)}\s*=")
+        declare = re.compile(rf"(?m)^\s*function\s+{re.escape(name)}\s*\(")
+        if assign.search(text) or declare.search(text):
+            found.append(name)
+    return found
 
 
 def main() -> int:
@@ -62,22 +88,30 @@ def main() -> int:
     general_dir = SCRIPTS / "General"
     if general_dir.exists():
         for path in general_dir.glob("*.lua"):
-            if path.name in GENERAL_EXCEPTIONS or is_korean_overlay_name(path.name):
-                continue
-            problems.append(
-                "unclassified General script; use a Korean-prefixed overlay or document it: "
-                f"{path.relative_to(ROOT)}"
-            )
+            if path.name not in GENERAL_EXCEPTIONS and not is_korean_overlay_name(path.name):
+                problems.append(
+                    "unclassified General script; use a Korean-prefixed overlay or document it: "
+                    f"{path.relative_to(ROOT)}"
+                )
+            for name in gameplay_global_overrides(path):
+                problems.append(
+                    "localization overlay replaces protected gameplay global "
+                    f"{name}: {path.relative_to(ROOT)}"
+                )
 
     global_dir = SCRIPTS / "Global"
     if global_dir.exists():
         for path in global_dir.glob("*.lua"):
-            if is_korean_overlay_name(path.name):
-                continue
-            problems.append(
-                "unclassified Global script; use a Korean-prefixed overlay or document it: "
-                f"{path.relative_to(ROOT)}"
-            )
+            if not is_korean_overlay_name(path.name):
+                problems.append(
+                    "unclassified Global script; use a Korean-prefixed overlay or document it: "
+                    f"{path.relative_to(ROOT)}"
+                )
+            for name in gameplay_global_overrides(path):
+                problems.append(
+                    "localization overlay replaces protected gameplay global "
+                    f"{name}: {path.relative_to(ROOT)}"
+                )
 
     # Historical regression: this file used to duplicate Rodril's out01.lua
     # just to patch two localized hints.
@@ -95,6 +129,7 @@ def main() -> int:
     print("Baseline: letr.rod/mmmerge Rodril_nightly_build @ c0b6b4e9532e80413d1a3c27cbe25f57538c9a29")
     print("Intentional upstream script-path overrides: 1 (Scripts/General/LocalizeTables.lua)")
     print("Upstream map-script overrides: 0")
+    print("Protected gameplay global overrides in Korean overlays: 0")
     return 0
 
 
