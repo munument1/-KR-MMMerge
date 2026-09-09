@@ -1,0 +1,48 @@
+name: Validate Rodril overlay boundary
+
+on:
+  pull_request:
+    paths:
+      - 'Scripts/**'
+      - 'UPSTREAM_BASELINE.md'
+      - 'tools/validate_rodril_overlay_boundary.py'
+      - 'tools/test_korean_dagger_wound_hints.lua'
+      - '.github/workflows/validate-rodril-overlay.yml'
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'Scripts/**'
+      - 'UPSTREAM_BASELINE.md'
+      - 'tools/validate_rodril_overlay_boundary.py'
+      - 'tools/test_korean_dagger_wound_hints.lua'
+      - '.github/workflows/validate-rodril-overlay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check Korean overlay boundary
+        run: python tools/validate_rodril_overlay_boundary.py
+
+      - name: Check Dagger Wound localization overlay
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/ZZ_KoreanDaggerWoundHints.lua
+          luac5.1 -p tools/test_korean_dagger_wound_hints.lua
+          lua5.1 tools/test_korean_dagger_wound_hints.lua
