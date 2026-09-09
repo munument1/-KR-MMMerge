@@ -491,12 +491,6 @@ local EarlySkipFiles = {
 	["ko_npcprofessions.txt"] = true
 }
 
-local function applyFixedOverrides()
-	if Game and Game.NPCNews then
-		local Fixed = encode_korean("\185\174\193\166\184\166 \192\207\192\184\197\176\193\246 \184\182\189\195\191\192.")
-		setLocalizedValue(Game.NPCNews, 55, Fixed, "NPCNews", 55, "")
-	end
-end
 
 -- First pass: run before Merge's GameInitialized2 handlers that build
 -- Lua-side caches. NPCNames/NPCProfessions do not exist yet. NPCNews and

@@ -112,58 +112,28 @@ end
 -- Merge implements Scholar/Teacher/Instructor as raw Learning skill bonuses,
 -- not flat experience percentages. Learning mastery then multiplies the effect.
 local HIRELING_LEARNING_DESCRIPTIONS = {
-    [4] = {
-        NPCText = 2324,
-        Text = "\184\240\181\231 \196\179\184\175\197\205\192\199 \199\208\189\192 \177\226\188\250\191\161 +5 \186\184\179\202\189\186\184\166 \193\214\176\237 \190\198\192\204\197\219\192\187 \185\171\193\166\199\209\192\184\183\206 \189\196\186\176\199\213\180\207\180\217. \199\208\189\192 \188\247\183\195\181\181 \185\232\192\178\192\204 \192\251\191\235\181\203\180\207\180\217."
-    },
-    [13] = {
-        NPCText = 2333,
-        Text = "\184\240\181\231 \196\179\184\175\197\205\192\199 \199\208\189\192 \177\226\188\250\191\161 +10 \186\184\179\202\189\186\184\166 \193\221\180\207\180\217. \199\208\189\192 \188\247\183\195\181\181 \185\232\192\178\192\204 \192\251\191\235\181\203\180\207\180\217."
-    },
-    [14] = {
-        NPCText = 2334,
-        Text = "\184\240\181\231 \196\179\184\175\197\205\192\199 \199\208\189\192 \177\226\188\250\191\161 +15 \186\184\179\202\189\186\184\166 \193\221\180\207\180\217. \199\208\189\192 \188\247\183\195\181\181 \185\232\192\178\192\204 \192\251\191\235\181\203\180\207\180\217."
-    }
+    [4] = 2324,
+    [13] = 2333,
+    [14] = 2334
 }
 
 local function applyHirelingLearningDescriptions()
-    if not Game then
+    if not Game or not Game.NPCText or not Game.NPCProf then
         return
     end
 
-    for profession, entry in pairs(HIRELING_LEARNING_DESCRIPTIONS) do
-        local localized = encodeKorean(entry.Text)
-        if Game.NPCText then
-            Game.NPCText[entry.NPCText] = localized
-        end
-        if Game.NPCProf and Game.NPCProf[profession] then
+    for profession, npcTextId in pairs(HIRELING_LEARNING_DESCRIPTIONS) do
+        local localized = Game.NPCText[npcTextId]
+        if type(localized) == "string" and localized ~= "" and Game.NPCProf[profession] then
+            -- NPCProf.Description is a derived copy. Reuse the canonical
+            -- NPCText wording instead of maintaining a second translation.
             Game.NPCProf[profession].Description = localized
         end
     end
 end
-
 -- Experience/GlobalTxt wording is owned by KO_GlobalTxt/PO and is
 -- re-applied through generated KO_RuntimeOverrides.txt.
 
--- The compact MM7 history table embedded in the Korean LOD does not contain
--- the translated foreword. Apply record 1 using game-encoding byte escapes.
-local MM7_FOREWORD = {
-    Title = "\192\250\192\218\192\199 \188\173\185\174",
-    Text = "\184\182\197\169\199\220 \176\230\192\186 \185\204\183\161 \188\188\180\235\181\233\192\204 \192\204\176\247\191\161\188\173 \185\250\190\238\193\246\180\194 \192\167\180\235\199\209 \192\207\181\233\192\187 \192\216\193\246 \190\202\181\181\183\207 \199\207\184\243\181\165\192\207 \188\186\176\250 \177\215 \188\210\192\175\193\214\181\233\191\161 \180\235\199\209 \192\204 \191\170\187\231\184\166 \192\219\188\186\199\216 \180\222\182\243\176\237 \179\187\176\212 \186\206\197\185\199\223\180\217. \192\204 \192\211\185\171\191\161 \195\230\189\199\199\210 \188\246 \192\214\177\226\184\166 \185\217\182\245\180\217. \193\214\191\228 \187\231\176\199\181\233\192\204 \192\207\190\238\179\175 \182\167\184\182\180\217 \177\215\176\205\192\204 \193\193\181\231 \179\170\187\218\181\231 \176\161\180\201\199\209 \199\209 \195\230\189\199\199\207\176\212 \192\204 \195\165\191\161 \177\226\183\207\199\210 \176\205\192\187 \185\207\190\238\181\181 \193\193\180\217. \192\204\176\247\191\161\188\173 \192\207\190\238\179\170\180\194 \192\207\192\187 \198\199\180\220\199\207\180\194 \176\205\192\186 \179\187 \191\170\199\210\192\204 \190\198\180\207\184\231, \191\192\193\247 \177\226\183\207\199\210 \187\211\192\204\180\217.\n\n\199\193\183\206\186\241\180\248\189\186\176\161 \191\236\184\174\191\161\176\212 \185\204\188\210 \193\254\177\226\184\166!\n\n\192\162\181\168 \198\174\192\167\181\229\n\177\195\193\164 \191\170\187\231\176\161"
-}
-
-local function applyMM7Foreword()
-    if not Game or not Game.HistoryTxt or not Game.HistoryTxt[1] or
-            not TownPortalControls or not Map then
-        return
-    end
-
-    local ok, continent = pcall(TownPortalControls.MapOfContinent, Map.MapStatsIndex)
-    if ok and continent == 2 then
-        Game.HistoryTxt[1].Title = encodeKorean(MM7_FOREWORD.Title)
-        Game.HistoryTxt[1].Text = encodeKorean(MM7_FOREWORD.Text)
-    end
-end
 
 function events.GameInitialized2()
     installCustomUIHooks()
@@ -172,16 +142,13 @@ function events.GameInitialized2()
 end
 
 function events.LoadMap()
-    applyMM7Foreword()
     applyHirelingLearningDescriptions()
 end
 
 function events.AfterLoadMap()
-    applyMM7Foreword()
     applyHirelingLearningDescriptions()
 end
 
 KoreanReportedLocalization.TranslateUI = translateUI
-KoreanReportedLocalization.ApplyMM7Foreword = applyMM7Foreword
 KoreanReportedLocalization.ApplyHirelingLearningDescriptions = applyHirelingLearningDescriptions
 KoreanReportedLocalization.InstallContinentGameLabels = installContinentGameLabels

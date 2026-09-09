@@ -11,6 +11,9 @@ local HistorySources = {
 	[2] = {
 		Localized = "Data/Text localization/MM7History_KO.txt",
 		Fallback = "mm7history.txt"
+	},
+	[3] = {
+		Localized = "Data/Text localization/MM6History_KO.txt"
 	}
 }
 
@@ -20,10 +23,6 @@ local ForwardHistory = {
 	[3] = {1}
 }
 
-local MM6Introduction = {
-	Title = "\191\163\183\206\189\186 \191\172\180\235\177\226",
-	Text = "\191\163\183\206\189\186\192\199 \191\170\187\231\180\194 \186\176\182\203\186\176\192\199 \185\227\176\250 \199\212\178\178 \189\195\192\219\181\203\180\207\180\217. \190\198\192\204\190\240\199\199\189\186\198\174 \191\213 \183\209\183\163\181\229\176\161 \189\199\193\190\181\199\176\237 \197\169\184\174\176\199\192\199 \196\167\176\248\192\184\183\206 \189\186\192\167\198\174 \191\246\197\205\176\161 \198\196\177\171\181\200 \181\218, \191\169\188\184 \191\181\193\214\176\161 \191\213\177\185\192\199 \191\238\184\237\192\187 \181\209\183\175\189\206\176\237 \180\235\184\179\199\213\180\207\180\217. \191\169\183\175\186\208\192\186 \180\186 \188\210\199\199\176\165\191\161\188\173 \191\169\193\164\192\187 \189\195\192\219\199\216 \191\169\188\184 \191\181\193\214\192\199 \189\194\192\206\192\187 \190\242\176\237, \199\193\184\174 \199\236\192\204\186\236\192\199 \191\192\182\243\197\172\192\187 \186\185\177\184\199\207\191\169 \197\169\184\174\176\199\192\187 \185\176\184\174\196\165 \185\230\185\253\192\187 \195\163\190\198\190\223 \199\213\180\207\180\217."
-}
 
 local historyCache = {}
 
@@ -91,7 +90,7 @@ local function loadHistoryRecords(continent)
 	end
 
 	local data = readRawFile(source.Localized)
-	if (not data or data == "") and Game.LoadTextFileFromLod then
+	if (not data or data == "") and source.Fallback and Game.LoadTextFileFromLod then
 		data = Game.LoadTextFileFromLod(source.Fallback)
 	end
 
@@ -104,16 +103,6 @@ end
 
 local function updateHistoryText(continent)
 	clearHistoryText()
-
-	if continent == 3 then
-		-- MM6 has no native history table in Merge. Keep the dedicated Korean
-		-- Enroth introduction instead of leaking another continent's history.
-		if Game.HistoryTxt[1] then
-			Game.HistoryTxt[1].Title = MM6Introduction.Title
-			Game.HistoryTxt[1].Text = MM6Introduction.Text
-		end
-		return
-	end
 
 	local records = loadHistoryRecords(continent)
 	if not records then
