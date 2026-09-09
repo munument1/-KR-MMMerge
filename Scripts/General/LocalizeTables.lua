@@ -187,7 +187,8 @@ local RuntimeKOFiles = {
 	["ko_monsters.txt"] = true,
 	["ko_npcnames.txt"] = true,
 	["ko_npcprofessions.txt"] = true,
-	["ko_runtimeoverrides.txt"] = true
+	["ko_runtimeoverrides.txt"] = true,
+	["ko_statsskillsruntime.txt"] = true
 }
 
 local function _RelocalizeTables(PathMask, Options)
