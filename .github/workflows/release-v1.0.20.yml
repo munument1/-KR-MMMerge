@@ -1,0 +1,239 @@
+# v1.0.20 release workflow
+name: Release v1.0.20
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/release-v1.0.20.yml
+      - MIGRATION_v1.0.20.txt
+      - UPSTREAM_BASELINE.md
+      - README.txt
+      - Scripts/**
+      - tools/validate_rodril_overlay_boundary.py
+      - tools/test_korean_dagger_wound_hints.lua
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.20.yml
+      - MIGRATION_v1.0.20.txt
+      - UPSTREAM_BASELINE.md
+      - README.txt
+      - Scripts/**
+      - tools/validate_rodril_overlay_boundary.py
+      - tools/test_korean_dagger_wound_hints.lua
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate canonical PO and generated Korean sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25051
+
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate Korean runtime integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/ZZ_KoreanDaggerWoundHints.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_korean_dagger_wound_hints.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua; do
+            luac5.1 -p "$f"
+          done
+
+          lua5.1 tools/test_korean_dagger_wound_hints.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.20"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+          cp UPSTREAM_BASELINE.md release-stage/
+          cp MIGRATION_v1.0.20.txt release-stage/
+
+          # v1.0.20 must not re-vendor Rodril's Dagger Wound map script.
+          test ! -f release-stage/Scripts/Maps/out01.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanDaggerWoundHints.lua
+
+          cat > release-stage/RELEASE_v1.0.20.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.20
+
+          Rodril MMMerge를 공식 호환 기준으로 확정하고 한국어 패치를
+          순수 localization overlay 방향으로 정리한 릴리즈입니다.
+
+          주요 변경:
+          - 공식 기준판: letr.rod/mmmerge / Rodril_nightly_build
+          - 감사 기준 commit: c0b6b4e9532e80413d1a3c27cbe25f57538c9a29
+          - Scripts/Maps/out01.lua 한국어 복사본 제거
+          - 대거 운드 섬 대포 힌트를 Korean-only General overlay로 분리
+          - upstream map-script override 0개 정책을 CI로 고정
+          - 의도적 Rodril 동일 경로 교체를 LocalizeTables.lua 1개로 명시
+          - Revamp / MAW / Waffle 계열은 별도 호환 레이어로 분리
+          - 기존 gettext PO 25,051 / 25,051 번역 및 native DBCS 구조 유지
+
+          기존 v1.0.19 이하에서 업데이트할 때는 MIGRATION_v1.0.20.txt를
+          반드시 읽고 Rodril 원본을 먼저 재적용한 뒤 한국어 패치를 설치하십시오.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum mm8lang.ini README.txt CHANGELOG.txt RELEASE_v1.0.20.txt \
+              MIGRATION_v1.0.20.txt UPSTREAM_BASELINE.md FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.20
+
+          이번 릴리즈는 **Rodril MMMerge를 공식 호환 기준으로 확정하고 한국어 패치와 upstream 게임플레이 파일의 경계를 정리**한 버전입니다.
+
+          ### Rodril 기준판 확정
+          - 기준 프로젝트: `letr.rod/mmmerge`
+          - 기준 브랜치: `Rodril_nightly_build`
+          - 현재 감사 기준: `c0b6b4e9532e80413d1a3c27cbe25f57538c9a29` (2024-10-30)
+          - Revamp / MAW / Waffle 및 기타 파생판은 기본 호환 대상이 아니라 별도 호환 레이어로 관리합니다.
+
+          ### upstream 덮어쓰기 제거
+          - 과거 한국어 패치가 포함하던 `Scripts/Maps/out01.lua`를 제거했습니다.
+          - 대거 운드 섬 대포 힌트 번역은 `Scripts/General/ZZ_KoreanDaggerWoundHints.lua`로 분리했습니다.
+          - 이제 Rodril이 지도 게임플레이 스크립트를 온전히 소유합니다.
+          - CI가 `Scripts/Maps/*.lua` 재유입을 차단합니다.
+          - 현재 의도적인 Rodril 동일 경로 교체는 `Scripts/General/LocalizeTables.lua` 하나뿐입니다.
+
+          ### 기존 번역 구조 유지
+          - gettext PO **25,051 / 25,051** 번역 완료 상태 유지
+          - PO → KO/mm8lang byte-identical round trip 유지
+          - runtime translation ownership audit 유지
+          - native direct-blit DBCS 렌더러 유지
+          - 제보 65949 / 65960 및 기존 회귀 검사 유지
+
+          ### v1.0.19 이하에서 업데이트하는 경우
+          예전 한국어 패치가 설치된 폴더에는 `Scripts/Maps/out01.lua`가 남아 있을 수 있습니다. **v1.0.20 ZIP만 바로 덮어쓰지 말고 Rodril MMMerge 원본을 먼저 재적용한 뒤 v1.0.20을 설치하십시오.** 파일만 삭제하면 원본 지도 로직까지 없어집니다. ZIP 안의 `MIGRATION_v1.0.20.txt`에 절차를 적어두었습니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.20"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" --title "MMMerge 한국어 패치 v1.0.20" --notes-file release-notes.md --latest
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" --target "$GITHUB_SHA" --title "MMMerge 한국어 패치 v1.0.20" --notes-file release-notes.md --latest
+          fi
