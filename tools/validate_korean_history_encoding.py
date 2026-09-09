@@ -2,12 +2,12 @@
 """Validate loose Korean history tables are safe for the native DBCS renderer.
 
 KoreanHistory.lua reads these files as raw bytes and assigns those bytes directly
-to Game.HistoryTxt.  FNT_DBCS.lua expects EUC-KR/CP949-compatible DBCS bytes,
-not UTF-8.  This validator therefore treats a Hangul-bearing UTF-8 file as a
-hard error even when its text looks fine in GitHub or an editor.
+to Game.HistoryTxt. FNT_DBCS.lua is configured for ``euc_kr`` and its accepted
+lead/trail ranges match the KS X 1001 EUC-KR repertoire, not the wider CP949
+extension ranges. A history file must therefore be strict EUC-KR bytes.
 
 The history loader also uses CR as the record separator and permits LF inside
-the Text field for paragraph breaks.  Validate that physical layout too so a
+the Text field for paragraph breaks. Validate that physical layout too so a
 normal newline conversion cannot silently merge all records into one.
 """
 
@@ -69,26 +69,25 @@ def validate(path: Path) -> tuple[int, int]:
     if not data:
         raise ValueError(f"{path}: empty file")
 
-    # A Hangul-bearing UTF-8 file is unsafe here because KoreanHistory.lua does
-    # no transcoding before assigning the bytes to the game string table.
+    # UTF-8 Hangul is unsafe here: KoreanHistory.lua performs no transcoding.
     try:
         utf8 = data.decode("utf-8-sig")
     except UnicodeDecodeError:
         utf8 = None
     if utf8 is not None and contains_hangul(utf8):
         raise ValueError(
-            f"{path}: Hangul is UTF-8; runtime history files must be CP949/EUC-KR bytes"
+            f"{path}: Hangul is UTF-8; runtime history files must be EUC-KR bytes"
         )
 
     try:
-        decoded = data.decode("cp949")
+        decoded = data.decode("euc_kr")
     except UnicodeDecodeError as exc:
-        raise ValueError(f"{path}: invalid CP949/EUC-KR runtime bytes: {exc}") from exc
+        raise ValueError(f"{path}: invalid strict EUC-KR runtime bytes: {exc}") from exc
 
     if not contains_hangul(decoded):
         raise ValueError(f"{path}: decoded runtime file contains no Hangul")
-    if decoded.encode("cp949") != data:
-        raise ValueError(f"{path}: CP949 round-trip changed bytes")
+    if decoded.encode("euc_kr") != data:
+        raise ValueError(f"{path}: EUC-KR round-trip changed bytes")
 
     records = parse_records(decoded, path)
     minimum = MIN_RECORDS.get(path.name, 1)
@@ -111,7 +110,7 @@ def main() -> int:
         try:
             records, multiline = validate(path)
             print(
-                f"{path}: OK (cp949/euc-kr, records={records}, "
+                f"{path}: OK (strict euc-kr, records={records}, "
                 f"multiline_text_records={multiline})"
             )
         except (OSError, ValueError) as exc:
