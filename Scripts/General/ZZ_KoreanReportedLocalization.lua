@@ -142,24 +142,8 @@ local function applyHirelingLearningDescriptions()
     end
 end
 
--- Experience right-click uses a mixture of stats.txt and GlobalTxt strings.
--- Reapply the dynamic labels/formats as known-good EUC-KR bytes so UTF-8 Lua
--- source bytes cannot reach the native DBCS drawing/wrapping paths.
-local EXPERIENCE_TEXT = {
-    [17] = "\176\230\199\232\196\161",
-    [83] = "\176\230\199\232\196\161",
-    [537] = "\183\185\186\167 %d\177\238\193\246 \200\198\183\195: %d\176\241\181\229",
-    [538] = "\176\230\199\232\196\161 %d\176\161 \180\245 \192\214\190\238\190\223 \183\185\186\167 %d\177\238\193\246 \200\198\183\195\199\210 \188\246 \192\214\189\192\180\207\180\217"
-}
-
-local function applyExperienceTextSafety()
-    if not Game or not Game.GlobalTxt then
-        return
-    end
-    for id, text in pairs(EXPERIENCE_TEXT) do
-        Game.GlobalTxt[id] = encodeKorean(text)
-    end
-end
+-- Experience/GlobalTxt wording is owned by KO_GlobalTxt/PO and is
+-- re-applied through generated KO_RuntimeOverrides.txt.
 
 -- The compact MM7 history table embedded in the Korean LOD does not contain
 -- the translated foreword. Apply record 1 using game-encoding byte escapes.
@@ -185,23 +169,19 @@ function events.GameInitialized2()
     installCustomUIHooks()
     installContinentGameLabels()
     applyHirelingLearningDescriptions()
-    applyExperienceTextSafety()
 end
 
 function events.LoadMap()
     applyMM7Foreword()
     applyHirelingLearningDescriptions()
-    applyExperienceTextSafety()
 end
 
 function events.AfterLoadMap()
     applyMM7Foreword()
     applyHirelingLearningDescriptions()
-    applyExperienceTextSafety()
 end
 
 KoreanReportedLocalization.TranslateUI = translateUI
 KoreanReportedLocalization.ApplyMM7Foreword = applyMM7Foreword
 KoreanReportedLocalization.ApplyHirelingLearningDescriptions = applyHirelingLearningDescriptions
-KoreanReportedLocalization.ApplyExperienceTextSafety = applyExperienceTextSafety
 KoreanReportedLocalization.InstallContinentGameLabels = installContinentGameLabels
