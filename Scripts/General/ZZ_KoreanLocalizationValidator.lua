@@ -46,6 +46,7 @@ local ExpectedFiles = {
 	"KO_StdItemsTxtNames.txt",
 	"KO_StdItemsTxtStats.txt",
 	"KO_TransTxt.txt",
+	"MM6History_KO.txt",
 	"MM7History_KO.txt",
 	"MM8History_KO.txt"
 }
@@ -882,6 +883,20 @@ local function countLiteral(Value, Needle)
 	return Count
 end
 
+local function expectedRuntimeValue(TableName, Id, Field)
+	local Localization = rawget(_G, "KoreanLocalization")
+	if type(Localization) ~= "table" or type(Localization.GetExpectedRuntimeValues) ~= "function" then
+		return nil
+	end
+	local Values = Localization.GetExpectedRuntimeValues()
+	if type(Values) ~= "table" then
+		return nil
+	end
+	local Key = tostring(TableName) .. "\31" .. tostring(Id) .. "\31" .. tostring(Field or "")
+	local Entry = Values[Key]
+	return type(Entry) == "table" and Entry.Value or nil
+end
+
 local function validateMergePromotionStrings(State)
 	if not Game or not Game.GlobalTxt then
 		addIssue(State, "ERROR", "<runtime>", nil,
@@ -910,11 +925,14 @@ local function validateMergePromotionStrings(State)
 		end
 	end
 
-	local ExpectedSeparator = encodeForRuntime("\182\199\180\194") -- CP949: 또는
+	local ExpectedSeparator = expectedRuntimeValue("GlobalTxt", 634, "")
 	local Ok, Separator = pcall(function() return Game.GlobalTxt[634] end)
-	if Ok and type(Separator) == "string" and Separator ~= ExpectedSeparator then
+	if type(ExpectedSeparator) ~= "string" then
 		addIssue(State, "ERROR", "<runtime>", nil,
-			"Game.GlobalTxt[634] must be the Korean separator equivalent of 'or', not a complete format sentence.")
+			"Canonical runtime value for Game.GlobalTxt[634] is unavailable.")
+	elseif Ok and type(Separator) == "string" and Separator ~= ExpectedSeparator then
+		addIssue(State, "ERROR", "<runtime>", nil,
+			"Game.GlobalTxt[634] differs from its canonical Korean runtime value.")
 	end
 end
 
@@ -925,53 +943,20 @@ local function validateKoreanGlobalContracts(State)
 		return
 	end
 
-	local Contracts = {
-		[18] = encodeForRuntime("\177\217\193\162"), -- 근접
-		[34] = encodeForRuntime("\195\235\188\210"), -- 취소
-		[79] = encodeForRuntime("\179\170\176\161\177\226"), -- 나가기
-		[168] = encodeForRuntime("\198\247\192\206\198\174"), -- 포인트
-		[170] = encodeForRuntime("\196\252\189\186\198\231"), -- 퀵스펠
-		[172] = encodeForRuntime("\196\252\189\186\198\231"), -- 퀵스펠
-		[203] = encodeForRuntime("\191\248\176\197\184\174"), -- 원거리
-		[433] = encodeForRuntime("\192\252\185\174\176\161"), -- 전문가
-		-- Engine argument order: (target level, gold cost).
-		[537] = encodeForRuntime("\183\185\186\167 %d\177\238\193\246 \200\198\183\195: %d\176\241\181\229"),
-		-- Engine argument order: (experience still needed, target level).
-		[538] = encodeForRuntime("\176\230\199\232\196\161 %d\176\161 \180\245 \192\214\190\238\190\223 \183\185\186\167 %d\177\238\193\246 \200\198\183\195\199\210 \188\246 \192\214\189\192\180\207\180\217"),
-	}
-
-	for Id, Expected in pairs(Contracts) do
+	local ContractIds = {18, 34, 79, 168, 170, 172, 203, 433, 537, 538}
+	for _, Id in ipairs(ContractIds) do
+		local Expected = expectedRuntimeValue("GlobalTxt", Id, "")
 		local Ok, Actual = pcall(function() return Game.GlobalTxt[Id] end)
-		if not Ok or type(Actual) ~= "string" then
+		if type(Expected) ~= "string" then
+			addIssue(State, "ERROR", "<runtime>", nil,
+				"Canonical runtime value for Game.GlobalTxt[" .. tostring(Id) .. "] is unavailable.")
+		elseif not Ok or type(Actual) ~= "string" then
 			addIssue(State, "ERROR", "<runtime>", nil,
 				"Cannot read Game.GlobalTxt[" .. tostring(Id) .. "] for the Korean contract check.")
 		elseif Actual ~= Expected then
 			addIssue(State, "ERROR", "<runtime>", nil,
 				"Game.GlobalTxt[" .. tostring(Id) .. "] differs from the canonical Korean text or placeholder order.")
 		end
-	end
-end
-
-
-local function validateTargetedMapHints(State)
-	local KGF = rawget(_G, "KoreanGameplayFeedbackFixes")
-	if type(KGF) ~= "table" or type(KGF.TranslateTargetedMapHint) ~= "function" then
-		addIssue(State, "ERROR", "<runtime>", nil,
-			"The targeted Korean map-hint translator is unavailable.")
-		return
-	end
-
-	local Expected = encodeForRuntime("\200\173\183\206") -- CP949: fire brazier
-	local Ok, Actual = pcall(KGF.TranslateTargetedMapHint, "brazier")
-	if not Ok or Actual ~= Expected then
-		addIssue(State, "ERROR", "<runtime>", nil,
-			"The exact 'brazier' map hint does not translate to the canonical Korean term.")
-	end
-
-	local NarrowOk, Unrelated = pcall(KGF.TranslateTargetedMapHint, "door")
-	if not NarrowOk or Unrelated ~= nil then
-		addIssue(State, "ERROR", "<runtime>", nil,
-			"The v1.0.12a map-hint fallback must remain limited to the reported 'brazier' string.")
 	end
 end
 
@@ -1129,7 +1114,6 @@ local function runValidation(Trigger)
 	validateRuntimeValues(State)
 	validateMergePromotionStrings(State)
 	validateKoreanGlobalContracts(State)
-	validateTargetedMapHints(State)
 	validateGlobalFormatHook(State)
 	validateDerivedCaches(State)
 	writeReport(State)

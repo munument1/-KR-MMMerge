@@ -1,0 +1,57 @@
+name: Validate Korean history runtime
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - po-localization-bootstrap
+    paths:
+      - 'Data/Text localization/MM6History_KO.txt'
+      - 'Data/Text localization/MM7History_KO.txt'
+      - 'Data/Text localization/MM8History_KO.txt'
+      - Scripts/General/KoreanHistory.lua
+      - tools/validate_korean_history_encoding.py
+      - tools/test_korean_history.lua
+      - tools/test_korean_history_all_continents.lua
+      - .github/workflows/validate-korean-history-runtime.yml
+  pull_request:
+    paths:
+      - 'Data/Text localization/MM6History_KO.txt'
+      - 'Data/Text localization/MM7History_KO.txt'
+      - 'Data/Text localization/MM8History_KO.txt'
+      - Scripts/General/KoreanHistory.lua
+      - tools/validate_korean_history_encoding.py
+      - tools/test_korean_history.lua
+      - tools/test_korean_history_all_continents.lua
+      - .github/workflows/validate-korean-history-runtime.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate strict EUC-KR history bytes and record layout
+        run: python tools/validate_korean_history_encoding.py
+
+      - name: Lua 5.1 history syntax and runtime regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/KoreanHistory.lua
+          luac5.1 -p tools/test_korean_history.lua
+          luac5.1 -p tools/test_korean_history_all_continents.lua
+          lua5.1 tools/test_korean_history.lua
+          lua5.1 tools/test_korean_history_all_continents.lua

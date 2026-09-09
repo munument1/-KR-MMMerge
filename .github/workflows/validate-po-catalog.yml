@@ -1,0 +1,77 @@
+name: Validate Korean gettext catalog
+
+on:
+  pull_request:
+    paths:
+      - translations/ko/**
+      - tools/po_catalog_stats.py
+      - .github/workflows/validate-po-catalog.yml
+  push:
+    branches:
+      - main
+      - po-localization-bootstrap
+    paths:
+      - translations/ko/**
+      - tools/po_catalog_stats.py
+      - .github/workflows/validate-po-catalog.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+
+      - name: Check catalog completeness regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f translations/ko/mmmerge.po
+          test -f translations/ko/PO_BASELINE.json
+          test -f translations/ko/PO_BOOTSTRAP_REPORT.json
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25034
+
+      - name: Check bootstrap structural safety report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path('translations/ko/PO_BOOTSTRAP_REPORT.json').read_text(encoding='utf-8'))
+          problems = []
+          if report.get('korean_only_records', 0):
+              problems.append(f"Korean-only records: {report['korean_only_records']}")
+          if report.get('map_source_misses', 0):
+              problems.append(f"map source misses: {report['map_source_misses']}")
+          if report.get('entries', 0) < 25034:
+              problems.append(f"catalog shrank unexpectedly: {report.get('entries')}")
+          if report.get('unmapped_korean_files'):
+              problems.append('unmapped Korean files: ' + ', '.join(report['unmapped_korean_files']))
+          if problems:
+              raise SystemExit('PO structural audit failed: ' + '; '.join(problems))
+          print('PO structural audit: OK')
+          print('Mapped entries:', report.get('entries'))
+          print('Unmapped migration files: <none>')
+          PY

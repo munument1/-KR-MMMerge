@@ -1,0 +1,188 @@
+name: Import Korean gettext catalog from legacy tables
+
+# Recovery/upstream-refresh path only. Normal translation flow is PO -> KO.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: import-ko-po-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  MM678_I18N_REV: aea1b22666ef556f34a71b4f3945904b04de1466
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Korean patch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install bootstrap dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+
+      - name: Clone pinned English source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --filter=blob:none https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
+          git -C vendor/mm678-i18n checkout --detach "$MM678_I18N_REV"
+
+      - name: Normalize mixed Korean source encodings to UTF-8
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('Data/Text localization')
+          target = Path('build/po-korean-source')
+          target.mkdir(parents=True, exist_ok=True)
+          counts = {'utf-8': 0, 'cp949': 0, 'skipped_generated_or_special': 0}
+          skip = {'KO_Skilldes.txt', 'KO_StatsSkillsRuntime.txt'}
+          for path in source.iterdir():
+              if not path.is_file():
+                  continue
+              if path.name in skip:
+                  counts['skipped_generated_or_special'] += 1
+                  continue
+              data = path.read_bytes()
+              try:
+                  text = data.decode('utf-8-sig')
+                  encoding = 'utf-8'
+              except UnicodeDecodeError:
+                  text = data.decode('cp949')
+                  encoding = 'cp949'
+              counts[encoding] += 1
+              (target / path.name).write_text(text, encoding='utf-8', newline='')
+          print('normalized Korean source files:', counts)
+          PY
+
+      - name: Add positional ids to ordered source tables
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv
+          import io
+          from pathlib import Path
+
+          english = Path('vendor/mm678-i18n/source/en/mmmerge/Data/Text localization')
+          korean = Path('build/po-korean-source')
+
+          def read(path):
+              data = path.read_bytes()
+              try:
+                  text = data.decode('utf-8-sig')
+              except UnicodeDecodeError:
+                  text = data.decode('cp1252')
+              return list(csv.reader(io.StringIO(text, newline=''), delimiter='\t', quotechar='"', doublequote=True))
+
+          def write(path, rows):
+              out = io.StringIO(newline='')
+              writer = csv.writer(out, delimiter='\t', quotechar='"', doublequote=True, lineterminator='\n')
+              writer.writerows(rows)
+              path.write_text(out.getvalue(), encoding='utf-8', newline='')
+
+          converted = []
+          for en_path in sorted(english.glob('LANG_*.txt')):
+              ko_path = korean / ('KO_' + en_path.name[5:])
+              if not ko_path.is_file():
+                  continue
+              en_rows = read(en_path)
+              ko_rows = read(ko_path)
+              if not en_rows or not ko_rows:
+                  continue
+              head = [x.strip().casefold() for x in en_rows[0]]
+              is_long = len(head) >= 4 and head[:4] == ['table (of game struct)', 'id', 'field', 'new text']
+              has_id = bool(head) and head[0] in {'id', '#', '2d#', '__rowid'}
+              if is_long or has_id:
+                  continue
+              en_rows = [['__RowId', *en_rows[0]]] + [[str(i), *row] for i, row in enumerate(en_rows[1:])]
+              ko_rows = [['__RowId', *ko_rows[0]]] + [[str(i), *row] for i, row in enumerate(ko_rows[1:])]
+              write(en_path, en_rows)
+              write(ko_path, ko_rows)
+              converted.append(en_path.name)
+          print('ordered tables given positional ids:', converted)
+          PY
+
+      - name: Re-import PO from current Korean runtime tables
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p translations/ko
+          python tools/bootstrap_po_from_utf8.py \
+            --korean-dir "build/po-korean-source" \
+            --english-root "vendor/mm678-i18n/source/en/mmmerge" \
+            --output "translations/ko/mmmerge.po" \
+            --report "translations/ko/PO_BOOTSTRAP_REPORT.json" \
+            --source-revision "$MM678_I18N_REV"
+          python tools/augment_po_special_sources.py \
+            --korean-dir "build/po-korean-source" \
+            --english-en-root "vendor/mm678-i18n/source/en" \
+            --po "translations/ko/mmmerge.po" \
+            --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
+          python tools/augment_po_skilldes_source.py \
+            --korean "Data/Text localization/KO_Skilldes.txt" \
+            --english "vendor/mm678-i18n/source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt" \
+            --po "translations/ko/mmmerge.po" \
+            --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
+
+      - name: Record completeness baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --json translations/ko/PO_BASELINE.json \
+            --min-translated 25034 \
+            --source-revision "$MM678_I18N_REV"
+
+      - name: Refresh and audit generated runtime projections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --write
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py \
+            --json build/RUNTIME_TRANSLATION_OWNERSHIP.json
+          python tools/audit_lua_korean_literals.py \
+            --json build/LUA_KOREAN_LITERAL_AUDIT.json
+
+      - name: Commit explicit legacy import
+        shell: bash
+        run: |
+          set -euo pipefail
+          paths=(
+            'translations/ko/mmmerge.po'
+            'translations/ko/PO_BASELINE.json'
+            'translations/ko/PO_BOOTSTRAP_REPORT.json'
+            'Data/Text localization/KO_RuntimeOverrides.txt'
+            'Data/Text localization/KO_StatsSkillsRuntime.txt'
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo 'Legacy import produces no changes.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "${paths[@]}"
+          git commit -m 'build(i18n): explicitly re-import PO from Korean tables'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

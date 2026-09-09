@@ -1,0 +1,267 @@
+{
+  "entries": 25034,
+  "files": {
+    "KO_2DEvents.txt": {
+      "entries": 3471,
+      "format": "wide",
+      "korean_only": [],
+      "korean_records": 1607,
+      "missing_korean": [],
+      "source_records": 1607
+    },
+    "KO_AutonoteTxt.txt": {
+      "entries": 692,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 697,
+      "missing_korean": [],
+      "source_records": 697
+    },
+    "KO_AwardsTxt.txt": {
+      "entries": 104,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 105,
+      "missing_korean": [],
+      "source_records": 105
+    },
+    "KO_ClassDescriptions.txt": {
+      "entries": 53,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 53,
+      "missing_korean": [],
+      "source_records": 53
+    },
+    "KO_ClassNames.txt": {
+      "entries": 53,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 53,
+      "missing_korean": [],
+      "source_records": 53
+    },
+    "KO_GlobalTxt.txt": {
+      "entries": 748,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
+    "KO_ItemsTxt.txt": {
+      "entries": 6583,
+      "format": "wide",
+      "korean_only": [],
+      "korean_records": 2200,
+      "missing_korean": [],
+      "source_records": 2200
+    },
+    "KO_MapStats.txt": {
+      "entries": 207,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 208,
+      "missing_korean": [],
+      "source_records": 208
+    },
+    "KO_MapStrings.txt": {
+      "format": "map-str",
+      "mapped": 852,
+      "missing_files": [],
+      "missing_indexes": []
+    },
+    "KO_MessageScrolls.txt": {
+      "entries": 194,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 245,
+      "missing_korean": [],
+      "source_records": 245
+    },
+    "KO_Monsters.txt": {
+      "entries": 651,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 652,
+      "missing_korean": [],
+      "source_records": 652
+    },
+    "KO_NPCData.txt": {
+      "entries": 1224,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 1225,
+      "missing_korean": [],
+      "source_records": 1225
+    },
+    "KO_NPCGreet1.txt": {
+      "entries": 331,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 332,
+      "missing_korean": [],
+      "source_records": 332
+    },
+    "KO_NPCGreet2.txt": {
+      "entries": 331,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 332,
+      "missing_korean": [],
+      "source_records": 332
+    },
+    "KO_NPCNames.txt": {
+      "entries": 850,
+      "format": "wide",
+      "korean_only": [],
+      "korean_records": 540,
+      "missing_korean": [],
+      "source_records": 540
+    },
+    "KO_NPCNews.txt": {
+      "entries": 919,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 921,
+      "missing_korean": [],
+      "source_records": 921
+    },
+    "KO_NPCNewsTopics.txt": {
+      "entries": 899,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 921,
+      "missing_korean": [],
+      "source_records": 921
+    },
+    "KO_NPCProfessions.txt": {
+      "entries": 77,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
+    "KO_NPCText.txt": {
+      "entries": 2689,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 2713,
+      "missing_korean": [],
+      "source_records": 2713
+    },
+    "KO_NPCTopic.txt": {
+      "entries": 1793,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 1794,
+      "missing_korean": [],
+      "source_records": 1794
+    },
+    "KO_PlaceMonTxt.txt": {
+      "entries": 161,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 162,
+      "missing_korean": [],
+      "source_records": 162
+    },
+    "KO_QuestsTxt.txt": {
+      "entries": 604,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 1720,
+      "missing_korean": [],
+      "source_records": 1720
+    },
+    "KO_Skilldes.txt": {
+      "entries": 234,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
+    "KO_SpcItemsTxtNames.txt": {
+      "entries": 73,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 73,
+      "missing_korean": [],
+      "source_records": 73
+    },
+    "KO_SpcItemsTxtStats.txt": {
+      "entries": 73,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 73,
+      "missing_korean": [],
+      "source_records": 73
+    },
+    "KO_SpellsTxt.txt": {
+      "entries": 822,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
+    "KO_StatsDescriptions.tsv": {
+      "entries": 26,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
+    "KO_StdItemsTxtNames.txt": {
+      "entries": 25,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 25,
+      "missing_korean": [],
+      "source_records": 25
+    },
+    "KO_StdItemsTxtStats.txt": {
+      "entries": 25,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 25,
+      "missing_korean": [],
+      "source_records": 25
+    },
+    "KO_TransTxt.txt": {
+      "entries": 270,
+      "format": "long",
+      "korean_only": [],
+      "korean_records": 270,
+      "missing_korean": [],
+      "source_records": 270
+    }
+  },
+  "generated_korean_files": [
+    "KO_RuntimeOverrides.txt",
+    "KO_StatsSkillsRuntime.txt"
+  ],
+  "korean_only_records": 0,
+  "map_source_misses": 0,
+  "missing_korean_records": 0,
+  "paired_files": 30,
+  "schema": 4,
+  "source_only_files": [
+    "LANG_Placemon.txt"
+  ],
+  "source_revision": "aea1b22666ef556f34a71b4f3945904b04de1466",
+  "special_entries_added": 1907,
+  "special_mapped_files": [
+    "KO_GlobalTxt.txt",
+    "KO_NPCProfessions.txt",
+    "KO_Skilldes.txt",
+    "KO_SpellsTxt.txt",
+    "KO_StatsDescriptions.tsv"
+  ],
+  "translated": 25034,
+  "unmapped_korean_files": [],
+  "untranslated": 0
+}
