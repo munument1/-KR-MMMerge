@@ -10,6 +10,7 @@ on:
       - .github/workflows/bootstrap-po-catalog.yml
       - tools/bootstrap_po_from_utf8.py
       - tools/augment_po_special_sources.py
+      - tools/augment_po_skilldes_source.py
       - tools/po_catalog_stats.py
 
 permissions:
@@ -59,9 +60,13 @@ jobs:
           source = Path('Data/Text localization')
           target = Path('build/po-korean-source')
           target.mkdir(parents=True, exist_ok=True)
-          counts = {'utf-8': 0, 'cp949': 0}
+          counts = {'utf-8': 0, 'cp949': 0, 'skipped_generated_or_special': 0}
+          skip = {'KO_Skilldes.txt', 'KO_StatsSkillsRuntime.txt'}
           for path in source.iterdir():
               if not path.is_file():
+                  continue
+              if path.name in skip:
+                  counts['skipped_generated_or_special'] += 1
                   continue
               data = path.read_bytes()
               try:
@@ -139,6 +144,11 @@ jobs:
           python tools/augment_po_special_sources.py \
             --korean-dir "build/po-korean-source" \
             --english-en-root "vendor/mm678-i18n/source/en" \
+            --po "translations/ko/mmmerge.po" \
+            --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
+          python tools/augment_po_skilldes_source.py \
+            --korean "Data/Text localization/KO_Skilldes.txt" \
+            --english "vendor/mm678-i18n/source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt" \
             --po "translations/ko/mmmerge.po" \
             --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
 
