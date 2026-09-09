@@ -1,0 +1,115 @@
+name: Fix item 1764 terminology through PO
+
+on:
+  push:
+    branches:
+      - po-localization-bootstrap
+    paths:
+      - .github/workflows/fix-item-1764-po.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PO dependency
+        run: python -m pip install --disable-pip-version-check polib
+
+      - name: Correct item 1764 in the canonical PO
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import polib
+
+          path = 'translations/ko/mmmerge.po'
+          po = polib.pofile(path)
+          marker = 'KO: Data/Text localization/KO_ItemsTxt.txt'
+          found = {}
+
+          for entry in po:
+              if entry.obsolete or marker not in (entry.comment or ''):
+                  continue
+              context = entry.msgctxt or ''
+              if context.endswith('|id=1764|field=Name'):
+                  found['Name'] = entry
+              elif context.endswith('|id=1764|field=Notes'):
+                  found['Notes'] = entry
+
+          if set(found) != {'Name', 'Notes'}:
+              raise SystemExit(f'expected item 1764 Name+Notes PO entries, found {sorted(found)}')
+
+          name = found['Name']
+          notes = found['Notes']
+
+          if name.msgstr not in {'위도우윕 열매', '위도우스위프 열매'}:
+              raise SystemExit(f'unexpected old item 1764 name: {name.msgstr!r}')
+          if name.msgstr == '위도우윕 열매':
+              name.msgstr = '위도우스위프 열매'
+
+          if '과부딸기' in notes.msgstr:
+              notes.msgstr = notes.msgstr.replace('과부딸기', '위도우스위프 열매')
+          elif '위도우스위프 열매' not in notes.msgstr:
+              raise SystemExit(f'unexpected item 1764 notes: {notes.msgstr!r}')
+
+          print('1764 Name :', name.msgstr)
+          print('1764 Notes:', notes.msgstr)
+          po.save(path)
+          PY
+
+      - name: Validate PO and materialize runtime sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25034
+          python tools/build_korean_from_po.py --write
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/validate_reported_localization_fixes.py .
+
+      - name: Require clean PO to KO round trip
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf build/item1764-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/item1764-roundtrip \
+            --require-byte-identical
+
+      - name: Commit canonical fix and generated files
+        shell: bash
+        run: |
+          set -euo pipefail
+          paths=(
+            translations/ko/mmmerge.po
+            'Data/Text localization/KO_ItemsTxt.txt'
+            'Data/Text localization/KO_RuntimeOverrides.txt'
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo 'Item 1764 terminology is already canonical.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "${paths[@]}"
+          git commit -m 'fix(i18n): canonicalize Widow Sweep berry terminology'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
