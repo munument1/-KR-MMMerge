@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-      - po-localization-bootstrap
+      - '**'
     paths:
       # PO pushes are materialized and round-trip checked by sync-po-to-korean.yml.
       # This standalone push gate watches generated/source structure changes.
