@@ -48,7 +48,7 @@ jobs:
             --baseline translations/ko/PO_BASELINE.json \
             --no-regress \
             --fail-fuzzy \
-            --min-translated 25034
+            --min-translated 25051
 
       - name: Check bootstrap structural safety report
         shell: bash
@@ -64,13 +64,17 @@ jobs:
               problems.append(f"Korean-only records: {report['korean_only_records']}")
           if report.get('map_source_misses', 0):
               problems.append(f"map source misses: {report['map_source_misses']}")
-          if report.get('entries', 0) < 25034:
+          if report.get('entries', 0) < 25051:
               problems.append(f"catalog shrank unexpectedly: {report.get('entries')}")
           if report.get('unmapped_korean_files'):
               problems.append('unmapped Korean files: ' + ', '.join(report['unmapped_korean_files']))
+          mm8lang = report.get('root_files', {}).get('mm8lang.ini')
+          if not mm8lang or mm8lang.get('entries') != 17:
+              problems.append(f"root mm8lang mapping missing or wrong: {mm8lang!r}")
           if problems:
               raise SystemExit('PO structural audit failed: ' + '; '.join(problems))
           print('PO structural audit: OK')
           print('Mapped entries:', report.get('entries'))
+          print('Root mm8lang entries:', mm8lang.get('entries'))
           print('Unmapped migration files: <none>')
           PY

@@ -9,6 +9,8 @@ on:
       # PO pushes are materialized and round-trip checked by sync-po-to-korean.yml.
       # This standalone push gate watches generated/source structure changes.
       - tools/build_korean_from_po.py
+      - tools/build_mm8lang_from_po.py
+      - mm8lang.ini
       - 'Data/Text localization/KO_*.txt'
       - 'Data/Text localization/KO_*.tsv'
       - .github/workflows/validate-po-roundtrip.yml
@@ -17,6 +19,8 @@ on:
       - translations/ko/mmmerge.po
       - translations/ko/PO_BOOTSTRAP_REPORT.json
       - tools/build_korean_from_po.py
+      - tools/build_mm8lang_from_po.py
+      - mm8lang.ini
       - 'Data/Text localization/KO_*.txt'
       - 'Data/Text localization/KO_*.tsv'
       - .github/workflows/validate-po-roundtrip.yml
@@ -47,8 +51,11 @@ jobs:
           python tools/build_korean_from_po.py \
             --output-root build/po-roundtrip \
             --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-roundtrip.ini \
+            --require-byte-identical
 
-      - name: Exercise every materializer format with temporary PO edits
+      - name: Exercise every table materializer format with temporary PO edits
         shell: bash
         run: |
           set -euo pipefail
@@ -111,4 +118,41 @@ jobs:
             --po build/mmmerge-mutated.po \
             --source-root 'build/po-mutated/Data/Text localization' \
             --output-root build/po-mutated-second \
+            --require-byte-identical
+
+      - name: Exercise root mm8lang materializer with a temporary PO edit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import polib
+
+          po = polib.pofile('translations/ko/mmmerge.po')
+          context = 'mm8/mm8lang.ini|section=Settings|key=DoubleSpeed'
+          entry = next((e for e in po if not e.obsolete and e.msgctxt == context), None)
+          if entry is None:
+              raise SystemExit('DoubleSpeed mm8lang PO entry not found')
+          entry.msgstr = entry.msgstr + ' RT'
+          po.save('build/mmmerge-mm8lang-mutated.po')
+          print('mutated mm8lang:', context)
+          PY
+
+          python tools/build_mm8lang_from_po.py \
+            --po build/mmmerge-mm8lang-mutated.po \
+            --output build/mm8lang-mutated.ini
+
+          python - <<'PY'
+          from pathlib import Path
+          original = Path('mm8lang.ini').read_bytes()
+          generated = Path('build/mm8lang-mutated.ini').read_bytes()
+          if original == generated:
+              raise SystemExit('mm8lang materializer did not change the mutated target')
+          generated.decode('cp949')
+          print('mm8lang write path exercised with valid CP949 output')
+          PY
+
+          python tools/build_mm8lang_from_po.py \
+            --po build/mmmerge-mm8lang-mutated.po \
+            --source build/mm8lang-mutated.ini \
+            --output build/mm8lang-mutated-second.ini \
             --require-byte-identical

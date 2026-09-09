@@ -208635,3 +208635,105 @@ msgid ""
 "From the looks of the trash and decaying garbage on the ground outside, many"
 " generations of bandits have used this cave to hide from the law."
 msgstr "입구 바닥에 널린 쓰레기와 썩어가는 오물을 보니, 여러 세대에 걸쳐 산적들이 법망을 피해 이 동굴에 숨어든 듯합니다."
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=RecoveryTimeInfo"
+msgid "Recovery time: %d"
+msgstr "회복 시간: %d"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=PlayerNotActive"
+msgid "That player is not active"
+msgstr "해당 캐릭터는 행동할 수 없습니다"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=DoubleSpeed"
+msgid "Double Speed"
+msgstr "2배속"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=NormalSpeed"
+msgid "Normal Speed"
+msgstr "일반 속도"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=ArmorHalvedMessage"
+msgid "%s halves armor of %s"
+msgstr "%s이(가) %s의 방어력을 절반으로 낮춥니다"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=ChooseAttackSpell"
+msgid "No Attack Spell"
+msgstr "공격 주문 없음"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=SetAttackSpell"
+msgid "Set as Attack Spell"
+msgstr "공격 주문으로 설정"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=SwitchAttackSpell"
+msgid "Change Attack Spell (%s)"
+msgstr "공격 주문 변경 (%s)"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=RemoveAttackSpell"
+msgid "Remove Attack Spell (%s)"
+msgstr "공격 주문 해제 (%s)"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=Duration"
+msgid "Duration:"
+msgstr "지속 시간:"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=DurationYr"
+msgid " %d:yr"
+msgstr " %d년"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=DurationMo"
+msgid " %d:mo"
+msgstr " %d개월"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=DurationDy"
+msgid " %d:dy"
+msgstr " %d일"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=DurationHr"
+msgid " %d:hr"
+msgstr " %d시간"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=DurationMn"
+msgid " %d:mn"
+msgstr " %d분"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=Energy"
+msgid "Energy"
+msgstr "에너지"
+
+#. English: might-and-magic/mm678-i18n source/en/mm8/mm8lang.ini
+#. KO-ROOT: mm8lang.ini
+msgctxt "mm8/mm8lang.ini|section=Settings|key=N/A"
+msgid "N/A"
+msgstr "N/A"

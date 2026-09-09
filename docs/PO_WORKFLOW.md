@@ -11,13 +11,14 @@
 
 현재 카탈로그 기준:
 
-- 활성 항목: **25,034**
-- 번역 완료: **25,034 / 25,034 (100%)**
+- 활성 항목: **25,051**
+- 번역 완료: **25,051 / 25,051 (100%)**
 - 미번역: **0**
 - fuzzy: **0**
 - 중복 `(msgctxt, msgid)`: **0**
 - Unicode replacement character: **0**
-- PO가 관리하는 canonical Korean 파일: **30개**
+- PO가 관리하는 canonical Korean 텍스트 테이블: **30개**
+- PO가 관리하는 root runtime INI: `mm8lang.ini` (**17개 문자열**)
 - PO에서 직접 생성하지 않는 runtime projection:
   - `KO_RuntimeOverrides.txt`
   - `KO_StatsSkillsRuntime.txt`
@@ -45,6 +46,7 @@ LOD 역수확 결과는 인코딩 손상이 확인되어 폐기했고, 실제 `K
 4. `Sync Korean runtime sources from PO` workflow가 해당 브랜치에서 자동으로 다음 작업을 한다.
    - PO 완전성 검사
    - PO -> 30개 canonical `KO_*` 파일 materialize
+   - PO -> root `mm8lang.ini` materialize
    - `KO_RuntimeOverrides.txt` 재생성
    - `KO_StatsSkillsRuntime.txt` 재생성
    - Lua/runtime 번역 소유권 감사
@@ -83,7 +85,7 @@ mmmerge/10LocLANG.T/7D12.STR|string=19
 - BOM 및 줄바꿈 형식
 - 기존 quoted field 표현
 
-현재 PO는 30개 canonical 파일을 **바이트 단위로 그대로 재생성**할 수 있음이
+현재 PO는 30개 canonical KO 파일과 root `mm8lang.ini`를 **바이트 단위로 그대로 재생성**할 수 있음이
 CI에서 검증되었다. CI는 long/wide/map/inherited/positional 형식의 대표 항목을
 임시로 실제 변경하여 쓰기 경로와 재-materialize 안정성도 검사한다.
 
@@ -100,11 +102,22 @@ PO의 변경 내용을 현재 runtime source에 직접 materialize하려면:
 
 ```bash
 python tools/build_korean_from_po.py --write
+python tools/build_mm8lang_from_po.py --write
 python tools/rebuild_runtime_overrides.py --write
 python tools/rebuild_stats_skills_runtime.py --write
 ```
 
 보통은 CI가 이 작업을 수행하므로 직접 실행할 필요가 없다.
+
+## mm8lang.ini 소유권
+
+GrayFace/MM8 런타임 메시지 17개도 PO에서 관리한다. 영어 원문은 pinned
+`source/en/mm8/mm8lang.ini`에서 가져오며, 한국어 `msgstr`은 이 저장소의 기존
+`mm8lang.ini`를 이식한 것이다. `tools/build_mm8lang_from_po.py`는 현재 런타임
+파일의 native 인코딩(CP949)을 보존하면서 배포 루트 `mm8lang.ini`를 생성한다.
+
+기존 UTF-8 편집 사본 `Data/Text localization/KO_mm8lang.ini.utf8`은 같은 키/값임을
+검증한 뒤 제거했다. 이제 이 문자열의 편집 원본도 PO 하나뿐이다.
 
 ## RuntimeOverride 소유권
 
@@ -149,7 +162,7 @@ Lua는 번역 원본을 따로 보유하지 않고 런타임 동작만 담당한
 
 ## 역사 파일은 별도 runtime asset
 
-MM6/MM7/MM8 역사 파일은 현재 PO 25,034개 카탈로그와 별도로 관리한다.
+MM6/MM7/MM8 역사 파일은 현재 PO 25,051개 카탈로그와 별도로 관리한다.
 
 - `MM6History_KO.txt`
 - `MM7History_KO.txt`
@@ -181,7 +194,7 @@ PO에만 존재하는 미반영 변경이 있는 상태에서 실행해서는 �
 ## 주요 CI
 
 - `Validate Korean gettext catalog`
-  - 25,034개 coverage 기준
+  - 25,051개 coverage 기준
   - untranslated/fuzzy/duplicate/replacement character 회귀 검사
 - `Sync Korean runtime sources from PO`
   - 모든 저장소 작업 브랜치에서 정상적인 PO -> KO 생성 경로
@@ -201,7 +214,7 @@ PO에만 존재하는 미반영 변경이 있는 상태에서 실행해서는 �
 ```text
 translations/ko/mmmerge.po
         ↓
-canonical KO text tables
+canonical KO text tables + mm8lang.ini
         ↓
 RuntimeOverrides / StatsSkillsRuntime
         ↓
