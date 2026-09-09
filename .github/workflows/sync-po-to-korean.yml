@@ -44,35 +44,6 @@ jobs:
       - name: Install PO dependency
         run: python -m pip install --disable-pip-version-check polib
 
-      - name: Apply Stone to Flesh wording correction
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import polib
-          from pathlib import Path
-
-          path = Path('translations/ko/mmmerge.po')
-          po = polib.pofile(str(path))
-          ctx = 'mmmerge/Text localization/LANG_ItemsTxt.txt|id=262|field=Notes'
-          matches = [entry for entry in po if entry.msgctxt == ctx]
-          if len(matches) != 1:
-              raise SystemExit(f'expected one {ctx!r} entry, found {len(matches)}')
-          entry = matches[0]
-          if 'Cures Stoned.' not in entry.msgid:
-              raise SystemExit(f'unexpected English source: {entry.msgid!r}')
-          wrong = '취한 상태를 치료합니다.'
-          correct = '석화 상태를 치료합니다.'
-          if wrong in entry.msgstr:
-              entry.msgstr = entry.msgstr.replace(wrong, correct, 1)
-              po.save(str(path))
-              print('Stone to Flesh PO translation corrected.')
-          elif correct in entry.msgstr:
-              print('Stone to Flesh PO translation already corrected.')
-          else:
-              raise SystemExit(f'unexpected Korean translation: {entry.msgstr!r}')
-          PY
-
       - name: Require complete reviewed PO
         shell: bash
         run: |
@@ -151,29 +122,19 @@ jobs:
           python tools/build_mm8lang_from_po.py \
             --output build/mm8lang-sync-check.ini \
             --require-byte-identical
-          python - <<'PY'
-          from pathlib import Path
-          raw = Path('Data/Text localization/KO_ItemsTxt.txt').read_text(encoding='cp949')
-          rows = [line for line in raw.splitlines() if line.startswith('262\t')]
-          if len(rows) != 1:
-              raise SystemExit(f'expected exactly one item 262 row, found {len(rows)}')
-          if '석화 상태를 치료합니다.' not in rows[0] or '취한 상태를 치료합니다.' in rows[0]:
-              raise SystemExit('Stone to Flesh runtime text is not corrected')
-          print('Stone to Flesh runtime text: OK')
-          PY
 
       - name: Commit generated Korean runtime sources
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "$(git status --porcelain -- translations/ko/mmmerge.po 'Data/Text localization' mm8lang.ini)" ]]; then
-            echo 'Korean PO and runtime sources already match.'
+          if [[ -z "$(git status --porcelain -- 'Data/Text localization' mm8lang.ini)" ]]; then
+            echo 'Korean runtime sources already match PO.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add translations/ko/mmmerge.po 'Data/Text localization' mm8lang.ini
-          git commit -m 'Fix Stone to Flesh potion description'
+          git add 'Data/Text localization' mm8lang.ini
+          git commit -m 'build(i18n): sync Korean runtime sources from PO'
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:${GITHUB_REF_NAME}"
