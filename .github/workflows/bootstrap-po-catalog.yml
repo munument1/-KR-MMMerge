@@ -7,6 +7,7 @@ on:
       - po-localization-bootstrap
     paths:
       - .github/workflows/bootstrap-po-catalog.yml
+      - tools/bootstrap_po_from_utf8.py
       - tools/po_catalog_stats.py
 
 permissions:
@@ -33,92 +34,42 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install bootstrap dependencies
+      - name: Install bootstrap dependency
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --disable-pip-version-check polib OpenCC
-          npm install -g mmarch
+          python -m pip install --disable-pip-version-check polib
 
-      - name: Clone pinned mm678-i18n tooling
+      - name: Clone pinned English source
         shell: bash
         run: |
           set -euo pipefail
-          git clone https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
+          git clone --filter=blob:none https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
           git -C vendor/mm678-i18n checkout --detach "$MM678_I18N_REV"
 
-      - name: Generate context-aware templates
-        shell: bash
-        run: |
-          set -euo pipefail
-          cd vendor/mm678-i18n
-          python -m mm678i18n templates
-
-      - name: Create empty Korean catalog
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -f vendor/mm678-i18n/translations/ko/mm678.po
-          mkdir -p vendor/mm678-i18n/translations/ko
-          cp vendor/mm678-i18n/translations/mm678.pot vendor/mm678-i18n/translations/ko/mm678.po
-
-          python - <<'PY'
-          from pathlib import Path
-          import polib
-
-          p = Path('vendor/mm678-i18n/translations/ko/mm678.po')
-          po = polib.pofile(str(p))
-          po.metadata['Language'] = 'ko'
-          po.metadata['Content-Type'] = 'text/plain; charset=UTF-8'
-          po.metadata['Content-Transfer-Encoding'] = '8bit'
-          po.metadata['Plural-Forms'] = 'nplurals=1; plural=0;'
-          for entry in po:
-              entry.msgstr = ''
-              entry.flags = [flag for flag in entry.flags if flag != 'fuzzy']
-          po.save(str(p))
-          PY
-
-      - name: Harvest this repository's packaged Korean text
-        shell: bash
-        run: |
-          set -euo pipefail
-          (
-            cd vendor/mm678-i18n
-            python tools/harvest_po.py ko mmmerge "$GITHUB_WORKSPACE"
-          )
-
-      - name: Install harvested catalog in this repository
+      - name: Build PO from English source and this patch's Korean text
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p translations/ko
-          cp vendor/mm678-i18n/translations/ko/mm678.po translations/ko/mm678.po
-          python tools/po_catalog_stats.py \
-            translations/ko/mm678.po \
-            --json translations/ko/PO_BASELINE.json \
-            --min-translated 500 \
+          python tools/bootstrap_po_from_utf8.py \
+            --korean-dir "Data/Text localization" \
+            --english-root "vendor/mm678-i18n/source/en/mmmerge" \
+            --output "translations/ko/mmmerge.po" \
+            --report "translations/ko/PO_BOOTSTRAP_REPORT.json" \
             --source-revision "$MM678_I18N_REV"
 
-      - name: Run upstream hard-error PO checks (informational during bootstrap)
+      - name: Record completeness baseline
         shell: bash
         run: |
-          set +e
-          cp translations/ko/mm678.po vendor/mm678-i18n/translations/ko/mm678.po
-          (
-            cd vendor/mm678-i18n
-            python -m mm678i18n check po --langs ko
-          ) | tee po-bootstrap-upstream-check.log
-          status=${PIPESTATUS[0]}
-          set -e
-          echo "mm678-i18n PO checker exit code: $status"
-          echo "This first migration stage records the result but does not block catalog creation."
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --json translations/ko/PO_BASELINE.json \
+            --min-translated 5000 \
+            --source-revision "$MM678_I18N_REV"
 
-      - name: Commit generated PO and baseline
+      - name: Commit generated PO and reports
         shell: bash
         run: |
           set -euo pipefail
@@ -128,6 +79,9 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add translations/ko/mm678.po translations/ko/PO_BASELINE.json
-          git commit -m "build(i18n): bootstrap Korean gettext catalog"
+          git add \
+            translations/ko/mmmerge.po \
+            translations/ko/PO_BASELINE.json \
+            translations/ko/PO_BOOTSTRAP_REPORT.json
+          git commit -m "build(i18n): bootstrap Korean gettext catalog from text sources"
           git push origin "HEAD:${GITHUB_REF_NAME}"
