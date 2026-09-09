@@ -167722,7 +167722,7 @@ msgid ""
 "Unlimited item Identification and a 5 percent bonus on all experience gained.\n"
 "%01 takes %17 percent of all gold you find."
 msgstr ""
-"물품을 무제한으로 식별하며, 획득 경험치가 5퍼센트 증가합니다.\n"
+"모든 캐릭터의 학습 기술에 +5 보너스를 주고 아이템을 무제한으로 식별합니다. 학습 숙련도 배율이 적용됩니다.\n"
 "%01은 발견한 모든 금화의 %17를 가져갑니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -167838,7 +167838,7 @@ msgid ""
 "Ten percent bonus on all experience learned.\n"
 "%01 takes %17 percent of all gold you find."
 msgstr ""
-"획득 경험치가 10퍼센트 증가합니다.\n"
+"모든 캐릭터의 학습 기술에 +10 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다.\n"
 "%01은 발견한 모든 금화의 %17를 가져갑니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -167850,7 +167850,7 @@ msgid ""
 "Fifteen percent bonus on all experience learned.\n"
 "%01 takes %17 percent of all gold you find."
 msgstr ""
-"획득 경험치가 15퍼센트 증가합니다.\n"
+"모든 캐릭터의 학습 기술에 +15 보너스를 줍니다. 학습 숙련도 배율이 적용됩니다.\n"
 "%01은 발견한 모든 금화의 %17를 가져갑니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
