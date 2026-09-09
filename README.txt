@@ -1,10 +1,19 @@
 ============================================================
-MMMerge 한국어 패치 v1.0.20
+MMMerge 한국어 패치 v1.0.21
 ============================================================
 
 이 패치는 Might and Magic 6·7·8 Merge(MMMerge)의 한국어 번역 패치입니다.
 v1.0.20부터 Rodril MMMerge를 공식 호환 기준으로 명확히 하고,
 한국어 패치는 기존 게임 위에 설치하는 localization overlay로 관리합니다.
+
+v1.0.21 핵심 수정:
+- NEW GAME 대륙 선택 화면에서 MM7/MM6 버튼을 승격할 때 MM8/Jadame 버튼을
+  덮어쓰던 CustomUI 레이어 키 충돌 수정
+- MM8 버튼 보존 회귀 테스트 추가
+- 한국어 패치가 전역 RefillTimer를 교체하던 에메랄드 섬 호환 코드를 퇴역
+- Korean/ZZ_Korean 오버레이가 Timer/RefillTimer 등 게임플레이 전역 함수를
+  다시 덮어쓰지 못하도록 CI 경계 검사 강화
+- v1.0.20 릴리즈 자동 재생성을 중지하고 버전별 릴리즈를 고정
 
 공식 기준:
 - 프로젝트: https://gitlab.com/letr.rod/mmmerge
@@ -28,6 +37,11 @@ Revamp, MAW, Waffle/커뮤니티 배포판 등은 기본 호환 기준에 포함
    그대로 복사하고 같은 이름의 파일은 모두 덮어씁니다.
 5) 게임을 완전히 종료했다가 다시 실행합니다.
 
+v1.0.20에서 업데이트:
+- v1.0.21 ZIP을 그대로 덮어쓴 뒤 게임을 완전히 종료했다가 다시 실행합니다.
+- ZZ_KoreanEmeraldWellTimerFix.lua는 v1.0.21의 no-op 파일로 덮어써져 과거
+  RefillTimer 게임로직 후킹이 남지 않습니다.
+
 예시 설치 경로:
   D:\GOG\Might and Magic 8\
 
@@ -50,7 +64,7 @@ v1.0.19 이하 한국어 패치는 과거 다음 Rodril 지도 스크립트를 �
 
   Scripts\Maps\out01.lua
 
-v1.0.20은 이 파일을 더 이상 포함하지 않습니다. 한국어 대포 힌트만
+v1.0.20부터 이 파일을 더 이상 포함하지 않습니다. 한국어 대포 힌트만
 Scripts\General\ZZ_KoreanDaggerWoundHints.lua로 분리했으며,
 Rodril이 원본 지도 게임플레이 스크립트를 온전히 소유하도록 변경했습니다.
 
@@ -58,14 +72,14 @@ Rodril이 원본 지도 게임플레이 스크립트를 온전히 소유하도�
 
 1) 저장 파일과 게임 폴더를 백업합니다.
 2) Rodril MMMerge 원본/패치를 게임 폴더에 다시 적용합니다.
-3) Rodril의 Scripts\Maps\out01.lua가 복원된 상태에서 v1.0.20을 덮어씁니다.
+3) Rodril의 Scripts\Maps\out01.lua가 복원된 상태에서 v1.0.21을 덮어씁니다.
 4) 게임을 완전히 종료했다가 다시 실행합니다.
 
 중요:
 - 기존 Scripts\Maps\out01.lua를 단순 삭제하지 마십시오.
   해당 파일에는 Dimension Door / Town Portal 등 원본 지도 로직이 들어 있습니다.
-- v1.0.20 ZIP만 기존 v1.0.19 위에 바로 덮어쓰면 예전 out01.lua가 디스크에
-  남을 수 있으므로 Rodril 원본을 먼저 재적용해야 합니다.
+- v1.0.21 ZIP만 기존 v1.0.19 이하 설치에 바로 덮어쓰면 예전 out01.lua가
+  디스크에 남을 수 있으므로 Rodril 원본을 먼저 재적용해야 합니다.
 - 자세한 절차는 MIGRATION_v1.0.20.txt를 참조하십시오.
 
 ------------------------------------------------------------
@@ -125,6 +139,8 @@ Rodril issue #17의 현지화 시스템 개편은 아직 완료된 upstream 계�
 - Scripts\Maps\*.lua 직접 배포 금지
 - Scripts\Core / Modules / Structs vendoring 금지
 - 한국어 전용 동작은 Korean* / ZZ_Korean* 오버레이를 우선 사용
+- Korean* / ZZ_Korean* 오버레이에서 Timer, RefillTimer, RemoveTimer, Sleep,
+  Sleep2 같은 게임플레이 전역 함수 교체 금지
 - 의도적인 Rodril 동일 경로 스크립트 교체는 현재 1개:
   Scripts\General\LocalizeTables.lua
 
@@ -148,6 +164,8 @@ LocalizeTables.lua는 한국어 인코딩, 런타임 번역 소유권, 캐시 �
 - Rodril overlay boundary 검사
 - Dagger Wound 한국어 힌트 Lua 5.1 문법/동작 검사
 - MM6/MM7/MM8 역사/NEW GAME 회귀 검사
+- MM8/Jadame 대륙 버튼 보존 검사
+- 퇴역한 Emerald RefillTimer 오버레이가 inert 상태인지 검사
 - 제보 65949 / 65960 회귀 검사
 - Extra Settings 리소스 검사
 
@@ -194,18 +212,18 @@ DirectDraw/2D surface 복구 계층을 우선 의심할 수 있습니다.
 ------------------------------------------------------------
 
 README.txt                         설치와 사용 안내
-MIGRATION_v1.0.20.txt              구버전 -> v1.0.20 업데이트 절차
-UPSTREAM_BASELINE.md              Rodril 기준판/오버레이 경계 정책
+MIGRATION_v1.0.20.txt              v1.0.19 이하 -> 최신 버전 업데이트 절차
+UPSTREAM_BASELINE.md               Rodril 기준판/오버레이 경계 정책
 CHANGELOG.txt                      이전 변경 이력
 NATIVE_DBCS_MIGRATION_AUDIT.txt    native DBCS 렌더러 분석/검증
 UI_RENDER_CORRUPTION_AUDIT.txt     UI 소실 원인 분석
 STR_TRANSLATION_COVERAGE.txt       지도 STR 번역 범위와 제외 기준
 RUNTIME_LOCALIZATION_AUDIT.txt     런타임 번역 소유권 감사
 FONT_LICENSES.md                   포함 글꼴 라이선스 안내
-Data\Text localization\          게임용 번역 테이블
+Data\Text localization\           게임용 번역 테이블
 Data\zz LocKO.T.lod               정적 한국어 리소스
-DataFiles\                        한글 출력용 DBCS 페이지 폰트
-Scripts\General\FNT_DBCS.lua     native direct-blit DBCS 렌더러
+DataFiles\                         한글 출력용 DBCS 페이지 폰트
+Scripts\General\FNT_DBCS.lua      native direct-blit DBCS 렌더러
 Scripts\General\KoreanFont.lua    한국어 호환 API
 
 저장소:
