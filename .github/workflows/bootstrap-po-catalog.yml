@@ -52,6 +52,13 @@ jobs:
           git clone https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
           git -C vendor/mm678-i18n checkout --detach "$MM678_I18N_REV"
 
+      - name: Generate context-aware templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd vendor/mm678-i18n
+          python -m mm678i18n templates
+
       - name: Create empty Korean catalog
         shell: bash
         run: |
