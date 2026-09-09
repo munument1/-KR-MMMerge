@@ -17,6 +17,7 @@ on:
       - Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua
       - Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua
       - Data/LocalizeConf.ini
+      - mm8lang.ini
       - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
@@ -24,6 +25,7 @@ on:
       - Data/zz LocKO.T.lod
       - Data/zz LocKO.icons.lod
       - DataFiles/DBCS_*.fnt
+      - tools/build_mm8lang_from_po.py
       - tools/apply_reported_term_fixes.py
       - tools/patch_reported_terms_lod.py
       - tools/patch_static_stats_lod.py
@@ -67,6 +69,7 @@ on:
       - Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua
       - Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua
       - Data/LocalizeConf.ini
+      - mm8lang.ini
       - "Data/Text localization/KO_*.txt"
       - Data/Text localization/KO_StatsDescriptions.tsv
       - Data/Text localization/MM7History_KO.txt
@@ -74,6 +77,7 @@ on:
       - Data/zz LocKO.T.lod
       - Data/zz LocKO.icons.lod
       - DataFiles/DBCS_*.fnt
+      - tools/build_mm8lang_from_po.py
       - tools/apply_reported_term_fixes.py
       - tools/patch_reported_terms_lod.py
       - tools/patch_static_stats_lod.py
