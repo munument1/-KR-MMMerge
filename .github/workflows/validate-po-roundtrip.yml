@@ -10,6 +10,8 @@ on:
       - translations/ko/mmmerge.po
       - translations/ko/PO_BOOTSTRAP_REPORT.json
       - tools/build_korean_from_po.py
+      - 'Data/Text localization/KO_*.txt'
+      - 'Data/Text localization/KO_*.tsv'
       - .github/workflows/validate-po-roundtrip.yml
   pull_request:
     paths:
