@@ -1,26 +1,14 @@
-name: Bootstrap Korean gettext catalog
+name: Import Korean gettext catalog from legacy tables
 
+# Recovery/upstream-refresh path only. Normal translation flow is PO -> KO.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - po-localization-bootstrap
-    paths:
-      - 'Data/Text localization/**'
-      - config/runtime_override_keys.tsv
-      - .github/workflows/bootstrap-po-catalog.yml
-      - tools/bootstrap_po_from_utf8.py
-      - tools/augment_po_special_sources.py
-      - tools/augment_po_skilldes_source.py
-      - tools/po_catalog_stats.py
-      - tools/rebuild_runtime_overrides.py
-      - tools/rebuild_stats_skills_runtime.py
 
 permissions:
   contents: write
 
 concurrency:
-  group: bootstrap-ko-po-${{ github.ref }}
+  group: import-ko-po-${{ github.ref }}
   cancel-in-progress: false
 
 env:
@@ -131,9 +119,7 @@ jobs:
           print('ordered tables given positional ids:', converted)
           PY
 
-      - name: Build PO from English source and this patch's Korean text
-        id: build_po
-        continue-on-error: true
+      - name: Re-import PO from current Korean runtime tables
         shell: bash
         run: |
           set -euo pipefail
@@ -155,8 +141,17 @@ jobs:
             --po "translations/ko/mmmerge.po" \
             --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
 
-      - name: Refresh generated runtime projections
-        if: steps.build_po.outcome == 'success'
+      - name: Record completeness baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --json translations/ko/PO_BASELINE.json \
+            --min-translated 25034 \
+            --source-revision "$MM678_I18N_REV"
+
+      - name: Refresh and audit generated runtime projections
         shell: bash
         run: |
           set -euo pipefail
@@ -164,93 +159,12 @@ jobs:
           python tools/rebuild_runtime_overrides.py --check
           python tools/rebuild_stats_skills_runtime.py --write
           python tools/rebuild_stats_skills_runtime.py --check
-
-      - name: Audit regenerated ownership
-        if: steps.build_po.outcome == 'success'
-        shell: bash
-        run: |
-          set -euo pipefail
           python tools/audit_runtime_translation_ownership.py \
             --json build/RUNTIME_TRANSLATION_OWNERSHIP.json
           python tools/audit_lua_korean_literals.py \
             --json build/LUA_KOREAN_LITERAL_AUDIT.json
-          python - <<'PY'
-          import json
-          from pathlib import Path
 
-          ownership = json.loads(Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json').read_text(encoding='utf-8'))
-          bad_runtime = [x for x in ownership['runtime_override_duplicates'] if not x.get('same_text')]
-          if bad_runtime:
-              sample = [f"{x['table']}[{x['id']}] {x['field'] or '<default>'}" for x in bad_runtime[:10]]
-              raise SystemExit(f'canonical-backed runtime wording drift: {sample}')
-          if ownership['lua_literal_maps_with_static_overlap'] != 0:
-              raise SystemExit('hard-coded Lua translation maps overlap canonical static data')
-
-          literals = json.loads(Path('build/LUA_KOREAN_LITERAL_AUDIT.json').read_text(encoding='utf-8'))
-          allowed_runtime_ui = {
-              'Scripts/General/ZZ_KoreanReportedLocalization.lua',
-              'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
-          }
-          unexpected = set(literals['scripts']) - allowed_runtime_ui
-          if unexpected:
-              raise SystemExit(f'Korean literals appeared in non-runtime-UI Lua files: {sorted(unexpected)}')
-          if literals['exact_static_duplicate_occurrences'] != 0:
-              raise SystemExit(
-                  f"Lua contains {literals['exact_static_duplicate_occurrences']} exact duplicates of canonical Korean data"
-              )
-          print('regenerated ownership policy: OK')
-          PY
-
-      - name: Print pairing diagnostics
-        if: always()
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [[ ! -f translations/ko/PO_BOOTSTRAP_REPORT.json ]]; then
-            echo "PO bootstrap report was not created."
-            exit 0
-          fi
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          report = json.loads(Path('translations/ko/PO_BOOTSTRAP_REPORT.json').read_text(encoding='utf-8'))
-          print('\nPer-file pairing diagnostics:')
-          for name, details in sorted(report['files'].items(), key=lambda item: item[0].casefold()):
-              missing = len(details.get('missing_korean', []))
-              ko_only = len(details.get('korean_only', []))
-              source_miss = len(details.get('missing_files', [])) + len(details.get('missing_indexes', []))
-              if missing or ko_only or source_miss:
-                  print(f"  {name}: missing_ko={missing}, ko_only={ko_only}, source_miss={source_miss}, entries={details.get('entries', details.get('mapped', 0))}")
-                  if missing:
-                      print('    first missing:', details['missing_korean'][:5])
-                  if ko_only:
-                      print('    first ko-only:', details['korean_only'][:5])
-          print('unmapped Korean files:', report.get('unmapped_korean_files', []))
-          print('generated Korean files:', report.get('generated_korean_files', []))
-          print('source-only files:', report.get('source_only_files', []))
-          PY
-
-      - name: Stop on unsafe bootstrap
-        if: steps.build_po.outcome != 'success'
-        shell: bash
-        run: |
-          echo "PO bootstrap safety check failed; diagnostics are printed above."
-          exit 1
-
-      - name: Record completeness baseline
-        if: steps.build_po.outcome == 'success'
-        shell: bash
-        run: |
-          set -euo pipefail
-          python tools/po_catalog_stats.py \
-            translations/ko/mmmerge.po \
-            --json translations/ko/PO_BASELINE.json \
-            --min-translated 5000 \
-            --source-revision "$MM678_I18N_REV"
-
-      - name: Commit generated PO, reports, and runtime projections
-        if: steps.build_po.outcome == 'success'
+      - name: Commit explicit legacy import
         shell: bash
         run: |
           set -euo pipefail
@@ -262,13 +176,13 @@ jobs:
             'Data/Text localization/KO_StatsSkillsRuntime.txt'
           )
           if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
-            echo "Catalog and runtime projections are already up to date."
+            echo 'Legacy import produces no changes.'
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add "${paths[@]}"
-          git commit -m "build(i18n): refresh Korean catalog and runtime projections"
+          git commit -m 'build(i18n): explicitly re-import PO from Korean tables'
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:${GITHUB_REF_NAME}"
