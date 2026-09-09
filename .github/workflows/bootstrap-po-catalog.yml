@@ -47,13 +47,39 @@ jobs:
           git clone --filter=blob:none https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
           git -C vendor/mm678-i18n checkout --detach "$MM678_I18N_REV"
 
+      - name: Normalize mixed Korean source encodings to UTF-8
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('Data/Text localization')
+          target = Path('build/po-korean-source')
+          target.mkdir(parents=True, exist_ok=True)
+          counts = {'utf-8': 0, 'cp949': 0}
+          for path in source.iterdir():
+              if not path.is_file():
+                  continue
+              data = path.read_bytes()
+              try:
+                  text = data.decode('utf-8-sig')
+                  encoding = 'utf-8'
+              except UnicodeDecodeError:
+                  text = data.decode('cp949')
+                  encoding = 'cp949'
+              counts[encoding] += 1
+              (target / path.name).write_text(text, encoding='utf-8', newline='')
+          print('normalized Korean source files:', counts)
+          PY
+
       - name: Build PO from English source and this patch's Korean text
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p translations/ko
           python tools/bootstrap_po_from_utf8.py \
-            --korean-dir "Data/Text localization" \
+            --korean-dir "build/po-korean-source" \
             --english-root "vendor/mm678-i18n/source/en/mmmerge" \
             --output "translations/ko/mmmerge.po" \
             --report "translations/ko/PO_BOOTSTRAP_REPORT.json" \
