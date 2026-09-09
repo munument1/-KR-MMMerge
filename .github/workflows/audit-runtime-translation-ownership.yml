@@ -66,6 +66,54 @@ jobs:
           python tools/audit_lua_korean_literals.py \
             --json build/LUA_KOREAN_LITERAL_AUDIT.json
 
+      - name: Enforce runtime ownership policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          ownership = json.loads(Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json').read_text(encoding='utf-8'))
+          bad_runtime = [
+              item for item in ownership['runtime_override_duplicates']
+              if not item.get('same_text')
+          ]
+          if bad_runtime:
+              sample = [
+                  f"{x['table']}[{x['id']}] {x['field'] or '<default>'}"
+                  for x in bad_runtime[:10]
+              ]
+              raise SystemExit(
+                  f"canonical-backed runtime overrides differ from canonical text: {sample}"
+              )
+          if ownership['lua_literal_maps_with_static_overlap'] != 0:
+              raise SystemExit(
+                  'hard-coded Lua translation maps overlap canonical static data'
+              )
+
+          literals = json.loads(Path('build/LUA_KOREAN_LITERAL_AUDIT.json').read_text(encoding='utf-8'))
+          allowed_runtime_ui = {
+              'Scripts/General/ZZ_KoreanReportedLocalization.lua',
+              'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+          }
+          actual = set(literals['scripts'])
+          unexpected = actual - allowed_runtime_ui
+          if unexpected:
+              raise SystemExit(
+                  f"Korean literals appeared in non-runtime-UI Lua files: {sorted(unexpected)}"
+              )
+          if literals['exact_static_duplicate_occurrences'] != 0:
+              raise SystemExit(
+                  f"Lua contains {literals['exact_static_duplicate_occurrences']} exact duplicates of canonical Korean data"
+              )
+
+          print('runtime ownership policy: OK')
+          print('  canonical-backed overrides with wording drift: 0')
+          print('  unexpected Korean-literal Lua files: 0')
+          print('  exact Lua/static Korean duplicates: 0')
+          PY
+
       - name: Add report to job summary
         if: always()
         shell: bash
@@ -77,15 +125,14 @@ jobs:
           ownership = Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json')
           if ownership.is_file():
               r = json.loads(ownership.read_text(encoding='utf-8'))
+              drift = sum(1 for x in r['runtime_override_duplicates'] if not x.get('same_text'))
               print('## Runtime translation ownership')
               print()
               print(f"- Runtime override records: **{r['runtime_override_records']}**")
-              print(f"- Override keys also present in other Korean tables: **{r['runtime_override_duplicate_keys']}**")
+              print(f"- Canonical-backed override keys: **{r['runtime_override_duplicate_keys']}**")
               print(f"- Runtime-only override keys: **{r['runtime_override_unique_keys']}**")
-              print(f"- Hard-coded Lua literal maps found: **{len(r['lua_literal_maps'])}**")
+              print(f"- Canonical-backed wording drift: **{drift}**")
               print(f"- Hard-coded Lua literal maps overlapping static data: **{r['lua_literal_maps_with_static_overlap']}**")
-              print()
-              print('Both generated runtime projections are hard-checked against canonical wording.')
               print()
 
           literal_audit = Path('build/LUA_KOREAN_LITERAL_AUDIT.json')
@@ -97,7 +144,6 @@ jobs:
               print(f"- Literal occurrences: **{r['literal_occurrences']}**")
               print(f"- Unique Korean texts: **{r['unique_korean_texts']}**")
               print(f"- Exact duplicates of static Korean data: **{r['exact_static_duplicate_occurrences']}**")
-              print(f"- No static wording match: **{r['no_static_match_occurrences']}**")
               print()
-              print('Exact duplicates are migration candidates; unmatched strings require runtime/context review.')
+              print('Only the two approved dynamic CustomUI/runtime UI files may retain Korean literals.')
           PY
