@@ -8,6 +8,7 @@ on:
       - .github/workflows/validate-po-catalog.yml
   push:
     branches:
+      - main
       - po-localization-bootstrap
     paths:
       - translations/ko/**
@@ -48,7 +49,7 @@ jobs:
             --baseline translations/ko/PO_BASELINE.json \
             --no-regress \
             --fail-fuzzy \
-            --min-translated 5000
+            --min-translated 25034
 
       - name: Check bootstrap structural safety report
         shell: bash
@@ -64,11 +65,13 @@ jobs:
               problems.append(f"Korean-only records: {report['korean_only_records']}")
           if report.get('map_source_misses', 0):
               problems.append(f"map source misses: {report['map_source_misses']}")
-          if report.get('entries', 0) < 1000:
-              problems.append(f"implausibly small catalog: {report.get('entries')}")
+          if report.get('entries', 0) < 25034:
+              problems.append(f"catalog shrank unexpectedly: {report.get('entries')}")
+          if report.get('unmapped_korean_files'):
+              problems.append('unmapped Korean files: ' + ', '.join(report['unmapped_korean_files']))
           if problems:
-              raise SystemExit('PO bootstrap structural audit failed: ' + '; '.join(problems))
-          print('PO bootstrap structural audit: OK')
+              raise SystemExit('PO structural audit failed: ' + '; '.join(problems))
+          print('PO structural audit: OK')
           print('Mapped entries:', report.get('entries'))
-          print('Unmapped migration files:', ', '.join(report.get('unmapped_korean_files', [])) or '<none>')
+          print('Unmapped migration files: <none>')
           PY
