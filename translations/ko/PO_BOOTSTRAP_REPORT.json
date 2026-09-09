@@ -1,5 +1,5 @@
 {
-  "entries": 23127,
+  "entries": 24800,
   "files": {
     "KO_2DEvents.txt": {
       "entries": 3471,
@@ -40,6 +40,14 @@
       "korean_records": 53,
       "missing_korean": [],
       "source_records": 53
+    },
+    "KO_GlobalTxt.txt": {
+      "entries": 748,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
     },
     "KO_ItemsTxt.txt": {
       "entries": 6583,
@@ -127,6 +135,14 @@
       "missing_korean": [],
       "source_records": 921
     },
+    "KO_NPCProfessions.txt": {
+      "entries": 77,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
     "KO_NPCText.txt": {
       "entries": 2689,
       "format": "long",
@@ -175,6 +191,22 @@
       "missing_korean": [],
       "source_records": 73
     },
+    "KO_SpellsTxt.txt": {
+      "entries": 822,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
+    "KO_StatsDescriptions.tsv": {
+      "entries": 26,
+      "format": "inherited-base-game",
+      "korean_only": [],
+      "missing_files": [],
+      "missing_indexes": [],
+      "missing_korean": []
+    },
     "KO_StdItemsTxtNames.txt": {
       "entries": 25,
       "format": "long",
@@ -200,22 +232,26 @@
       "source_records": 270
     }
   },
+  "generated_korean_files": [
+    "KO_RuntimeOverrides.txt"
+  ],
   "korean_only_records": 0,
   "map_source_misses": 0,
   "missing_korean_records": 0,
-  "paired_files": 25,
-  "schema": 2,
+  "paired_files": 29,
+  "schema": 3,
   "source_only_files": [
     "LANG_Placemon.txt"
   ],
   "source_revision": "aea1b22666ef556f34a71b4f3945904b04de1466",
-  "translated": 23127,
-  "unmapped_korean_files": [
+  "special_entries_added": 1673,
+  "special_mapped_files": [
     "KO_GlobalTxt.txt",
     "KO_NPCProfessions.txt",
-    "KO_RuntimeOverrides.txt",
     "KO_SpellsTxt.txt",
     "KO_StatsDescriptions.tsv"
   ],
+  "translated": 24800,
+  "unmapped_korean_files": [],
   "untranslated": 0
 }
