@@ -264,21 +264,63 @@ def read_wide(text: str):
     )
 
 
-def write_wide(rows: list[list[str]], newline: str, trailing_newline: bool) -> str:
-    buf = io.StringIO(newline="")
-    writer = csv.writer(
-        buf,
-        delimiter="\t",
-        quotechar='"',
-        doublequote=True,
-        lineterminator=newline,
-        quoting=csv.QUOTE_MINIMAL,
-    )
-    writer.writerows(rows)
-    value = buf.getvalue()
-    if not trailing_newline:
-        value = value.rstrip("\r\n")
+def split_raw_tsv_record(line: str) -> list[str]:
+    fields = []
+    start = 0
+    in_quotes = False
+    i = 0
+    while i < len(line):
+        ch = line[i]
+        if ch == '"':
+            if in_quotes and i + 1 < len(line) and line[i + 1] == '"':
+                i += 2
+                continue
+            in_quotes = not in_quotes
+        elif ch == "\t" and not in_quotes:
+            fields.append(line[start:i])
+            start = i + 1
+        i += 1
+    if in_quotes:
+        raise ValueError("unterminated quoted TSV field")
+    fields.append(line[start:])
+    return fields
+
+
+def encode_wide_field_like(raw: str, value: str) -> str:
+    quoted = len(raw) >= 2 and raw.startswith('"') and raw.endswith('"')
+    if quoted or any(ch in value for ch in ('\t', '\r', '\n', '"')):
+        return '"' + value.replace('"', '""') + '"'
     return value
+
+
+def write_wide(rows: list[list[str]], doc: TextFile) -> str:
+    original_rows = read_wide(doc.text)
+    raw_lines = doc.text.splitlines()
+    if len(original_rows) != len(rows) or len(raw_lines) != len(rows):
+        raise ValueError(
+            "wide-table row count changed or contains embedded physical newlines; "
+            "refusing to reformat the whole legacy table"
+        )
+
+    output = []
+    for row_no, (original, desired, raw_line) in enumerate(
+            zip(original_rows, rows, raw_lines), 1):
+        raw_fields = split_raw_tsv_record(raw_line)
+        width = max(len(original), len(desired))
+        original = original + [""] * (width - len(original))
+        desired = desired + [""] * (width - len(desired))
+        raw_fields = raw_fields + [""] * (width - len(raw_fields))
+        if len(raw_fields) != width:
+            raise ValueError(f"wide-table raw field mismatch at row {row_no}")
+        for column, (before, after) in enumerate(zip(original, desired)):
+            if before != after:
+                raw_fields[column] = encode_wide_field_like(raw_fields[column], after)
+        output.append("\t".join(raw_fields))
+
+    result = doc.newline.join(output)
+    if doc.text.endswith(("\n", "\r")):
+        result += doc.newline
+    return result
 
 
 def parse_generic_wide_entries(entries: list[polib.POEntry]):
@@ -320,7 +362,7 @@ def build_npc_names(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, i
         raise ValueError(f"NPCNames PO keys missing from positional template: {missing[:5]}")
     if not changes:
         return doc.text, 0
-    return write_wide(rows, doc.newline, doc.text.endswith(("\n", "\r"))), changes
+    return write_wide(rows, doc), changes
 
 
 def build_generic_wide(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
@@ -360,7 +402,7 @@ def build_generic_wide(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str
         raise ValueError("not all wide PO entries were consumed")
     if not changes:
         return doc.text, 0
-    return write_wide(rows, doc.newline, doc.text.endswith(("\n", "\r"))), changes
+    return write_wide(rows, doc), changes
 
 
 def build_npc_professions(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
@@ -389,7 +431,7 @@ def build_npc_professions(doc: TextFile, entries: list[polib.POEntry]) -> tuple[
         raise ValueError(f"NPCProfessions ids missing from template: {missing[:5]}")
     if not changes:
         return doc.text, 0
-    return write_wide(rows, doc.newline, doc.text.endswith(("\n", "\r"))), changes
+    return write_wide(rows, doc), changes
 
 
 def build_stats(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
@@ -418,7 +460,7 @@ def build_stats(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
         raise ValueError(f"StatsDescription ids missing from template: {missing[:5]}")
     if not changes:
         return doc.text, 0
-    return write_wide(rows, doc.newline, doc.text.endswith(("\n", "\r"))), changes
+    return write_wide(rows, doc), changes
 
 
 def build_skilldes(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
@@ -459,7 +501,7 @@ def build_skilldes(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, in
         raise ValueError("not all Skilldes PO entries were consumed")
     if not changes:
         return doc.text, 0
-    return write_wide(rows, doc.newline, doc.text.endswith(("\n", "\r"))), changes
+    return write_wide(rows, doc), changes
 
 
 def build_map_strings(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
@@ -492,7 +534,7 @@ def build_map_strings(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str,
         raise ValueError(f"MapStrings keys missing from template: {missing[:5]}")
     if not changes:
         return doc.text, 0
-    return write_wide(rows, doc.newline, doc.text.endswith(("\n", "\r"))), changes
+    return write_wide(rows, doc), changes
 
 
 def materialize_file(name: str, source_path: Path, entries: list[polib.POEntry]) -> tuple[bytes, int]:
