@@ -1,0 +1,180 @@
+name: Migrate runtime-only houses into PO canonical data
+
+on:
+  push:
+    branches:
+      - i18n-runtime-cleanup
+    paths:
+      - .github/workflows/migrate-runtime-only-houses.yml
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependency
+        run: python -m pip install --disable-pip-version-check polib
+
+      - name: Promote tunnel house names into PO and canonical 2DEvents
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import polib
+
+          po_path = Path('translations/ko/mmmerge.po')
+          po = polib.pofile(str(po_path))
+          targets = {
+              45: '니혼 터널',
+              48: '이오폴로 가는 터널',
+          }
+          for record_id, korean in targets.items():
+              suffix = f'|id={record_id}|field=Name'
+              matches = [
+                  e for e in po
+                  if not e.obsolete
+                  and 'KO: Data/Text localization/KO_2DEvents.txt' in (e.comment or '')
+                  and (e.msgctxt or '').endswith(suffix)
+              ]
+              if len(matches) != 1:
+                  nearby = [
+                      (e.msgctxt, e.msgid, e.msgstr)
+                      for e in po
+                      if not e.obsolete
+                      and 'KO: Data/Text localization/KO_2DEvents.txt' in (e.comment or '')
+                      and f'|id={record_id}|' in (e.msgctxt or '')
+                  ]
+                  raise SystemExit(f'expected one KO_2DEvents Name entry for {record_id}, got {len(matches)}; nearby={nearby[:8]}')
+              entry = matches[0]
+              print(f'{record_id}: {entry.msgstr!r} -> {korean!r} ({entry.msgctxt})')
+              entry.msgstr = korean
+          po.save(str(po_path))
+
+          config = Path('config/runtime_override_keys.tsv')
+          lines = config.read_text(encoding='utf-8').splitlines()
+          kept = []
+          removed = []
+          for line in lines:
+              if line.startswith('Houses\t45\tName\t') or line.startswith('Houses\t48\tName\t'):
+                  removed.append(line)
+              else:
+                  kept.append(line)
+          if len(removed) != 2:
+              raise SystemExit(f'expected two runtime-only house rows, removed {removed!r}')
+          config.write_text('\n'.join(kept) + '\n', encoding='utf-8')
+          print('removed runtime-only rows:', removed)
+          PY
+
+          python tools/build_korean_from_po.py --write
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/validate_reported_localization_fixes.py .
+
+      - name: Verify house names and zero runtime-only overrides
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          python tools/audit_runtime_translation_ownership.py --json build/RUNTIME_TRANSLATION_OWNERSHIP.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          rows = {}
+          text = Path('Data/Text localization/KO_2DEvents.txt').read_bytes().decode('cp949')
+          for line in text.splitlines():
+              parts = line.split('\t')
+              if parts and parts[0].isdigit():
+                  rows[int(parts[0])] = parts
+          expected = {45: '니혼 터널', 48: '이오폴로 가는 터널'}
+          for i, value in expected.items():
+              got = rows.get(i, ['', ''])[1]
+              if got != value:
+                  raise SystemExit(f'KO_2DEvents[{i}].Name = {got!r}, expected {value!r}')
+
+          report = json.loads(Path('build/RUNTIME_TRANSLATION_OWNERSHIP.json').read_text(encoding='utf-8'))
+          print('runtime records:', report['runtime_override_records'])
+          print('canonical-backed:', report['runtime_override_duplicate_keys'])
+          print('runtime-only:', report['runtime_override_unique_keys'])
+          if report['runtime_override_records'] != 160:
+              raise SystemExit(f"expected 160 runtime overrides, got {report['runtime_override_records']}")
+          if report['runtime_override_unique_keys'] != 0:
+              raise SystemExit(f"runtime-only overrides remain: {report['runtime_override_unique_keys']}")
+          PY
+
+      - name: Generalize PO workflows to normal branches and refresh docs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          workflow_paths = [
+              Path('.github/workflows/sync-po-to-korean.yml'),
+              Path('.github/workflows/validate-po-catalog.yml'),
+              Path('.github/workflows/validate-po-roundtrip.yml'),
+              Path('.github/workflows/audit-runtime-translation-ownership.yml'),
+          ]
+          for path in workflow_paths:
+              text = path.read_text(encoding='utf-8')
+              old_main_bootstrap = "    branches:\n      - main\n      - po-localization-bootstrap\n"
+              old_bootstrap_only = "    branches:\n      - po-localization-bootstrap\n"
+              if old_main_bootstrap in text:
+                  text = text.replace(old_main_bootstrap, "    branches:\n      - '**'\n", 1)
+              elif old_bootstrap_only in text:
+                  text = text.replace(old_bootstrap_only, "    branches:\n      - '**'\n", 1)
+              else:
+                  raise SystemExit(f'expected legacy branch trigger not found in {path}')
+              path.write_text(text, encoding='utf-8', newline='')
+
+          docs = Path('docs/PO_WORKFLOW.md')
+          text = docs.read_text(encoding='utf-8')
+          text = text.replace(
+              "3. PO 변경을 커밋한다.\n4. `Sync Korean runtime sources from PO` workflow가 자동으로 다음 작업을 한다.\n",
+              "3. 작업 브랜치에 PO 변경을 커밋한다.\n4. `Sync Korean runtime sources from PO` workflow가 해당 브랜치에서 자동으로 다음 작업을 한다.\n",
+          )
+          text = text.replace(
+              "현재 runtime override는 162개이며:\n\n- canonical 번역에서 자동 생성: **160개**\n- 진짜 runtime-only: **2개**\n  - `Houses[45].Name` = `니혼 터널`\n  - `Houses[48].Name` = `이오폴로 가는 터널`\n",
+              "현재 runtime override는 **160개**이며 전부 canonical 번역에서 자동 생성된다.\n\n- canonical 번역에서 자동 생성: **160개**\n- runtime-only: **0개**\n\n기존 runtime-only였던 `Houses[45].Name` (`니혼 터널`)과\n`Houses[48].Name` (`이오폴로 가는 터널`)도 이제 `KO_2DEvents.txt`의\ncanonical Name 필드와 PO에서 관리한다.\n",
+          )
+          text = text.replace(
+              "- `Sync Korean runtime sources from PO`\n  - 정상적인 PO -> KO 생성 경로\n",
+              "- `Sync Korean runtime sources from PO`\n  - 모든 저장소 작업 브랜치에서 정상적인 PO -> KO 생성 경로\n  - PO 변경 뒤 생성된 KO/runtime projection을 같은 브랜치에 자동 커밋\n",
+          )
+          docs.write_text(text, encoding='utf-8', newline='')
+          PY
+
+          git diff --check
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            translations/ko/mmmerge.po \
+            config/runtime_override_keys.tsv \
+            'Data/Text localization/KO_2DEvents.txt' \
+            'Data/Text localization/KO_RuntimeOverrides.txt' \
+            .github/workflows/sync-po-to-korean.yml \
+            .github/workflows/validate-po-catalog.yml \
+            .github/workflows/validate-po-roundtrip.yml \
+            .github/workflows/audit-runtime-translation-ownership.yml \
+            docs/PO_WORKFLOW.md
+          git commit -m 'refactor(i18n): eliminate runtime-only house overrides'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
