@@ -12,6 +12,8 @@ on:
       - tools/augment_po_special_sources.py
       - tools/augment_po_skilldes_source.py
       - tools/po_catalog_stats.py
+      - tools/rebuild_runtime_overrides.py
+      - tools/rebuild_stats_skills_runtime.py
 
 permissions:
   contents: write
@@ -152,6 +154,16 @@ jobs:
             --po "translations/ko/mmmerge.po" \
             --report "translations/ko/PO_BOOTSTRAP_REPORT.json"
 
+      - name: Refresh generated runtime projections
+        if: steps.build_po.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --write
+          python tools/rebuild_stats_skills_runtime.py --check
+
       - name: Print pairing diagnostics
         if: always()
         shell: bash
@@ -200,22 +212,26 @@ jobs:
             --min-translated 5000 \
             --source-revision "$MM678_I18N_REV"
 
-      - name: Commit generated PO and reports
+      - name: Commit generated PO, reports, and runtime projections
         if: steps.build_po.outcome == 'success'
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "$(git status --porcelain -- translations/ko)" ]]; then
-            echo "Catalog is already up to date."
+          paths=(
+            'translations/ko/mmmerge.po'
+            'translations/ko/PO_BASELINE.json'
+            'translations/ko/PO_BOOTSTRAP_REPORT.json'
+            'Data/Text localization/KO_RuntimeOverrides.txt'
+            'Data/Text localization/KO_StatsSkillsRuntime.txt'
+          )
+          if [[ -z "$(git status --porcelain -- "${paths[@]}")" ]]; then
+            echo "Catalog and runtime projections are already up to date."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            translations/ko/mmmerge.po \
-            translations/ko/PO_BASELINE.json \
-            translations/ko/PO_BOOTSTRAP_REPORT.json
-          git commit -m "build(i18n): bootstrap Korean gettext catalog from text sources"
+          git add "${paths[@]}"
+          git commit -m "build(i18n): refresh Korean catalog and runtime projections"
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
           git push origin "HEAD:${GITHUB_REF_NAME}"
