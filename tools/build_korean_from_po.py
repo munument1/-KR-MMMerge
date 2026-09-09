@@ -134,6 +134,12 @@ def load_catalog(po_path: Path, expected_files: set[str]):
     return grouped
 
 
+def decode_field(raw: str) -> str:
+    if len(raw) >= 2 and raw.startswith('"') and raw.endswith('"'):
+        return raw[1:-1].replace('""', '"')
+    return raw
+
+
 def parse_long_semantics(text: str):
     lines = text.splitlines()
     if not lines:
@@ -154,9 +160,11 @@ def parse_long_semantics(text: str):
             key = (current_table, parts[1].strip(), parts[2].strip())
             if key in values:
                 raise ValueError(f"line {idx + 1}: duplicate key {key}")
-            values[key] = parts[3]
+            raw_value = parts[3]
+            quoted = len(raw_value) >= 2 and raw_value.startswith('"') and raw_value.endswith('"')
+            values[key] = decode_field(raw_value)
             order.append(key)
-            starts.append((idx, key, parts[:3]))
+            starts.append((idx, key, parts[:3], quoted))
             current_key = key
         elif line.strip():
             if current_key is None:
@@ -199,7 +207,7 @@ def build_long(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
         print(f"    {key}: template={old!r}")
         print(f"             PO={new!r}")
 
-    start_by_index = {idx: (key, prefix) for idx, key, prefix in starts}
+    start_by_index = {idx: (key, prefix, quoted) for idx, key, prefix, quoted in starts}
     start_indexes = sorted(start_by_index)
     next_start = {
         idx: (start_indexes[pos + 1] if pos + 1 < len(start_indexes) else len(lines))
@@ -215,7 +223,7 @@ def build_long(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
             i += 1
             continue
 
-        key, prefix = start
+        key, prefix, quoted = start
         end = next_start[i]
         if key not in desired:
             out.extend(lines[i:end])
@@ -224,6 +232,12 @@ def build_long(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
 
         value_lines = desired[key].split("\n")
         first = value_lines[0] if value_lines else ""
+        if quoted:
+            if len(value_lines) != 1:
+                raise ValueError(
+                    f"cannot safely rewrite quoted long-table record {key} as multiline text"
+                )
+            first = '"' + first.replace('"', '""') + '"'
         out.append("\t".join([*prefix, first]))
         out.extend(value_lines[1:])
 
