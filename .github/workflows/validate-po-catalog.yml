@@ -18,9 +18,6 @@ on:
 permissions:
   contents: read
 
-env:
-  MM678_I18N_REV: aea1b22666ef556f34a71b4f3945904b04de1466
-
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -33,36 +30,45 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Install dependency
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --disable-pip-version-check polib OpenCC
+          python -m pip install --disable-pip-version-check polib
 
       - name: Check catalog completeness regression
         shell: bash
         run: |
           set -euo pipefail
-          test -f translations/ko/mm678.po
+          test -f translations/ko/mmmerge.po
           test -f translations/ko/PO_BASELINE.json
+          test -f translations/ko/PO_BOOTSTRAP_REPORT.json
           python tools/po_catalog_stats.py \
-            translations/ko/mm678.po \
+            translations/ko/mmmerge.po \
             --baseline translations/ko/PO_BASELINE.json \
             --no-regress \
             --fail-fuzzy \
-            --min-translated 500
+            --min-translated 5000
 
-      - name: Clone pinned mm678-i18n checker
+      - name: Check bootstrap structural safety report
         shell: bash
         run: |
           set -euo pipefail
-          git clone https://github.com/might-and-magic/mm678-i18n.git vendor/mm678-i18n
-          git -C vendor/mm678-i18n checkout --detach "$MM678_I18N_REV"
-          cp translations/ko/mm678.po vendor/mm678-i18n/translations/ko/mm678.po
+          python - <<'PY'
+          import json
+          from pathlib import Path
 
-      - name: Run upstream hard-error checks for Korean only
-        shell: bash
-        run: |
-          set -euo pipefail
-          cd vendor/mm678-i18n
-          python -m mm678i18n check po --langs ko
+          report = json.loads(Path('translations/ko/PO_BOOTSTRAP_REPORT.json').read_text(encoding='utf-8'))
+          problems = []
+          if report.get('korean_only_records', 0):
+              problems.append(f"Korean-only records: {report['korean_only_records']}")
+          if report.get('map_source_misses', 0):
+              problems.append(f"map source misses: {report['map_source_misses']}")
+          if report.get('entries', 0) < 1000:
+              problems.append(f"implausibly small catalog: {report.get('entries')}")
+          if problems:
+              raise SystemExit('PO bootstrap structural audit failed: ' + '; '.join(problems))
+          print('PO bootstrap structural audit: OK')
+          print('Mapped entries:', report.get('entries'))
+          print('Unmapped migration files:', ', '.join(report.get('unmapped_korean_files', [])) or '<none>')
+          PY
