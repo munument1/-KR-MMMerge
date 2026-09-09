@@ -7,8 +7,8 @@ on:
       - main
       - po-localization-bootstrap
     paths:
-      - translations/ko/mmmerge.po
-      - translations/ko/PO_BOOTSTRAP_REPORT.json
+      # PO pushes are materialized and round-trip checked by sync-po-to-korean.yml.
+      # This standalone push gate watches generated/source structure changes.
       - tools/build_korean_from_po.py
       - 'Data/Text localization/KO_*.txt'
       - 'Data/Text localization/KO_*.tsv'
