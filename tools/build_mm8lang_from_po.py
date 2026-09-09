@@ -20,21 +20,27 @@ def placeholders(value: str) -> tuple[str, ...]:
     return tuple(PLACEHOLDER_RE.findall(value.replace("%%", "")))
 
 
-def read_text(path: Path) -> tuple[str, bool, str]:
+def read_text(path: Path) -> tuple[str, str, bool, str]:
     data = path.read_bytes()
     bom = data.startswith(b"\xef\xbb\xbf")
-    if bom:
-        data = data[3:]
-    text = data.decode("utf-8")
+    payload = data[3:] if bom else data
+    encoding = "utf-8"
+    try:
+        text = payload.decode("utf-8")
+    except UnicodeDecodeError:
+        if bom:
+            raise ValueError(f"UTF-8 BOM file is not valid UTF-8: {path}")
+        encoding = "cp949"
+        text = payload.decode("cp949")
     crlf = text.count("\r\n")
     bare_lf = text.count("\n") - crlf
     newline = "\r\n" if crlf > bare_lf else "\n"
-    return text, bom, newline
+    return text, encoding, bom, newline
 
 
-def encode_text(text: str, bom: bool) -> bytes:
-    data = text.encode("utf-8")
-    return (b"\xef\xbb\xbf" + data) if bom else data
+def encode_text(text: str, encoding: str, bom: bool) -> bytes:
+    data = text.encode(encoding)
+    return (b"\xef\xbb\xbf" + data) if bom and encoding == "utf-8" else data
 
 
 def load_entries(po_path: Path) -> dict[tuple[str, str], polib.POEntry]:
@@ -61,8 +67,8 @@ def load_entries(po_path: Path) -> dict[tuple[str, str], polib.POEntry]:
     return out
 
 
-def materialize(source: Path, entries: dict[tuple[str, str], polib.POEntry]) -> tuple[bytes, int, int]:
-    text, bom, newline = read_text(source)
+def materialize(source: Path, entries: dict[tuple[str, str], polib.POEntry]) -> tuple[bytes, int, int, str]:
+    text, encoding, bom, newline = read_text(source)
     trailing = text.endswith(("\n", "\r"))
     lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
     if trailing and lines and lines[-1] == "":
@@ -100,7 +106,7 @@ def materialize(source: Path, entries: dict[tuple[str, str], polib.POEntry]) -> 
     result = newline.join(output)
     if trailing:
         result += newline
-    return encode_text(result, bom), changes, len(used)
+    return encode_text(result, encoding, bom), changes, len(used), encoding
 
 
 def main() -> int:
@@ -118,7 +124,7 @@ def main() -> int:
         raise SystemExit("provide --output or --write")
 
     entries = load_entries(args.po)
-    output, changes, applied = materialize(args.source, entries)
+    output, changes, applied, encoding = materialize(args.source, entries)
     original = args.source.read_bytes()
     drift = output != original
 
@@ -136,6 +142,7 @@ def main() -> int:
 
     print("PO -> mm8lang.ini materialization")
     print(f"  PO entries applied: {applied}")
+    print(f"  source encoding:    {encoding}")
     print(f"  text values changed: {changes}")
     print(f"  byte drift:          {drift}")
     return 0
