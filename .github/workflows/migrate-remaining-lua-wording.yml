@@ -50,6 +50,33 @@ jobs:
               raise SystemExit('replacement helper signature changed unexpectedly')
           PY
 
+      - name: Normalize Lua migration inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          paths = [
+              Path('Scripts/General/ZZ_KoreanReportedLocalization.lua'),
+              Path('Scripts/General/KoreanHistory.lua'),
+              Path('Scripts/General/ZZ_KoreanLocalizationValidator.lua'),
+              Path('Scripts/General/LocalizeTables.lua'),
+              Path('Scripts/Maps/out01.lua'),
+          ]
+          for p in paths:
+              data = p.read_bytes()
+              try:
+                  text = data.decode('utf-8-sig')
+                  encoding = 'utf-8'
+              except UnicodeDecodeError:
+                  text = data.decode('cp949')
+                  encoding = 'cp949'
+              normalized = text.replace('\r\n', '\n').replace('\r', '\n')
+              p.write_bytes(normalized.encode(encoding))
+              print('normalized:', p)
+          PY
+
       - name: Migrate wording ownership
         shell: bash
         run: |
