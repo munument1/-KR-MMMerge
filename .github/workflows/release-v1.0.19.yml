@@ -62,7 +62,7 @@ jobs:
         run: |
           set -euo pipefail
           python tools/validate_native_dbcs_integration.py .
-          python tools/validate_korean_history_encoding.py .
+          python tools/validate_korean_history_encoding.py
           python tools/validate_reported_localization_fixes.py .
           python tools/validate_report_65949.py .
           python tools/validate_report_65949_followup.py .
