@@ -32,8 +32,18 @@ TRANSLATABLE_KEYS = (
 PLACEHOLDER_RE = re.compile(r"%(?:\d+\$)?[sd]")
 
 
+def decode_text(path: Path) -> tuple[str, str]:
+    data = path.read_bytes()
+    for encoding in ("utf-8-sig", "cp949"):
+        try:
+            return data.decode(encoding), encoding
+        except UnicodeDecodeError:
+            pass
+    raise SystemExit(f"cannot decode mm8lang source as UTF-8 or CP949: {path}")
+
+
 def read_settings(path: Path) -> dict[str, str]:
-    text = path.read_bytes().decode("utf-8-sig")
+    text, _encoding = decode_text(path)
     section = ""
     values: dict[str, str] = {}
     for raw in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
