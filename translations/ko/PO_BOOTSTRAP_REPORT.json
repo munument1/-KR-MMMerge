@@ -107,10 +107,8 @@
       "entries": 850,
       "format": "wide",
       "korean_only": [],
-      "korean_records": 539,
-      "missing_korean": [
-        "539:Male"
-      ],
+      "korean_records": 540,
+      "missing_korean": [],
       "source_records": 540
     },
     "KO_NPCNews.txt": {
@@ -204,14 +202,14 @@
   },
   "korean_only_records": 0,
   "map_source_misses": 0,
-  "missing_korean_records": 1,
+  "missing_korean_records": 0,
   "paired_files": 25,
   "schema": 2,
   "source_only_files": [
     "LANG_Placemon.txt"
   ],
   "source_revision": "aea1b22666ef556f34a71b4f3945904b04de1466",
-  "translated": 23126,
+  "translated": 23127,
   "unmapped_korean_files": [
     "KO_GlobalTxt.txt",
     "KO_NPCProfessions.txt",
@@ -219,5 +217,5 @@
     "KO_SpellsTxt.txt",
     "KO_StatsDescriptions.tsv"
   ],
-  "untranslated": 1
+  "untranslated": 0
 }

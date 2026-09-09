@@ -4,8 +4,8 @@
   "language": "ko",
   "obsolete": 0,
   "replacement_chars": 0,
-  "reviewed_percent": 99.996,
-  "reviewed_translated": 23126,
+  "reviewed_percent": 100.0,
+  "reviewed_translated": 23127,
   "schema": 1,
   "source_revision": "aea1b22666ef556f34a71b4f3945904b04de1466",
   "top_contexts": [
@@ -91,6 +91,6 @@
     ]
   ],
   "total": 23127,
-  "translated_raw": 23126,
-  "untranslated": 1
+  "translated_raw": 23127,
+  "untranslated": 0
 }

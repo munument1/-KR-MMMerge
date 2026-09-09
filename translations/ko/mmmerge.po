@@ -95530,7 +95530,7 @@ msgstr "조렉스"
 #. KO: Data/Text localization/KO_NPCNames.txt
 msgctxt "mmmerge/Text localization/LANG_NPCNames.txt|id=539|field=Male"
 msgid "Zyggie"
-msgstr ""
+msgstr "지기"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNames.txt
 #. KO: Data/Text localization/KO_NPCNames.txt
