@@ -189,9 +189,15 @@ def build_long(doc: TextFile, entries: list[polib.POEntry]) -> tuple[str, int]:
     if missing:
         raise ValueError(f"PO contains long-table keys missing from template: {missing[:5]}")
 
-    changes = sum(1 for key, value in desired.items() if current[key] != value)
+    differing = [(key, current[key], value) for key, value in desired.items() if current[key] != value]
+    changes = len(differing)
     if not changes:
         return doc.text, 0
+
+    print(f"  long-table PO/template drift cells: {changes}")
+    for key, old, new in differing[:5]:
+        print(f"    {key}: template={old!r}")
+        print(f"             PO={new!r}")
 
     start_by_index = {idx: (key, prefix) for idx, key, prefix in starts}
     start_indexes = sorted(start_by_index)
