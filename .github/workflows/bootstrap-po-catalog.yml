@@ -73,6 +73,54 @@ jobs:
           print('normalized Korean source files:', counts)
           PY
 
+      - name: Add positional ids to ordered source tables
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv
+          import io
+          from pathlib import Path
+
+          english = Path('vendor/mm678-i18n/source/en/mmmerge/Data/Text localization')
+          korean = Path('build/po-korean-source')
+
+          def read(path):
+              data = path.read_bytes()
+              try:
+                  text = data.decode('utf-8-sig')
+              except UnicodeDecodeError:
+                  text = data.decode('cp1252')
+              return list(csv.reader(io.StringIO(text, newline=''), delimiter='\t', quotechar='"', doublequote=True))
+
+          def write(path, rows):
+              out = io.StringIO(newline='')
+              writer = csv.writer(out, delimiter='\t', quotechar='"', doublequote=True, lineterminator='\n')
+              writer.writerows(rows)
+              path.write_text(out.getvalue(), encoding='utf-8', newline='')
+
+          converted = []
+          for en_path in sorted(english.glob('LANG_*.txt')):
+              ko_path = korean / ('KO_' + en_path.name[5:])
+              if not ko_path.is_file():
+                  continue
+              en_rows = read(en_path)
+              ko_rows = read(ko_path)
+              if not en_rows or not ko_rows:
+                  continue
+              head = [x.strip().casefold() for x in en_rows[0]]
+              is_long = len(head) >= 4 and head[:4] == ['table (of game struct)', 'id', 'field', 'new text']
+              has_id = bool(head) and head[0] in {'id', '#', '2d#', '__rowid'}
+              if is_long or has_id:
+                  continue
+              en_rows = [['__RowId', *en_rows[0]]] + [[str(i), *row] for i, row in enumerate(en_rows[1:])]
+              ko_rows = [['__RowId', *ko_rows[0]]] + [[str(i), *row] for i, row in enumerate(ko_rows[1:])]
+              write(en_path, en_rows)
+              write(ko_path, ko_rows)
+              converted.append(en_path.name)
+          print('ordered tables given positional ids:', converted)
+          PY
+
       - name: Build PO from English source and this patch's Korean text
         shell: bash
         run: |
