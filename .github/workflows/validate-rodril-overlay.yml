@@ -1,0 +1,36 @@
+name: Validate Rodril overlay boundary
+
+on:
+  pull_request:
+    paths:
+      - 'Scripts/**'
+      - 'UPSTREAM_BASELINE.md'
+      - 'tools/validate_rodril_overlay_boundary.py'
+      - '.github/workflows/validate-rodril-overlay.yml'
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'Scripts/**'
+      - 'UPSTREAM_BASELINE.md'
+      - 'tools/validate_rodril_overlay_boundary.py'
+      - '.github/workflows/validate-rodril-overlay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check Korean overlay boundary
+        run: python tools/validate_rodril_overlay_boundary.py
