@@ -40,66 +40,108 @@ def contains_encoded(data: bytes, text: str) -> bool:
     return any(encoded in data for encoded in encodings)
 
 
-overrides = overrides_path.read_text(encoding="utf-8-sig")
+def decode_field(raw: str) -> str:
+    if len(raw) >= 2 and raw.startswith('"') and raw.endswith('"'):
+        return raw[1:-1].replace('""', '"')
+    return raw
+
+
+def parse_long_overlay(text: str) -> dict[tuple[str, int, str], str]:
+    records: dict[tuple[str, int, str], str] = {}
+    current_table = ""
+    current_key: tuple[str, int, str] | None = None
+
+    for line_no, line in enumerate(text.splitlines()[1:], 2):
+        parts = line.split("\t", 3)
+        if len(parts) >= 4 and parts[1].strip().isdigit():
+            if parts[0].strip():
+                current_table = parts[0].strip()
+            if not current_table:
+                raise SystemExit(f"runtime override line {line_no} has no table owner")
+            key = (current_table, int(parts[1].strip()), parts[2].strip())
+            if key in records:
+                raise SystemExit(f"duplicate runtime override key: {key}")
+            records[key] = decode_field(parts[3])
+            current_key = key
+        elif line.strip():
+            if current_key is None:
+                raise SystemExit(f"orphan runtime override continuation at line {line_no}")
+            records[current_key] += "\n" + line
+
+    return records
+
+
+overrides_text = read_legacy_text(overrides_path)
+overrides = parse_long_overlay(overrides_text)
 ui = ui_path.read_text(encoding="utf-8-sig")
 history = read_legacy_text(history_path)
 
-required_override_fragments = [
-    "ItemsTxt\t200\tNotes\t연금술적 성질을 지닌 재료인 위도우스위프 열매",
-    "\t201\tNotes\t연금술적 성질을 지닌 재료인 늑대의 눈",
-    "\t263\tNotes\t마법이 없는 무기에 \"드래곤 사냥의 힘\" 효과를 부여합니다. (사용하려면",
-    "\t518\tNotes\t(민첩성 +30, 공격 회복 속도 증가, 수면 면역)",
-    "\t988\tNotes\t안타개릭산에서 채취한 수정입니다.",
-    "\t1006\tNotes\t특이한 성질을 지닌 마법의 재료. 드래곤의 눈은 붉은 물약을 만드는 데 사용할 수 있습니다.",
-    "\t1012\tName\t양귀비꽃",
-    "\t1015\tNotes\t특이한 성질을 지닌 마법의 재료. 석류석은",
-    "\t1762\tName\t양귀비꽃",
-    "\t1764\tName\t위도우스위프 열매",
-    "NPCDataTxt\t340\tName\t마크햄 경",
-    "MapStats\t92\tName\t마크햄 경의 저택",
-    "안타개릭, 제이덤은 모두 평안을 되찾을 것입니다.",
-]
+# Player-reported fixes are now canonical-source-backed and projected into
+# KO_RuntimeOverrides by tools/rebuild_runtime_overrides.py. Validate by stable
+# table/id/field instead of depending on the old shorthand physical line format.
+required_overrides: dict[tuple[str, int, str], str] = {
+    ("ItemsTxt", 200, "Notes"): "연금술적 성질을 지닌 재료인 위도우스위프 열매",
+    ("ItemsTxt", 201, "Notes"): "연금술적 성질을 지닌 재료인 늑대의 눈",
+    ("ItemsTxt", 263, "Notes"): "마법이 없는 무기에 \"드래곤 사냥의 힘\" 효과를 부여합니다. (사용하려면",
+    ("ItemsTxt", 518, "Notes"): "(민첩성 +30, 공격 회복 속도 증가, 수면 면역)",
+    ("ItemsTxt", 988, "Notes"): "안타개릭산에서 채취한 수정입니다.",
+    ("ItemsTxt", 1006, "Notes"): "특이한 성질을 지닌 마법의 재료. 드래곤의 눈은 붉은 물약을 만드는 데 사용할 수 있습니다.",
+    ("ItemsTxt", 1012, "Name"): "양귀비꽃",
+    ("ItemsTxt", 1015, "Notes"): "특이한 성질을 지닌 마법의 재료. 석류석은",
+    ("ItemsTxt", 1762, "Name"): "양귀비꽃",
+    ("ItemsTxt", 1764, "Name"): "위도우스위프 열매",
+    ("NPCDataTxt", 340, "Name"): "마크햄 경",
+    ("MapStats", 92, "Name"): "마크햄 경의 저택",
+}
 
-for fragment in required_override_fragments:
-    if fragment not in overrides:
-        raise SystemExit(f"missing reported-fix override: {fragment!r}")
+for key, expected in required_overrides.items():
+    actual = overrides.get(key)
+    if actual is None:
+        raise SystemExit(f"missing reported-fix runtime projection: {key}")
+    if expected not in actual:
+        raise SystemExit(
+            f"reported-fix runtime projection drift: {key}: expected {expected!r}, got {actual!r}"
+        )
 
-# ZZ_KoreanReportedLocalization.lua is loaded by Lua as source text, while the
-# v1.0.15+ native renderer consumes EUC-KR game bytes. Player reports proved
-# that raw UTF-8 Hangul literals become mojibake and can reach unsafe tooltip
-# paths. Keep this targeted runtime file ASCII-only and express Korean strings
-# through Lua decimal byte escapes.
+if not any("안타개릭, 제이덤은 모두 평안을 되찾을 것입니다." in value for value in overrides.values()):
+    raise SystemExit("missing reported-fix ending wording in runtime projection")
+
+# This runtime file intentionally retains only dynamic CustomUI text as decimal
+# EUC-KR byte escapes. Canonical GlobalTxt/history/hireling wording must not be
+# copied back into Lua as a second translation owner.
 if not ui.isascii():
     raise SystemExit("ZZ_KoreanReportedLocalization.lua contains raw non-ASCII runtime text")
 
 required_ui_fragments = [
+    "local UI_TEXT = {",
     '["Free class / portrait combinations are allowed now."]',
     '["Free class / portrait combinations are disabled now."]',
     '["Interface settings"]',
     '["General settings"]',
     '["Bolster multipliers"]',
     '["Keybinds"]',
-    'Title = "\\192\\250\\192\\218\\192\\199 \\188\\173\\185\\174"',
-    "continent == 2",
     '{Text = "M&M 8"',
     '{Text = "M&M 7"',
     '{Text = "M&M 6"',
     "Layer = 0",
-    "NPCText = 2324",
-    "NPCText = 2333",
-    "NPCText = 2334",
+    "local HIRELING_LEARNING_DESCRIPTIONS = {",
+    "[4] = 2324",
+    "[13] = 2333",
+    "[14] = 2334",
     "Game.NPCProf[profession].Description = localized",
-    "local EXPERIENCE_TEXT = {",
-    '[17] = "\\176\\230\\199\\232\\196\\161"',
-    '[83] = "\\176\\230\\199\\232\\196\\161"',
-    "[537] =",
-    "[538] =",
-    "applyExperienceTextSafety()",
 ]
-
 for fragment in required_ui_fragments:
     if fragment not in ui:
-        raise SystemExit(f"missing UI/history hotfix contract: {fragment!r}")
+        raise SystemExit(f"missing current UI/runtime hotfix contract: {fragment!r}")
+
+for forbidden in (
+    "local EXPERIENCE_TEXT = {",
+    "applyExperienceTextSafety",
+    "local MM7_INTRO",
+    "applyMM7Intro",
+):
+    if forbidden in ui:
+        raise SystemExit(f"obsolete duplicate translation ownership returned to Lua: {forbidden!r}")
 
 if not history.startswith("#\tText\tTime\tPage Title\n1\t마크햄 경은"):
     raise SystemExit("MM7 history source no longer starts with the translated Markham foreword")
