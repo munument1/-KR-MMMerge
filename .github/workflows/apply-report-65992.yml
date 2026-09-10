@@ -1,0 +1,123 @@
+name: Apply player report 65992 corrections
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/apply-report-65992.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check polib
+
+      - name: Apply report 65992 to canonical PO
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/apply_report_65992_po_fixes.py translations/ko/mmmerge.po
+
+      - name: Materialize and validate Korean runtime sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress --fail-fuzzy --min-translated 25051
+          python tools/build_korean_from_po.py --write
+          python tools/build_mm8lang_from_po.py --write
+          python tools/rebuild_runtime_overrides.py --write
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --write
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/report-65992-runtime-ownership.json
+          python tools/audit_lua_korean_literals.py --json build/report-65992-lua-literals.json
+          python tools/validate_reported_localization_fixes.py .
+          rm -rf build/report-65992-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/report-65992-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/report-65992-mm8lang.ini \
+            --require-byte-identical
+
+      - name: Validate report-specific materialized wording
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          def text(name):
+              data = Path('Data/Text localization', name).read_bytes()
+              for enc in ('utf-8-sig', 'cp949'):
+                  try:
+                      return data.decode(enc)
+                  except UnicodeDecodeError:
+                      pass
+              raise SystemExit(f'cannot decode {name}')
+
+          items = text('KO_ItemsTxt.txt')
+          skills = text('KO_Skilldes.txt')
+          stats = text('KO_StatsDescriptions.tsv')
+          classes = text('KO_ClassDescriptions.txt')
+
+          required_items = [
+              '침묵의 시대 12년 전에',
+              '피낙시아 제국 확장기에 피낙시아 용기병',
+              '1306\t총독의 갑옷',
+              '냉기 피해 9-12',
+              '방패 주문 상시 유지',
+              '돌가죽 주문 상시 유지',
+          ]
+          for needle in required_items:
+              assert needle in items, needle
+
+          for stale in ('피낙스 제국', '피낙스 용기병', '물 속성 피해 9-12'):
+              assert stale not in items, stale
+
+          assert '스킬' not in skills
+          assert '스킬' not in stats
+          for stale in ('(AC)', '(HP)', '(SP)', '(딜레이)', '(Glamour)', '(Lifedrain)', '(Breath Weapon)'):
+              assert stale not in skills, stale
+          assert '방패 주문 상시 유지' in skills
+          assert '성직자 마법' in classes
+          assert '빛과 어둠으로 이루어진 거울의 길' in classes
+          assert '강력한 빛 마법을 사용할 수 있는 유일한 직업입니다.' not in classes
+          assert '강력한 어둠 마법을 사용할 수 있는 유일한 직업입니다.' not in classes
+          print('report 65992 materialized wording: OK')
+          PY
+
+      - name: Commit canonical and generated changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$(git status --porcelain -- translations/ko/mmmerge.po 'Data/Text localization' mm8lang.ini)" ]]; then
+            echo 'Report 65992 corrections are already materialized.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add translations/ko/mmmerge.po 'Data/Text localization' mm8lang.ini
+          git commit -m 'fix(i18n): apply player report 65992 corrections'
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
