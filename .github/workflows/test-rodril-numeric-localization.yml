@@ -1,0 +1,39 @@
+name: Test Rodril numeric localization
+
+on:
+  pull_request:
+    paths:
+      - Scripts/General/ZZZZZ_KoreanRodrilNumericLocalization.lua
+      - tools/test_korean_rodril_numeric_localization.lua
+      - .github/workflows/test-rodril-numeric-localization.yml
+  push:
+    branches:
+      - main
+    paths:
+      - Scripts/General/ZZZZZ_KoreanRodrilNumericLocalization.lua
+      - tools/test_korean_rodril_numeric_localization.lua
+      - .github/workflows/test-rodril-numeric-localization.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Lua 5.1
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Lua syntax
+        run: |
+          luac5.1 -p Scripts/General/ZZZZZ_KoreanRodrilNumericLocalization.lua
+          luac5.1 -p tools/test_korean_rodril_numeric_localization.lua
+
+      - name: NPC hiring numeric localization regression
+        run: lua5.1 tools/test_korean_rodril_numeric_localization.lua
