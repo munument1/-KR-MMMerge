@@ -28,6 +28,17 @@ jobs:
             --lod "Data/zz LocKO.T.lod" \
             --output /tmp/LocKO-reported-patched.lod
           mv /tmp/LocKO-reported-patched.lod "Data/zz LocKO.T.lod"
+
+          # StatsDescriptions is maintained by its canonical TSV rather than by
+          # the generic reported-term byte substitutions. Keep the same LOD in
+          # sync here so a PO-generated stats wording change cannot leave this
+          # workflow checking a stale stats.txt member.
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --output /tmp/LocKO-stats-patched.lod
+          mv /tmp/LocKO-stats-patched.lod "Data/zz LocKO.T.lod"
+
           python tools/patch_reported_terms_lod.py \
             --lod "Data/zz LocKO.T.lod" \
             --check
@@ -41,11 +52,13 @@ jobs:
         run: |
           set -euo pipefail
           if git diff --quiet -- "Data/zz LocKO.T.lod"; then
-            echo "Reported terminology is already current in the Korean LOD."
+            echo "Reported terminology and stats are already current in the Korean LOD."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -- "Data/zz LocKO.T.lod"
           git commit -m "fix(korean): propagate reported terminology into localization LOD"
-          git push
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
