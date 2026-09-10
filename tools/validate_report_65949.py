@@ -79,7 +79,7 @@ assert "피격 회복 속도 증가" in note(rows, 2027) and "휘청이는 시�
 assert "생명력 지속 감소" in note(rows, 2035) and "재생력 +10" not in note(rows, 2035)
 assert "가까운 크로노스" in note(rows, 2038)
 assert "아르테미스" in note(rows, 2040) and "아르테무스" not in note(rows, 2040)
-assert "석화 면역, 방패 주문 효과 상시 유지, 운 +20, 민첩성 -20" in note(rows, 2043)
+assert "석화 면역, 방패 주문 상시 유지, 운 +20, 민첩성 -20" in note(rows, 2043)
 assert "아름다운 반지" in note(rows, 2047) and "불운의 저주" in note(rows, 2047)
 assert "이 목걸이를 착용하는 동안" in note(rows, 2049)
 assert "(모든 능력치 +10," in note(rows, 507)
