@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Patch player-reported Korean terminology directly inside LocKO.T.lod.
 
-The archive already contains DBCS-special encoded Korean.  Replace only exact
+The archive already contains DBCS-special encoded Korean. Replace only exact
 encoded byte sequences, preserving every unrelated byte, member order, and the
-original compression state.  The operation is idempotent so CI can safely run
-it again after the binary archive has already been updated.
+original compression state. Global legacy corrections remain archive-wide;
+newer report corrections are scoped to the exact text-table member that owns
+them. The operation is idempotent so CI can safely run it again.
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ from pathlib import Path
 
 from patch_static_stats_lod import encode_dbcs_special
 
+# Historical corrections that were intentionally archive-wide.
 REPLACEMENTS = [
     ("안타가리찬 산", "안타개릭산"),
     ("안타가리찬산", "안타개릭산"),
@@ -35,6 +37,62 @@ REPLACEMENTS = [
     ("늑대 눈을", "늑대의 눈을"),
     ("(이동 속도 +30", "(속도 +30"),
 ]
+
+# Report 65992 corrections. Scope these to the actual LOD member so a generic
+# Korean word such as "스킬" is never rewritten in unrelated dialogue/lore.
+MEMBER_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
+    "items.txt": [
+        ("대침묵의 사건 12년 전에", "침묵의 시대 12년 전에"),
+        ("패디쉬 총독", "파디쉬 총독"),
+        ("피낙스 제국", "피낙시아 제국"),
+        ("피낙스 용기병", "피낙시아 용기병"),
+        ("원거리 공격 피해 절반", "방패 주문 상시 유지"),
+        ("물 속성 피해 9-12", "냉기 피해 9-12"),
+        ("방패 주문 효과 상시 유지", "방패 주문 상시 유지"),
+        (
+            "(특수 능력: 모든 저항력 +10, 생명력 +25)",
+            "(특수 능력: 방패 주문 상시 유지, 돌가죽 주문 상시 유지, 생명력 +25)",
+        ),
+    ],
+    "skilldes.txt": [
+        ("방어력(AC)", "방어력"),
+        ("공격 회복 시간(딜레이)", "공격 회복 시간"),
+        ("최대 생명력(HP)", "최대 생명력"),
+        ("최대 주문력(SP)", "최대 주문력"),
+        ("방패 주문 효과 자동 부여", "방패 주문 상시 유지"),
+        ("매혹(Glamour)", "매혹"),
+        ("여행자의 축복(Travelers' Boon)", "여행자의 축복"),
+        ("실명(Blind)", "실명"),
+        ("암흑 화염(Darkfire Bolt)", "암흑 화염"),
+        ("생명력 흡수(Lifedrain)", "생명력 흡수"),
+        ("공중 부양(Levitate)", "공중 부양"),
+        ("유혹(Charm)", "유혹"),
+        ("안개 형태(Mistform)", "안개 형태"),
+        ("공포(Fear)", "공포"),
+        ("폭발성 브레스(Breath Weapon)", "폭발성 브레스"),
+        ("비행(Flight)", "비행"),
+        ("날개 치기(Wing Buffet)", "날개 치기"),
+        ("스킬", "기술"),
+        ("(+기술당 ", "(+기술 레벨당 "),
+    ],
+    "class.txt": [
+        (
+            "강력한 빛 마법을 사용할 수 있는 유일한 직업입니다.",
+            "강력한 빛 마법도 사용할 수 있습니다.",
+        ),
+        ("성직 마법", "성직자 마법"),
+        (
+            "빛과 어둠으로 갈라지는 거울의 길에도 접근할 수 있습니다.",
+            "빛과 어둠으로 이루어진 거울의 길에도 접근할 수 있습니다.",
+        ),
+        (
+            "강력한 어둠 마법을 사용할 수 있는 유일한 직업입니다.",
+            "강력한 어둠 마법도 사용할 수 있습니다.",
+        ),
+    ],
+}
+
+REQUIRED_MEMBERS = set(MEMBER_REPLACEMENTS)
 
 
 def encoded(text: str) -> bytes:
@@ -89,9 +147,13 @@ def build_record(original: bytes, raw: bytes, compressed: bool) -> bytes:
     return bytes(header) + payload
 
 
-def patch_payload(raw: bytes) -> tuple[bytes, int]:
+def replacements_for_member(name: str) -> list[tuple[str, str]]:
+    return REPLACEMENTS + MEMBER_REPLACEMENTS.get(name.casefold(), [])
+
+
+def patch_payload(raw: bytes, replacements: list[tuple[str, str]]) -> tuple[bytes, int]:
     count = 0
-    for old, new in REPLACEMENTS:
+    for old, new in replacements:
         old_bytes = encoded(old)
         occurrences = raw.count(old_bytes)
         if occurrences:
@@ -107,14 +169,18 @@ def patch_lod(source: Path, output: Path) -> tuple[int, dict[str, int]]:
     cursor = directory_end - root_offset
     rebuilt: list[bytes] = []
     reports: dict[str, int] = {}
+    seen_members: set[str] = set()
 
     for index, (name, offset, size) in enumerate(entries):
+        folded = name.casefold()
+        if folded in REQUIRED_MEMBERS:
+            seen_members.add(folded)
         absolute = root_offset + offset
         record = archive[absolute:absolute + size]
         if len(record) != size:
             raise ValueError(f"LOD member {name} is truncated")
         raw, compressed = unpack_record(record)
-        patched, count = patch_payload(raw)
+        patched, count = patch_payload(raw, replacements_for_member(name))
         if count:
             record = build_record(record, patched, compressed)
             reports[name] = count
@@ -123,6 +189,10 @@ def patch_lod(source: Path, output: Path) -> tuple[int, dict[str, int]]:
         struct.pack_into("<III", directory, pos, cursor, len(record), 0)
         rebuilt.append(record)
         cursor += len(record)
+
+    missing = sorted(REQUIRED_MEMBERS - seen_members)
+    if missing:
+        raise ValueError(f"required localization LOD members missing: {missing}")
 
     result = bytearray(archive[:root_offset]) + directory + b"".join(rebuilt)
     struct.pack_into("<I", result, 0x114, len(result) - root_offset)
@@ -135,12 +205,20 @@ def check_lod(path: Path) -> None:
     archive = path.read_bytes()
     root_offset, _directory, entries = archive_entries(archive)
     violations: list[str] = []
+    seen_members: set[str] = set()
     for name, offset, size in entries:
+        folded = name.casefold()
+        if folded in REQUIRED_MEMBERS:
+            seen_members.add(folded)
         record = archive[root_offset + offset:root_offset + offset + size]
         raw, _compressed = unpack_record(record)
-        for old, _new in REPLACEMENTS:
+        for old, _new in replacements_for_member(name):
             if encoded(old) in raw:
                 violations.append(f"{name}: {old}")
+
+    missing = sorted(REQUIRED_MEMBERS - seen_members)
+    if missing:
+        violations.append(f"missing required members: {missing}")
     if violations:
         raise SystemExit("stale reported terms remain in LOD:\n" + "\n".join(violations))
 
