@@ -1,0 +1,97 @@
+name: Diagnose report 65992 runtime regressions
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/diagnose-report-65992-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Inspect Korean stats tooltip payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, str(Path('tools').resolve()))
+          import patch_static_stats_lod as p
+
+          def inspect(label, archive):
+              raw = p.extract_stats_raw(archive)
+              rows = p.stats_rows(raw)
+              print(f'=== {label} stats.txt ===')
+              print('member bytes:', len(raw), 'sha256:', hashlib.sha256(raw).hexdigest())
+              lines = raw.splitlines(keepends=True)
+              records = []
+              for row_number, line_index in enumerate(rows):
+                  line = lines[line_index]
+                  ending = p.line_ending(line)
+                  body = line[:-len(ending)] if ending else line
+                  first, sep, second = body.partition(b'\t')
+                  plain_first = p.decode_dbcs_special(first)
+                  plain_second = p.decode_dbcs_special(second)
+                  try:
+                      name = plain_first.decode('cp949')
+                  except UnicodeDecodeError:
+                      name = plain_first.decode('cp1252')
+                  try:
+                      desc = p.unquote_field(plain_second.decode('cp949'))
+                  except UnicodeDecodeError:
+                      desc = '<decode-error>'
+                  esc14 = second.count(b'\x0e')
+                  esc07 = second.count(b'\x07')
+                  esc0f = second.count(b'\x0f')
+                  records.append((len(body), row_number, name, len(second), len(plain_second), len(desc), esc14, esc07, esc0f, desc))
+                  print(f'{row_number:02d} {name!r}: line={len(body)} field={len(second)} plain={len(plain_second)} chars={len(desc)} controls(0e/07/0f)={esc14}/{esc07}/{esc0f}')
+                  if row_number in {7, 10, 12, 14}:
+                      print('   text:', desc)
+                      print('   head:', second[:48].hex(' '))
+                      print('   tail:', second[-48:].hex(' '))
+              print('longest rows:')
+              for rec in sorted(records, reverse=True)[:8]:
+                  print(f'  row {rec[1]:02d} {rec[2]!r}: line={rec[0]} field={rec[3]} plain={rec[4]} chars={rec[5]}')
+              return raw
+
+          current_archive = Path('Data/zz LocKO.T.lod').read_bytes()
+          current_raw = inspect('current', current_archive)
+
+          try:
+              old_archive = subprocess.check_output(['git', 'show', 'v1.0.28:Data/zz LocKO.T.lod'])
+          except subprocess.CalledProcessError as exc:
+              print('could not read v1.0.28 LOD:', exc)
+          else:
+              old_raw = inspect('v1.0.28', old_archive)
+              print('current vs v1.0.28 stats member identical:', current_raw == old_raw)
+          PY
+
+      - name: Search tooltip and DBCS code paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== StatsDescriptions references ==='
+          grep -RIn --binary-files=without-match -E 'StatsDescriptions|Stats\.txt|stats\.txt' Scripts tools | head -n 200 || true
+          echo '=== tooltip/render references in Korean runtime ==='
+          grep -RIn --binary-files=without-match -E 'ShowTooltip|DisplayTooltip|DrawText|TextHeight|TextWidth|mem\.string|strncpy|mem\.copy|0x200|512' Scripts/General tools | head -n 400 || true
+
+      - name: Inspect UI loader icon ownership
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== ReplaceIcon / LoadUI references ==='
+          grep -RIn --binary-files=without-match -E 'ReplaceIcon|LoadUI|InterfaceIcons|Basebar|FACEMASK|asiL|asiR' Scripts | head -n 300 || true
