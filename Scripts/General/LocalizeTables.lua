@@ -400,7 +400,18 @@ local function _RelocalizeTables(PathMask, Options)
 					local cText = currentRecord.cText
 
 					if len(cTable) > 0 and cId then
-						local val = encode_korean(cText)
+						-- Rodril's own Data/*LocalizeTables.*txt is not display-only:
+						-- numeric fields such as Houses.Picture, MapStats.EaxEnvironments,
+						-- and NPCDataTxt.Joins must retain the upstream tonumber semantics.
+						-- KO_*.txt remains string-only so Korean text still passes through
+						-- the DBCS encoder and multiline handling.
+						local val
+						if not IsKoreanSource then
+							val = tonumber(cText)
+						end
+						if val == nil then
+							val = encode_korean(cText)
+						end
 						if cTable == "NPCNewsTopics" then
 							-- Never alias embedded NPCNews topics to Game.NPCTopic.
 							localizedNPCNewsTopics[cId] = val
@@ -465,7 +476,10 @@ local function _RelocalizeTables(PathMask, Options)
 								cField = tonumber(Words[3]) or Words[3] or "",
 								cText = Words[4] or ""
 							}
-						elseif currentRecord then
+						elseif currentRecord and IsKoreanSource then
+							-- Multiline continuation is a Korean localization extension.
+							-- Rodril base files treat separator/unrecognized rows as no-ops;
+							-- never append those rows to the preceding gameplay/display value.
 							currentRecord.cText = currentRecord.cText .. "\n" .. line
 						end
 					end
@@ -484,6 +498,16 @@ local function _RelocalizeTables(PathMask, Options)
 		end
 	end
 
+	-- Preserve Rodril's quest sentinel semantics. Merge's automatic-quest
+	-- migration checks exactly for "0" to clear obsolete QBits; leaving an
+	-- empty string here can retain stale quest state in existing saves.
+	if Game and Game.QuestsTxt then
+		for i, v in Game.QuestsTxt do
+			if type(v) == "string" and #v == 0 then
+				Game.QuestsTxt[i] = "0"
+			end
+		end
+	end
 end
 
 local EarlySkipFiles = {
