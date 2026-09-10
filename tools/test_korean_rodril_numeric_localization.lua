@@ -43,7 +43,7 @@ Merge = {Log = {Info = 1}}
 function Log() end
 KoreanLocalization = {}
 
-assert(loadfile("Scripts/General/ZZZZZ_KoreanRodrilNumericLocalization.lua"))()
+assert(loadfile("Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua"))()
 assert(type(KoreanLocalization.ReapplyRodrilNumericLocalization) == "function")
 
 local applied, joins = KoreanLocalization.ReapplyRodrilNumericLocalization()
