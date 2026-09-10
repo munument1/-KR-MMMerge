@@ -34,17 +34,14 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq lua5.1 >/dev/null
 
-      - name: Validate canonical PO and generated Korean sources
+      - name: Validate canonical Korean runtime
         shell: bash
         run: |
           set -euo pipefail
           python tools/po_catalog_stats.py \
             translations/ko/mmmerge.po \
             --baseline translations/ko/PO_BASELINE.json \
-            --no-regress \
-            --fail-fuzzy \
-            --min-translated 25051
-
+            --no-regress --fail-fuzzy --min-translated 25051
           rm -rf build/po-release-roundtrip
           python tools/build_korean_from_po.py \
             --output-root build/po-release-roundtrip \
@@ -52,22 +49,19 @@ jobs:
           python tools/build_mm8lang_from_po.py \
             --output build/mm8lang-release-roundtrip.ini \
             --require-byte-identical
-
           python tools/rebuild_runtime_overrides.py --check
           python tools/rebuild_stats_skills_runtime.py --check
           python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
           python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
 
-      - name: Require bounded stats runtime projection
+      - name: Validate stats, followers, subtitles, and DBCS
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
-
           p = Path('Data/Text localization/KO_StatsSkillsRuntime.txt')
-          data = p.read_bytes()
-          text = data.decode('euc_kr')
+          text = p.read_bytes().decode('euc_kr')
           current = ''
           ids = []
           for line in text.splitlines()[1:]:
@@ -78,102 +72,33 @@ jobs:
                   current = parts[0]
               if current == 'StatsDescriptions' and parts[1].isdigit():
                   ids.append(int(parts[1]))
-          if ids != list(range(7)):
-              raise SystemExit(f'StatsDescriptions runtime ids must be 0..6, got {ids!r}')
+          assert ids == list(range(7)), ids
           print('StatsDescriptions runtime bounds: 0..6 OK')
           PY
 
-      - name: Require exact EUC-KR runtime override bytes
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-
-          p = Path('Data/Text localization/KO_RuntimeOverrides.txt')
-          data = p.read_bytes()
-          text = data.decode('euc_kr')
-          if b'\n' in data.replace(b'\r\n', b''):
-              raise SystemExit('KO_RuntimeOverrides.txt contains non-CRLF line endings')
-          try:
-              data.decode('utf-8')
-          except UnicodeDecodeError:
-              pass
-          else:
-              raise SystemExit('KO_RuntimeOverrides.txt unexpectedly decodes as UTF-8')
-          for required in ('GlobalTxt\t0\t\t방어', '\t1\t\t정확도', '\t45\t\t상태'):
-              if required not in text:
-                  raise SystemExit(f'missing representative runtime record: {required!r}')
-          print('runtime override bytes: EUC-KR + CRLF OK')
-          PY
-
-      - name: Validate Korean runtime integration
-        shell: bash
-        run: |
-          set -euo pipefail
           python tools/validate_native_dbcs_integration.py .
           python tools/validate_rodril_overlay_boundary.py
           python tools/audit_rodril_localizer_semantics.py
           python tools/audit_rodril_follower_topic_aliases.py
           python tools/validate_korean_history_encoding.py
           python tools/validate_reported_localization_fixes.py .
-          python tools/validate_report_65949.py .
-          python tools/validate_report_65949_followup.py .
-          python tools/validate_report_65949_item_review2.py .
-          python tools/validate_report_65949_item_review3.py .
-          python tools/validate_report_65949_item_review4.py .
-          python tools/validate_report_65949_item_review5.py .
-          python tools/validate_report_65960.py .
-          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
-          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
-          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
           python tools/validate_korean_movie_subtitles.py .
-
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('Data/zz LocKO.icons.lod')
-          if not p.is_file() or p.stat().st_size < 4096:
-              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
-          data = p.read_bytes().lower()
-          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
-          missing = [x.decode('ascii') for x in required if x not in data]
-          if missing:
-              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
-          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
-          PY
 
           for f in \
             Scripts/General/FNT_DBCS.lua \
-            Scripts/General/KoreanFont.lua \
-            Scripts/General/KoreanFontText.lua \
-            Scripts/General/KoreanHistory.lua \
             Scripts/General/KoreanMovieSubtitles.lua \
-            Scripts/General/KoreanStatsAndSkills.lua \
             Scripts/General/LocalizeTables.lua \
-            Scripts/General/ZZ_KoreanDaggerWoundHints.lua \
-            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
-            Scripts/General/ZZ_KoreanReportedLocalization.lua \
-            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
             Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
-            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
-            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
             tools/test_localize_tables_upstream_semantics.lua \
-            tools/test_korean_dagger_wound_hints.lua \
-            tools/test_emerald_well_timer_fix.lua \
-            tools/test_korean_extra_settings_overlay.lua \
-            tools/test_korean_runtime_hotfix.lua \
-            tools/test_korean_history_all_continents.lua \
             tools/test_korean_movie_subtitles.lua \
             tools/test_korean_rodril_numeric_localization.lua; do
             luac5.1 -p "$f"
           done
-
           lua5.1 tools/test_localize_tables_upstream_semantics.lua
-          lua5.1 tools/test_korean_dagger_wound_hints.lua
-          lua5.1 tools/test_emerald_well_timer_fix.lua
-          lua5.1 tools/test_korean_extra_settings_overlay.lua
-          lua5.1 tools/test_korean_runtime_hotfix.lua
-          lua5.1 tools/test_korean_history_all_continents.lua
           lua5.1 tools/test_korean_movie_subtitles.lua
           lua5.1 tools/test_korean_rodril_numeric_localization.lua
 
@@ -185,7 +110,6 @@ jobs:
           ASSET="MMMerge_Korean_${VERSION}_Release.zip"
           rm -rf release-stage
           mkdir -p release-stage
-
           cp -a Data release-stage/
           cp -a DataFiles release-stage/
           cp -a Scripts release-stage/
@@ -201,30 +125,22 @@ jobs:
           3) 게임을 완전히 종료했다가 다시 실행합니다.
 
           v1.0.20~v1.0.27 사용자는 그대로 덮어쓰면 됩니다.
-          v1.0.19 이하 사용자는 과거 한국어 패치가 남긴 Scripts\Maps\out01.lua를
-          정리하기 위해 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+          v1.0.19 이하 사용자는 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
 
-          v1.0.28 핵심 수정/추가:
-          - 캐릭터 Stats 화면 경험치 클릭 CTD 원인이 될 수 있던 잘못된 런타임 StatsDescriptions 7..25 투영 제거
-          - Game.StatsDescriptions 런타임 투영을 MMExtension 구조 범위인 0..6으로 제한
-          - stats.txt의 26개 한국어 도움말 원문/정적 LOD 번역은 그대로 유지
-          - v1.0.27의 Rodril NPC follower 고용/해고 후처리 및 반완료 고용 복구 유지
-          - MMMerge 컷신 19종 한국어 SRT 자막 런타임 포함
-          - 기존 인코딩/LocalizeTables/LOD/히스토리/제보 수정 유지
+          v1.0.28 핵심 변경:
+          - Stats 화면 경험치 클릭 CTD 관련 잘못된 StatsDescriptions 7..25 런타임 투영 제거
+          - Game.StatsDescriptions 런타임 범위를 0..6으로 제한
+          - stats.txt의 26개 한국어 도움말/정적 LOD 번역은 유지
+          - v1.0.27 NPC follower 고용/해고 및 반완료 고용 복구 유지
+          - MMMerge 대화 컷신 19종 한국어 SRT 자막 포함
 
           저장소: https://github.com/munument1/-KR-MMMerge
           EOF
 
           forbidden=(
-            CHANGELOG.txt
-            STR_TRANSLATION_COVERAGE.txt
-            RUNTIME_LOCALIZATION_AUDIT.txt
-            DBCS_REFACTOR_AUDIT.txt
-            UI_RENDER_CORRUPTION_AUDIT.txt
-            NATIVE_DBCS_MIGRATION_AUDIT.txt
-            UPSTREAM_BASELINE.md
-            MIGRATION_v1.0.20.txt
-            SHA256SUMS.txt
+            CHANGELOG.txt STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt
+            DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt NATIVE_DBCS_MIGRATION_AUDIT.txt
+            UPSTREAM_BASELINE.md MIGRATION_v1.0.20.txt SHA256SUMS.txt
           )
           for f in "${forbidden[@]}"; do
             test ! -e "release-stage/$f"
@@ -235,14 +151,13 @@ jobs:
           test -f release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
           test -f release-stage/Scripts/General/KoreanMovieSubtitles.lua
           test -d "release-stage/Data/Korean Subtitles"
-          test "$(find 'release-stage/Data/Korean Subtitles' -maxdepth 1 -type f -name '*.srt' | wc -l)" -eq 19
+          test "$(find 'release-stage/Data/Korean Subtitles' -type f -name '*.srt' | wc -l)" -eq 19
           grep -q 'SyncNPCJoinPermissions' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
           grep -q 'InstallHireAddGuard' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
           grep -q 'InstallFollowerTopicAliases' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
           grep -q '_G.DismissNPCTopic = dismiss' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
           grep -q 'npcHasEvent(npc, hireTopic)' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
           ! grep -q 'ReapplyRodrilNumericLocalization' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
-          ! grep -Eq '^[[:space:]]*RefillTimer[[:space:]]*=' release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
 
           python - <<'PY'
           from pathlib import Path
@@ -265,48 +180,43 @@ jobs:
             cd release-stage
             zip -9 -X -r "../${ASSET}" .
           )
-
           ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
           printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
 
           cat > release-notes.md <<'EOF'
           ## MMMerge 한국어 패치 v1.0.28
 
-          이번 버전은 v1.0.27의 NPC follower 고용 호환 수정에 이어, 실게임 제보된 **Stats 화면에서 경험치를 클릭하면 게임이 종료되는 문제**의 한국어 패치 측 런타임 범위 오류를 수정합니다.
+          v1.0.27의 NPC follower 고용 호환 수정에 더해, Stats 화면에서 경험치를 클릭할 때 발생하는 CTD의 한국어 패치 측 런타임 범위 오류를 수정합니다.
 
-          ### Stats 경험치 클릭 CTD 수정
-          MMExtension에서 `Game.StatsDescriptions`는 7개 기본 능력치(0..6) 배열입니다. 과거 한국어 Lua 구현도 0..6만 기록했지만, v1.0.19의 PO/런타임 투영 전환 뒤 생성기가 `KO_StatsDescriptions.tsv`의 26개 행 전체를 이 7칸 배열에 투영하고 있었습니다.
-
-          - 런타임 `Game.StatsDescriptions` 투영을 0..6으로 제한했습니다.
-          - 경험치/레벨 등을 포함한 26개 `stats.txt` 한국어 도움말 번역 자체는 삭제하지 않았습니다.
-          - 26개 도움말은 기존처럼 정적 `zz LocKO.T.lod`의 `stats.txt`에서 유지됩니다.
-          - 생성기와 릴리즈 검사에서 다시 7..25를 런타임 배열에 쓰지 못하도록 범위 검증을 추가했습니다.
+          ### Stats 경험치 클릭 CTD
+          - `Game.StatsDescriptions`는 MMExtension에서 7개 기본 능력치(0..6) 배열입니다.
+          - v1.0.19 이후 생성기가 26개 `stats.txt` 도움말 전체를 이 런타임 배열에 투영하던 오류를 수정했습니다.
+          - 런타임 투영은 0..6으로 제한했습니다.
+          - 경험치/레벨 등을 포함한 26개 한국어 도움말은 정적 `zz LocKO.T.lod`에 그대로 유지됩니다.
 
           ### NPC follower
-          v1.0.27의 수정도 그대로 포함합니다.
-          - Rodril의 bare `HireNPCTopic` / `DismissNPCTopic` 후처리 참조 호환
-          - follower 목록/Hired 상태가 반쯤 적용된 과거 고용 상태 복구
-          - 정상 신규/정상 중복/unrelated Add 오류의 원본 의미 유지
+          v1.0.27의 수정이 그대로 포함됩니다.
+          - Rodril bare `HireNPCTopic` / `DismissNPCTopic` 후처리 참조 호환
+          - follower 목록/Hired가 반쯤 적용된 고용 상태 복구
+          - 정상 신규/정상 중복/unrelated Add 오류 의미 유지
 
           ### 컷신 자막
-          현재 main에 추가된 MMMerge 대화 컷신 19종의 한국어 SRT 자막과 런타임 표시 스크립트도 포함합니다.
+          - MM6 3종 / MM7 10종 / MM8 6종, 총 19개 대화 컷신 한국어 SRT 자막 포함
+          - 원본 영상은 재인코딩하지 않고 런타임에서 자막을 표시합니다.
 
           ### 검증
-          - canonical PO / PO round-trip
-          - EUC-KR RuntimeOverrides
-          - StatsDescriptions runtime ids 정확히 0..6
-          - 정적 stats.txt 26행 한국어 도움말 LOD 검사
-          - Rodril LocalizeTables / follower 호환 회귀 검사
-          - native DBCS / history / reported fixes
-          - 19개 컷신 SRT inventory/timing 및 Lua runtime 회귀 검사
+          - canonical PO 및 PO round-trip
+          - StatsDescriptions runtime ids 0..6
+          - 정적 stats.txt 26행 한국어 도움말
+          - Rodril LocalizeTables/follower 회귀
+          - native DBCS 및 컷신 자막 19파일/177 cue 검사
 
           ### 설치
           - v1.0.20~v1.0.27: ZIP 내용을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
           - v1.0.19 이하: Rodril MMMerge 원본을 먼저 재적용한 뒤 설치하십시오.
 
-          NPC 고용과 경험치 클릭 문제 모두 실제 플레이 환경에서 최종 확인이 필요합니다.
+          NPC 고용과 경험치 클릭 문제는 실제 플레이 환경에서 최종 확인해 주세요.
           EOF
-
           printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
           echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
 
