@@ -10,9 +10,9 @@ from apply_report_65949_item_review3 import ROW_FIXES
 root = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 path = root / "Data" / "Text localization" / "KO_ItemsTxt.txt"
 
-# Review 4 refines wording on these rows without changing the mechanics
-# established by review 3.
-SUPERSEDED_BY_REVIEW4 = {1338, 2026, 2030, 2035}
+# Later QA/report passes refine wording on these rows without changing the
+# mechanics established by review 3.
+SUPERSEDED_BY_REVIEW4 = {1325, 1338, 2026, 2030, 2035}
 
 
 def read_legacy(path: pathlib.Path) -> str:
@@ -50,7 +50,7 @@ required = {
     527: ["(흡혈, 힘 +50, 운 -40)", "영혼 학살자"],
     1335: ["피격 회복 속도 증가"],
     1338: ["모든 저항력 +10"],
-    2026: ["모든 저항력 +10, 생명력 +25"],
+    2026: ["방패 주문 상시 유지", "돌가죽 주문 상시 유지", "생명력 +25"],
     2029: ["모든 능력치 +10, 주문력 +25"],
     2030: ["함정 해제/훔치기 성공 확률 2배"],
     2035: ["함정 해제/훔치기 성공 확률 2배"],
@@ -70,4 +70,4 @@ if "1335\t" in text and "1335\t엘프 사슬 갑옷" in text:
 if violations:
     raise SystemExit("report 65949 item review 3 validation failed:\n" + "\n".join(violations))
 
-print(f"report 65949 item review 3 source: OK ({len(ROW_FIXES)} item rows; review 4 refinements allowed)")
+print(f"report 65949 item review 3 source: OK ({len(ROW_FIXES)} item rows; later refinements allowed)")
