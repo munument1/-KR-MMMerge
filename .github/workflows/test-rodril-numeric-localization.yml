@@ -46,7 +46,7 @@ jobs:
       - name: LocalizeTables upstream semantics
         run: lua5.1 tools/test_localize_tables_upstream_semantics.lua
 
-      - name: Retired late numeric pass stays inactive
+      - name: NPC join compatibility stays narrow
         run: lua5.1 tools/test_korean_rodril_numeric_localization.lua
 
       - name: Static semantics audit
