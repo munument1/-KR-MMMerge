@@ -10,9 +10,9 @@ from apply_report_65949_item_review2 import ROW_FIXES
 root = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 path = root / "Data" / "Text localization" / "KO_ItemsTxt.txt"
 
-# Later QA passes can intentionally refine an earlier correction.  Keep this
-# validator useful for regressions without forcing the older wording back in.
-SUPERSEDED_BY_REVIEW3 = {1335}
+# Later QA passes can intentionally refine an earlier correction. Keep this
+# validator useful for regressions without forcing superseded wording back in.
+SUPERSEDED_BY_LATER_QA = {1322, 1333, 1335, 2028}
 
 
 def read_legacy(path: pathlib.Path) -> str:
@@ -41,7 +41,7 @@ for item_id, fixes in ROW_FIXES.items():
     for old, new in fixes:
         if old in line:
             violations.append(f"item {item_id}: stale phrase {old}")
-        if item_id not in SUPERSEDED_BY_REVIEW3 and new not in line:
+        if item_id not in SUPERSEDED_BY_LATER_QA and new not in line:
             violations.append(f"item {item_id}: missing corrected phrase {new}")
 
 # Explicit mechanics/terminology guards for the worst mistranslations.
@@ -51,13 +51,14 @@ required = {
     516: ["영혼 마법, 육체 마법, 정신 마법, 성직자"],
     523: ["대상 공격 회복 속도 감소"],
     539: ["드래곤 사냥용 창인 에보네스트"],
+    1322: ["방패 주문 상시 유지"],
     1329: ["민첩성 -40"],
-    1333: ["원거리 공격 피해 절반, 엘프 사냥, 고블린", "엘프베인"],
+    1333: ["방패 주문 상시 유지, 엘프 사냥, 고블린", "엘프베인"],
     # review 3 established that of Recovery means recovery from being hit,
     # not Swift/weapon attack recovery.
     1335: ["피격 회복 속도 증가"],
     2024: ["공격 회복 속도 증가, 주문력 +40"],
-    2028: ["원거리 공격 피해 절반, 정확도 +30"],
+    2028: ["방패 주문 상시 유지, 정확도 +30"],
 }
 for item_id, fragments in required.items():
     line = rows.get(item_id, "")
@@ -68,4 +69,4 @@ for item_id, fragments in required.items():
 if violations:
     raise SystemExit("report 65949 item review 2 source validation failed:\n" + "\n".join(violations))
 
-print(f"report 65949 item review 2 source: OK ({len(ROW_FIXES)} item rows; review 3 refinements allowed)")
+print(f"report 65949 item review 2 source: OK ({len(ROW_FIXES)} item rows; later QA refinements allowed)")
