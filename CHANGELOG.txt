@@ -1,3 +1,10 @@
+v1.0.29 Hotfix Refresh 2 (report 66003)
+- Fixed the 1-based Game.TransTxt row-order mapping that shifted dungeon and entrance descriptions.
+- Added an ASCII-only runtime projection from KO_TransTxt so existing v1.0.29 LODs are repaired without replacing gameplay scripts.
+- Gated native movie-frame subtitle drawing to MM8 stems after MM6/MM7 intro crashes were reported with v1.1.
+- Kept PostRender subtitle fallback for MM6/MM7 and native Bink/Smacker subtitles for MM8.
+- Added regression tests for both the TransTxt base index and MM6/MM7 native subtitle safety gate.
+
 v1.0.15 Native DBCS Renderer Migration
 - Replaced the legacy Korean glyph-7 scratch renderer with the native direct-blit
   FNT_DBCS.lua renderer from might-and-magic/mm678-i18n, pinned to upstream

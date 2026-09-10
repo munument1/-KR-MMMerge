@@ -197,6 +197,7 @@ def apply_by_order(
     eligible: Callable[[Row, int], bool],
     *,
     overlay_field: str | None = None,
+    record_base: int = 0,
 ) -> int:
     rows = [row for index, row in enumerate(doc.rows) if eligible(row, index)]
     changed = 0
@@ -205,15 +206,17 @@ def apply_by_order(
             continue
         if not value:
             continue
-        if record_id < 0 or record_id >= len(rows):
-            raise ValueError(f'missing source row-order record {record_id}')
-        row = rows[record_id]
+        row_index = record_id - record_base
+        if row_index < 0 or row_index >= len(rows):
+            raise ValueError(
+                f'missing source row-order record {record_id} (base {record_base})'
+            )
+        row = rows[row_index]
         if len(row.fields) <= column:
             raise ValueError(f'source row-order record {record_id} has no column {column}')
         row.fields[column] = encode_field(value)
         changed += 1
     return changed
-
 
 def load_source(source_dir: Path, name: str) -> TsvDocument:
     path = find_casefold(source_dir, name)
@@ -414,7 +417,7 @@ def build(args: argparse.Namespace) -> dict[str, int]:
         # Game.TransTxt is indexed by row order; the source 2D# column has gaps.
         doc = load_source(source_dir, 'Trans.txt')
         trans_row = lambda row, index: bool(row.fields and decode_field(row.fields[0]).strip().isdigit())
-        reports['Trans.txt'] = apply_by_order(doc, overlay('KO_TransTxt.txt'), 1, trans_row)
+        reports['Trans.txt'] = apply_by_order(doc, overlay('KO_TransTxt.txt'), 1, trans_row, record_base=1)
         write_localized(stage_dir, 'Trans.txt', doc)
 
         doc = load_source(source_dir, 'SPCITEMS.TXT')

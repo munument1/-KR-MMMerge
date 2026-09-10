@@ -40,6 +40,7 @@ Log = nil
 dofile("Scripts/General/KoreanMovieSubtitles.lua")
 local KMS = KoreanMovieSubtitles
 
+assert(KMS.Version == "1.2")
 assert(KMS.NormalizeMovieName('  "7INTRO.smk"  ') == "7intro")
 assert(KMS.NormalizeMovieName("Anims\\DragonHunters.bik") == "dragonhunters")
 assert(KMS.ParseTimestamp("00:02:03,456") == 123456)
@@ -49,28 +50,35 @@ assert(#cues == 32)
 assert(KMS.FindCue(cues, 7680).Utf8:find("아이언피스트", 1, true))
 assert(KMS.FindCue(cues, 13000) == nil)
 
--- Rodril/MM8 full-screen movies run a blocking native Bink/Smacker loop, so
--- subtitles must also be drawn from the native movie-frame call sites rather
--- than relying solely on the normal PostRender event.
 assert(KMS.NativeFrameHooksInstalled == true)
 assert(KMS.NativeFrameHookCount == 2)
 assert(type(nativeHooks[0x4BC9CC]) == "function", "Bink frame hook was not installed")
 assert(type(nativeHooks[0x4BCBEB]) == "function", "Smacker frame hook was not installed")
+assert(KMS.NativeSafeStems.dragonhunters == true)
+assert(KMS.NativeSafeStems["7intro"] == nil)
+assert(KMS.NativeSafeStems["6intro"] == nil)
 
+-- MM6/MM7 native callbacks must never draw. This is the crash regression.
 now = 1000
 assert(KMS.StartMovie("7intro"))
-now = 9000 -- 8 seconds into the movie
-assert(KMS.GetActive() ~= nil)
+now = 9000
 nativeHooks[0x4BC9CC]()
-assert(#drawCalls == 5, "native Bink frame hook did not draw subtitle")
-assert(drawCalls[#drawCalls][10] == 0xFFFF, "native-hook foreground subtitle should be white")
+assert(#drawCalls == 0, "MM7 native movie callback must be display-disabled")
 
--- Retain PostRender as a fallback for movie-player variants that yield back to
--- the normal renderer.
-drawCalls = {}
+-- The ordinary renderer fallback remains available for non-native-safe movies.
 events.PostRender()
-assert(#drawCalls == 5, "PostRender fallback did not draw subtitle")
-assert(drawCalls[#drawCalls][10] == 0xFFFF, "foreground subtitle should be white")
+assert(#drawCalls == 5, "PostRender fallback did not draw MM7 subtitle")
+assert(drawCalls[#drawCalls][10] == 0xFFFF)
+
+-- MM8 movies keep native-frame subtitles.
+drawCalls = {}
+now = 20000
+assert(KMS.StartMovie("dragonhunters"))
+local mm8cues = assert(KMS.Load("dragonhunters"))
+now = 20000 + mm8cues[1].Start + 1
+nativeHooks[0x4BC9CC]()
+assert(#drawCalls == 5, "MM8 native Bink frame hook did not draw subtitle")
+assert(drawCalls[#drawCalls][10] == 0xFFFF)
 
 KMS.StopMovie()
 assert(KMS.GetActive() == nil)

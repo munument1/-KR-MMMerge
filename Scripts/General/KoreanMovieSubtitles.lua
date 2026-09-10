@@ -5,7 +5,7 @@
 KoreanMovieSubtitles = KoreanMovieSubtitles or {}
 local KMS = KoreanMovieSubtitles
 
-KMS.Version = "1.1"
+KMS.Version = "1.2"
 KMS.Settings = KMS.Settings or {
     X = 32,
     Y = 394,
@@ -56,6 +56,19 @@ local nativeFrameHooksInstalled = false
 local NATIVE_MOVIE_DRAW_CALLS = {
     0x4BC9C7, -- Bink draw call (next instruction: 0x4BC9CC)
     0x4BCBE6  -- Smacker draw call (next instruction: 0x4BCBEB)
+}
+
+-- Real-game testing of the first v1.1 hotfix showed that drawing CustomUI
+-- from these native frame callbacks crashes the MM6 and MM7 intro movies.
+-- Keep native drawing strictly to MM8 movie stems. Older-continent movies
+-- retain the normal PostRender fallback until a surface-safe path is found.
+local NATIVE_SAFE_STEMS = {
+    dragonhunters = true,
+    confluxkey = true,
+    dragonsrevenge = true,
+    overrept = true,
+    skeltrans = true,
+    wingame = true
 }
 
 local function logMessage(message)
@@ -282,6 +295,13 @@ local function drawActiveSubtitleFrame()
     return false
 end
 
+local function drawNativeSubtitleFrame()
+    if not active or not NATIVE_SAFE_STEMS[active.Stem] then
+        return false
+    end
+    return drawActiveSubtitleFrame()
+end
+
 local function installNativeMovieFrameHooks()
     if nativeFrameHooksInstalled then
         return true
@@ -298,7 +318,7 @@ local function installNativeMovieFrameHooks()
         local okRead, opcode = pcall(function() return mem.u1[callAddress] end)
         -- CALL rel32 is E8. Refuse to patch an unexpected executable layout.
         if okRead and opcode == 0xE8 then
-            local okHook = pcall(mem.autohook2, callAddress + 5, drawActiveSubtitleFrame)
+            local okHook = pcall(mem.autohook2, callAddress + 5, drawNativeSubtitleFrame)
             if okHook then
                 installed = installed + 1
             end
@@ -337,8 +357,8 @@ function events.PostRender()
     end
 
     -- Keep this path as a fallback for builds whose movie player yields to the
-    -- regular renderer. The native Bink/Smacker hooks above handle Rodril's
-    -- synchronous full-screen movie loops.
+    -- regular renderer. Native frame drawing is intentionally limited to MM8
+    -- because MM6/MM7 intro playback crashed when CustomUI was drawn there.
     drawActiveSubtitleFrame()
 end
 
@@ -356,6 +376,8 @@ KMS.StartMovie = startMovie
 KMS.StopMovie = stopMovie
 KMS.DrawSubtitle = drawSubtitle
 KMS.DrawActiveSubtitleFrame = drawActiveSubtitleFrame
+KMS.DrawNativeSubtitleFrame = drawNativeSubtitleFrame
+KMS.NativeSafeStems = NATIVE_SAFE_STEMS
 KMS.InstallNativeMovieFrameHooks = installNativeMovieFrameHooks
 KMS.NativeMovieDrawCalls = NATIVE_MOVIE_DRAW_CALLS
 KMS.GetActive = function() return active end

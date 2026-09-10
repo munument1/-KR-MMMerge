@@ -9,7 +9,7 @@ v1.0.20부터 Rodril MMMerge를 공식 호환 기준으로 명확히 하고,
 v1.0.29 배포 파일은 2026-09-11 hotfix refresh로 교체되었습니다.
 같은 v1.0.29을 먼저 받은 사용자는 최신 ZIP을 다시 받아 덮어쓰십시오.
 
-v1.0.29 / hotfix refresh 핵심 변경:
+v1.0.29 / hotfix refresh 2 핵심 변경:
 - 스탯 우클릭 도움말 stats.txt를 레거시 DBCS 마커 형식에서 native CP949로 전환
 - Game.StatsDescriptions 런타임 투영 범위를 안전한 0..6으로 유지
 - Extra Settings의 Interface/General/Bolster/Keybinds 제목 번역 경로 수정
@@ -18,13 +18,18 @@ v1.0.29 / hotfix refresh 핵심 변경:
 - MM7/Antagarich에서 민간인 공격 시 일정 거리 안의 민간인·경비가 함께
   적대화되는 목격 반응 호환 오버레이 추가
 - 한국어 컷신 자막 19개 포함
-- 동기식 Bink/Smacker 영상 재생 중 일반 PostRender가 호출되지 않는 문제를 피해
-  네이티브 영상 프레임 루프에서 자막을 그리는 KoreanMovieSubtitles v1.1 적용
+- KoreanMovieSubtitles v1.2: MM8은 네이티브 Bink/Smacker 프레임 자막 경로 유지
+- MM6/MM7은 네이티브 자막 렌더 중 인트로 튕김이 제보되어 해당 경로를 차단하고
+  일반 PostRender fallback만 유지
+- 던전/건물 입장 설명 TransTxt의 1-based 인덱스를 0-based로 잘못 적용한 빌드 오류 수정
+- 기존 v1.0.29 LOD도 KO_TransTxt의 실제 1-based ID로 런타임 재투영해 전체 설명 뒤섞임 보정
 - 피낙시아 제국, 방패 주문 상시 유지, 율리시스 냉기 피해 등 제보 용어/효과 교정
 - 레인저/소서러/성직자/강령술사 직업 설명 및 기술 설명 문구 정리
 
 실게임 최종 확인이 필요한 항목:
-- 컷신에서 한국어 자막이 실제 영상 위에 출력되는지
+- MM6/MM7 새 게임 인트로가 더 이상 튕기지 않는지
+- MM8 컷신 자막이 실제 영상 위에 출력되는지
+- 던전/건물 입장 설명이 올바른 장소와 일치하는지
 - 교사 포함 고용 NPC의 실제 경험치 획득량이 +5/+10/+15%로 적용되는지
 - MM7 민간인 공격 시 주변 민간인·경비 적대 반응이 의도대로 작동하는지
 
@@ -59,8 +64,7 @@ v1.0.20~v1.0.28에서 업데이트:
 기존 v1.0.29에서 hotfix refresh로 업데이트:
 - 릴리즈 이름은 그대로 v1.0.29이지만 배포 ZIP이 교체되었습니다.
 - 최신 v1.0.29 ZIP을 다시 내려받아 그대로 덮어쓰십시오.
-- 교체본 ZIP SHA-256:
-  b16b3bcbf327e676e7eea396d74670d1259a7d559814670bb395e70f0b227c2e
+- 최신 ZIP의 SHA-256은 릴리즈에 함께 첨부된 .sha256 파일을 확인하십시오.
 
 예시 설치 경로:
   D:\GOG\Might and Magic 8\
@@ -76,6 +80,7 @@ v1.0.20~v1.0.28에서 업데이트:
   Scripts\General\KoreanFontText.lua
   Scripts\General\KoreanMovieSubtitles.lua
   Scripts\General\LocalizeTables.lua
+  Scripts\General\ZZZZ_KoreanTransTxtIndexFix.lua
   Scripts\General\ZZ_KoreanReportedLocalization.lua
   Scripts\Global\ZZZZ_KoreanHirelingExperienceFix.lua
   Scripts\Global\ZZZZ_KoreanMM7CivilianWitnessFix.lua
@@ -174,9 +179,12 @@ v1.0.29 최초 배포본은 SRT와 자막 스크립트가 포함되어 있었지
 MM8의 동기식 Bink/Smacker 재생 루프에서는 일반 PostRender가 돌지 않아
 실제 영상 위에 자막을 그리지 못했습니다.
 
-hotfix refresh의 KoreanMovieSubtitles v1.1은 MM8 네이티브 Bink/Smacker
-영상 프레임 draw 지점을 후킹하고 PostRender는 fallback으로 유지합니다.
-정적 주소/스크립트/자막 데이터 검증은 통과했지만 실게임 출력은 최종 확인이 필요합니다.
+첫 hotfix refresh의 KoreanMovieSubtitles v1.1은 모든 자막 영상을 MM8 네이티브
+Bink/Smacker 프레임 draw 지점에서 그리도록 했습니다. 실게임 제보에서 MM6 새 게임은
+영상 직후, MM7은 영상 도중 튕기는 회귀가 확인되어 v1.2에서 네이티브 프레임 렌더를
+MM8 영상 6개로만 제한했습니다. MM6/MM7은 PostRender fallback만 남기므로 우선
+시작 안정성을 보존하며, 별도의 안전한 영상 surface 렌더 경로를 찾기 전까지 자막이
+표시되지 않을 수 있습니다. MM8 네이티브 자막도 실게임 출력 확인은 아직 필요합니다.
 
 ------------------------------------------------------------
 6. 고용 NPC 경험치 보너스
