@@ -100,6 +100,7 @@ jobs:
           allowed_runtime_ui = {
               'Scripts/General/ZZ_KoreanReportedLocalization.lua',
               'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+              'Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua',
           }
           actual = set(literals['scripts'])
           unexpected = actual - allowed_runtime_ui
@@ -160,6 +161,7 @@ jobs:
               allowed = {
                   'Scripts/General/ZZ_KoreanReportedLocalization.lua',
                   'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+                  'Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua',
               }
               unapproved_duplicates = sum(
                   1 for x in r['findings']
@@ -173,5 +175,5 @@ jobs:
               print(f"- Exact duplicates of static Korean data: **{r['exact_static_duplicate_occurrences']}**")
               print(f"- Unapproved exact duplicates: **{unapproved_duplicates}**")
               print()
-              print('Only the two approved dynamic CustomUI/runtime UI files may retain Korean literals.')
+              print('Only the three approved dynamic CustomUI/runtime UI files may retain Korean literals.')
           PY
