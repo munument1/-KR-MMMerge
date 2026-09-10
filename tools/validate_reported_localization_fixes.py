@@ -106,9 +106,10 @@ for key, expected in required_overrides.items():
 if not any("안타개릭, 제이덤은 모두 평안을 되찾을 것입니다." in value for value in overrides.values()):
     raise SystemExit("missing reported-fix ending wording in runtime projection")
 
-# This runtime file intentionally retains only dynamic CustomUI text as decimal
-# EUC-KR byte escapes. Canonical GlobalTxt/history/hireling wording must not be
-# copied back into Lua as a second translation owner.
+# This runtime file intentionally keeps only dynamic/custom runtime wording as
+# decimal EUC-KR byte escapes. The three hireling descriptions are intentionally
+# pinned here rather than copied through Game.NPCText because those table indexes
+# are not stable across every Merge build.
 if not ui.isascii():
     raise SystemExit("ZZ_KoreanReportedLocalization.lua contains raw non-ASCII runtime text")
 
@@ -125,10 +126,10 @@ required_ui_fragments = [
     '{Text = "M&M 6"',
     "Layer = 0",
     "local HIRELING_LEARNING_DESCRIPTIONS = {",
-    "[4] = 2324",
-    "[13] = 2333",
-    "[14] = 2334",
-    "Game.NPCProf[profession].Description = localized",
+    '[4] = "\\176\\237\\191\\235',
+    '[13] = "\\176\\237\\191\\235',
+    '[14] = "\\176\\237\\191\\235',
+    "Game.NPCProf[profession].Description = encodeKorean(description)",
 ]
 for fragment in required_ui_fragments:
     if fragment not in ui:
@@ -139,9 +140,13 @@ for forbidden in (
     "applyExperienceTextSafety",
     "local MM7_INTRO",
     "applyMM7Intro",
+    "[4] = 2324",
+    "[13] = 2333",
+    "[14] = 2334",
+    "Game.NPCProf[profession].Description = localized",
 ):
     if forbidden in ui:
-        raise SystemExit(f"obsolete duplicate translation ownership returned to Lua: {forbidden!r}")
+        raise SystemExit(f"obsolete duplicate/unstable runtime mapping returned: {forbidden!r}")
 
 if not history.startswith("#\tText\tTime\tPage Title\n1\t마크햄 경은"):
     raise SystemExit("MM7 history source no longer starts with the translated Markham foreword")
