@@ -76,6 +76,10 @@ def main() -> None:
         "events.PostRender",
         "Game.IsMoviePlaying",
         "CustomUI.ShowText",
+        "mem.autohook2",
+        "0x4BC9C7",
+        "0x4BCBE6",
+        "InstallNativeMovieFrameHooks",
     ]
     for token in required:
         assert token in runtime, f"runtime integration token missing: {token}"
@@ -83,7 +87,7 @@ def main() -> None:
         rel = path.relative_to(ROOT).as_posix()
         assert rel in runtime, f"runtime map missing subtitle: {rel}"
 
-    print(f"Korean cutscene subtitles: OK (19 files, {total_cues} cues)")
+    print(f"Korean cutscene subtitles: OK (19 files, {total_cues} cues; native Bink/Smacker hooks required)")
 
 
 if __name__ == "__main__":
