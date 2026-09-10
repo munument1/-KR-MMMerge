@@ -1,3 +1,3 @@
 -- Retired in v1.0.12.
--- The narrow 1696/1699 compatibility handlers live in
--- ZZ_KoreanServiceGuildCompatibility.lua.
+-- The narrow MM6 service-guild compatibility handlers for events 1696-1701
+-- live in ZZ_KoreanServiceGuildCompatibility.lua.
