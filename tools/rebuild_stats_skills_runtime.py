@@ -9,6 +9,11 @@ Canonical ownership:
 KO_StatsSkillsRuntime.txt is generated EUC-KR runtime data consumed by
 LocalizeTables.lua.  KoreanStatsAndSkills.lua becomes an inert compatibility
 stub so no independent wording remains in Lua.
+
+MMExtension exposes Game.StatsDescriptions as an array of exactly seven
+primary-stat pointers.  The canonical TSV may keep additional reference/help
+wording, but runtime projection must never write indexes 7+ into that engine
+array.
 """
 
 from __future__ import annotations
@@ -31,6 +36,7 @@ GLOBAL = DATA / "KO_GlobalTxt.txt"
 STATS = DATA / "KO_StatsDescriptions.tsv"
 
 STAT_GLOBAL_IDS = [144, 116, 163, 75, 1, 211, 136]
+RUNTIME_STAT_DESCRIPTION_COUNT = 7
 MAPS = {
     "statsNames": 7,
     "statsDescs": 7,
@@ -205,7 +211,7 @@ def runtime_text() -> str:
 
     tables: list[tuple[str, list[str]]] = []
     tables.append(("StatsNames", [global_values[source_id] for source_id in STAT_GLOBAL_IDS]))
-    tables.append(("StatsDescriptions", [stats[i] for i in range(26)]))
+    tables.append(("StatsDescriptions", [stats[i] for i in range(RUNTIME_STAT_DESCRIPTION_COUNT)]))
     tables.append(("SkillNames", [skills[i][0] for i in range(39)]))
     tables.append(("SkillDescriptions", [skills[i][1] for i in range(39)]))
     tables.append(("SkillDesNormal", [skills[i][2] for i in range(39)]))
@@ -333,9 +339,9 @@ def main() -> int:
     print(f"  original Lua encoding:          {lua_encoding}")
     print("  canonical skill rows:           39")
     print("  runtime StatsNames:             7")
-    print("  runtime StatsDescriptions:      26")
+    print(f"  runtime StatsDescriptions:      {RUNTIME_STAT_DESCRIPTION_COUNT}")
     print("  runtime skill fields:           234")
-    print("  generated runtime entries:      267")
+    print(f"  generated runtime entries:      {7 + RUNTIME_STAT_DESCRIPTION_COUNT + 234}")
     if args.migrate_lua:
         print(f"  Lua literal maps removed:       {migration['literal_maps_removed']}")
         print(f"  stale stat-name values replaced:{migration['old_stat_name_differences']}")
