@@ -107,16 +107,30 @@ jobs:
               raise SystemExit(
                   f"Korean literals appeared in non-runtime-UI Lua files: {sorted(unexpected)}"
               )
-          if literals['exact_static_duplicate_occurrences'] != 0:
+
+          # Approved dynamic UI overlays sometimes need the same canonical term
+          # as a static table (for example 생명력/방어력/피해량).  That is not
+          # duplicated ownership: the static table cannot supply these
+          # runtime-created CustomUI labels.  Continue to reject exact static
+          # duplicates everywhere else.
+          bad_literal_duplicates = [
+              item for item in literals['findings']
+              if item.get('exact_static_match') and item.get('path') not in allowed_runtime_ui
+          ]
+          if bad_literal_duplicates:
+              sample = [
+                  f"{x['path']}:{x['line']} {x['text']}"
+                  for x in bad_literal_duplicates[:10]
+              ]
               raise SystemExit(
-                  f"Lua contains {literals['exact_static_duplicate_occurrences']} exact duplicates of canonical Korean data"
+                  f"Lua contains unapproved exact duplicates of canonical Korean data: {sample}"
               )
 
           print('runtime ownership policy: OK')
           print('  canonical-backed overrides with wording drift: 0')
           print('  runtime-only override keys: 0')
           print('  unexpected Korean-literal Lua files: 0')
-          print('  exact Lua/static Korean duplicates: 0')
+          print('  unapproved exact Lua/static Korean duplicates: 0')
           PY
 
       - name: Add report to job summary
@@ -143,12 +157,21 @@ jobs:
           literal_audit = Path('build/LUA_KOREAN_LITERAL_AUDIT.json')
           if literal_audit.is_file():
               r = json.loads(literal_audit.read_text(encoding='utf-8'))
+              allowed = {
+                  'Scripts/General/ZZ_KoreanReportedLocalization.lua',
+                  'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+              }
+              unapproved_duplicates = sum(
+                  1 for x in r['findings']
+                  if x.get('exact_static_match') and x.get('path') not in allowed
+              )
               print('## Korean Lua literal inventory')
               print()
               print(f"- Lua files with Korean literals: **{r['lua_files_with_korean']}**")
               print(f"- Literal occurrences: **{r['literal_occurrences']}**")
               print(f"- Unique Korean texts: **{r['unique_korean_texts']}**")
               print(f"- Exact duplicates of static Korean data: **{r['exact_static_duplicate_occurrences']}**")
+              print(f"- Unapproved exact duplicates: **{unapproved_duplicates}**")
               print()
               print('Only the two approved dynamic CustomUI/runtime UI files may retain Korean literals.')
           PY
