@@ -1,0 +1,266 @@
+# v1.0.25 one-shot release workflow.
+# Preserves Rodril LocalizeTables gameplay semantics and narrows the v1.0.24
+# numeric compatibility bridge to live NPC Joins only.
+name: Release v1.0.25
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.25.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate canonical PO and generated Korean sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25051
+
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Require exact EUC-KR runtime override bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('Data/Text localization/KO_RuntimeOverrides.txt')
+          data = p.read_bytes()
+          text = data.decode('euc_kr')
+          if b'\n' in data.replace(b'\r\n', b''):
+              raise SystemExit('KO_RuntimeOverrides.txt contains non-CRLF line endings')
+          try:
+              data.decode('utf-8')
+          except UnicodeDecodeError:
+              pass
+          else:
+              raise SystemExit('KO_RuntimeOverrides.txt unexpectedly decodes as UTF-8')
+          for required in ('GlobalTxt\t0\t\t방어', '\t1\t\t정확도', '\t45\t\t상태'):
+              if required not in text:
+                  raise SystemExit(f'missing representative runtime record: {required!r}')
+          print('runtime override bytes: EUC-KR + CRLF OK')
+          PY
+
+      - name: Validate Korean runtime integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/LocalizeTables.lua \
+            Scripts/General/ZZ_KoreanDaggerWoundHints.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_localize_tables_upstream_semantics.lua \
+            tools/test_korean_dagger_wound_hints.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua \
+            tools/test_korean_rodril_numeric_localization.lua; do
+            luac5.1 -p "$f"
+          done
+
+          lua5.1 tools/test_localize_tables_upstream_semantics.lua
+          lua5.1 tools/test_korean_dagger_wound_hints.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+          lua5.1 tools/test_korean_rodril_numeric_localization.lua
+
+      - name: Build clean release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.25"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.25
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.20~v1.0.24 사용자는 그대로 덮어쓰면 됩니다.
+          v1.0.19 이하 사용자는 과거 한국어 패치가 남긴 Scripts\Maps\out01.lua를
+          정리하기 위해 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+
+          v1.0.25 핵심 수정:
+          - Rodril base LocalizeTables의 숫자형 필드를 원본처럼 number로 적용
+          - 탭-only 구분행이 앞 문자열에 붙는 잘못된 multiline 처리를 차단
+          - 빈 퀘스트 문자열을 원본의 "0" sentinel로 복구하여 오래된 QBit 정리 의미 보존
+          - v1.0.24의 broad 숫자 재적용 패스를 제거하고 live NPC Joins 복구만 유지
+          - Hired, House, MapStats, Houses 등 다른 게임 상태는 호환 브리지가 건드리지 않음
+
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          forbidden=(
+            CHANGELOG.txt
+            STR_TRANSLATION_COVERAGE.txt
+            RUNTIME_LOCALIZATION_AUDIT.txt
+            DBCS_REFACTOR_AUDIT.txt
+            UI_RENDER_CORRUPTION_AUDIT.txt
+            NATIVE_DBCS_MIGRATION_AUDIT.txt
+            UPSTREAM_BASELINE.md
+            MIGRATION_v1.0.20.txt
+            SHA256SUMS.txt
+          )
+          for f in "${forbidden[@]}"; do
+            test ! -e "release-stage/$f"
+          done
+
+          test ! -f release-stage/Scripts/Maps/out01.lua
+          test -f release-stage/Scripts/General/LocalizeTables.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          ! grep -q 'ReapplyRodrilNumericLocalization' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          grep -q 'SyncNPCJoinPermissions' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          ! grep -Eq '^[[:space:]]*RefillTimer[[:space:]]*=' release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.25
+
+          v1.0.24의 NPC 고용 회귀를 추적하면서 한국어 `LocalizeTables.lua`를 Rodril 원본과 다시 대조했고, 같은 계열의 의미 차이를 추가로 정리했습니다.
+
+          ### 추가로 확인한 문제
+          - Rodril base `Data/*LocalizeTables.*txt`의 숫자 값이 primary 한국어 로더에서 문자열로 남을 수 있었습니다. 고용 플래그뿐 아니라 `Houses.Picture`, `MapStats.EaxEnvironments` 같은 숫자 필드도 같은 위험군이었습니다.
+          - Rodril base 파일의 탭-only 구분행이 한국어 multiline 확장 때문에 앞 레코드 문자열에 붙을 수 있었습니다.
+          - Rodril 원본이 수행하는 빈 `Game.QuestsTxt` -> `"0"` 정규화가 빠져 있었습니다. Merge의 오래된 자동 퀘스트 마이그레이션은 이 sentinel을 보고 불필요한 QBit를 정리합니다.
+
+          ### 수정
+          - primary `LocalizeTables.lua`에서 Rodril base 파일은 원본처럼 `tonumber()` 의미를 보존합니다.
+          - multiline continuation은 한국어 `KO_*.txt` 소스에만 허용합니다.
+          - 빈 퀘스트 문자열의 `"0"` sentinel 정규화를 복구합니다.
+          - v1.0.24의 broad late numeric reparse는 제거했습니다. 기존 세이브 복구를 위해 `NPCDataTxt.Joins > 0`만 live `Game.NPC[id].Joins`로 올리는 좁은 브리지만 남겼습니다.
+          - 이 브리지는 `Hired`, House, Houses, MapStats 등 다른 게임 상태를 수정하지 않는지 Lua 회귀 테스트로 고정했습니다.
+
+          ### 검증
+          - Rodril LocalizeTables 숫자/구분행/퀘스트 sentinel 회귀 테스트
+          - live NPC Joins 호환 범위 테스트
+          - Rodril overlay boundary 검사
+          - runtime translation ownership 감사
+          - 기존 PO/DBCS/LOD/히스토리/보고 제보 회귀 검증
+
+          ### 설치
+          - v1.0.20~v1.0.24: 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하: Rodril 원본을 먼저 재적용한 뒤 설치하십시오.
+
+          실제 게임 UI/세이브의 모든 조합을 CI가 재현할 수는 없으므로, 고용/퀘스트 상태는 플레이 환경에서도 계속 확인합니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish immutable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.25"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.25" \
+            --notes-file release-notes.md \
+            --latest
