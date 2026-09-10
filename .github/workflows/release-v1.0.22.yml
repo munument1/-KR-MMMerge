@@ -1,0 +1,254 @@
+# v1.0.22 one-shot release workflow.
+# Automatic push execution is limited to this workflow file itself so later
+# source changes cannot silently rebuild an already-published version.
+name: Release v1.0.22
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.22.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate canonical PO and generated Korean sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25051
+
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Require exact EUC-KR runtime override bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('Data/Text localization/KO_RuntimeOverrides.txt')
+          data = p.read_bytes()
+          text = data.decode('euc_kr')
+          if b'\n' in data.replace(b'\r\n', b''):
+              raise SystemExit('KO_RuntimeOverrides.txt contains non-CRLF line endings')
+          try:
+              data.decode('utf-8')
+          except UnicodeDecodeError:
+              pass
+          else:
+              raise SystemExit('KO_RuntimeOverrides.txt unexpectedly decodes as UTF-8')
+          for required in ('GlobalTxt\t0\t\t방어', '\t1\t\t정확도', '\t45\t\t상태'):
+              if required not in text:
+                  raise SystemExit(f'missing representative runtime record: {required!r}')
+          print('runtime override bytes: EUC-KR + CRLF OK')
+          PY
+
+      - name: Validate Korean runtime integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/ZZ_KoreanDaggerWoundHints.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_korean_dagger_wound_hints.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua; do
+            luac5.1 -p "$f"
+          done
+
+          lua5.1 tools/test_korean_dagger_wound_hints.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+
+      - name: Build release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.22"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp README.txt release-stage/
+          cp CHANGELOG.txt release-stage/
+          cp FONT_LICENSES.md release-stage/
+          cp STR_TRANSLATION_COVERAGE.txt release-stage/
+          cp RUNTIME_LOCALIZATION_AUDIT.txt release-stage/
+          cp DBCS_REFACTOR_AUDIT.txt release-stage/
+          cp UI_RENDER_CORRUPTION_AUDIT.txt release-stage/
+          cp NATIVE_DBCS_MIGRATION_AUDIT.txt release-stage/
+          cp UPSTREAM_BASELINE.md release-stage/
+          cp MIGRATION_v1.0.20.txt release-stage/
+
+          test ! -f release-stage/Scripts/Maps/out01.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanDaggerWoundHints.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+          ! grep -Eq '^[[:space:]]*RefillTimer[[:space:]]*=' release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+
+          cat > release-stage/RELEASE_v1.0.22.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.22
+
+          v1.0.19부터 발생한 일부 짧은 UI 한글 깨짐을 수정하는 인코딩 핫픽스입니다.
+
+          원인:
+          - PO 마이그레이션 과정에서 KO_RuntimeOverrides.txt가 UTF-8로 생성됨
+          - native FNT_DBCS 런타임은 해당 파일의 plain EUC-KR 바이트를 기대함
+          - 그 결과 능력치/상태/저항 등 GlobalTxt 런타임 문자열 일부가 깨져 표시됨
+
+          수정:
+          - KO_RuntimeOverrides.txt를 EUC-KR + CRLF로 재생성
+          - 생성기가 EUC-KR로 표현할 수 없는 문자열을 거부하도록 강화
+          - --check가 의미상 문자열뿐 아니라 정확한 인코딩/개행 바이트까지 검증
+          - v1.0.21의 MM8 새 게임 버튼 수정과 게임플레이 후킹 퇴역은 그대로 유지
+
+          v1.0.20 또는 v1.0.21 사용자는 이 ZIP을 그대로 덮어쓴 뒤 게임을 완전히 재시작하십시오.
+          v1.0.19 이하 사용자는 MIGRATION_v1.0.20.txt 절차대로 Rodril 원본을
+          먼저 재적용한 뒤 이 패치를 설치하십시오.
+          EOF
+
+          (
+            cd release-stage
+            find Data DataFiles Scripts -type f -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS.txt
+            sha256sum mm8lang.ini README.txt CHANGELOG.txt RELEASE_v1.0.22.txt \
+              MIGRATION_v1.0.20.txt UPSTREAM_BASELINE.md FONT_LICENSES.md \
+              STR_TRANSLATION_COVERAGE.txt RUNTIME_LOCALIZATION_AUDIT.txt \
+              DBCS_REFACTOR_AUDIT.txt UI_RENDER_CORRUPTION_AUDIT.txt \
+              NATIVE_DBCS_MIGRATION_AUDIT.txt >> SHA256SUMS.txt
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.22
+
+          이번 버전은 **v1.0.19부터 발생한 일부 UI 한글 깨짐을 수정하는 런타임 인코딩 핫픽스**입니다.
+
+          ### 원인
+          - v1.0.19의 gettext PO 마이그레이션에서 `KO_RuntimeOverrides.txt` 생성기가 파일을 UTF-8로 기록하도록 바뀌었습니다.
+          - `LocalizeTables.lua`는 이 파일의 바이트를 런타임 테이블에 적용하고, native `FNT_DBCS.lua`는 plain EUC-KR 바이트를 기대합니다.
+          - 그래서 능력치, 상태, 저항, 짧은 NPC/UI 문자열 등 runtime override 대상 일부가 깨져 표시될 수 있었습니다.
+
+          ### 수정
+          - `KO_RuntimeOverrides.txt`를 **EUC-KR + CRLF**로 재생성합니다.
+          - 생성 단계에서 EUC-KR로 표현할 수 없는 문구를 거부합니다.
+          - `--check`가 문자열 의미 비교뿐 아니라 **정확한 바이트 인코딩과 개행 형식**까지 검사합니다.
+          - 대표 `GlobalTxt` 런타임 레코드와 인코딩을 릴리즈 단계에서 다시 확인합니다.
+
+          ### 기존 수정 유지
+          - v1.0.21의 MM8/Jadame 새 게임 버튼 key 충돌 수정
+          - 에메랄드 섬 `RefillTimer` 전역 후킹 퇴역
+          - Rodril overlay 경계 및 native DBCS 회귀 검사
+          - PO 25,051 / 25,051 및 기존 제보 QA 수정
+
+          ### 설치
+          - **v1.0.20 / v1.0.21**: v1.0.22 ZIP을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - **v1.0.19 이하**: `MIGRATION_v1.0.20.txt`에 따라 Rodril 원본을 먼저 재적용한 뒤 v1.0.22를 설치하십시오.
+
+          실제 게임 화면 복구 여부는 플레이어 환경에서 최종 확인이 필요하지만, 제보 발생 시점과 원인이 일치하며 릴리즈 파일의 런타임 바이트는 EUC-KR로 검증됩니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish immutable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.22"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists and is immutable; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.22" \
+            --notes-file release-notes.md \
+            --latest
