@@ -46,13 +46,21 @@ jobs:
                   first, sep, second = body.partition(b'\t')
                   plain_first = p.decode_dbcs_special(first)
                   plain_second = p.decode_dbcs_special(second)
-                  try:
-                      name = plain_first.decode('cp949')
-                  except UnicodeDecodeError:
-                      name = plain_first.decode('cp1252')
-                  try:
-                      desc = p.unquote_field(plain_second.decode('cp949'))
-                  except UnicodeDecodeError:
+                  for enc in ('cp949', 'cp1252'):
+                      try:
+                          name = plain_first.decode(enc)
+                          break
+                      except UnicodeDecodeError:
+                          pass
+                  else:
+                      name = '<decode-error>'
+                  for enc in ('cp949', 'cp1252'):
+                      try:
+                          desc = p.unquote_field(plain_second.decode(enc))
+                          break
+                      except UnicodeDecodeError:
+                          pass
+                  else:
                       desc = '<decode-error>'
                   esc14 = second.count(b'\x0e')
                   esc07 = second.count(b'\x07')
@@ -71,13 +79,18 @@ jobs:
           current_archive = Path('Data/zz LocKO.T.lod').read_bytes()
           current_raw = inspect('current', current_archive)
 
-          try:
-              old_archive = subprocess.check_output(['git', 'show', 'v1.0.28:Data/zz LocKO.T.lod'])
-          except subprocess.CalledProcessError as exc:
-              print('could not read v1.0.28 LOD:', exc)
-          else:
-              old_raw = inspect('v1.0.28', old_archive)
-              print('current vs v1.0.28 stats member identical:', current_raw == old_raw)
+          refs = [
+              ('v1.0.28', 'v1.0.28'),
+              ('pre-static-stats-patch', '05ecad35338bc600a0b5e229f89fc39c1494f342'),
+          ]
+          for label, ref in refs:
+              try:
+                  archive = subprocess.check_output(['git', 'show', f'{ref}:Data/zz LocKO.T.lod'])
+              except subprocess.CalledProcessError as exc:
+                  print(f'could not read {label} LOD:', exc)
+                  continue
+              raw = inspect(label, archive)
+              print(f'current vs {label} stats member identical:', current_raw == raw)
           PY
 
       - name: Search tooltip and DBCS code paths
