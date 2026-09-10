@@ -36,9 +36,15 @@ local function translateUI(text)
     if type(text) ~= "string" then
         return text
     end
-    local localized = UI_TEXT[text]
+
+    -- NewSettingsPage passes several page headers with a leading space
+    -- (for example " Interface settings", " General settings" and
+    -- " Keybinds"). Translate the visible core while preserving the exact
+    -- padding expected by Rodril's layout code.
+    local leading, core, trailing = text:match("^(%s*)(.-)(%s*)$")
+    local localized = core and UI_TEXT[core] or UI_TEXT[text]
     if localized then
-        return encodeKorean(localized)
+        return (leading or "") .. encodeKorean(localized) .. (trailing or "")
     end
     return text
 end
