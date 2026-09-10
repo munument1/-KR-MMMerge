@@ -67,6 +67,23 @@ local noKey = CustomUI.CreateText{Text = "-NO KEY-", Screen = 96}
 assert(noKey.Text == "-\197\176 \190\248\192\189-",
     "no-key label was not localized")
 
+-- AdaptiveMonstersStats wraps its yellow headings in StrColor() control codes.
+-- Translation must replace only the English heading and keep both color codes
+-- plus its alignment spaces intact.
+local coloredCases = {
+    ["Health points"] = "\187\253\184\237\183\194",
+    ["Armor class"] = "\185\230\190\238\183\194",
+    ["Damage"] = "\199\199\199\216\183\174",
+    ["Hit chance"] = "\184\237\193\223\183\252",
+    ["Movement speed"] = "\192\204\181\191 \188\211\181\181",
+}
+for english, korean in pairs(coloredCases) do
+    local source = "\f65535" .. english .. "   \f00000"
+    local translated = CustomUI.CreateText{Text = source, Screen = 98}
+    assert(translated.Text == "\f65535" .. korean .. "   \f00000",
+        "colored bolster label was not localized: " .. english)
+end
+
 const.Screens.ExtraSettings = 98
 const.Screens.ExtraKeybinds = 96
 const.Screens.CharacterOptions = 94
