@@ -5,7 +5,7 @@
 KoreanMovieSubtitles = KoreanMovieSubtitles or {}
 local KMS = KoreanMovieSubtitles
 
-KMS.Version = "1.0"
+KMS.Version = "1.1"
 KMS.Settings = KMS.Settings or {
     X = 32,
     Y = 394,
@@ -45,6 +45,18 @@ local cache = {}
 local active = nil
 local warnedConversion = false
 local warnedRender = false
+local warnedNativeHook = false
+local nativeFrameHooksInstalled = false
+
+-- MM8/GrayFace movie rendering is synchronous: events.ShowMovie fires before
+-- the native player enters its blocking Bink/Smacker loop, while the normal
+-- game PostRender hook does not run for those movie frames.  These are the two
+-- draw-call sites used by the patched MM8 executable.  We hook the instruction
+-- immediately after each CALL so the subtitle is painted after the movie frame.
+local NATIVE_MOVIE_DRAW_CALLS = {
+    0x4BC9C7, -- Bink draw call (next instruction: 0x4BC9CC)
+    0x4BCBE6  -- Smacker draw call (next instruction: 0x4BCBEB)
+}
 
 local function logMessage(message)
     if Log and Merge and Merge.Log then
@@ -259,6 +271,50 @@ local function drawSubtitle(text)
     return true
 end
 
+local function drawActiveSubtitleFrame()
+    if not active then
+        return false
+    end
+    local cue = findCue(active.Cues, elapsedMs(timeGetTime(), active.Started))
+    if cue then
+        return drawSubtitle(cue.Text)
+    end
+    return false
+end
+
+local function installNativeMovieFrameHooks()
+    if nativeFrameHooksInstalled then
+        return true
+    end
+    if not mem or type(mem.autohook2) ~= "function" or not mem.u1 then
+        return false
+    end
+    if Game and Game.Version and Game.Version ~= 8 then
+        return false
+    end
+
+    local installed = 0
+    for _, callAddress in ipairs(NATIVE_MOVIE_DRAW_CALLS) do
+        local okRead, opcode = pcall(function() return mem.u1[callAddress] end)
+        -- CALL rel32 is E8. Refuse to patch an unexpected executable layout.
+        if okRead and opcode == 0xE8 then
+            local okHook = pcall(mem.autohook2, callAddress + 5, drawActiveSubtitleFrame)
+            if okHook then
+                installed = installed + 1
+            end
+        end
+    end
+
+    nativeFrameHooksInstalled = installed > 0
+    if not nativeFrameHooksInstalled and not warnedNativeHook then
+        warnedNativeHook = true
+        logMessage("native movie draw sites were not recognized; falling back to PostRender subtitles.")
+    end
+    KMS.NativeFrameHooksInstalled = nativeFrameHooksInstalled
+    KMS.NativeFrameHookCount = installed
+    return nativeFrameHooksInstalled
+end
+
 function events.ShowMovie(t)
     if type(t) == "table" then
         startMovie(t.Name)
@@ -280,10 +336,14 @@ function events.PostRender()
         return
     end
 
-    local cue = findCue(active.Cues, elapsed)
-    if cue then
-        drawSubtitle(cue.Text)
-    end
+    -- Keep this path as a fallback for builds whose movie player yields to the
+    -- regular renderer. The native Bink/Smacker hooks above handle Rodril's
+    -- synchronous full-screen movie loops.
+    drawActiveSubtitleFrame()
+end
+
+function events.GameInitialized2()
+    installNativeMovieFrameHooks()
 end
 
 KMS.SubtitleFiles = SUBTITLE_FILES
@@ -295,4 +355,11 @@ KMS.FindCue = findCue
 KMS.StartMovie = startMovie
 KMS.StopMovie = stopMovie
 KMS.DrawSubtitle = drawSubtitle
+KMS.DrawActiveSubtitleFrame = drawActiveSubtitleFrame
+KMS.InstallNativeMovieFrameHooks = installNativeMovieFrameHooks
+KMS.NativeMovieDrawCalls = NATIVE_MOVIE_DRAW_CALLS
 KMS.GetActive = function() return active end
+
+-- Install as soon as General scripts load, before a new-game continent intro can
+-- enter the blocking native movie loop. GameInitialized2 retries on odd builds.
+installNativeMovieFrameHooks()
