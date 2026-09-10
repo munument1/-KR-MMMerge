@@ -1,3 +1,4 @@
+# v1.0.29 hotfix: native movie-frame drawing is gated to MM8 stems.
 name: Validate Korean movie subtitles
 
 on:
