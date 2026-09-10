@@ -1,0 +1,46 @@
+name: Audit hireling experience fix
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua
+      - tools/validate_hireling_experience_fix.py
+      - .github/workflows/audit-hireling-experience-fix.yml
+  pull_request:
+    paths:
+      - Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua
+      - tools/validate_hireling_experience_fix.py
+      - .github/workflows/audit-hireling-experience-fix.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Lua 5.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate flat hireling experience semantics
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_hireling_experience_fix.py .
+          luac5.1 -p Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua
