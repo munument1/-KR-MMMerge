@@ -24,9 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "Scripts"
 DATA = ROOT / "Data" / "Text localization"
 
-STRING_RE = re.compile(r'''(?P<quote>["'])(?P<body>(?:\\.|(?!\1).)*?)(?P=quote)''', re.S)
 HANGUL_RE = re.compile(r"[가-힣]")
-DECIMAL_ESCAPE_RE = re.compile(r"\\(\d{1,3})")
 
 GENERATED = {"KO_RuntimeOverrides.txt", "KO_StatsSkillsRuntime.txt"}
 
@@ -100,6 +98,60 @@ def decode_lua_string(body: str) -> tuple[str | None, str]:
     return text, mode
 
 
+def iter_lua_strings(text: str):
+    """Yield (body, start_offset, start_line) for quoted Lua strings in O(n).
+
+    The previous regex scanner paired with text.count() for every match could
+    become quadratic on the large generated/runtime Lua tree and stall CI for
+    hours.  This deliberately mirrors the old audit's scope (single/double
+    quoted strings, including strings found in comments) while advancing only
+    once through each file.
+    """
+    i = 0
+    line = 1
+    n = len(text)
+    while i < n:
+        ch = text[i]
+        if ch == "\n":
+            line += 1
+            i += 1
+            continue
+        if ch not in ("'", '"'):
+            i += 1
+            continue
+
+        quote = ch
+        start = i
+        start_line = line
+        i += 1
+        body_start = i
+
+        while i < n:
+            ch = text[i]
+            if ch == "\\":
+                # A backslash escapes the next character for purposes of
+                # locating the closing quote.  Keep the original body slice so
+                # decode_lua_string() can interpret decimal and ordinary escapes.
+                if i + 1 < n:
+                    if text[i + 1] == "\n":
+                        line += 1
+                    i += 2
+                else:
+                    i += 1
+                continue
+            if ch == quote:
+                yield text[body_start:i], start, start_line
+                i += 1
+                break
+            if ch == "\n":
+                line += 1
+            i += 1
+        else:
+            # Unterminated quoted text cannot contain another independently
+            # parseable quoted literal, so stop scanning this file.
+            break
+
+
 def iter_cells(path: Path):
     text, _ = read_text(path)
     # CSV parsing captures quoted tabs/newlines better than naive splitting.
@@ -132,10 +184,6 @@ def static_corpus():
     return exact, normalized, file_counts
 
 
-def line_number(text: str, offset: int) -> int:
-    return text.count("\n", 0, offset) + 1
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", type=Path)
@@ -149,8 +197,8 @@ def main() -> int:
     for path in sorted(SCRIPTS.rglob("*.lua")):
         text, encoding = read_text(path)
         per_script = []
-        for match in STRING_RE.finditer(text):
-            decoded, mode = decode_lua_string(match.group("body"))
+        for body, _start, literal_line in iter_lua_strings(text):
+            decoded, mode = decode_lua_string(body)
             if not decoded:
                 continue
             norm = re.sub(r"\s+", " ", decoded).strip()
@@ -158,7 +206,7 @@ def main() -> int:
             normalized_sources = sorted(normalized.get(norm, ()), key=str.casefold)
             finding = {
                 "path": path.relative_to(ROOT).as_posix(),
-                "line": line_number(text, match.start()),
+                "line": literal_line,
                 "script_encoding": encoding,
                 "literal_encoding": mode,
                 "text": decoded,
