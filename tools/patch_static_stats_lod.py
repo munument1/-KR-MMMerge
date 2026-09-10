@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
-"""Patch the Korean stats.txt tooltip descriptions inside a MM8 localization LOD.
+"""Patch Korean stats.txt tooltip descriptions inside the MM8 localization LOD.
 
 Only the second column of stats.txt is replaced. The first column (stat name),
 member order, compression state, and every other archive member are preserved.
+
+The current Korean renderer handles EUC-KR/CP949 DBCS directly.  Store these
+static tooltip strings as native bytes instead of the older SO/BEL/SI marker
+format.  The marker bridge is kept only for legacy data; using it here roughly
+doubles long rows such as Condition and Experience and needlessly routes stat
+right-click help through that compatibility path.
 """
 
 from __future__ import annotations
@@ -18,6 +24,11 @@ EXPECTED_ROWS = 26
 
 
 def encode_dbcs_special(data: bytes) -> bytes:
+    """Encode the historical marker format used by older static resources.
+
+    Other migration tools still import this helper, so keep it available even
+    though stats.txt itself is now written as native CP949.
+    """
     data = DBCS_RE.sub(lambda match: b"\x0e\x20\x0e" + match.group(0) + b"\x07\x0f", data)
     return data.replace(b"\x0f\x0e", b"")
 
@@ -94,6 +105,8 @@ def stats_rows(raw: bytes) -> list[int]:
         if b"\t" not in body:
             continue
         first, _separator, _second = body.partition(b"\t")
+        # First-column labels may still come from an older marker-encoded base
+        # archive, so accept either representation while locating data rows.
         plain_first = decode_dbcs_special(first)
         try:
             label = plain_first.decode("cp949").strip()
@@ -117,8 +130,12 @@ def patch_stats_data(raw: bytes, translations: list[str]) -> bytes:
         first, separator, _second = body.partition(b"\t")
         if not separator:
             raise ValueError(f"stats.txt row {row_number} has no description column")
-        encoded = encode_dbcs_special(encode_mixed_text(quote_field(translations[row_number])))
+
+        # Native FNT_DBCS renders these high-byte pairs directly. Do not wrap
+        # every Korean pair in the historical 0E/20/0E ... 07/0F markers.
+        encoded = encode_mixed_text(quote_field(translations[row_number]))
         lines[line_index] = first + b"\t" + encoded + ending
+
     result = b"".join(lines)
     validate_stats_data(result, translations)
     return result
@@ -134,16 +151,24 @@ def validate_stats_data(raw: bytes, translations: list[str]) -> None:
         _first, separator, second = body.partition(b"\t")
         if not separator:
             raise ValueError(f"stats.txt row {row_number} has no description column")
-        plain = decode_dbcs_special(second)
-        try:
-            actual = plain.decode("cp949")
-        except UnicodeDecodeError as error:
-            raise ValueError(f"stats.txt row {row_number} is not valid CP949") from error
-        actual = unquote_field(actual)
+
         expected = translations[row_number]
-        if actual != expected:
+        expected_bytes = encode_mixed_text(quote_field(expected))
+        if second != expected_bytes:
+            # Give an actionable error when content is semantically current but
+            # the old marker transport has crept back into the archive.
+            legacy_plain = decode_dbcs_special(second)
+            try:
+                legacy_actual = unquote_field(legacy_plain.decode("cp949"))
+            except UnicodeDecodeError:
+                legacy_actual = None
+            if legacy_actual == expected:
+                raise ValueError(
+                    f"stats.txt row {row_number} still uses legacy DBCS marker encoding; "
+                    "native CP949 is required"
+                )
             raise ValueError(
-                f"stats.txt row {row_number} mismatch: expected {expected!r}, got {actual!r}"
+                f"stats.txt row {row_number} byte/content mismatch for native CP949 storage"
             )
 
 
@@ -259,13 +284,13 @@ def main() -> None:
     translations = load_translations(args.translations)
     if args.check:
         check_lod(args.lod, translations)
-        print(f"stats.txt: {EXPECTED_ROWS} Korean tooltip descriptions verified")
+        print(f"stats.txt: {EXPECTED_ROWS} native-CP949 Korean tooltip descriptions verified")
         return
     if args.output is None:
         parser.error("--output is required unless --check is used")
     patch_lod(args.lod, translations, args.output)
     check_lod(args.output, translations)
-    print(f"Patched and verified {EXPECTED_ROWS} stats.txt tooltip descriptions in {args.output}")
+    print(f"Patched and verified {EXPECTED_ROWS} native-CP949 stats.txt tooltip descriptions in {args.output}")
 
 
 if __name__ == "__main__":
