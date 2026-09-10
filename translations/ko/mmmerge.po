@@ -11636,7 +11636,7 @@ msgstr "가죽 갑옷 착용 숙련도입니다."
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=0|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -11713,7 +11713,7 @@ msgstr "상위 주문 사용 및 효과 강화"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=1|field=<default>"
 msgid "Skill reduces recovery time"
-msgstr "공격 회복 시간(딜레이) 감소"
+msgstr "공격 회복 시간 감소"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -11729,7 +11729,7 @@ msgctxt ""
 msgid ""
 "Can cast Travelers' Boon which has effects of Torchlight, Wizard Eye and "
 "Feather Fall."
-msgstr "여행자의 축복(Travelers' Boon) 사용 가능"
+msgstr "여행자의 축복 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -11737,14 +11737,14 @@ msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=22|field=<default>"
 msgid ""
 "Can cast Levitate to move party over harmful surfaces taking no damage."
-msgstr "공중 부양(Levitate) 사용 가능"
+msgstr "공중 부양 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=23|field=<default>"
 msgid "Gains Breath Weapon which launches an exploding fireball."
-msgstr "폭발성 브레스(Breath Weapon) 사용 가능"
+msgstr "폭발성 브레스 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -11856,35 +11856,35 @@ msgstr "중급 물약 합성 가능"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=38|field=<default>"
 msgid "Double effect of skill"
-msgstr "획득 경험치 추가 증가 (+스킬당 2%)"
+msgstr "획득 경험치 추가 증가 (+기술 레벨당 2%)"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=3|field=<default>"
 msgid "Skill reduces recovery time"
-msgstr "공격 회복 시간(딜레이) 감소"
+msgstr "공격 회복 시간 감소"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=4|field=<default>"
 msgid "Skill added to damage."
-msgstr "공격 피해량에 스킬 레벨 추가"
+msgstr "공격 피해량에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=5|field=<default>"
 msgid "Skill reduces recovery time"
-msgstr "공격 회복 시간(딜레이) 감소"
+msgstr "공격 회복 시간 감소"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesExpert|id=6|field=<default>"
 msgid "Skill added to Attack Damage"
-msgstr "공격 피해량에 스킬 레벨 추가"
+msgstr "공격 피해량에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -11912,7 +11912,7 @@ msgstr "가죽 갑옷 속도 패널티 제거"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=0|field=<default>"
 msgid "Skill added to Attack Damage"
-msgstr "공격 피해량에 스킬 레벨 추가"
+msgstr "공격 피해량에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -11989,7 +11989,7 @@ msgstr "궁극 주문 사용 및 효과 극대화"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=1|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12003,7 +12003,7 @@ msgstr "궁극 주문 사용 및 효과 극대화"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=21|field=<default>"
 msgid "Can cast Darkfire, a magic bolt which does Dark and Fire damage."
-msgstr "암흑 화염(Darkfire Bolt) 사용 가능"
+msgstr "암흑 화염 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12012,14 +12012,14 @@ msgctxt ""
 msgid ""
 "Can assume Mistform. In mistform a vampire cannot take or deal physical "
 "damage."
-msgstr "안개 형태(Mistform) 변신 가능"
+msgstr "안개 형태 변신 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=23|field=<default>"
 msgid "Gains Wing Buffet which pushes back opponents."
-msgstr "날개 치기(Wing Buffet) 사용 가능"
+msgstr "날개 치기 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12068,7 +12068,7 @@ msgstr "함정 피해 완벽 무효화"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=2|field=<default>"
 msgid "Skill added to Attack Damage"
-msgstr "공격 피해량에 스킬 레벨 추가"
+msgstr "공격 피해량에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12131,7 +12131,7 @@ msgstr "전설적인 검은 물약(Black Potion) 합성 가능"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=38|field=<default>"
 msgid "Quintuple effect of skill"
-msgstr "획득 경험치 극대화 (+스킬당 5%)"
+msgstr "획득 경험치 극대화 (+기술 레벨당 5%)"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12145,14 +12145,14 @@ msgstr "일정 확률로 대상 방어력 절반 감소"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=4|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=5|field=<default>"
 msgid "Skill added to damage."
-msgstr "공격 피해량에 스킬 레벨 추가"
+msgstr "공격 피해량에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12173,21 +12173,21 @@ msgstr "공격 보너스 5배 적용"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=8|field=<default>"
 msgid "Protection as per Shield spell."
-msgstr "방패 주문 효과 자동 부여"
+msgstr "방패 주문 상시 유지"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesGM|id=9|field=<default>"
 msgid "Skill added to Elemental (Fire/Earth/Air/Water) Resistances."
-msgstr "원소 저항력에 스킬 레벨 추가"
+msgstr "원소 저항력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=0|field=<default>"
 msgid "Chance to stun equal to skill"
-msgstr "스킬 레벨 확률로 기절 효과 발생"
+msgstr "기술 레벨 확률로 기절 효과 발생"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12280,21 +12280,21 @@ msgctxt ""
 msgid ""
 "Can cast Blind. Targets of the spell wander aimlessly and cannot use spells "
 "or missiles."
-msgstr "실명(Blind) 주문 사용 가능"
+msgstr "실명 주문 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=22|field=<default>"
 msgid "Can cast the Charm spell on nearby targets."
-msgstr "유혹(Charm) 주문 사용 가능"
+msgstr "유혹 주문 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=23|field=<default>"
 msgid "Gains Flight which allows dragon to carry party through the air."
-msgstr "비행(Flight) 능력 사용 가능"
+msgstr "비행 능력 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12343,7 +12343,7 @@ msgstr "함정 피해 대폭 감소 및 감지율 3배"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=2|field=<default>"
 msgid "Chance to cause triple damage equal to skill"
-msgstr "스킬 레벨 확률로 3배 피해 발생"
+msgstr "기술 레벨 확률로 3배 피해 발생"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12406,14 +12406,14 @@ msgstr "상급 물약 합성 가능"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=38|field=<default>"
 msgid "Triple effect of skill"
-msgstr "획득 경험치 대폭 증가 (+스킬당 3%)"
+msgstr "획득 경험치 대폭 증가 (+기술 레벨당 3%)"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=3|field=<default>"
 msgid "Skill added to Attack Damage"
-msgstr "공격 피해량에 스킬 레벨 추가"
+msgstr "공격 피해량에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12434,7 +12434,7 @@ msgstr "공격 시 화살 2발 연속 발사"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=6|field=<default>"
 msgid "Chance to stun equal to skill"
-msgstr "스킬 레벨 확률로 기절 효과 발생"
+msgstr "기술 레벨 확률로 기절 효과 발생"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12448,35 +12448,35 @@ msgstr "공격 보너스 3배 적용"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=8|field=<default>"
 msgid "Skill added to Armor Class (double effect)"
-msgstr "방어력(AC) 보너스 2배 적용"
+msgstr "방어력 보너스 2배 적용"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesMaster|id=9|field=<default>"
 msgid "Skill added to Armor Class (double effect)"
-msgstr "방어력(AC) 보너스 2배 적용"
+msgstr "방어력 보너스 2배 적용"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=0|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=10|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=11|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12539,7 +12539,7 @@ msgstr "주문 효과 및 지속시간 향상"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=1|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12553,21 +12553,21 @@ msgstr "주문 효과 및 지속시간 향상"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=21|field=<default>"
 msgid "Can cast Glamour which increases caster's appeal to others."
-msgstr "매혹(Glamour) 주문 사용 가능"
+msgstr "매혹 주문 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=22|field=<default>"
 msgid "Can cast Lifedrain which harms its target and heals the caster."
-msgstr "생명력 흡수(Lifedrain) 주문 사용 가능"
+msgstr "생명력 흡수 주문 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=23|field=<default>"
 msgid "Can cast Fear which causes its targets to flee."
-msgstr "공포(Fear) 주문 사용 가능"
+msgstr "공포 주문 사용 가능"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12595,14 +12595,14 @@ msgstr "손상된 아이템 수리 가능"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=27|field=<default>"
 msgid "Skill adds to Hit Points"
-msgstr "최대 생명력(HP) 증가"
+msgstr "최대 생명력 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=28|field=<default>"
 msgid "Skill adds to Spell Points"
-msgstr "최대 주문력(SP) 증가"
+msgstr "최대 주문력 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12616,7 +12616,7 @@ msgstr "함정 및 비밀 통로 감지"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=2|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12679,56 +12679,56 @@ msgstr "기본 물약 제조 및 합성"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=38|field=<default>"
 msgid "Skill increases amount of experience received"
-msgstr "획득 경험치 증가 (+스킬당 1%)"
+msgstr "획득 경험치 증가 (+기술 레벨당 1%)"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=3|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=4|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=5|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=6|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=7|field=<default>"
 msgid "Skill added to Attack Bonus"
-msgstr "공격 보너스에 스킬 레벨 추가"
+msgstr "공격 보너스에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=8|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillDesNormal|id=9|field=<default>"
 msgid "Skill added to Armor Class"
-msgstr "방어력(AC)에 스킬 레벨 추가"
+msgstr "방어력에 기술 레벨 추가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -18899,7 +18899,7 @@ msgid ""
 "their level and gain skill points to spend on skills."
 msgstr ""
 "경험치는 캐릭터가 세상을 얼마나 이해하고 경험했는지를 나타냅니다. 충분한 경험치와 약간의 골드가 있으면 각지의 훈련소에서 훈련하여 레벨을"
-" 올리고, 스킬에 투자할 스킬 포인트를 얻을 수 있습니다."
+" 올리고, 기술에 투자할 기술 포인트를 얻을 수 있습니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/stats.txt (Attack Bonus)
 #. KO: Data/Text localization/KO_StatsDescriptions.tsv
@@ -18909,7 +18909,7 @@ msgid ""
 "Attack Bonus is the sum of all factors (skills, spells, Accuracy, etc.) that"
 " influence your character's chance to hit monsters with an equipped weapon."
 "  "
-msgstr "근접 공격 보너스는 장착한 무기로 몬스터를 명중시킬 확률에 영향을 주는 모든 요소(스킬, 주문, 정확도 등)의 합입니다."
+msgstr "근접 공격 보너스는 장착한 무기로 몬스터를 명중시킬 확률에 영향을 주는 모든 요소(기술, 주문, 정확도 등)의 합입니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/stats.txt (Attack Damage)
 #. KO: Data/Text localization/KO_StatsDescriptions.tsv
@@ -18920,7 +18920,7 @@ msgid ""
 "skills at expert or master, etc.) that influence the damage your character "
 "does with an equipped weapon."
 msgstr ""
-"근접 피해는 장착한 무기로 가하는 피해량에 영향을 주는 모든 요소(힘, 주문, 일부 무기 스킬의 전문가/마스터 효과 등)의 합입니다."
+"근접 피해는 장착한 무기로 가하는 피해량에 영향을 주는 모든 요소(힘, 주문, 일부 무기 기술의 전문가/마스터 효과 등)의 합입니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/stats.txt (Shoot Bonus)
 #. KO: Data/Text localization/KO_StatsDescriptions.tsv
@@ -18930,7 +18930,7 @@ msgid ""
 "Shoot Bonus is the sum of all factors (skill, spells, Accuracy, etc.) that "
 "influence your character's chance to hit monsters with an equipped bow."
 msgstr ""
-"원거리 공격 보너스는 장착한 원거리 무기로 몬스터를 명중시킬 확률에 영향을 주는 모든 요소(스킬, 주문, 정확도 등)의 합입니다."
+"원거리 공격 보너스는 장착한 원거리 무기로 몬스터를 명중시킬 확률에 영향을 주는 모든 요소(기술, 주문, 정확도 등)의 합입니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/stats.txt (Shoot Damage)
 #. KO: Data/Text localization/KO_StatsDescriptions.tsv
@@ -19031,7 +19031,7 @@ msgctxt ""
 msgid ""
 "Skill Points are awarded whenever your character trains for a new level.  "
 "You can spend Skill Points on your skills at any time."
-msgstr "스킬 포인트는 캐릭터가 새 레벨로 훈련할 때 얻습니다. 언제든 원하는 스킬에 스킬 포인트를 사용할 수 있습니다."
+msgstr "기술 포인트는 캐릭터가 새 레벨로 훈련할 때 얻습니다. 언제든 원하는 기술에 기술 포인트를 사용할 수 있습니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/stats.txt (Personality)
 #. KO: Data/Text localization/KO_StatsDescriptions.tsv
@@ -48277,7 +48277,7 @@ msgid ""
 "with only Plate and Mace beyond their reach."
 msgstr ""
 "레인저는 기사와 드루이드를 결합한 직업입니다. 모든 직업 가운데 가장 폭넓은 기술을 배울 수 있지만, 완전히 숙달할 수 있는 기술은 많지"
-" 않습니다. 최종적으로 원소 마법과 성직 마법을 모두 배울 수 있지만 상위 계열인 빛과 어둠 마법은 사용할 수 없습니다. 판금 갑옷과 "
+" 않습니다. 최종적으로 원소 마법과 성직자 마법을 모두 배울 수 있지만 상위 계열인 빛과 어둠 마법은 사용할 수 없습니다. 판금 갑옷과 "
 "둔기를 제외한 대부분의 무기, 방어구, 보조 기술도 배울 수 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassDescriptions.txt
@@ -48465,7 +48465,7 @@ msgid ""
 msgstr ""
 "원소 마법을 연구하는 소서러는 공격 및 실용 마법에 집중합니다. 전투 능력은 형편없어 단검, 지팡이, 활조차 제대로 익히기 어렵습니다. "
 "가죽 갑옷만 입을 수 있고 방패는 사용할 수 없으며, 모든 직업 가운데 생명력이 가장 낮습니다. 대신 강력한 공격 주문을 사용할 수 있고"
-" 빛과 어둠으로 갈라지는 거울의 길에도 접근할 수 있습니다. 이 두 계열에는 세상에서 가장 강력한 주문들이 포함되어 있습니다.  "
+" 빛과 어둠으로 이루어진 거울의 길에도 접근할 수 있습니다. 이 두 계열에는 세상에서 가장 강력한 주문들이 포함되어 있습니다.  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassDescriptions.txt
 #. KO: Data/Text localization/KO_ClassDescriptions.txt
@@ -48492,8 +48492,8 @@ msgid ""
 "powerful dark magic. They are also the least physically powerful class, and "
 "can use the smallest selection of weapons and armor."
 msgstr ""
-"강령술사는 어둠의 길의 유혹에 굴복한 마법사입니다. 대지, 물, 공기, 불의 원소 마법을 가장 능숙하게 다루며, 강력한 어둠 마법을 "
-"사용할 수 있는 유일한 직업입니다. 반면 육체적으로 가장 약하고 사용할 수 있는 무기와 방어구의 종류도 가장 적습니다."
+"강령술사는 어둠의 길의 유혹에 굴복한 마법사입니다. 대지, 물, 공기, 불의 원소 마법을 가장 능숙하게 다루며, 강력한 어둠 마법도 "
+"사용할 수 있습니다. 반면 육체적으로 가장 약하고 사용할 수 있는 무기와 방어구의 종류도 가장 적습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassDescriptions.txt
 #. KO: Data/Text localization/KO_ClassDescriptions.txt
@@ -48577,8 +48577,8 @@ msgid ""
 "to the lighter armors and can only melee with blunt weapons."
 msgstr ""
 "성직자는 모험에 나서는 신성 주문 사용자입니다. 교단의 성역을 떠나기 전에 기본적인 전투 기술과 유용한 치유 주문을 익힙니다. 성직자는 "
-"영혼, 육체, 정신 마법을 가장 능숙하게 다루며, 강력한 빛 마법을 사용할 수 있는 유일한 직업입니다. 전투 능력도 무난하지만 가벼운 "
-"갑옷만 착용할 수 있고, 근접전에서는 둔기만 사용할 수 있습니다."
+"영혼, 육체, 정신 마법을 가장 능숙하게 다루며, 강력한 빛 마법도 사용할 수 있습니다. 전투 능력도 무난하지만 가벼운 갑옷만 착용할 수"
+" 있고, 근접전에서는 둔기만 사용할 수 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassDescriptions.txt
 #. KO: Data/Text localization/KO_ClassDescriptions.txt
@@ -56491,7 +56491,7 @@ msgid ""
 "most creations turned out by the Heavenly Forge, it is nearly "
 "indestructible, and its like can no longer be made by any forge in the land."
 msgstr ""
-"(원거리 공격 피해 절반, 모든 능력치 +10) 침묵의 시대에 식민지 총독 파디쉬가 소유했던 이 놀라운 갑옷은 역사 속 수많은 보물 "
+"(방패 주문 상시 유지, 모든 능력치 +10) 침묵의 시대에 식민지 총독 파디쉬가 소유했던 이 놀라운 갑옷은 역사 속 수많은 보물 "
 "매장지에서 다시 발견되었습니다. 천상의 대장간에서 만들어진 대부분의 작품처럼, 이 갑옷은 거의 파괴 불가능하며, 이 땅의 어떤 "
 "대장간에서도 더 이상 이와 같은 갑옷을 만들 수 없습니다."
 
@@ -56675,8 +56675,8 @@ msgid ""
 "arrows, firing bolts of ice formed when the string is drawn back.  Its "
 "origins are unknown, but the style suggests Elvish make."
 msgstr ""
-"(정확도 +50, 물 속성 피해 9-12) 궁수의 꿈. 율리시스는 화살이 필요 없으며, 활시위를 당기면 얼음 화살이 생성되어 발사됩니다."
-" 기원은 알려지지 않았지만, 양식으로 보아 엘프족이 만든 것으로 추정됩니다."
+"(정확도 +50, 냉기 피해 9-12) 궁수의 꿈. 율리시스는 화살이 필요 없으며, 활시위를 당기면 얼음 화살이 생성되어 발사됩니다. "
+"기원은 알려지지 않았지만, 양식으로 보아 엘프족이 만든 것으로 추정됩니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -56966,7 +56966,7 @@ msgid ""
 "from Medusa gazes, but like many grand enchantments, it comes with a flaw.  "
 "Kelebrim weakens it's owners resistance to Earth magic."
 msgstr ""
-"(석화 상태 면역, 원거리 공격 피해 절반, 인내력 +50, 대지 저항 -30) 켈레브림 주조소에서 제작된 최초의 방패 중 하나인 이 "
+"(석화 상태 면역, 방패 주문 상시 유지, 인내력 +50, 대지 저항 -30) 켈레브림 주조소에서 제작된 최초의 방패 중 하나인 이 "
 "방패는 손목끈 안쪽에 \"켈레브림\"이라는 단순한 각인이 새겨져 있습니다. 메두사의 시선으로부터 보호하는 강력한 마법이 걸려 있지만, "
 "많은 위대한 마법처럼 단점도 있습니다. 켈레브림은 소유자의 대지 마법 저항력을 약화시킵니다."
 
@@ -57051,9 +57051,9 @@ msgid ""
 "skill in Fire magic the wearer may have, and fiercely resists water based "
 "attacks."
 msgstr ""
-"(화염 마법, 물 저항 +50, 인격 +30, 방어력 -20) 이것은 단명했던 피낙스 제국의 한때 잃어버렸던 왕관입니다. 착용하면 왕관의"
-" 보석에서 억제되지 않은 화염 마법이 타오르며 착용자의 얼굴에 붉은빛을 비춥니다. 이 왕관은 착용자의 화염 마법 능력을 증폭시키고 물 "
-"속성 공격에 강력한 저항력을 제공합니다."
+"(화염 마법, 물 저항 +50, 인격 +30, 방어력 -20) 이것은 단명했던 피낙시아 제국의 한때 잃어버렸던 왕관입니다. 착용하면 "
+"왕관의 보석에서 억제되지 않은 화염 마법이 타오르며 착용자의 얼굴에 붉은빛을 비춥니다. 이 왕관은 착용자의 화염 마법 능력을 증폭시키고 "
+"물 속성 공격에 강력한 저항력을 제공합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -57281,8 +57281,8 @@ msgid ""
 "curious side effect of the enchantment renders the weapon unusable by all "
 "but a goblin."
 msgstr ""
-"(원거리 공격 피해 절반, 엘프 사냥, 고블린) 이 검은 당시 고블린 족장 그로가르를 위해 고블린들이 만든 것입니다. 불행히도 고블린들은"
-" 전쟁에서 패배했고, 엘프베인은 오랫동안 행방불명되었습니다. 엘프를 처치하고 화살로부터 사용자를 보호하는 마법이 걸린 엘프베인은 그 "
+"(방패 주문 상시 유지, 엘프 사냥, 고블린) 이 검은 당시 고블린 족장 그로가르를 위해 고블린들이 만든 것입니다. 불행히도 고블린들은 "
+"전쟁에서 패배했고, 엘프베인은 오랫동안 행방불명되었습니다. 엘프를 처치하고 화살로부터 사용자를 보호하는 마법이 걸린 엘프베인은 그 "
 "이름값을 톡톡히 합니다. 하지만 이 마법의 특이한 부작용으로 인해 고블린 외에는 아무도 이 검을 사용할 수 없게 되었습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -74107,8 +74107,8 @@ msgid ""
 "normal.  (Special Powers:  Protection and +25 Hit Points)  "
 msgstr ""
 "침묵의 시대 이후 만들어진 최고의 사슬 갑옷이라고 할 수 있는 갈라하드의 갑옷은 재질 강도 마법이 매우 강력하여 착용자의 몸에 어느 정도"
-" 부여되는 듯한 효과를 발휘하며, 일반적인 갑옷보다 훨씬 더 많은 충격을 견딜 수 있게 해줍니다. (특수 능력: 모든 저항력 +10, "
-"생명력 +25)  "
+" 부여되는 듯한 효과를 발휘하며, 일반적인 갑옷보다 훨씬 더 많은 충격을 견딜 수 있게 해줍니다. (특수 능력: 방패 주문 상시 유지, "
+"돌가죽 주문 상시 유지, 생명력 +25)  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -74163,7 +74163,7 @@ msgid ""
 msgstr ""
 "목재 전쟁 당시 에라시아의 다비드 4세 국왕의 의뢰로 제작된 발레리아는 사용자를 일반적인 공격으로부터 보호할 뿐만 아니라, 마법으로 "
 "사용자의 주의를 화살의 궤적에 집중시켜 날아오는 화살을 막아내는 데에도 도움을 줍니다. 보호 효과를 가능하게 하는 동일한 마법은 사용자의"
-" 정확도를 크게 향상시켜 줍니다. (특수 능력: 원거리 공격 피해 절반, 정확도 +30)"
+" 정확도를 크게 향상시켜 줍니다. (특수 능력: 방패 주문 상시 유지, 정확도 +30)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -74619,7 +74619,7 @@ msgid ""
 msgstr ""
 "전설에 따르면 이 방패는 무시무시한 메두사들의 요새에서 싸우고자 하는 한 남자에게 신들이 선물한 것이라고 합니다. 방패는 반사 재질로 "
 "되어 있어 메두사의 돌로 변하는 시선으로부터 사용자를 보호합니다. 또한 화살을 막아주는 마법이 걸려 있지만, 방패가 매우 무거워 사용자의"
-" 움직임을 다소 느리게 합니다. (특수 능력: 석화 면역, 방패 주문 효과 상시 유지, 운 +20, 민첩성 -20)"
+" 움직임을 다소 느리게 합니다. (특수 능력: 석화 면역, 방패 주문 상시 유지, 운 +20, 민첩성 -20)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -93362,7 +93362,7 @@ msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=837|field=Notes"
 msgid ""
 "A smithy symbol and date stamp indicate this spear was made in the magical "
 "forges of Governor Padish 12 years before the Silence."
-msgstr "대장간 상징과 날짜 스탬프는 이 창이 대침묵의 사건 12년 전에 패디쉬 총독의 마법 대장간에서 만들어졌음을 나타냅니다."
+msgstr "대장간 상징과 날짜 스탬프는 이 창이 침묵의 시대 12년 전에 파디쉬 총독의 마법 대장간에서 만들어졌음을 나타냅니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -94845,8 +94845,8 @@ msgid ""
 "hundred years ago, these helms are tough, flexible, and light.  They are "
 "made of two strips of dragonhide bound together with stalt metal studs."
 msgstr ""
-"수백 년 전 피낙스 제국 확장기에 피낙스 용기병들이 착용했던 이 투구는 튼튼하고 유연하며 가볍습니다. 두 겹의 용가죽을 금속 못으로 엮어"
-" 만들었습니다."
+"수백 년 전 피낙시아 제국 확장기에 피낙시아 용기병들이 착용했던 이 투구는 튼튼하고 유연하며 가볍습니다. 두 겹의 용가죽을 금속 못으로 "
+"엮어 만들었습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
