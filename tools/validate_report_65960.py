@@ -83,7 +83,8 @@ def main() -> None:
     require(items[1327], "민첩성 +50", "item 1327 Twilight")
     require(items[2024], "공격 회복 속도 증가, 주문력 +40", "item 2024 Merlin")
     require(items[2041], "모든 저항력 +20", "item 2041 Apollo")
-    require(items[2043], "방패 주문 효과 상시 유지", "item 2043 Aegis")
+    require(items[2043], "방패 주문 상시 유지", "item 2043 Aegis")
+    forbid(items[2043], "방패 주문 효과 상시 유지", "item 2043 Aegis")
     forbid(items[2043], "방패 기술 +20", "item 2043 Aegis")
 
     for item_id in range(177, 187):
@@ -107,12 +108,14 @@ def main() -> None:
     forbid(spc_stats[1], "7대 능력치 모두 +10.", "SPCITEMS stat 1")
 
     runtime = overlay_rows(loc / "KO_RuntimeOverrides.txt")
-    require(runtime[2043], "석화 면역, 방패 주문 효과 상시 유지, 운 +20, 민첩성 -20", "runtime Aegis")
+    require(runtime[2043], "석화 면역, 방패 주문 상시 유지, 운 +20, 민첩성 -20", "runtime Aegis")
+    forbid(runtime[2043], "방패 주문 효과 상시 유지", "runtime Aegis")
 
     # Skills are now owned by KO_Skilldes/PO and projected into
     # KO_StatsSkillsRuntime. Do not require (or permit) the old Lua literal map.
     skill_rows = numeric_rows(loc / "KO_Skilldes.txt")
-    require(skill_rows[8], "방패 주문 효과 자동 부여", "Shield GM canonical source")
+    require(skill_rows[8], "방패 주문 상시 유지", "Shield GM canonical source")
+    forbid(skill_rows[8], "방패 주문 효과 자동 부여", "Shield GM canonical source")
     forbid(skill_rows[8], "보호막(Shield)", "Shield GM canonical source")
 
     skill_runtime = decode(loc / "KO_StatsSkillsRuntime.txt").replace("\r\n", "\n").replace("\r", "\n")
@@ -120,12 +123,15 @@ def main() -> None:
     if marker not in skill_runtime:
         raise SystemExit("generated skill runtime is missing SkillDesGM table")
     gm_block = skill_runtime.split(marker, 1)[1]
-    require(gm_block, "\n\t8\t\t방패 주문 효과 자동 부여", "Shield GM generated runtime")
+    require(gm_block, "\n\t8\t\t방패 주문 상시 유지", "Shield GM generated runtime")
+    forbid(gm_block, "방패 주문 효과 자동 부여", "Shield GM generated runtime")
     forbid(gm_block, "보호막(Shield)", "Shield GM generated runtime")
 
     skills_lua = decode(root / "Scripts" / "General" / "KoreanStatsAndSkills.lua")
-    if "방패 주문 효과 자동 부여" in skills_lua:
+    if "방패 주문 상시 유지" in skills_lua:
         raise SystemExit("Shield GM wording is duplicated in Lua instead of canonical KO_Skilldes/PO")
+    if "방패 주문 효과 자동 부여" in skills_lua:
+        raise SystemExit("stale Shield GM wording is duplicated in Lua")
     if "보호막(Shield)" in skills_lua:
         raise SystemExit("Shield GM description still contains 보호막(Shield) in Lua")
 
