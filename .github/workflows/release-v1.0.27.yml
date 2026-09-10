@@ -1,0 +1,271 @@
+# v1.0.27 one-shot release workflow.
+# Repairs Rodril NPC follower topic aliases and stale paid hire completion.
+name: Release v1.0.27
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.27.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate canonical PO and generated Korean sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress \
+            --fail-fuzzy \
+            --min-translated 25051
+
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Require exact EUC-KR runtime override bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('Data/Text localization/KO_RuntimeOverrides.txt')
+          data = p.read_bytes()
+          text = data.decode('euc_kr')
+          if b'\n' in data.replace(b'\r\n', b''):
+              raise SystemExit('KO_RuntimeOverrides.txt contains non-CRLF line endings')
+          try:
+              data.decode('utf-8')
+          except UnicodeDecodeError:
+              pass
+          else:
+              raise SystemExit('KO_RuntimeOverrides.txt unexpectedly decodes as UTF-8')
+          for required in ('GlobalTxt\t0\t\t방어', '\t1\t\t정확도', '\t45\t\t상태'):
+              if required not in text:
+                  raise SystemExit(f'missing representative runtime record: {required!r}')
+          print('runtime override bytes: EUC-KR + CRLF OK')
+          PY
+
+      - name: Validate Korean runtime integration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/audit_rodril_follower_topic_aliases.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_report_65960_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_reported_terms_lod.py --lod "Data/zz LocKO.T.lod" --check
+          python tools/patch_static_stats_lod.py --lod "Data/zz LocKO.T.lod" --translations "Data/Text localization/KO_StatsDescriptions.tsv" --check
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('Data/zz LocKO.icons.lod')
+          if not p.is_file() or p.stat().st_size < 4096:
+              raise SystemExit('missing or implausibly small Data/zz LocKO.icons.lod')
+          data = p.read_bytes().lower()
+          required = [b'exsetscr2', b'exsetscrk', b'extsetdw', b'extsetup']
+          missing = [x.decode('ascii') for x in required if x not in data]
+          if missing:
+              raise SystemExit('missing Extra Settings icon entries: ' + ', '.join(missing))
+          print(f'Extra Settings icons archive: OK ({p.stat().st_size} bytes)')
+          PY
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanFont.lua \
+            Scripts/General/KoreanFontText.lua \
+            Scripts/General/KoreanHistory.lua \
+            Scripts/General/KoreanStatsAndSkills.lua \
+            Scripts/General/LocalizeTables.lua \
+            Scripts/General/ZZ_KoreanDaggerWoundHints.lua \
+            Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua \
+            Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
+            Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua \
+            Scripts/General/ZZZZ_KoreanRuntimeHotfix.lua \
+            tools/test_localize_tables_upstream_semantics.lua \
+            tools/test_korean_dagger_wound_hints.lua \
+            tools/test_emerald_well_timer_fix.lua \
+            tools/test_korean_extra_settings_overlay.lua \
+            tools/test_korean_runtime_hotfix.lua \
+            tools/test_korean_history_all_continents.lua \
+            tools/test_korean_rodril_numeric_localization.lua; do
+            luac5.1 -p "$f"
+          done
+
+          lua5.1 tools/test_localize_tables_upstream_semantics.lua
+          lua5.1 tools/test_korean_dagger_wound_hints.lua
+          lua5.1 tools/test_emerald_well_timer_fix.lua
+          lua5.1 tools/test_korean_extra_settings_overlay.lua
+          lua5.1 tools/test_korean_runtime_hotfix.lua
+          lua5.1 tools/test_korean_history_all_continents.lua
+          lua5.1 tools/test_korean_rodril_numeric_localization.lua
+
+      - name: Build clean release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.27"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.27
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.20~v1.0.26 사용자는 그대로 덮어쓰면 됩니다.
+          v1.0.19 이하 사용자는 과거 한국어 패치가 남긴 Scripts\Maps\out01.lua를
+          정리하기 위해 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+
+          v1.0.27 핵심 수정:
+          - Rodril NPC follower 고용/해고 후처리의 bare HireNPCTopic/DismissNPCTopic 참조 호환
+          - 기존 전역값이 없을 때만 NPCFollowers.HireNPCTopic(1512) / DismissNPCTopic(1511) alias 제공
+          - follower 목록과 Hired=true까지 반영됐지만 Hire 토픽이 남은 반완료 고용 상태 재개
+          - 정상 신규/정상 중복/unrelated Add 오류의 Rodril 의미는 유지
+          - v1.0.22~v1.0.26의 기존 인코딩/LocalizeTables/고용 호환 수정 유지
+
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          forbidden=(
+            CHANGELOG.txt
+            STR_TRANSLATION_COVERAGE.txt
+            RUNTIME_LOCALIZATION_AUDIT.txt
+            DBCS_REFACTOR_AUDIT.txt
+            UI_RENDER_CORRUPTION_AUDIT.txt
+            NATIVE_DBCS_MIGRATION_AUDIT.txt
+            UPSTREAM_BASELINE.md
+            MIGRATION_v1.0.20.txt
+            SHA256SUMS.txt
+          )
+          for f in "${forbidden[@]}"; do
+            test ! -e "release-stage/$f"
+          done
+
+          test ! -f release-stage/Scripts/Maps/out01.lua
+          test -f release-stage/Scripts/General/LocalizeTables.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          grep -q 'SyncNPCJoinPermissions' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          grep -q 'InstallHireAddGuard' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          grep -q 'InstallFollowerTopicAliases' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          grep -q '_G.DismissNPCTopic = dismiss' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          grep -q 'npcHasEvent(npc, hireTopic)' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          ! grep -q 'ReapplyRodrilNumericLocalization' release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          ! grep -Eq '^[[:space:]]*RefillTimer[[:space:]]*=' release-stage/Scripts/General/ZZ_KoreanEmeraldWellTimerFix.lua
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" .
+          )
+
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.27
+
+          v1.0.26에서도 실게임에서 NPC follower를 고용할 때 비용만 빠지고 합류가 완료되지 않는 사례가 남아 있어 Rodril 원본 `NPCFollowers.lua`를 다시 추적했습니다.
+
+          ### 이번에 확인한 실제 원본 코드 문제
+          Rodril은 토픽 번호를 `NPCFollowers.HireNPCTopic = 1512`, `NPCFollowers.DismissNPCTopic = 1511`로 정의하지만, 고용/해고 후처리의 두 줄은 각각 namespaced 필드가 아니라 bare `DismissNPCTopic` / `HireNPCTopic`을 사용합니다. Rodril 브랜치 전체 검색에서도 이 bare global의 별도 정의는 확인되지 않았습니다.
+
+          고용 비용은 이 후처리보다 먼저 차감되므로 이 경로가 중단되면 follower 상태가 반쯤 적용된 채 다음 고용 시도에서도 비용만 빠지는 상태로 남을 수 있습니다.
+
+          ### 수정
+          - Rodril `NPCFollowers.lua` 자체는 배포하거나 덮어쓰지 않습니다.
+          - bare global이 nil일 때만 namespaced 상수(1512/1511)를 호환 alias로 제공합니다.
+          - v1.0.26 이전 실패로 follower 목록에 이미 있고 `Hired=true`지만 같은 NPC가 여전히 Hire 토픽을 가진 경우, 기존 Add 후처리를 재개할 수 있게 성공 상태로 복구합니다.
+          - 이미 Dismiss 토픽을 가진 정상 고용 NPC는 기존처럼 중복 Add=false입니다.
+          - 정상 신규 Add와 unrelated 오류도 원본 의미를 유지합니다.
+
+          ### 검증
+          - Rodril LocalizeTables 의미 보존
+          - follower topic alias 정적 감사
+          - 정상 신규 / stale Hired=false / stale Hired=true+Hire topic / 정상 Dismiss duplicate / partial Add error / unrelated error Lua 회귀 테스트
+          - Rodril overlay boundary
+          - runtime translation ownership
+          - 기존 PO/DBCS/LOD/히스토리/제보 회귀 검사
+
+          ### 설치
+          - v1.0.20~v1.0.26: 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하: Rodril 원본을 먼저 재적용한 뒤 설치하십시오.
+
+          이번 수정은 정식 파티 캐릭터가 아니라 Rodril의 `NPCFollowers` 고용 NPC 시스템을 대상으로 합니다.
+          EOF
+
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish immutable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.27"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.27" \
+            --notes-file release-notes.md \
+            --latest
