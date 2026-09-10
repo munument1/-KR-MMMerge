@@ -1,0 +1,255 @@
+# v1.0.29 release workflow.
+# Publishes the player-report 65992 localization/runtime fixes after validating
+# the native DBCS stats storage, generated catalogs, and existing regressions.
+name: Release v1.0.29
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.29.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate canonical localization sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress --fail-fuzzy --min-translated 25051
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate report 65992 and prior regression guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/audit_rodril_follower_topic_aliases.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+          python tools/validate_korean_movie_subtitles.py .
+
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('Data/Text localization/KO_StatsSkillsRuntime.txt').read_bytes().decode('euc_kr')
+          current = ''
+          ids = []
+          for line in text.splitlines()[1:]:
+              parts = line.split('\t', 3)
+              if len(parts) < 4:
+                  continue
+              if parts[0]:
+                  current = parts[0]
+              if current == 'StatsDescriptions' and parts[1].isdigit():
+                  ids.append(int(parts[1]))
+          assert ids == list(range(7)), ids
+          print('StatsDescriptions runtime bounds: 0..6 OK')
+          PY
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanMovieSubtitles.lua \
+            Scripts/General/LocalizeTables.lua \
+            Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            tools/test_localize_tables_upstream_semantics.lua \
+            tools/test_korean_movie_subtitles.lua \
+            tools/test_korean_rodril_numeric_localization.lua; do
+            luac5.1 -p "$f"
+          done
+          lua5.1 tools/test_localize_tables_upstream_semantics.lua
+          lua5.1 tools/test_korean_movie_subtitles.lua
+          lua5.1 tools/test_korean_rodril_numeric_localization.lua
+
+      - name: Build clean release package
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.29"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.29
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.20~v1.0.28 사용자는 그대로 덮어쓰면 됩니다.
+          v1.0.19 이하 사용자는 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+
+          v1.0.29 핵심 변경:
+          - 스탯 우클릭 도움말 stats.txt를 레거시 DBCS 마커 형식에서 native CP949로 전환
+          - Game.StatsDescriptions 런타임 범위 0..6 제한 유지
+          - Extra Settings의 Interface/General/Bolster/Keybinds 제목 번역 경로 수정
+          - 학자/교사/강사의 학습 기술 보너스 설명을 실제 +5/+10/+15에 맞게 고정
+          - 피낙시아 제국, 방패 주문 상시 유지, 율리시스 냉기 피해 등 제보 용어/효과 교정
+          - 레인저/소서러/성직자/강령술사 직업 설명 및 기술 설명 문구 정리
+          - 기존 NPC follower 수정 및 MMMerge 대화 컷신 한국어 자막 유지
+
+          참고:
+          - 스탯 우클릭 튕김/공백은 문제를 일으킬 수 있던 정적 문자열 저장 방식을 수정했으며 자동 검증을 통과했습니다.
+            실제 플레이 환경에서의 최종 확인은 필요합니다.
+          - UI 변경 뒤 일부 M&M8 그래픽이 남는 현상은 한국어 아이콘 아카이브에서 원인을 확인하지 못해 이번 버전의 수정 대상으로 표시하지 않습니다.
+
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          test ! -f release-stage/Scripts/Maps/out01.lua
+          test -f release-stage/Scripts/General/LocalizeTables.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanReportedLocalization.lua
+          test -f release-stage/Scripts/General/KoreanMovieSubtitles.lua
+          test -d "release-stage/Data/Korean Subtitles"
+          test "$(find 'release-stage/Data/Korean Subtitles' -type f -name '*.srt' | wc -l)" -eq 19
+
+          python tools/patch_static_stats_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('release-stage/Data/Text localization/KO_StatsSkillsRuntime.txt').read_bytes().decode('euc_kr')
+          current = ''
+          ids = []
+          for line in text.splitlines()[1:]:
+              parts = line.split('\t', 3)
+              if len(parts) < 4:
+                  continue
+              if parts[0]:
+                  current = parts[0]
+              if current == 'StatsDescriptions' and parts[1].isdigit():
+                  ids.append(int(parts[1]))
+          assert ids == list(range(7)), ids
+          print('packaged StatsDescriptions runtime bounds: 0..6 OK')
+          PY
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" .
+          )
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.29
+
+          플레이어 제보 65992를 반영한 교정/런타임 안정화 버전입니다.
+
+          ### 스탯 화면 우클릭 도움말
+          - v1.0.28에서 `Game.StatsDescriptions`의 런타임 범위는 이미 0..6으로 제한했지만, 정적 `stats.txt`의 한국어 본문은 여전히 구형 DBCS 마커 형식을 사용하고 있었습니다.
+          - 특히 `Condition`과 `Experience` 같은 긴 행은 마커 때문에 원래 문자열보다 크게 팽창했습니다.
+          - v1.0.29부터 26개 정적 도움말을 현재 native DBCS 렌더러가 직접 처리하는 CP949 바이트로 저장합니다.
+          - CI에서 26개 행의 내용/바이트 형식과 레거시 마커 부재를 검증합니다.
+          - 실제 게임에서 경험치 우클릭 CTD와 상태 설명 하단 공백이 사라졌는지는 플레이 환경에서 최종 확인이 필요합니다.
+
+          ### Extra Settings / 고용 NPC
+          - `Interface settings`, `General settings`, `Bolster multipliers`, `Keybinds`에 붙는 레이아웃 공백 때문에 정확 일치 번역이 실패하던 경로를 수정했습니다.
+          - 학자/교사/강사 설명을 불안정한 NPCText 인덱스에서 복사하지 않고, Merge 실제 학습 기술 보너스 +5/+10/+15로 고정했습니다.
+
+          ### 번역/용어 교정
+          - `피낙시아 제국`으로 통일
+          - 동일한 Shield 상시 효과를 `방패 주문 상시 유지`로 통일
+          - 갈라하드의 실제 Shield + Stoneskin 효과를 설명에 반영
+          - 율리시스 `물 속성 피해` → `냉기 피해`
+          - 스킬/기술 및 HP/SP/AC/딜레이 표기 정리
+          - 레인저/소서러/성직자/강령술사 설명 수정
+          - 시대명 등 제보 문구 정리
+
+          ### 보류 항목
+          UI 변경 후 중앙 하단 초상화 좌우에 일부 M&M8 UI가 남는 현상은 Rodril의 Additional UI 로더/외부 UI LOD 쪽과 연관돼 보이며, 한국어 아이콘 LOD에는 해당 그래픽이 없습니다. 재현 근거 없이 로더를 덮어쓰지 않기 위해 이번 릴리즈에서는 수정했다고 표시하지 않습니다.
+
+          ### 검증
+          - canonical PO / PO round-trip / runtime ownership
+          - native DBCS 및 native CP949 stats.txt 26행
+          - `Game.StatsDescriptions` 0..6 범위
+          - report 65949/65960/65992 회귀 검사
+          - Rodril overlay/follower/localizer semantics
+          - Lua 5.1 구문 및 런타임 테스트
+          - 한국어 컷신 자막 19개 검증
+
+          ### 설치
+          - v1.0.20~v1.0.28: ZIP 내용을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하: Rodril MMMerge 원본을 먼저 재적용한 뒤 설치하십시오.
+          EOF
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.29"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.29" \
+            --notes-file release-notes.md \
+            --latest
