@@ -1,153 +1,60 @@
--- Restore numeric assignments from Rodril's own Data/*LocalizeTables.*txt files.
+-- Compatibility bridge for saves/installations affected by the v1.0.24
+-- LocalizeTables numeric-type regression.
 --
--- Rodril's LocalizeTables.lua converts the fourth column with tonumber() before
--- assigning it to Game structures.  The Korean multiline/localization wrapper
--- currently keeps that column as a string so numeric struct fields (notably
--- NPCDataTxt.Joins) reject the assignment.  NPCFollowers checks CurNPC.Joins
--- before exposing the Hire topic, which can therefore make recruitable NPCs
--- impossible to hire.
+-- The primary LocalizeTables override now preserves Rodril's original
+-- tonumber() semantics, so the former broad late pass that reparsed every
+-- numeric Data/*LocalizeTables.*txt field is retired. Keep only the one piece
+-- that existing saves may still need: copy a positive static NPCDataTxt.Joins
+-- permission into the live Game.NPC entry. NPCFollowers reads Game.NPC.Joins
+-- when deciding whether to expose the Hire topic.
 --
--- Keep this compatibility pass deliberately narrow: only Rodril base
--- LocalizeTables files and only values that tonumber() accepts are reapplied.
--- Korean KO_*.txt display strings are not touched.
+-- This deliberately never lowers Joins, never touches Hired, gold, quests,
+-- houses, map environments, or any other gameplay field.
 
 KoreanLocalization = KoreanLocalization or {}
 
-local function lines_binary(file)
-	local txt = file:read("*all")
-	local pos = 1
-	local size = #txt
-
-	return function()
-		if pos > size then
-			return nil
-		end
-		local nextCrLf = string.find(txt, "\r\n", pos, true)
-		local line
-		if nextCrLf then
-			line = string.sub(txt, pos, nextCrLf - 1)
-			pos = nextCrLf + 2
-		else
-			line = string.sub(txt, pos)
-			pos = size + 1
-		end
-		return line
-	end
-end
-
-local function resolve_table(name)
-	if not Game then
-		return nil, name
-	end
-	if Game[name] then
-		return Game[name], name
-	end
-	if name == "2DEvents" or name == "2DEventsTxt" then
-		return Game.Houses, "Houses"
-	end
-	return nil, name
-end
-
-local function assign_numeric(tableName, id, field, value)
-	local tbl = resolve_table(tableName)
-	if not tbl then
-		return false
+local function syncNPCJoinPermissions()
+	if not Game or not Game.NPCDataTxt or not Game.NPC then
+		return 0
 	end
 
-	local ok, item = pcall(function() return tbl[id] end)
-	if not ok or item == nil then
-		return false
-	end
-
-	local assigned
-	if field ~= "" then
-		assigned = pcall(function() item[field] = value end)
-	else
-		assigned = pcall(function() tbl[id] = value end)
-	end
-	if not assigned then
-		return false
-	end
-
-	-- NPCFollowers tests Game.NPC[npc].Joins, while Rodril marks the static
-	-- recruitable NPCs through NPCDataTxt ... Joins ... 1.  Mirror only this
-	-- static permission flag so already-created/current NPC entries are repaired
-	-- as well; Hired and all other save-backed state remain untouched.
-	if tableName == "NPCDataTxt" and field == "Joins" and Game.NPC then
-		pcall(function()
-			if Game.NPC[id] ~= nil then
-				Game.NPC[id].Joins = value
-			end
-		end)
-	end
-
-	return true
-end
-
-local function reapply_rodril_numeric_localization()
-	if not path or not path.find or not Game then
-		return 0, 0
-	end
-
-	local applied = 0
-	local joins = 0
-
-	for filePath in path.find("Data/*LocalizeTables.*txt") do
-		local file = io.open(filePath, "rb")
-		if file then
-			local iter = lines_binary(file)
-			iter() -- header
-			local lastTable = ""
-
-			for line in iter do
-				local rawTable, rawId, rawField, rawValue = line:match("^([^\t]*)\t([^\t]*)\t([^\t]*)\t(.*)$")
-				if rawTable then
-					local id = tonumber(rawId)
-					local value = tonumber(rawValue)
-					local tableName = rawTable
-
-					if tableName ~= "" then
-						local tbl = resolve_table(tableName)
-						if tbl then
-							lastTable = tableName
-						else
-							tableName = ""
-						end
-					else
-						tableName = lastTable
-					end
-
-					if tableName ~= "" and id and value ~= nil then
-						local field = tonumber(rawField) or rawField or ""
-						if assign_numeric(tableName, id, field, value) then
-							applied = applied + 1
-							if tableName == "NPCDataTxt" and field == "Joins" then
-								joins = joins + 1
-							end
-						end
+	local fixed = 0
+	for id, source in Game.NPCDataTxt do
+		local joins = source and source.Joins
+		if type(joins) == "number" and joins > 0 then
+			local ok, current = pcall(function() return Game.NPC[id] end)
+			if ok and current then
+				local currentJoins
+				pcall(function() currentJoins = current.Joins end)
+				if type(currentJoins) ~= "number" or currentJoins < joins then
+					if pcall(function() current.Joins = joins end) then
+						fixed = fixed + 1
 					end
 				end
 			end
-
-			file:close()
 		end
 	end
 
-	if applied > 0 and Log and Merge and Merge.Log then
-		Log(Merge.Log.Info, "Restored Rodril numeric localization fields: %s (%s NPC join flags).", applied, joins)
+	if fixed > 0 and Log and Merge and Merge.Log then
+		Log(Merge.Log.Info, "Restored %s live NPC join permissions from NPCDataTxt.", fixed)
 	end
-	return applied, joins
+	return fixed
 end
 
-KoreanLocalization.ReapplyRodrilNumericLocalization = reapply_rodril_numeric_localization
+KoreanLocalization.SyncNPCJoinPermissions = syncNPCJoinPermissions
+KoreanLocalization.RodrilBroadNumericSafetyNetRetired = true
 
--- LocalizeTables.lua registers its late GameInitialized2 pass from its own
--- ScriptsLoaded handler.  Register ours from ScriptsLoaded too; this file sorts
--- later, so the numeric restoration runs after that late text pass.
-function events.ScriptsLoaded()
-	events.GameInitialized2 = reapply_rodril_numeric_localization
+-- The early LocalizeTables GameInitialized2 handler has already been registered
+-- before this alphabetically-late Korean bridge, so static Joins values are
+-- available here. LoadMap also covers live NPC arrays restored later from saves.
+function events.GameInitialized2()
+	syncNPCJoinPermissions()
+end
+
+function events.LoadMap()
+	syncNPCJoinPermissions()
 end
 
 function events.TxtFilesReloaded()
-	reapply_rodril_numeric_localization()
+	syncNPCJoinPermissions()
 end

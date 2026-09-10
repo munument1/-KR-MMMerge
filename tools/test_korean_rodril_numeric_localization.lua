@@ -1,73 +1,75 @@
--- Regression harness for Rodril numeric LocalizeTables values.
--- Run with: lua5.1 tools/test_korean_rodril_numeric_localization.lua
+-- Regression guard for the narrowed v1.0.24 numeric compatibility bridge.
+-- The primary LocalizeTables loader owns all Rodril numeric semantics now; this
+-- script may repair only positive NPCDataTxt.Joins permissions in live NPCs.
 
-local temp = os.tmpname()
-local file = assert(io.open(temp, "wb"))
-file:write("Table (of Game struct)\tId\tField\tNew text\r\n")
-file:write("NPCDataTxt\t815\tJoins\t1\r\n")
-file:write("\t824\tJoins\t1\r\n")
-file:write("Dummy\t1\tValue\t-2.5\r\n")
-file:write("Dummy\t2\tValue\tnot-a-number\r\n")
-file:close()
-
-path = {
-	find = function(mask)
-		assert(mask == "Data/*LocalizeTables.*txt")
-		local yielded = false
-		return function()
-			if not yielded then
-				yielded = true
-				return temp
-			end
-		end
-	end
-}
+local function iterable(t)
+    return setmetatable(t, {
+        __call = function(self, _, key)
+            return next(self, key)
+        end
+    })
+end
 
 Game = {
-	NPCDataTxt = {
-		[815] = {Joins = 0},
-		[824] = {Joins = 0}
-	},
-	NPC = {
-		[815] = {Joins = 0, Hired = false},
-		[824] = {Joins = 0, Hired = true}
-	},
-	Dummy = {
-		[1] = {Value = 0},
-		[2] = {Value = 7}
-	}
+    NPCDataTxt = iterable({
+        [815] = {Joins = 1},
+        [824] = {Joins = 1},
+        [900] = {Joins = 0}
+    }),
+    NPC = {
+        [815] = {Joins = 0, Hired = false, House = 123},
+        [824] = {Joins = 1, Hired = true, House = 456},
+        [900] = {Joins = 0, Hired = false, House = 789}
+    },
+    Houses = {
+        [48] = {Picture = 999}
+    },
+    MapStats = {
+        [205] = {EaxEnvironments = 77}
+    }
 }
 
 events = {}
+KoreanLocalization = {}
 Merge = {Log = {Info = 1}}
 function Log() end
-KoreanLocalization = {}
 
 assert(loadfile("Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua"))()
-assert(type(KoreanLocalization.ReapplyRodrilNumericLocalization) == "function")
+assert(KoreanLocalization.RodrilBroadNumericSafetyNetRetired == true,
+    "broad numeric safety-net retired marker is missing")
+assert(type(KoreanLocalization.SyncNPCJoinPermissions) == "function",
+    "targeted NPC join repair was not exported")
+assert(KoreanLocalization.ReapplyRodrilNumericLocalization == nil,
+    "broad Data/*LocalizeTables numeric rewriter must stay retired")
 
-local applied, joins = KoreanLocalization.ReapplyRodrilNumericLocalization()
-assert(applied == 3, "expected exactly three numeric records, got " .. tostring(applied))
-assert(joins == 2, "expected two NPC Joins records, got " .. tostring(joins))
+local fixed = KoreanLocalization.SyncNPCJoinPermissions()
+assert(fixed == 1, "expected only one live Joins repair, got " .. tostring(fixed))
+assert(Game.NPC[815].Joins == 1, "missing live Joins permission was not repaired")
+assert(Game.NPC[824].Joins == 1, "existing live Joins permission was changed")
+assert(Game.NPC[900].Joins == 0, "zero static Joins must not be promoted")
+assert(Game.NPC[815].Hired == false and Game.NPC[824].Hired == true,
+    "join repair must never touch Hired state")
+assert(Game.NPC[815].House == 123 and Game.NPC[824].House == 456,
+    "join repair must never touch other NPC state")
+assert(Game.Houses[48].Picture == 999,
+    "retired broad pass must not rewrite house numeric fields")
+assert(Game.MapStats[205].EaxEnvironments == 77,
+    "retired broad pass must not rewrite map numeric fields")
 
-assert(type(Game.NPCDataTxt[815].Joins) == "number" and Game.NPCDataTxt[815].Joins == 1)
-assert(type(Game.NPCDataTxt[824].Joins) == "number" and Game.NPCDataTxt[824].Joins == 1)
-assert(type(Game.NPC[815].Joins) == "number" and Game.NPC[815].Joins == 1)
-assert(type(Game.NPC[824].Joins) == "number" and Game.NPC[824].Joins == 1)
-assert(Game.NPC[815].Hired == false, "repair must not touch Hired state")
-assert(Game.NPC[824].Hired == true, "repair must preserve existing Hired state")
-assert(type(Game.Dummy[1].Value) == "number" and Game.Dummy[1].Value == -2.5)
-assert(Game.Dummy[2].Value == 7, "non-numeric display text must be ignored")
-
--- The ScriptsLoaded registration must expose the same repair as a late
--- GameInitialized2 handler, after LocalizeTables' own late pass in-game.
-Game.NPCDataTxt[815].Joins = 0
+-- All registered hooks must remain equally narrow.
 Game.NPC[815].Joins = 0
-assert(type(events.ScriptsLoaded) == "function")
-events.ScriptsLoaded()
 assert(type(events.GameInitialized2) == "function")
 events.GameInitialized2()
-assert(Game.NPCDataTxt[815].Joins == 1 and Game.NPC[815].Joins == 1)
+assert(Game.NPC[815].Joins == 1 and Game.NPC[815].Hired == false)
 
-os.remove(temp)
-print("PASS: Rodril numeric localization and NPC Joins permissions are restored as numbers")
+Game.NPC[815].Joins = 0
+assert(type(events.LoadMap) == "function")
+events.LoadMap()
+assert(Game.NPC[815].Joins == 1 and Game.NPC[815].House == 123)
+
+Game.NPC[815].Joins = 0
+assert(type(events.TxtFilesReloaded) == "function")
+events.TxtFilesReloaded()
+assert(Game.NPC[815].Joins == 1)
+
+print("PASS: compatibility bridge repairs only live NPC Joins permissions")
