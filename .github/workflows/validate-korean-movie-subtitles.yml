@@ -1,0 +1,42 @@
+name: Validate Korean movie subtitles
+
+on:
+  push:
+    branches:
+      - main
+      - feature/korean-cutscene-subtitles
+    paths:
+      - Scripts/General/KoreanMovieSubtitles.lua
+      - "Data/Korean Subtitles/**"
+      - tools/test_korean_movie_subtitles.lua
+      - tools/validate_korean_movie_subtitles.py
+      - .github/workflows/validate-korean-movie-subtitles.yml
+  pull_request:
+    paths:
+      - Scripts/General/KoreanMovieSubtitles.lua
+      - "Data/Korean Subtitles/**"
+      - tools/test_korean_movie_subtitles.lua
+      - tools/validate_korean_movie_subtitles.py
+      - .github/workflows/validate-korean-movie-subtitles.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate subtitle inventory and SRT timing
+        run: python tools/validate_korean_movie_subtitles.py .
+
+      - name: Lua 5.1 syntax and runtime regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          luac5.1 -p Scripts/General/KoreanMovieSubtitles.lua
+          luac5.1 -p tools/test_korean_movie_subtitles.lua
+          lua5.1 tools/test_korean_movie_subtitles.lua
