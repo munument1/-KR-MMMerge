@@ -8,8 +8,12 @@
 -- permission into the live Game.NPC entry. NPCFollowers reads Game.NPC.Joins
 -- when deciding whether to expose the Hire topic.
 --
--- This deliberately never lowers Joins, never touches Hired, gold, quests,
--- houses, map environments, or any other gameplay field.
+-- v1.0.25 field reports also exposed a second failure mode: Rodril deducts the
+-- hireling fee immediately before calling NPCFollowers.Add(). If Add() sees a
+-- stale follower-list entry, or an interrupted earlier hire inserted the entry
+-- before Hired was committed, the player can lose gold without the hire branch
+-- completing. The guard below repairs only that inconsistent Add() state and
+-- leaves normal Rodril hire semantics untouched.
 
 KoreanLocalization = KoreanLocalization or {}
 
@@ -41,20 +45,97 @@ local function syncNPCJoinPermissions()
 	return fixed
 end
 
+local function followerIndex(id)
+	if not vars or type(vars.NPCFollowers) ~= "table" then
+		return nil
+	end
+	if table and type(table.find) == "function" then
+		return table.find(vars.NPCFollowers, id)
+	end
+	for k, v in pairs(vars.NPCFollowers) do
+		if v == id then
+			return k
+		end
+	end
+	return nil
+end
+
+local function installHireAddGuard()
+	if not NPCFollowers or type(NPCFollowers.Add) ~= "function" then
+		return false
+	end
+	if KoreanLocalization.HireAddGuardInstalled then
+		return true
+	end
+
+	local originalAdd = NPCFollowers.Add
+	NPCFollowers.Add = function(id)
+		vars.NPCFollowers = vars.NPCFollowers or {}
+
+		-- Preserve the upstream result on a clean hire. pcall lets us inspect the
+		-- only recoverable partial state: the id was inserted but Hired was not.
+		local ok, result = pcall(originalAdd, id)
+		if ok and result then
+			return true
+		end
+
+		local pos = followerIndex(id)
+		local npc
+		if Game and Game.NPC then
+			pcall(function() npc = Game.NPC[id] end)
+		end
+
+		-- Rodril's Add() returns false when the id is already present. If the live
+		-- NPC is not actually marked hired, this is a stale/interrupted hire, not
+		-- a legitimate duplicate. Complete that one missing state transition and
+		-- return true so Rodril can continue MoveNPC/hide/topic cleanup.
+		if pos and npc then
+			local hired
+			pcall(function() hired = npc.Hired end)
+			if not hired then
+				local committed = pcall(function() npc.Hired = true end)
+				if committed then
+					if Log and Merge and Merge.Log then
+						Log(Merge.Log.Info, "Recovered interrupted NPC follower hire for NPC %s.", id)
+					end
+					return true
+				end
+			end
+		end
+
+		if not ok then
+			error(result)
+		end
+		return result
+	end
+
+	KoreanLocalization.HireAddGuardInstalled = true
+	return true
+end
+
 KoreanLocalization.SyncNPCJoinPermissions = syncNPCJoinPermissions
+KoreanLocalization.InstallHireAddGuard = installHireAddGuard
 KoreanLocalization.RodrilBroadNumericSafetyNetRetired = true
 
--- The early LocalizeTables GameInitialized2 handler has already been registered
--- before this alphabetically-late Korean bridge, so static Joins values are
--- available here. LoadMap also covers live NPC arrays restored later from saves.
+-- NPCFollowers is normally loaded before this alphabetically-late bridge.
+-- Keep event-time retries for unusual loader orders and reloads.
+installHireAddGuard()
+
 function events.GameInitialized2()
 	syncNPCJoinPermissions()
+	installHireAddGuard()
 end
 
 function events.LoadMap()
 	syncNPCJoinPermissions()
+	installHireAddGuard()
+end
+
+function events.LoadMapScripts()
+	installHireAddGuard()
 end
 
 function events.TxtFilesReloaded()
 	syncNPCJoinPermissions()
+	installHireAddGuard()
 end
