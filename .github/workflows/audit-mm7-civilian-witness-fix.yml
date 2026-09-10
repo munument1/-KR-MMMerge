@@ -1,0 +1,46 @@
+name: Audit MM7 civilian witness fix
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Scripts/Global/ZZZZ_KoreanMM7CivilianWitnessFix.lua
+      - tools/validate_mm7_civilian_witness_fix.py
+      - .github/workflows/audit-mm7-civilian-witness-fix.yml
+  pull_request:
+    paths:
+      - Scripts/Global/ZZZZ_KoreanMM7CivilianWitnessFix.lua
+      - tools/validate_mm7_civilian_witness_fix.py
+      - .github/workflows/audit-mm7-civilian-witness-fix.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Lua 5.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate MM7 civilian witness compatibility
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_mm7_civilian_witness_fix.py .
+          luac5.1 -p Scripts/Global/ZZZZ_KoreanMM7CivilianWitnessFix.lua
