@@ -1,0 +1,43 @@
+name: Validate Korean TransTxt index
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Data/Text localization/KO_TransTxt.txt
+      - Scripts/General/ZZZZ_KoreanTransTxtIndexFix.lua
+      - tools/build_static_localization.py
+      - tools/test_korean_transtxt_index_fix.lua
+      - tools/validate_korean_transtxt_index_fix.py
+      - .github/workflows/validate-korean-transtxt-index.yml
+  pull_request:
+    paths:
+      - Data/Text localization/KO_TransTxt.txt
+      - Scripts/General/ZZZZ_KoreanTransTxtIndexFix.lua
+      - tools/build_static_localization.py
+      - tools/test_korean_transtxt_index_fix.lua
+      - tools/validate_korean_transtxt_index_fix.py
+      - .github/workflows/validate-korean-transtxt-index.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate static and runtime TransTxt mapping
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+          python tools/validate_korean_transtxt_index_fix.py .
+          luac5.1 -p Scripts/General/ZZZZ_KoreanTransTxtIndexFix.lua
+          luac5.1 -p tools/test_korean_transtxt_index_fix.lua
+          lua5.1 tools/test_korean_transtxt_index_fix.lua
