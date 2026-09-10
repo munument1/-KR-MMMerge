@@ -6,6 +6,8 @@ import hashlib
 import sys
 from pathlib import Path
 
+import patch_static_stats_lod as stats_lod
+
 ROOT = Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 UPSTREAM_REV = "aea1b22666ef556f34a71b4f3945904b04de1466"
 UPSTREAM_BLOB = "867d3d9e5077205ab1cd691a49c25e664bd6f09f"
@@ -26,12 +28,22 @@ compat_path = ROOT / "Scripts/General/KoreanFont.lua"
 text_path = ROOT / "Scripts/General/KoreanFontText.lua"
 feedback_path = ROOT / "Scripts/General/ZZ_KoreanGameplayFeedbackFixes.lua"
 ini_path = ROOT / "Data/LocalizeConf.ini"
+stats_archive_path = ROOT / "Data/zz LocKO.T.lod"
+stats_translation_path = ROOT / "Data/Text localization/KO_StatsDescriptions.tsv"
 
-for path in (native_path, compat_path, text_path, feedback_path, ini_path):
+for path in (
+    native_path,
+    compat_path,
+    text_path,
+    feedback_path,
+    ini_path,
+    stats_archive_path,
+    stats_translation_path,
+):
     require(path.is_file(), f"missing required file: {path.relative_to(ROOT)}")
 
 # .gitattributes intentionally checks Lua files out as CRLF for the Windows
-# game.  Normalize only for comparison with the pinned upstream LF Git blob.
+# game. Normalize only for comparison with the pinned upstream LF Git blob.
 native_bytes = native_path.read_bytes().replace(b"\r\n", b"\n")
 native = native_bytes.decode("utf-8")
 compat = compat_path.read_text(encoding="utf-8")
@@ -40,7 +52,7 @@ feedback = feedback_path.read_text(encoding="utf-8")
 ini = ini_path.read_text(encoding="ascii")
 
 # The shipped renderer is the pinned upstream source plus exactly two public API
-# metadata fields.  Strip those fields and verify the original Git blob hash.
+# metadata fields. Strip those fields and verify the original Git blob hash.
 metadata = (
     f'\tNativeInstalled = not installFailed,\n'
     f'\tUpstreamRevision = "{UPSTREAM_REV}",\n'
@@ -79,6 +91,16 @@ require(not (ROOT / "Scripts/General/KoreanFontLegacy.lua").exists(), "legacy gl
 require('KT.Version = "1.0.15-native"' in text_util, "KoreanText native-mode version mismatch")
 require("lowByte <= 0xFE" in text_util, "fixed-string EUC-KR trail range must stop at FE")
 
+# Report 65992 exposed that stats.txt had remained in the legacy per-glyph marker
+# transport even after the renderer moved to native DBCS. Long right-click help
+# rows were therefore almost doubled in raw size. Pin the static archive to the
+# canonical 26 translations in direct CP949 form; patch_static_stats_lod's check
+# rejects semantically identical marker-encoded rows as a regression.
+stats_translations = stats_lod.load_translations(stats_translation_path)
+stats_lod.check_lod(stats_archive_path, stats_translations)
+stats_raw = stats_lod.extract_stats_raw(stats_archive_path.read_bytes())
+require(b"\x0e\x20\x0e" not in stats_raw, "stats.txt still contains legacy DBCS marker transport")
+
 # The old one-word map fix repeatedly touched evt.str/evt.hint around map load.
 # It is intentionally a no-op upgrade stub now.
 for forbidden in (
@@ -96,11 +118,11 @@ require("fontSizes=14,16,29" in ini, "Korean page-font heights must be 14,16,29"
 require("specialFonts=Autonote:15b" in ini, "Autonote must keep the 15b page font")
 
 # Existing Korean assets cover the punctuation page and all KS X 1001 Hangul
-# pages used by the patch.  Check every required page for every host size.
+# pages used by the patch. Check every required page for every host size.
 required_hi = [0xA1, *range(0xB0, 0xC9)]
 for tag in ("14", "15b", "16", "29"):
     for hi in required_hi:
         page = ROOT / f"DataFiles/DBCS_{tag}_{hi:02X}.fnt"
         require(page.is_file() and page.stat().st_size > 0, f"missing Korean page font: {page.name}")
 
-print("PASS: native DBCS renderer is pinned, hook-safe, page-font complete, and map-transition rewrites are retired")
+print("PASS: native DBCS renderer, native stats storage, page fonts, and transition guards are pinned")
