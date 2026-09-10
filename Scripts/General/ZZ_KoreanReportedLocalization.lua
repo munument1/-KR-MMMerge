@@ -115,25 +115,24 @@ local function installContinentGameLabels()
     KoreanReportedLocalization.ContinentLabelsInstalled = true
 end
 
--- Merge implements Scholar/Teacher/Instructor as raw Learning skill bonuses,
--- not flat experience percentages. Learning mastery then multiplies the effect.
+-- Merge implements Scholar/Teacher/Instructor as raw Learning skill bonuses
+-- of +5/+10/+15. Do not copy descriptions through Game.NPCText here: the
+-- localized table and the profession structure do not share stable indexing
+-- across every Merge build, which produced bogus values such as +60 at runtime.
 local HIRELING_LEARNING_DESCRIPTIONS = {
-    [4] = 2324,
-    [13] = 2333,
-    [14] = 2334
+    [4] = "\176\237\191\235 \193\223\191\161\180\194 \199\208\189\192 \177\226\188\250\192\204 5 \193\245\176\161\199\213\180\207\180\217.",
+    [13] = "\176\237\191\235 \193\223\191\161\180\194 \199\208\189\192 \177\226\188\250\192\204 10 \193\245\176\161\199\213\180\207\180\217.",
+    [14] = "\176\237\191\235 \193\223\191\161\180\194 \199\208\189\192 \177\226\188\250\192\204 15 \193\245\176\161\199\213\180\207\180\217."
 }
 
 local function applyHirelingLearningDescriptions()
-    if not Game or not Game.NPCText or not Game.NPCProf then
+    if not Game or not Game.NPCProf then
         return
     end
 
-    for profession, npcTextId in pairs(HIRELING_LEARNING_DESCRIPTIONS) do
-        local localized = Game.NPCText[npcTextId]
-        if type(localized) == "string" and localized ~= "" and Game.NPCProf[profession] then
-            -- NPCProf.Description is a derived copy. Reuse the canonical
-            -- NPCText wording instead of maintaining a second translation.
-            Game.NPCProf[profession].Description = localized
+    for profession, description in pairs(HIRELING_LEARNING_DESCRIPTIONS) do
+        if Game.NPCProf[profession] then
+            Game.NPCProf[profession].Description = encodeKorean(description)
         end
     end
 end
