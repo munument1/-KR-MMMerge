@@ -1,19 +1,10 @@
--- Compatibility bridge for saves/installations affected by the v1.0.24
--- LocalizeTables numeric-type regression.
+-- Compatibility bridge for Rodril NPC follower/localization state.
 --
--- The primary LocalizeTables override now preserves Rodril's original
--- tonumber() semantics, so the former broad late pass that reparsed every
--- numeric Data/*LocalizeTables.*txt field is retired. Keep only the one piece
--- that existing saves may still need: copy a positive static NPCDataTxt.Joins
--- permission into the live Game.NPC entry. NPCFollowers reads Game.NPC.Joins
--- when deciding whether to expose the Hire topic.
---
--- v1.0.25 field reports also exposed a second failure mode: Rodril deducts the
--- hireling fee immediately before calling NPCFollowers.Add(). If Add() sees a
--- stale follower-list entry, or an interrupted earlier hire inserted the entry
--- before Hired was committed, the player can lose gold without the hire branch
--- completing. The guard below repairs only that inconsistent Add() state and
--- leaves normal Rodril hire semantics untouched.
+-- The primary LocalizeTables override preserves Rodril's original tonumber()
+-- semantics.  This file therefore stays deliberately narrow: it repairs only
+-- the live NPC Joins permission lost by older Korean builds and follower-hire
+-- states that can leave the player charged without the hire transaction being
+-- allowed to finish.
 
 KoreanLocalization = KoreanLocalization or {}
 
@@ -60,6 +51,44 @@ local function followerIndex(id)
 	return nil
 end
 
+local function npcHasEvent(npc, eventId)
+	if not npc or not npc.Events or type(eventId) ~= "number" then
+		return false
+	end
+	for i = 0, 5 do
+		local value
+		local ok = pcall(function() value = npc.Events[i] end)
+		if ok and value == eventId then
+			return true
+		end
+	end
+	return false
+end
+
+-- Rodril's NPCFollowers.lua stores the ids on NPCFollowers.*, but two old
+-- transaction lines still reference bare HireNPCTopic/DismissNPCTopic globals.
+-- No such globals are defined anywhere in the Rodril tree.  Supplying aliases
+-- here lets those original lines use the ids they clearly intended without
+-- replacing or forking the upstream NPCFollowers.lua file.
+local function installFollowerTopicAliases()
+	if not NPCFollowers then
+		return false
+	end
+	local hire = NPCFollowers.HireNPCTopic
+	local dismiss = NPCFollowers.DismissNPCTopic
+	if type(hire) ~= "number" or type(dismiss) ~= "number" then
+		return false
+	end
+	if rawget(_G, "HireNPCTopic") == nil then
+		_G.HireNPCTopic = hire
+	end
+	if rawget(_G, "DismissNPCTopic") == nil then
+		_G.DismissNPCTopic = dismiss
+	end
+	KoreanLocalization.FollowerTopicAliasesInstalled = true
+	return true
+end
+
 local function installHireAddGuard()
 	if not NPCFollowers or type(NPCFollowers.Add) ~= "function" then
 		return false
@@ -72,8 +101,6 @@ local function installHireAddGuard()
 	NPCFollowers.Add = function(id)
 		vars.NPCFollowers = vars.NPCFollowers or {}
 
-		-- Preserve the upstream result on a clean hire. pcall lets us inspect the
-		-- only recoverable partial state: the id was inserted but Hired was not.
 		local ok, result = pcall(originalAdd, id)
 		if ok and result then
 			return true
@@ -85,13 +112,11 @@ local function installHireAddGuard()
 			pcall(function() npc = Game.NPC[id] end)
 		end
 
-		-- Rodril's Add() returns false when the id is already present. If the live
-		-- NPC is not actually marked hired, this is a stale/interrupted hire, not
-		-- a legitimate duplicate. Complete that one missing state transition and
-		-- return true so Rodril can continue MoveNPC/hide/topic cleanup.
 		if pos and npc then
 			local hired
 			pcall(function() hired = npc.Hired end)
+
+			-- Partial Add: id was inserted but Hired was never committed.
 			if not hired then
 				local committed = pcall(function() npc.Hired = true end)
 				if committed then
@@ -100,6 +125,23 @@ local function installHireAddGuard()
 					end
 					return true
 				end
+			end
+
+			-- Older failed attempts can get one step farther: Add already inserted
+			-- the follower and set Hired=true, but the Hire topic is still active
+			-- because the transaction died before topic cleanup.  A genuinely
+			-- completed follower is given Dismiss instead, so this combination is
+			-- safe to resume when the same NPC is the one currently being hired.
+			local currentId
+			if type(GetCurrentNPC) == "function" then
+				pcall(function() currentId = GetCurrentNPC() end)
+			end
+			local hireTopic = NPCFollowers.HireNPCTopic
+			if hired and currentId == id and npcHasEvent(npc, hireTopic) then
+				if Log and Merge and Merge.Log then
+					Log(Merge.Log.Info, "Resuming stale paid NPC follower hire for NPC %s.", id)
+				end
+				return true
 			end
 		end
 
@@ -115,27 +157,34 @@ end
 
 KoreanLocalization.SyncNPCJoinPermissions = syncNPCJoinPermissions
 KoreanLocalization.InstallHireAddGuard = installHireAddGuard
+KoreanLocalization.InstallFollowerTopicAliases = installFollowerTopicAliases
 KoreanLocalization.RodrilBroadNumericSafetyNetRetired = true
 
--- NPCFollowers is normally loaded before this alphabetically-late bridge.
--- Keep event-time retries for unusual loader orders and reloads.
+-- NPCFollowers normally loads before this alphabetically-late bridge.  Retry
+-- at the engine events as well so script reload/order differences cannot leave
+-- the compatibility pieces uninstalled.
+installFollowerTopicAliases()
 installHireAddGuard()
 
 function events.GameInitialized2()
 	syncNPCJoinPermissions()
+	installFollowerTopicAliases()
 	installHireAddGuard()
 end
 
 function events.LoadMap()
 	syncNPCJoinPermissions()
+	installFollowerTopicAliases()
 	installHireAddGuard()
 end
 
 function events.LoadMapScripts()
+	installFollowerTopicAliases()
 	installHireAddGuard()
 end
 
 function events.TxtFilesReloaded()
 	syncNPCJoinPermissions()
+	installFollowerTopicAliases()
 	installHireAddGuard()
 end
