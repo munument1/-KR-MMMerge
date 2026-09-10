@@ -9,7 +9,8 @@ runtime-only keys may carry literal text in the manifest.
 The output uses Merge's native long-overlay syntax. Multiline values are
 written as an ordinary first record line followed by raw continuation lines;
 they are never CSV-quoted because LocalizeTables.lua does not unquote CSV
-fields when loading generic long-overlay records.
+fields when loading generic long-overlay records. The generated runtime file is
+encoded as EUC-KR because FNT_DBCS.lua consumes raw EUC-KR bytes.
 """
 
 from __future__ import annotations
@@ -251,24 +252,38 @@ def main() -> int:
     for key in runtime_only:
         print(f"    runtime-only: {key[0]}[{key[1]}] {key[2] or '<default>'}")
 
+    try:
+        expected_bytes = generated.encode("euc_kr")
+    except UnicodeEncodeError as exc:
+        print(
+            f"KO_RuntimeOverrides.txt contains text outside EUC-KR: {exc}",
+            file=sys.stderr,
+        )
+        return 1
+
     if args.write:
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_bytes(generated.encode("utf-8"))
-        print(f"  wrote:              {args.output}")
+        args.output.write_bytes(expected_bytes)
+        print(f"  wrote EUC-KR:       {args.output}")
         return 0
 
     if not args.output.is_file():
         print(f"missing generated runtime file: {args.output}", file=sys.stderr)
         return 1
-    existing = read_text(args.output)
-    if normalized_records(existing) != normalized_records(generated):
+    existing_bytes = args.output.read_bytes()
+    if existing_bytes != expected_bytes:
+        existing = read_text(args.output)
+        if normalized_records(existing) != normalized_records(generated):
+            reason = "text content drift"
+        else:
+            reason = "wrong byte encoding or line endings (runtime requires EUC-KR/CRLF)"
         print(
-            "KO_RuntimeOverrides.txt has drifted from canonical Korean tables; "
-            "run tools/rebuild_runtime_overrides.py --write",
+            "KO_RuntimeOverrides.txt has drifted from the exact runtime bytes: "
+            f"{reason}; run tools/rebuild_runtime_overrides.py --write",
             file=sys.stderr,
         )
         return 1
-    print("  drift check:        OK")
+    print("  byte/encoding check: OK (EUC-KR, CRLF)")
     return 0
 
 
