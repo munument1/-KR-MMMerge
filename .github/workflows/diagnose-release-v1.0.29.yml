@@ -1,3 +1,4 @@
+# Rerun after making the Lua literal audit linear.
 name: Diagnose v1.0.29 validation
 
 on:
