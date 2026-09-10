@@ -1,0 +1,159 @@
+name: Refresh v1.0.29 hotfix
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/refresh-v1.0.29-hotfix.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-v1.0.29-hotfix
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SOURCE_SHA: 7ed47e78b59c099092f10a25ddfb91c319585813
+      TAG: v1.0.29
+      ASSET: MMMerge_Korean_v1.0.29_Release.zip
+    steps:
+      - name: Checkout fixed source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SOURCE_SHA }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate hotfixes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+          python tools/validate_korean_movie_subtitles.py .
+          python tools/validate_hireling_experience_fix.py .
+          python tools/validate_mm7_civilian_witness_fix.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_runtime_translation_ownership.py --json /tmp/runtime-ownership.json
+
+          luac5.1 -p Scripts/General/KoreanMovieSubtitles.lua
+          luac5.1 -p Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua
+          luac5.1 -p Scripts/Global/ZZZZ_KoreanMM7CivilianWitnessFix.lua
+          lua5.1 tools/test_korean_movie_subtitles.lua
+
+          grep -F 'KMS.Version = "1.1"' Scripts/General/KoreanMovieSubtitles.lua
+          grep -F '0x4BC9C7' Scripts/General/KoreanMovieSubtitles.lua
+          grep -F '0x4BCBE6' Scripts/General/KoreanMovieSubtitles.lua
+
+      - name: Build replacement package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf release-stage
+          mkdir -p release-stage
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          test -f release-stage/Scripts/General/KoreanMovieSubtitles.lua
+          test -f release-stage/Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua
+          test -f release-stage/Scripts/Global/ZZZZ_KoreanMM7CivilianWitnessFix.lua
+          test -d "release-stage/Data/Korean Subtitles"
+          test "$(find 'release-stage/Data/Korean Subtitles' -type f -name '*.srt' | wc -l)" -eq 19
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.29 (hotfix refresh)
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.29 hotfix refresh:
+          - 컷신 자막을 일반 PostRender가 아니라 MM8 Bink/Smacker 네이티브 영상 프레임 루프에서도 그리도록 수정
+          - 학자/교사/강사의 +5%/+10%/+15% 효과를 학습 숙련도 배수와 분리해 평면 경험치 보너스로 적용
+          - MM7(안타가리치)에서 민간인을 공격했을 때 일정 거리 내 민간인/경비가 적대화되는 호환 동작 추가
+          - 기존 v1.0.29의 스탯 우클릭, Extra Settings, 번역/용어 수정 유지
+
+          참고:
+          - 위 런타임 수정은 자동 검증과 Lua 5.1 구문 검사를 통과한 소스를 포함합니다.
+          - 실제 플레이 환경에서 컷신 자막 출력, 고용 NPC 경험치 수치, MM7 적대 반응의 최종 확인은 필요합니다.
+
+          Source commit: 7ed47e78b59c099092f10a25ddfb91c319585813
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" . >/dev/null
+          )
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+          echo "ZIP_SHA=${ZIP_SHA}" >> "$GITHUB_ENV"
+
+          cat > release-notes.md <<EOF
+          ## MMMerge 한국어 패치 v1.0.29 — hotfix refresh
+
+          기존 v1.0.29 배포 파일을 수정본으로 교체했습니다.
+
+          ### 추가 수정
+          - **컷신 자막:** 기존 v1.0.29는 SRT 19개가 포함돼 있었지만 동기식 Bink/Smacker 재생 중 일반 \`PostRender\`가 돌지 않아 실제 영상 위에 자막이 그려지지 않았습니다. 수정본은 MM8 네이티브 영상 프레임 루프를 직접 후킹하는 자막 런타임 v1.1을 포함합니다.
+          - **학자/교사/강사:** +5/+10/+15가 학습 숙련도에 다시 곱해지지 않도록 분리해, 각각 +5%/+10%/+15% 평면 경험치 보너스로 계산하도록 수정했습니다.
+          - **MM7 민간인/경비 적대:** 안타가리치에서 플레이어가 민간인을 공격하면 일정 거리 안의 민간인과 경비가 함께 적대화되는 호환 동작을 추가했습니다.
+          - 기존 v1.0.29의 스탯 우클릭 도움말, Extra Settings, 번역/용어 수정은 그대로 유지됩니다.
+
+          ### 검증 상태
+          - 한국어 컷신 SRT 19개 / 네이티브 Bink·Smacker 후킹 정적 검증
+          - 고용 NPC 경험치 계산 회귀 검증
+          - MM7 민간인 목격 적대 로직 검증
+          - Rodril overlay 경계 / runtime ownership 검증
+          - Lua 5.1 구문 및 자막 런타임 테스트
+
+          **주의:** 자동 검증은 통과했지만 실제 플레이 환경에서 컷신 자막 출력, 교사 포함 실제 경험치 획득량, MM7 목격 적대 반응은 최종 확인이 필요합니다.
+
+          Source commit: \`${SOURCE_SHA}\`
+
+          ZIP SHA-256: \`${ZIP_SHA}\`
+          EOF
+
+      - name: Replace v1.0.29 release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Keep the published tag and replacement asset reproducible from the same source.
+          git tag -f "$TAG" "$SOURCE_SHA"
+          git push origin "refs/tags/$TAG" --force
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ASSET" "$ASSET.sha256" --clobber
+            gh release edit "$TAG" \
+              --title "MMMerge 한국어 패치 v1.0.29" \
+              --notes-file release-notes.md \
+              --latest
+          else
+            gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+              --target "$SOURCE_SHA" \
+              --title "MMMerge 한국어 패치 v1.0.29" \
+              --notes-file release-notes.md \
+              --latest
+          fi
+
+          gh release view "$TAG" --json tagName,name,url,assets,targetCommitish
