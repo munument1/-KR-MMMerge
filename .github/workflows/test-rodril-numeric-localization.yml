@@ -6,6 +6,7 @@ on:
       - Scripts/General/LocalizeTables.lua
       - Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
       - tools/audit_rodril_localizer_semantics.py
+      - tools/audit_rodril_follower_topic_aliases.py
       - tools/test_localize_tables_upstream_semantics.lua
       - tools/test_korean_rodril_numeric_localization.lua
       - .github/workflows/test-rodril-numeric-localization.yml
@@ -16,6 +17,7 @@ on:
       - Scripts/General/LocalizeTables.lua
       - Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua
       - tools/audit_rodril_localizer_semantics.py
+      - tools/audit_rodril_follower_topic_aliases.py
       - tools/test_localize_tables_upstream_semantics.lua
       - tools/test_korean_rodril_numeric_localization.lua
       - .github/workflows/test-rodril-numeric-localization.yml
@@ -46,8 +48,10 @@ jobs:
       - name: LocalizeTables upstream semantics
         run: lua5.1 tools/test_localize_tables_upstream_semantics.lua
 
-      - name: NPC join compatibility stays narrow
+      - name: NPC follower compatibility stays narrow
         run: lua5.1 tools/test_korean_rodril_numeric_localization.lua
 
       - name: Static semantics audit
-        run: python tools/audit_rodril_localizer_semantics.py
+        run: |
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/audit_rodril_follower_topic_aliases.py
