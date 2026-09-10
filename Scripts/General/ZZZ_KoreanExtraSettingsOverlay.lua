@@ -34,7 +34,35 @@ local EXTRA_UI_TEXT = {
     ["-NO KEY-"] = "-\197\176 \190\248\192\189-"
 }
 
+-- AdaptiveMonstersStats.lua builds these labels as
+-- StrColor(yellow) .. Header .. StrColor(white), so exact-string translation
+-- never sees the English header by itself.  Keep the color control sequences
+-- and alignment spaces intact and replace only the embedded header.
+local BOLSTER_MULTIPLIER_TEXT = {
+    ["Health points"] = "\187\253\184\237\183\194",
+    ["Armor class"] = "\185\230\190\238\183\194",
+    ["Damage"] = "\199\199\199\216\183\174",
+    ["Hit chance"] = "\184\237\193\223\183\252",
+    ["Movement speed"] = "\192\204\181\191 \188\211\181\181"
+}
+
 local QUICK_SPELL_PREFIX = "\196\252\189\186\198\231 "
+
+local function translateColoredBolsterText(text)
+    -- StrColor() emits form-feed + exactly five decimal digits ("\fNNNNN").
+    local lead, body, tail = string.match(text, "^(\f%d%d%d%d%d)(.-)(\f%d%d%d%d%d)$")
+    if not lead then
+        return nil
+    end
+
+    local label, spaces = string.match(body, "^(.-)(%s*)$")
+    local localized = label and BOLSTER_MULTIPLIER_TEXT[label]
+    if not localized then
+        return nil
+    end
+
+    return lead .. encodeKorean(localized) .. (spaces or "") .. tail
+end
 
 local function translateExtraText(text)
     if type(text) ~= "string" then
@@ -49,6 +77,11 @@ local function translateExtraText(text)
     local slot = string.match(text, "^Q%. SPELL (%d+)$")
     if slot then
         return encodeKorean(QUICK_SPELL_PREFIX .. slot)
+    end
+
+    local colored = translateColoredBolsterText(text)
+    if colored then
+        return colored
     end
 
     return text
@@ -172,6 +205,7 @@ function events.GameInitialized2()
 end
 
 KoreanExtraSettingsOverlay.TranslateText = translateExtraText
+KoreanExtraSettingsOverlay.TranslateColoredBolsterText = translateColoredBolsterText
 KoreanExtraSettingsOverlay.InstallHooks = installHooks
 KoreanExtraSettingsOverlay.InstallPageLabels = installPageLabels
 KoreanExtraSettingsOverlay.ScreenIsRegistered = screenIsRegistered
