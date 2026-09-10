@@ -3,6 +3,7 @@
 
 KoreanTransTxtIndexFix = KoreanTransTxtIndexFix or {}
 local KTI = KoreanTransTxtIndexFix
+KTI.Version = "1.0"
 
 KTI.SourcePath = "Data/Text localization/KO_TransTxt.txt"
 local records = nil
