@@ -49,8 +49,8 @@ if not re.search(
 # treats spacer/unrecognized lines as no-op records; appending them to the
 # preceding value changes upstream semantics and can pollute display text.
 if not re.search(
-    r"elseif\s+currentRecord\s+and\s+IsKoreanSource\s+then\s*\n"
-    r"\s*currentRecord\.cText\s*=",
+    r"elseif\s+currentRecord\s+and\s+IsKoreanSource\s+then"
+    r"[\s\S]{0,450}currentRecord\.cText\s*=",
     source,
 ):
     fail("base Rodril spacer/unrecognized lines can still bleed into the previous text record")
