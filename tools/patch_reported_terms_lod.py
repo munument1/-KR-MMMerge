@@ -41,6 +41,10 @@ REPLACEMENTS = [
 # Report 65992 corrections. Scope these to the actual LOD member so a generic
 # Korean word such as "스킬" is never rewritten in unrelated dialogue/lore.
 MEMBER_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
+    # ItemsTxt is deliberately runtime-owned by LocalizeTables in the Korean
+    # overlay and is absent from this static LOD on the audited Rodril base.
+    # Keep the rules here as optional compatibility for older archives that do
+    # contain items.txt, but do not require that member to exist.
     "items.txt": [
         ("대침묵의 사건 12년 전에", "침묵의 시대 12년 전에"),
         ("패디쉬 총독", "파디쉬 총독"),
@@ -92,7 +96,7 @@ MEMBER_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
     ],
 }
 
-REQUIRED_MEMBERS = set(MEMBER_REPLACEMENTS)
+REQUIRED_MEMBERS = set(MEMBER_REPLACEMENTS) - {"items.txt"}
 
 
 def encoded(text: str) -> bytes:
