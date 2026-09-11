@@ -16,25 +16,38 @@ if not text.isascii():
     raise SystemExit("hireling experience overlay contains raw non-ASCII runtime text")
 
 required_fragments = [
+    'KoreanHirelingExperienceFix.Version = "1.1"',
     "local HIRELING_EXPERIENCE_BONUSES = {",
     "[4] = 5",
     "[13] = 10",
     "[14] = 15",
+    "local LEARNING_MASTERY_MULTIPLIERS = {",
+    "[0] = 1",
+    "[1] = 1",
+    "[2] = 2",
+    "[3] = 3",
+    "[4] = 5",
     "vars.NPCFollowers",
     "local npc = Game.NPC[npcId]",
     "HIRELING_EXPERIENCE_BONUSES[npc.Profession]",
-    "function events.GetSkill(t)",
-    "SplitSkill(t.Result)",
-    "level - bonus",
-    "JoinSkill(math.max(0, level - bonus), mastery)",
+    "player.Skills[const.Skills.Learning]",
     "function events.GetLearningTotalSkill(t)",
-    "t.Result = t.Result + bonus",
+    "bonus * (multiplier - 1)",
+    "t.Result = math.max(0, t.Result - bonus * (multiplier - 1))",
     "function events.EnterNPC()",
     "Game.NPCProf[profession].Description = encodeKorean(description)",
 ]
 for fragment in required_fragments:
     if fragment not in text:
         raise SystemExit(f"missing hireling experience fix contract: {fragment!r}")
+
+# Regression guard: GetSkill owns the character-sheet display of follower skill
+# bonuses. This overlay must not remove the +5/+10/+15 value there again.
+if re.search(r"(?m)^\s*function\s+events\.GetSkill\s*\(", text):
+    raise SystemExit(
+        "hireling experience overlay must not override events.GetSkill; "
+        "that hides Rodril's visible Learning bonus"
+    )
 
 # Verify the profession map exactly: Scholar +5, Teacher +10, Instructor +15.
 match = re.search(
@@ -51,27 +64,41 @@ entries = {
 if entries != {4: 5, 13: 10, 14: 15}:
     raise SystemExit(f"unexpected hireling experience bonus table: {entries!r}")
 
-# Regression model for the reported +60 case. Rodril currently adds all three
-# values as raw Learning ranks (30). At Expert mastery that becomes 60. The
-# compatibility overlay must remove the raw 30 before mastery, then add flat 30
-# percentage points afterwards. The follower contribution therefore stays 30
-# regardless of Learning mastery.
+mult_match = re.search(
+    r"local LEARNING_MASTERY_MULTIPLIERS\s*=\s*\{(?P<body>.*?)\n\}",
+    text,
+    re.S,
+)
+if not mult_match:
+    raise SystemExit("cannot parse Learning mastery multiplier table")
+multipliers = {
+    int(key): int(value)
+    for key, value in re.findall(r"\[(\d+)\]\s*=\s*(\d+)", mult_match.group("body"))
+}
+if multipliers != {0: 1, 1: 1, 2: 2, 3: 3, 4: 5}:
+    raise SystemExit(f"unexpected Learning mastery multipliers: {multipliers!r}")
+
+# Rodril's GetSkill handler must remain visible to the UI. Its raw follower
+# points therefore still enter the engine's Learning calculation. Flatten only
+# the extra mastery scaling at GetLearningTotalSkill:
+#   upstream = (base + follower) * mastery
+#   corrected = upstream - follower * (mastery - 1)
+#             = base * mastery + follower
 raw_follower_bonus = sum(entries.values())
 if raw_follower_bonus != 30:
     raise SystemExit(f"expected all-hireling flat bonus 30, got {raw_follower_bonus}")
 
-for multiplier in (1, 2, 3, 5):
-    base_learning = 7
+base_learning = 7
+for mastery, multiplier in multipliers.items():
     upstream_effective = (base_learning + raw_follower_bonus) * multiplier
-    corrected_effective = (
-        (base_learning + raw_follower_bonus - raw_follower_bonus) * multiplier
-        + raw_follower_bonus
-    )
+    corrected_effective = upstream_effective - raw_follower_bonus * (multiplier - 1)
+    expected_effective = base_learning * multiplier + raw_follower_bonus
     follower_delta = corrected_effective - base_learning * multiplier
-    if follower_delta != 30:
+    if corrected_effective != expected_effective or follower_delta != 30:
         raise SystemExit(
-            "hireling bonus is still mastery-scaled: "
-            f"multiplier={multiplier}, delta={follower_delta}, upstream={upstream_effective}"
+            "hireling bonus is not flat after final-skill correction: "
+            f"mastery={mastery}, multiplier={multiplier}, "
+            f"corrected={corrected_effective}, expected={expected_effective}"
         )
 
 # The Korean descriptions must advertise flat XP percentages, not raw Learning
@@ -112,3 +139,5 @@ if descriptions != expected_descriptions:
     raise SystemExit(f"hireling experience descriptions drifted: {descriptions!r}")
 
 print("hireling experience fix: OK")
+print("character-sheet Learning bonus display: preserved")
+print("actual experience bonus: flat +5/+10/+15 after mastery correction")
