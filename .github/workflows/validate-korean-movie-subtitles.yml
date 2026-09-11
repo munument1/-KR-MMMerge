@@ -1,21 +1,18 @@
-# v1.0.29 hotfix: native movie-frame drawing is gated to MM8 stems.
-name: Validate Korean movie subtitles
+# MMMerge movie subtitles are intentionally disabled for stability.
+name: Validate MMMerge movie subtitles stay disabled
 
 on:
   push:
     branches:
       - main
-      - feature/korean-cutscene-subtitles
     paths:
       - Scripts/General/KoreanMovieSubtitles.lua
-      - "Data/Korean Subtitles/**"
       - tools/test_korean_movie_subtitles.lua
       - tools/validate_korean_movie_subtitles.py
       - .github/workflows/validate-korean-movie-subtitles.yml
   pull_request:
     paths:
       - Scripts/General/KoreanMovieSubtitles.lua
-      - "Data/Korean Subtitles/**"
       - tools/test_korean_movie_subtitles.lua
       - tools/validate_korean_movie_subtitles.py
       - .github/workflows/validate-korean-movie-subtitles.yml
@@ -29,10 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate subtitle inventory and SRT timing
+      - name: Require movie playback to stay untouched
         run: python tools/validate_korean_movie_subtitles.py .
 
-      - name: Lua 5.1 syntax and runtime regression
+      - name: Lua 5.1 disabled-stub regression
         shell: bash
         run: |
           set -euo pipefail
