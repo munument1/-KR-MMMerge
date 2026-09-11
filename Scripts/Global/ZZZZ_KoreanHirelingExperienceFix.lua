@@ -1,18 +1,26 @@
 -- Correct Rodril MMMerge's Scholar/Teacher/Instructor experience bonuses.
 --
--- Upstream NPCFollowersSkills.lua adds +5/+10/+15 to the raw Learning skill
--- rank. Learning mastery then multiplies those values, so hiring all three can
--- appear as +60 on an Expert character instead of the advertised flat +30%
--- experience bonus. Keep the upstream follower system intact, remove only
--- these raw Learning ranks, then add the same values after Learning mastery is
--- calculated by GetLearningTotalSkill.
+-- Rodril intentionally exposes these followers as +5/+10/+15 Learning in
+-- GetSkill, which is also what the character sheet uses for the green skill
+-- bonus display. Keep that display path untouched. Only normalize the final
+-- GetLearningTotalSkill result so follower points stay flat percentage points
+-- instead of being multiplied again by Learning mastery.
 
 KoreanHirelingExperienceFix = KoreanHirelingExperienceFix or {}
+KoreanHirelingExperienceFix.Version = "1.1"
 
 local HIRELING_EXPERIENCE_BONUSES = {
     [4] = 5,   -- Scholar
     [13] = 10, -- Teacher
     [14] = 15  -- Instructor
+}
+
+local LEARNING_MASTERY_MULTIPLIERS = {
+    [0] = 1,
+    [1] = 1,
+    [2] = 2,
+    [3] = 3,
+    [4] = 5
 }
 
 -- Keep runtime Korean text as EUC-KR decimal byte escapes. Scholar also keeps
@@ -45,8 +53,25 @@ local function getHirelingExperienceBonus()
     return total
 end
 
-local function removeRawLearningBonus(t)
-    if not t or not const or not const.Skills or t.Skill ~= const.Skills.Learning then
+local function getLearningMasteryMultiplier(t)
+    if not t or not const or not const.Skills then
+        return 1
+    end
+
+    local player = t.Player
+    if not player and t.PlayerIndex ~= nil and Party and Party.PlayersArray then
+        player = Party.PlayersArray[t.PlayerIndex]
+    end
+    if not player or not player.Skills then
+        return 1
+    end
+
+    local _, mastery = SplitSkill(player.Skills[const.Skills.Learning])
+    return LEARNING_MASTERY_MULTIPLIERS[mastery] or 1
+end
+
+local function flattenHirelingExperienceBonus(t)
+    if not t or t.Result == nil then
         return
     end
 
@@ -55,18 +80,9 @@ local function removeRawLearningBonus(t)
         return
     end
 
-    local level, mastery = SplitSkill(t.Result)
-    t.Result = JoinSkill(math.max(0, level - bonus), mastery)
-end
-
-local function addFlatExperienceBonus(t)
-    if not t then
-        return
-    end
-
-    local bonus = getHirelingExperienceBonus()
-    if bonus > 0 then
-        t.Result = t.Result + bonus
+    local multiplier = getLearningMasteryMultiplier(t)
+    if multiplier > 1 then
+        t.Result = math.max(0, t.Result - bonus * (multiplier - 1))
     end
 end
 
@@ -82,14 +98,11 @@ local function applyHirelingExperienceDescriptions()
     end
 end
 
--- This file is deliberately named ZZZZ_* in Scripts/Global so its GetSkill
--- handler is registered after Rodril's NPCFollowersSkills.lua handler.
-function events.GetSkill(t)
-    removeRawLearningBonus(t)
-end
-
+-- Deliberately do NOT override events.GetSkill here. Rodril's own
+-- NPCFollowersSkills.lua GetSkill handler owns the visible +5/+10/+15 Learning
+-- bonus shown on the character sheet.
 function events.GetLearningTotalSkill(t)
-    addFlatExperienceBonus(t)
+    flattenHirelingExperienceBonus(t)
 end
 
 function events.GameInitialized2()
@@ -111,6 +124,6 @@ function events.EnterNPC()
 end
 
 KoreanHirelingExperienceFix.GetHirelingExperienceBonus = getHirelingExperienceBonus
-KoreanHirelingExperienceFix.RemoveRawLearningBonus = removeRawLearningBonus
-KoreanHirelingExperienceFix.AddFlatExperienceBonus = addFlatExperienceBonus
+KoreanHirelingExperienceFix.GetLearningMasteryMultiplier = getLearningMasteryMultiplier
+KoreanHirelingExperienceFix.FlattenHirelingExperienceBonus = flattenHirelingExperienceBonus
 KoreanHirelingExperienceFix.ApplyDescriptions = applyHirelingExperienceDescriptions
