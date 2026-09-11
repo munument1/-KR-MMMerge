@@ -3,32 +3,33 @@ MMMerge 한국어 패치 v1.0.29
 ============================================================
 
 이 패치는 Might and Magic 6·7·8 Merge(MMMerge)의 한국어 번역 패치입니다.
-v1.0.20부터 Rodril MMMerge를 공식 호환 기준으로 명확히 하고,
+v1.0.20부터 Rodril MMMerge를 공식 호환 기준으로 사용하며,
 한국어 패치는 기존 게임 위에 설치하는 localization overlay로 관리합니다.
 
-v1.0.29 배포 파일은 2026-09-11 hotfix refresh로 교체되었습니다.
+v1.0.29 배포 파일은 플레이어 제보에 따라 hotfix refresh를 계속 갱신하고 있습니다.
 같은 v1.0.29을 먼저 받은 사용자는 최신 ZIP을 다시 받아 덮어쓰십시오.
 
-v1.0.29 / hotfix refresh 2 핵심 변경:
-- 스탯 우클릭 도움말 stats.txt를 레거시 DBCS 마커 형식에서 native CP949로 전환
+중요:
+- MMMerge 컷신 자막 기능은 안정성 문제로 중단했습니다.
+- 한국어 패치는 Bink/Smacker 영상 재생 루프, ShowMovie/PostRender 영상 자막 처리,
+  CustomUI 영상 오버레이를 더 이상 건드리지 않습니다.
+- 과거 v1.0.29 hotfix의 KoreanMovieSubtitles.lua가 설치되어 있을 수 있으므로,
+  최신 패치에는 기존 파일을 덮어쓰기 위한 무동작 compatibility stub을 포함합니다.
+- 하드서브 영상 파일도 배포하지 않습니다.
+
+v1.0.29 최신 hotfix 핵심 변경:
+- 스탯 우클릭 도움말 stats.txt를 native CP949 저장 방식으로 정리
 - Game.StatsDescriptions 런타임 투영 범위를 안전한 0..6으로 유지
 - Extra Settings의 Interface/General/Bolster/Keybinds 제목 번역 경로 수정
 - 학자/교사/강사의 고용 효과를 +5%/+10%/+15% 평면 경험치 보너스로 보정
-  (학습 숙련도에 다시 곱해지지 않도록 호환 오버레이 적용)
-- MM7/Antagarich에서 민간인 공격 시 일정 거리 안의 민간인·경비가 함께
-  적대화되는 목격 반응 호환 오버레이 추가
-- 한국어 컷신 자막 19개 포함
-- KoreanMovieSubtitles v1.2: MM8은 네이티브 Bink/Smacker 프레임 자막 경로 유지
-- MM6/MM7은 네이티브 자막 렌더 중 인트로 튕김이 제보되어 해당 경로를 차단하고
-  일반 PostRender fallback만 유지
-- 던전/건물 입장 설명 TransTxt의 1-based 인덱스를 0-based로 잘못 적용한 빌드 오류 수정
-- 기존 v1.0.29 LOD도 KO_TransTxt의 실제 1-based ID로 런타임 재투영해 전체 설명 뒤섞임 보정
-- 피낙시아 제국, 방패 주문 상시 유지, 율리시스 냉기 피해 등 제보 용어/효과 교정
-- 레인저/소서러/성직자/강령술사 직업 설명 및 기술 설명 문구 정리
+- MM7/Antagarich 민간인 공격 시 주변 민간인·경비 목격 적대 반응 호환 보정
+- 던전/건물 입장 설명 TransTxt의 1-based 인덱스를 0-based로 적용하던 오류 수정
+- 기존 v1.0.29 LOD도 KO_TransTxt의 실제 1-based ID로 런타임 재투영
+- 컷신 자막 런타임 후킹 제거 및 원본 영상 재생 경로 보존
+- 피낙시아 제국, 방패 주문, 율리시스 피해 속성 등 제보 용어/효과 교정
 
 실게임 최종 확인이 필요한 항목:
-- MM6/MM7 새 게임 인트로가 더 이상 튕기지 않는지
-- MM8 컷신 자막이 실제 영상 위에 출력되는지
+- MM6/MM7/MM8 새 게임 및 컷신이 자막 후킹 없이 정상 재생되는지
 - 던전/건물 입장 설명이 올바른 장소와 일치하는지
 - 교사 포함 고용 NPC의 실제 경험치 획득량이 +5/+10/+15%로 적용되는지
 - MM7 민간인 공격 시 주변 민간인·경비 적대 반응이 의도대로 작동하는지
@@ -59,12 +60,13 @@ Revamp, MAW, Waffle/커뮤니티 배포판 등은 기본 호환 기준에 포함
 5) 게임을 완전히 종료했다가 다시 실행합니다.
 
 v1.0.20~v1.0.28에서 업데이트:
-- v1.0.29 ZIP을 그대로 덮어쓴 뒤 게임을 완전히 종료했다가 다시 실행합니다.
+- 최신 v1.0.29 ZIP을 그대로 덮어쓴 뒤 게임을 완전히 종료했다가 다시 실행합니다.
 
 기존 v1.0.29에서 hotfix refresh로 업데이트:
-- 릴리즈 이름은 그대로 v1.0.29이지만 배포 ZIP이 교체되었습니다.
-- 최신 v1.0.29 ZIP을 다시 내려받아 그대로 덮어쓰십시오.
-- 최신 ZIP의 SHA-256은 릴리즈에 함께 첨부된 .sha256 파일을 확인하십시오.
+- 릴리즈 이름은 그대로 v1.0.29이지만 배포 ZIP이 교체될 수 있습니다.
+- 최신 ZIP을 다시 내려받아 그대로 덮어쓰십시오.
+- Scripts\General\KoreanMovieSubtitles.lua도 반드시 덮어써야 과거 자막 후킹 코드가 제거됩니다.
+- SHA-256은 릴리즈에 함께 첨부된 .sha256 파일을 확인하십시오.
 
 예시 설치 경로:
   D:\GOG\Might and Magic 8\
@@ -73,12 +75,11 @@ v1.0.20~v1.0.28에서 업데이트:
   Data\zz LocKO.T.lod
   Data\LocalizeConf.ini
   Data\Text localization\KO_*.txt
-  Data\Korean Subtitles\...
   DataFiles\DBCS_*.fnt
   Scripts\General\FNT_DBCS.lua
   Scripts\General\KoreanFont.lua
   Scripts\General\KoreanFontText.lua
-  Scripts\General\KoreanMovieSubtitles.lua
+  Scripts\General\KoreanMovieSubtitles.lua   (무동작 compatibility stub)
   Scripts\General\LocalizeTables.lua
   Scripts\General\ZZZZ_KoreanTransTxtIndexFix.lua
   Scripts\General\ZZ_KoreanReportedLocalization.lua
@@ -98,18 +99,14 @@ Scripts\General\ZZ_KoreanDaggerWoundHints.lua로 분리했으며,
 Rodril이 원본 지도 게임플레이 스크립트를 온전히 소유하도록 변경했습니다.
 
 따라서 기존 설치에서는 다음 순서를 지키십시오.
-
 1) 저장 파일과 게임 폴더를 백업합니다.
 2) Rodril MMMerge 원본/패치를 게임 폴더에 다시 적용합니다.
-3) Rodril의 Scripts\Maps\out01.lua가 복원된 상태에서 v1.0.29을 덮어씁니다.
+3) Rodril의 Scripts\Maps\out01.lua가 복원된 상태에서 최신 v1.0.29을 덮어씁니다.
 4) 게임을 완전히 종료했다가 다시 실행합니다.
 
-중요:
-- 기존 Scripts\Maps\out01.lua를 단순 삭제하지 마십시오.
-  해당 파일에는 Dimension Door / Town Portal 등 원본 지도 로직이 들어 있습니다.
-- v1.0.29 ZIP만 기존 v1.0.19 이하 설치에 바로 덮어쓰면 예전 out01.lua가
-  디스크에 남을 수 있으므로 Rodril 원본을 먼저 재적용해야 합니다.
-- 자세한 절차는 MIGRATION_v1.0.20.txt를 참조하십시오.
+기존 Scripts\Maps\out01.lua를 단순 삭제하지 마십시오.
+해당 파일에는 Dimension Door / Town Portal 등 원본 지도 로직이 들어 있습니다.
+자세한 절차는 MIGRATION_v1.0.20.txt를 참조하십시오.
 
 ------------------------------------------------------------
 3. 한국어 출력 구조
@@ -118,10 +115,8 @@ Rodril이 원본 지도 게임플레이 스크립트를 온전히 소유하도�
 현재 한글 출력은 upstream mm678-i18n의 native direct-blit DBCS 렌더러를
 기반으로 합니다.
 
-- upstream revision:
-  aea1b22666ef556f34a71b4f3945904b04de1466
-- MM8 GetLineWidth / WordWrap / Draw / DrawTextLimited 및 문자 draw loop를
-  DBCS 대응으로 처리
+- upstream revision: aea1b22666ef556f34a71b4f3945904b04de1466
+- MM8 GetLineWidth / WordWrap / Draw / DrawTextLimited 및 문자 draw loop DBCS 대응
 - 한글 glyph를 MM8 원본 폰트 메모리에 임시로 덮어쓰지 않고 직접 blit
 - DBCS page font reload/evict 시 stale pointer 검사 및 재취득
 - 기존 저장/리소스의 옛 marker 문자열은 호환용으로 해석
@@ -153,8 +148,7 @@ v1.0.29 검증 기준:
 - PO -> mm8lang.ini CP949 round trip
 - runtime translation ownership audit 통과
 
-게임에서 사용하는 형식은 MMMerge/GrayFace 호환성을 위해 기존 구조를 유지합니다.
-
+게임에서 사용하는 형식:
 - Data\Text localization\KO_*.txt
 - Data\zz LocKO.T.lod
 - mm8lang.ini
@@ -164,27 +158,26 @@ Rodril issue #17의 현지화 시스템 개편은 아직 완료된 upstream 계�
 현재 검증된 zz LocKO.T.lod 파이프라인을 임의로 제거하지 않습니다.
 
 ------------------------------------------------------------
-5. 컷신 자막
+5. 컷신 자막 정책
 ------------------------------------------------------------
 
-한국어 SRT 19개가 Data\Korean Subtitles 아래에 포함됩니다.
+MMMerge 한국어 패치에서는 컷신 자막을 지원하지 않습니다.
 
-지원 대상:
-- MM6: 6intro, citytrtr, mm6end1
-- MM7: 7intro, 7losegame, arbiter evil/good, endgame 1 good,
-       family reunion, intro post, mm3 people evil/good, pcout01
-- MM8: DragonHunters, confluxkey, dragonsrevenge, overrept, skeltrans, wingame
+v1.0.29 개발 중 SRT를 ShowMovie/PostRender와 네이티브 Bink/Smacker 프레임에
+실시간으로 합성하는 방식을 시험했으나, 실게임에서 MM6 새 게임은 영상 직후,
+MM7은 영상 도중 튕기는 회귀가 제보되었습니다. MM8 영상이 정상 재생된 사례도
+실제 자막 cue가 그려지지 않은 영상일 가능성을 배제할 수 없어 안전 근거로 사용하지 않습니다.
 
-v1.0.29 최초 배포본은 SRT와 자막 스크립트가 포함되어 있었지만,
-MM8의 동기식 Bink/Smacker 재생 루프에서는 일반 PostRender가 돌지 않아
-실제 영상 위에 자막을 그리지 못했습니다.
+따라서 현재 정책은 다음과 같습니다.
+- Bink/Smacker 네이티브 영상 draw 지점 후킹 금지
+- events.ShowMovie / events.PostRender를 이용한 컷신 자막 오버레이 금지
+- 영상 재생 중 CustomUI.ShowText 호출 금지
+- 하드서브 영상 파일 배포 안 함
+- Scripts\General\KoreanMovieSubtitles.lua는 과거 설치본을 덮어쓰기 위한 무동작 stub만 유지
 
-첫 hotfix refresh의 KoreanMovieSubtitles v1.1은 모든 자막 영상을 MM8 네이티브
-Bink/Smacker 프레임 draw 지점에서 그리도록 했습니다. 실게임 제보에서 MM6 새 게임은
-영상 직후, MM7은 영상 도중 튕기는 회귀가 확인되어 v1.2에서 네이티브 프레임 렌더를
-MM8 영상 6개로만 제한했습니다. MM6/MM7은 PostRender fallback만 남기므로 우선
-시작 안정성을 보존하며, 별도의 안전한 영상 surface 렌더 경로를 찾기 전까지 자막이
-표시되지 않을 수 있습니다. MM8 네이티브 자막도 실게임 출력 확인은 아직 필요합니다.
+Data\Korean Subtitles 아래 SRT는 번역 작업 기록용 소스 자산이며 현재 게임 런타임에서는
+읽거나 표시하지 않습니다. 추후에도 MMMerge에서 별도 안전 경로가 확립되지 않는 한
+자막 기능을 다시 활성화하지 않습니다.
 
 ------------------------------------------------------------
 6. 고용 NPC 경험치 보너스
@@ -193,7 +186,7 @@ MM8 영상 6개로만 제한했습니다. MM6/MM7은 PostRender fallback만 남�
 Rodril의 기본 구현은 학자/교사/강사의 +5/+10/+15를 Learning 기술 등급에
 더하는 방식이라 숙련도 배수의 영향을 다시 받을 수 있습니다.
 
-한국어 패치 hotfix refresh는 다음 효과를 평면 경험치 보너스로 취급합니다.
+한국어 패치 호환 오버레이는 다음 효과를 평면 경험치 보너스로 취급합니다.
 - 학자(Scholar): +5%
 - 교사(Teacher): +10%
 - 강사(Instructor): +15%
@@ -201,19 +194,16 @@ Rodril의 기본 구현은 학자/교사/강사의 +5/+10/+15를 Learning 기술
 런타임 오버레이:
   Scripts\Global\ZZZZ_KoreanHirelingExperienceFix.lua
 
-학습 기술 창 표시만으로는 교사 효과를 확정하기 어려우므로,
+학습 기술 창 표시만으로는 효과를 확정하기 어려우므로,
 실제 경험치 획득량 비교로 최종 확인해야 합니다.
 
 ------------------------------------------------------------
 7. MM7 민간인/경비 목격 적대 호환
 ------------------------------------------------------------
 
-현재 Rodril MMMerge의 Antagarich 설정에서는 MM7 원작의 지역적 민간인/경비
-목격 적대 반응이 그대로 재현되지 않는 경로가 확인되었습니다.
-
-한국어 패치는 Antagarich에서 플레이어가 peasant NPC를 공격할 때,
+Antagarich에서 플레이어가 peasant NPC를 공격할 때,
 기본 4096 게임 단위 반경 안의 살아 있는 민간인과 경비 그룹(38/55)을
-적대화하는 좁은 호환 오버레이를 추가합니다.
+적대화하는 좁은 호환 오버레이를 사용합니다.
 
 런타임 오버레이:
   Scripts\Global\ZZZZ_KoreanMM7CivilianWitnessFix.lua
@@ -227,26 +217,19 @@ Rodril의 기본 구현은 학자/교사/강사의 +5/+10/+15를 Learning 기술
 8. Rodril upstream 경계
 ------------------------------------------------------------
 
-한국어 패치는 원칙적으로 localization overlay입니다.
-게임플레이 코드를 광범위하게 포크하지 않습니다.
+한국어 패치는 원칙적으로 localization overlay이며 게임플레이 코드를 광범위하게 포크하지 않습니다.
 
 현재 정책:
 - Scripts\Maps\*.lua 직접 배포 금지
 - Scripts\Core / Modules / Structs vendoring 금지
 - 한국어 전용 동작은 Korean* / ZZ_Korean* / ZZZZ_Korean* 오버레이를 우선 사용
 - Timer, RefillTimer, RemoveTimer, Sleep, Sleep2 같은 게임플레이 전역 함수 교체 금지
-- 의도적인 Rodril 동일 경로 스크립트 교체는 현재 1개:
-  Scripts\General\LocalizeTables.lua
-- 예외적으로 실제 호환성 결손을 보정하는 좁은 runtime compatibility overlay는
-  별도 검사와 범위 제한을 두고 허용
+- 의도적인 Rodril 동일 경로 스크립트 교체는 Scripts\General\LocalizeTables.lua 1개
+- 실제 호환성 결손을 보정하는 좁은 runtime compatibility overlay만 별도 검사 후 허용
 
 현재 호환성 예외:
 - ZZZZ_KoreanHirelingExperienceFix.lua
 - ZZZZ_KoreanMM7CivilianWitnessFix.lua
-
-LocalizeTables.lua는 한국어 인코딩, 런타임 번역 소유권, 캐시 보정 등 때문에
-유지하는 예외입니다. Rodril upstream이 이 파일을 변경하면 반드시 diff/rebase
-검토 후 기준 커밋을 갱신합니다.
 
 개발자용 검사:
   python tools\validate_rodril_overlay_boundary.py
@@ -266,31 +249,22 @@ LocalizeTables.lua는 한국어 인코딩, 런타임 번역 소유권, 캐시 �
 - Rodril overlay boundary 검사
 - 제보 65949 / 65960 / 65992 회귀 검사
 - Extra Settings 리소스 검사
-- 한국어 컷신 SRT 19개 검사
-- KoreanMovieSubtitles Lua 5.1 문법/런타임 테스트
-- Bink/Smacker 네이티브 영상 draw hook 정적 검사
+- TransTxt 1-based 인덱스 회귀 검사
 - 학자/교사/강사 경험치 계산 회귀 검사
 - MM7 민간인 목격 적대 로직 검사
+- 컷신 자막 비활성화 회귀 검사
+  (ShowMovie/PostRender/CustomUI/native movie hook 재도입 금지)
 
-자동 검증은 코드/데이터/주소 계약을 검사하는 것이며,
-실제 게임에서의 화면 출력과 플레이 동작까지 대신하지는 않습니다.
+자동 검증은 코드/데이터 계약을 검사하는 것이며 실제 게임 플레이 확인을 대신하지 않습니다.
 
 ------------------------------------------------------------
 10. UI 소실 문제 제보 시 확인할 항목
 ------------------------------------------------------------
 
-장시간 플레이 중 HUD/ESC/상점 UI 등 2D 인터페이스가 사라지는 문제가
-다시 발생하면 다음 정보를 함께 제보해 주십시오.
-
-- 발생 직전 행동: NPC 대화, 상점 진입, 지역 이동, Alt+Tab 등
-- F4 창모드/전체화면 전환으로 UI가 복구되는지
-- HUD뿐 아니라 ESC 메뉴도 보이지 않는지
-- 보이지 않는 메뉴 위치 클릭 시 기능은 동작하는지
-- 게임 완전 재실행 후 정상화되는지
-- Hardware Accelerated 3D / Software 3D 여부
-- dgVoodoo 사용 여부
-- MMMerge 버전과 한국어 패치 버전
-- 가능하면 문제 화면과 재현 가능한 저장 파일
+장시간 플레이 중 HUD/ESC/상점 UI 등 2D 인터페이스가 사라지는 문제가 다시 발생하면
+발생 직전 행동, F4 전환 복구 여부, 보이지 않는 메뉴 클릭 동작 여부,
+Hardware Accelerated 3D / Software 3D, dgVoodoo 사용 여부,
+MMMerge/한국어 패치 버전과 가능한 경우 저장 파일을 함께 제보해 주십시오.
 
 F4 전환으로 즉시 UI가 복구된다면 한국어 텍스트 데이터보다
 DirectDraw/2D surface 복구 계층을 우선 의심할 수 있습니다.
@@ -303,19 +277,15 @@ DirectDraw/2D surface 복구 계층을 우선 의심할 수 있습니다.
   Empty
   Quick Save
 
-지도 STR에서도 다음 항목은 판정용 데이터일 수 있어 영문을 유지합니다.
-- 수수께끼 정답과 암호 입력값
-- 오벨리스크 암호 조각
-- 한 글자 스위치 코드
-- (removed) 삭제 문자열
-- 개발용 자리표시자와 디버그 문자열
+지도 STR에서도 판정용 데이터일 수 있는 수수께끼 정답, 암호 조각,
+한 글자 스위치 코드, 삭제 문자열, 개발용 자리표시자는 영문을 유지할 수 있습니다.
 
 ------------------------------------------------------------
 12. 파일 안내
 ------------------------------------------------------------
 
 README.txt                         설치와 사용 안내
-MIGRATION_v1.0.20.txt              v1.0.19 이하 -> 최신 버전 업데이트 절차
+MIGRATION_v1.0.20.txt              v1.0.19 이하 업데이트 절차
 UPSTREAM_BASELINE.md               Rodril 기준판/오버레이 경계 정책
 CHANGELOG.txt                      이전 변경 이력
 NATIVE_DBCS_MIGRATION_AUDIT.txt    native DBCS 렌더러 분석/검증
@@ -324,19 +294,16 @@ STR_TRANSLATION_COVERAGE.txt       지도 STR 번역 범위와 제외 기준
 RUNTIME_LOCALIZATION_AUDIT.txt     런타임 번역 소유권 감사
 FONT_LICENSES.md                   포함 글꼴 라이선스 안내
 Data\Text localization\           게임용 번역 테이블
-Data\Korean Subtitles\            한국어 컷신 SRT
+Data\Korean Subtitles\            보관용 SRT 소스(런타임 미사용)
 Data\zz LocKO.T.lod               정적 한국어 리소스
 DataFiles\                         한글 출력용 DBCS 페이지 폰트
 Scripts\General\FNT_DBCS.lua      native direct-blit DBCS 렌더러
 Scripts\General\KoreanMovieSubtitles.lua
-                                   컷신 자막 런타임
+                                   과거 자막 후킹 파일을 덮어쓰기 위한 무동작 stub
 Scripts\Global\ZZZZ_KoreanHirelingExperienceFix.lua
                                    고용 NPC 경험치 호환 보정
 Scripts\Global\ZZZZ_KoreanMM7CivilianWitnessFix.lua
                                    MM7 민간인 목격 적대 호환 보정
-
-v1.0.29 hotfix refresh 배포 소스 기준:
-  7ed47e78b59c099092f10a25ddfb91c319585813
 
 저장소:
   https://github.com/munument1/-KR-MMMerge
