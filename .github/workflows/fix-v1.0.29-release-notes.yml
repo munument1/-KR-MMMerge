@@ -1,0 +1,56 @@
+name: Correct v1.0.29 hotfix release notes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/fix-v1.0.29-release-notes.yml
+
+permissions:
+  contents: write
+
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Correct release notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.29 — Hotfix Refresh 3
+
+          플레이어 제보를 반영해 기존 v1.0.29 배포 파일을 다시 교체했습니다.
+          같은 v1.0.29을 먼저 받은 사용자는 최신 ZIP을 다시 받아 덮어쓰십시오.
+
+          ### 컷신 안정성
+          - MMMerge 컷신 한국어 자막 기능을 완전히 비활성화했습니다.
+          - Bink/Smacker 네이티브 영상 루프, ShowMovie/PostRender 자막 처리, 영상 중 CustomUI 호출을 더 이상 사용하지 않습니다.
+          - 과거 hotfix의 자막 후킹 Lua가 설치 폴더에 남지 않도록 `Scripts/General/KoreanMovieSubtitles.lua`는 무동작 compatibility stub으로 포함됩니다.
+          - 하드서브 영상은 배포하지 않습니다.
+          - 저장소의 SRT는 번역 소스 보관용이며 게임 런타임에서는 읽지 않습니다.
+
+          ### 던전/건물 설명
+          - Game.TransTxt가 1-based인데 빌더가 0-based로 적용해 설명이 한 칸씩 밀리던 오류를 수정했습니다.
+          - 기존 v1.0.29 LOD에도 1-based KO_TransTxt를 다시 투영하는 런타임 보정을 포함합니다.
+
+          ### 기존 hotfix 포함
+          - 학자/교사/강사 +5%/+10%/+15% 경험치 호환 보정
+          - MM7 민간인/경비 목격 적대 호환 보정
+          - v1.0.29 기존 번역/스탯/UI 교정 유지
+
+          ### 확인 필요
+          자동 검증은 통과했지만 실제 플레이 확인은 별도입니다. 우선 MM6/MM7 새 게임 영상을 재생해 더 이상 튕기지 않는지, 이후 안개섬/아이언피스트 성 및 여러 던전의 입장 설명이 올바른지 확인해 주십시오.
+
+          Product source: `99dcef3031f60a3b3db6cb05c7d00e6940b6cb4f`
+
+          ZIP SHA-256: `b6630c385e1a446f6e7e0b036e2c197466c3f84c8e76c087270b27b2b22805bc`
+          EOF
+          gh release edit v1.0.29 \
+            --title "MMMerge 한국어 패치 v1.0.29" \
+            --notes-file release-notes.md \
+            --latest
