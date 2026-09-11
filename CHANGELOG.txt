@@ -1,3 +1,12 @@
+v1.0.29 Hotfix Refresh 3
+- Disabled MMMerge cutscene subtitles completely after native movie-overlay crashes were reported during MM6/MM7 intro playback.
+- Replaced KoreanMovieSubtitles.lua with an inert compatibility stub so updating the patch overwrites older crash-prone subtitle hook versions already present on disk.
+- The Korean patch no longer registers ShowMovie/PostRender subtitle handlers, calls CustomUI during movie playback, or hooks the native Bink/Smacker movie loop.
+- SRT files remain only as archived translation source assets; MMMerge runtime does not load or display them.
+- Added a permanent regression gate that rejects any reintroduction of movie/UI/native subtitle hooks.
+- Hard-subbed replacement videos are not distributed, avoiding a large patch-size increase.
+- Retained the report 66003 TransTxt 1-based mapping/runtime repair for shifted dungeon and entrance descriptions.
+
 v1.0.29 Hotfix Refresh 2 (report 66003)
 - Fixed the 1-based Game.TransTxt row-order mapping that shifted dungeon and entrance descriptions.
 - Added an ASCII-only runtime projection from KO_TransTxt so existing v1.0.29 LODs are repaired without replacing gameplay scripts.
