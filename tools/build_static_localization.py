@@ -319,7 +319,9 @@ def apply_map_string_overlays(stage_dir: Path, path: Path) -> dict[str, int]:
                 raise ValueError(f'{name}: missing evt.str[{index}]')
             current = lines[index]
             newline = b'\r\n' if current.endswith(b'\r\n') else (b'\n' if current.endswith(b'\n') else b'')
-            encoded = encode_dbcs_special(encode_mixed_text(value))
+            # FNT_DBCS renders native CP949 directly. Legacy marker wrapping can
+            # expand long event strings beyond the engine event-text limit.
+            encoded = encode_mixed_text(value)
             if decode_dbcs_special(encoded) != encode_mixed_text(value):
                 raise ValueError(f'DBCS round-trip failed for {name} evt.str[{index}]')
             lines[index] = encoded + newline
