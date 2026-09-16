@@ -7,7 +7,7 @@ sequence. That transport expands long event strings enough to hit the engine's
 
 The current FNT_DBCS renderer handles native CP949/DBCS directly, so translated
 map STR entries should be stored marker-free. This tool rewrites every matching
-entry listed in KO_MapStrings.txt, preserves unlisted STR lines and all other
+entry listed in KO_MapStrings.txt, preserves unlisted STR entries and all other
 LOD members, tolerates source rows from newer map skeletons that do not exist in
 the packaged LOD, and audits event-text lengths for regressions.
 """
@@ -22,8 +22,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
-# The runtime diagnostic asks to increase the event-text buffer once the encoded
-# payload reaches 1024 bytes. Keep the payload itself at or below 1023 bytes.
 MAX_EVENT_TEXT_PAYLOAD = 1023
 REQUIRED_MAPS = {"pyramid.str"}
 DBCS_RE = re.compile(br"[\xA1-\xAC\xB0-\xC8\xCA-\xFD][\xA0-\xFF](?!\x07)")
@@ -53,10 +51,7 @@ def encode_mixed_text(text: str) -> bytes:
             output.extend(char.encode("cp949"))
         except UnicodeEncodeError as error:
             raise UnicodeEncodeError(
-                "cp949/cp1252",
-                text,
-                index,
-                index + 1,
+                "cp949/cp1252", text, index, index + 1,
                 f"character {char!r} is unavailable in both target encodings",
             ) from error
     return bytes(output)
@@ -113,16 +108,6 @@ def audit_translations(translations: list[Translation]) -> tuple[int, list[Trans
             f"{MAX_EVENT_TEXT_PAYLOAD} bytes: {details}"
         )
     return len(translations), legacy_oversize
-
-
-def line_ending(line: bytes) -> bytes:
-    if line.endswith(b"\r\n"):
-        return b"\r\n"
-    if line.endswith(b"\n"):
-        return b"\n"
-    if line.endswith(b"\r"):
-        return b"\r"
-    return b""
 
 
 def read_member_payload(record: bytes) -> tuple[bytes, bool]:
@@ -182,18 +167,51 @@ def grouped_translations(translations: list[Translation]) -> dict[str, list[Tran
     return dict(grouped)
 
 
+def split_str_entries(raw: bytes) -> tuple[list[bytes], str, bool]:
+    """Split an MM STR payload while preserving its serialized format.
+
+    LOD members are normally NUL-separated binary string tables. Extracted STR
+    files used by build tooling can be line-oriented, so support both formats.
+    Returns entries, mode, and whether the original NUL table ended in a NUL.
+    """
+    if b"\0" in raw:
+        trailing_nul = raw.endswith(b"\0")
+        entries = raw.split(b"\0")
+        if trailing_nul:
+            entries.pop()
+        return entries, "nul", trailing_nul
+
+    entries = raw.splitlines(keepends=True)
+    return entries, "lines", False
+
+
+def join_str_entries(entries: list[bytes], mode: str, trailing_nul: bool) -> bytes:
+    if mode == "nul":
+        result = b"\0".join(entries)
+        return result + (b"\0" if trailing_nul else b"")
+    return b"".join(entries)
+
+
+def entry_body(entry: bytes, mode: str) -> tuple[bytes, bytes]:
+    if mode == "nul":
+        return entry, b""
+    if entry.endswith(b"\r\n"):
+        return entry[:-2], b"\r\n"
+    if entry.endswith(b"\n") or entry.endswith(b"\r"):
+        return entry[:-1], entry[-1:]
+    return entry, b""
+
+
 def available_rows(raw: bytes, rows: list[Translation], name: str) -> tuple[list[Translation], int]:
-    lines = raw.splitlines(keepends=True)
+    entries, _mode, _trailing_nul = split_str_entries(raw)
     available: list[Translation] = []
     skipped = 0
     for row in rows:
         if row.string_id < 0:
             raise ValueError(f"{name}: invalid negative evt.str[{row.string_id}]")
-        if row.string_id >= len(lines):
-            # KO_MapStrings is sourced from the current/full Merge skeleton while
-            # the packaged Korean LOD may retain an older/shorter STR member.
-            # Missing source rows are not runtime data and must not block safely
-            # rewriting the entries that actually exist in this archive.
+        if row.string_id >= len(entries):
+            # Translation sources can come from a newer/full Merge skeleton than
+            # the packaged Korean LOD. Only actual runtime entries are rewritten.
             skipped += 1
             continue
         available.append(row)
@@ -201,25 +219,22 @@ def available_rows(raw: bytes, rows: list[Translation], name: str) -> tuple[list
 
 
 def patch_str_data(raw: bytes, rows: list[Translation], name: str) -> tuple[bytes, int, int]:
-    lines = raw.splitlines(keepends=True)
+    entries, mode, trailing_nul = split_str_entries(raw)
     available, skipped = available_rows(raw, rows, name)
     for row in available:
-        current = lines[row.string_id]
-        ending = line_ending(current)
-        lines[row.string_id] = row.native + ending
-    result = b"".join(lines)
+        _body, ending = entry_body(entries[row.string_id], mode)
+        entries[row.string_id] = row.native + ending
+    result = join_str_entries(entries, mode, trailing_nul)
     validate_str_data(result, available, name)
     return result, len(available), skipped
 
 
 def validate_str_data(raw: bytes, rows: list[Translation], name: str) -> None:
-    lines = raw.splitlines(keepends=True)
+    entries, mode, _trailing_nul = split_str_entries(raw)
     for row in rows:
-        if row.string_id < 0 or row.string_id >= len(lines):
+        if row.string_id < 0 or row.string_id >= len(entries):
             raise ValueError(f"{name}: validator received unavailable evt.str[{row.string_id}]")
-        current = lines[row.string_id]
-        ending = line_ending(current)
-        body = current[:-len(ending)] if ending else current
+        body, _ending = entry_body(entries[row.string_id], mode)
         expected = row.native
         if body != expected:
             legacy_plain = decode_dbcs_special(body)
@@ -275,6 +290,8 @@ def patch_lod(
     missing_required = REQUIRED_MAPS - found
     if missing_required:
         raise ValueError(f"required map STR members missing from LOD: {', '.join(sorted(missing_required))}")
+    if patched_strings == 0:
+        raise ValueError("no map STR entries were patched; STR serialization parser is likely wrong")
 
     prefix = bytearray(archive[:root_offset])
     output = prefix + directory + b"".join(rebuilt_members)
@@ -309,6 +326,8 @@ def check_lod(lod_path: Path, translations: list[Translation]) -> tuple[int, int
     missing_required = REQUIRED_MAPS - found
     if missing_required:
         raise ValueError(f"required map STR members missing from LOD: {', '.join(sorted(missing_required))}")
+    if verified == 0:
+        raise ValueError("no map STR entries were verified; STR serialization parser is likely wrong")
     missing_members = set(grouped) - found
     return len(found), verified, skipped_rows, len(missing_members)
 
