@@ -1,0 +1,68 @@
+name: Validate native map STR storage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/validate-native-map-strings.yml
+      - tools/patch_static_map_strings_lod.py
+      - Data/Text localization/KO_MapStrings.txt
+      - Data/zz LocKO.T.lod
+  pull_request:
+    paths:
+      - .github/workflows/validate-native-map-strings.yml
+      - tools/patch_static_map_strings_lod.py
+      - Data/Text localization/KO_MapStrings.txt
+      - Data/zz LocKO.T.lod
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Audit map event text byte lengths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_map_strings_lod.py \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --audit
+
+      - name: Migrate a copy of the Korean LOD to native CP949 map strings
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --output "build/zz LocKO.native-map.T.lod"
+          python tools/patch_static_map_strings_lod.py \
+            --lod "build/zz LocKO.native-map.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --check
+
+      - name: Preserve existing native stats migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_stats_lod.py \
+            --lod "build/zz LocKO.native-map.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+      - name: Python syntax check
+        run: python -m py_compile tools/patch_static_map_strings_lod.py
