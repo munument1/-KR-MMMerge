@@ -6,9 +6,10 @@ sequence. That transport expands long event strings enough to hit the engine's
 ~1 KiB event-text guard (for example PYRAMID.STR in the Tomb of VARN).
 
 The current FNT_DBCS renderer handles native CP949/DBCS directly, so translated
-map STR entries should be stored marker-free. This tool rewrites every entry
-listed in KO_MapStrings.txt, preserves all unlisted STR lines and all other LOD
-members, and can audit the source for event-text length regressions.
+map STR entries should be stored marker-free. This tool rewrites every matching
+entry listed in KO_MapStrings.txt, preserves unlisted STR lines and all other
+LOD members, tolerates source rows from newer map skeletons that do not exist in
+the packaged LOD, and audits event-text lengths for regressions.
 """
 
 from __future__ import annotations
@@ -21,7 +22,10 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
+# The runtime diagnostic asks to increase the event-text buffer once the encoded
+# payload reaches 1024 bytes. Keep the payload itself at or below 1023 bytes.
 MAX_EVENT_TEXT_PAYLOAD = 1023
+REQUIRED_MAPS = {"pyramid.str"}
 DBCS_RE = re.compile(br"[\xA1-\xAC\xB0-\xC8\xCA-\xFD][\xA0-\xFF](?!\x07)")
 
 
@@ -97,7 +101,7 @@ def load_translations(path: Path) -> list[Translation]:
     return rows
 
 
-def audit_translations(translations: list[Translation]) -> tuple[int, int]:
+def audit_translations(translations: list[Translation]) -> tuple[int, list[Translation]]:
     native_oversize = [t for t in translations if len(t.native) > MAX_EVENT_TEXT_PAYLOAD]
     legacy_oversize = [t for t in translations if len(t.legacy) > MAX_EVENT_TEXT_PAYLOAD]
     if native_oversize:
@@ -108,7 +112,7 @@ def audit_translations(translations: list[Translation]) -> tuple[int, int]:
             f"{len(native_oversize)} native map event strings exceed "
             f"{MAX_EVENT_TEXT_PAYLOAD} bytes: {details}"
         )
-    return len(translations), len(legacy_oversize)
+    return len(translations), legacy_oversize
 
 
 def line_ending(line: bytes) -> bytes:
@@ -178,24 +182,41 @@ def grouped_translations(translations: list[Translation]) -> dict[str, list[Tran
     return dict(grouped)
 
 
-def patch_str_data(raw: bytes, rows: list[Translation], name: str) -> bytes:
+def available_rows(raw: bytes, rows: list[Translation], name: str) -> tuple[list[Translation], int]:
     lines = raw.splitlines(keepends=True)
+    available: list[Translation] = []
+    skipped = 0
     for row in rows:
-        if row.string_id < 0 or row.string_id >= len(lines):
-            raise ValueError(f"{name}: missing evt.str[{row.string_id}]")
+        if row.string_id < 0:
+            raise ValueError(f"{name}: invalid negative evt.str[{row.string_id}]")
+        if row.string_id >= len(lines):
+            # KO_MapStrings is sourced from the current/full Merge skeleton while
+            # the packaged Korean LOD may retain an older/shorter STR member.
+            # Missing source rows are not runtime data and must not block safely
+            # rewriting the entries that actually exist in this archive.
+            skipped += 1
+            continue
+        available.append(row)
+    return available, skipped
+
+
+def patch_str_data(raw: bytes, rows: list[Translation], name: str) -> tuple[bytes, int, int]:
+    lines = raw.splitlines(keepends=True)
+    available, skipped = available_rows(raw, rows, name)
+    for row in available:
         current = lines[row.string_id]
         ending = line_ending(current)
         lines[row.string_id] = row.native + ending
     result = b"".join(lines)
-    validate_str_data(result, rows, name)
-    return result
+    validate_str_data(result, available, name)
+    return result, len(available), skipped
 
 
 def validate_str_data(raw: bytes, rows: list[Translation], name: str) -> None:
     lines = raw.splitlines(keepends=True)
     for row in rows:
         if row.string_id < 0 or row.string_id >= len(lines):
-            raise ValueError(f"{name}: missing evt.str[{row.string_id}]")
+            raise ValueError(f"{name}: validator received unavailable evt.str[{row.string_id}]")
         current = lines[row.string_id]
         ending = line_ending(current)
         body = current[:-len(ending)] if ending else current
@@ -215,13 +236,18 @@ def validate_str_data(raw: bytes, rows: list[Translation], name: str) -> None:
             )
 
 
-def patch_lod(lod_path: Path, translations: list[Translation], output_path: Path) -> tuple[int, int]:
+def patch_lod(
+    lod_path: Path,
+    translations: list[Translation],
+    output_path: Path,
+) -> tuple[int, int, int, int]:
     archive = lod_path.read_bytes()
     root_offset, directory, entries = archive_entries(archive)
     directory_end = root_offset + len(entries) * 76
     grouped = grouped_translations(translations)
     found: set[str] = set()
     patched_strings = 0
+    skipped_rows = 0
     rebuilt_members: list[bytes] = []
     cursor = directory_end - root_offset
 
@@ -234,33 +260,37 @@ def patch_lod(lod_path: Path, translations: list[Translation], output_path: Path
         rows = grouped.get(key)
         if rows:
             raw, compressed = read_member_payload(record)
-            record = build_member_record(record, patch_str_data(raw, rows, name), compressed)
+            patched_raw, patched_count, skipped_count = patch_str_data(raw, rows, name)
+            record = build_member_record(record, patched_raw, compressed)
             found.add(key)
-            patched_strings += len(rows)
+            patched_strings += patched_count
+            skipped_rows += skipped_count
 
         pos = index * 76 + 64
         struct.pack_into("<III", directory, pos, cursor, len(record), 0)
         rebuilt_members.append(record)
         cursor += len(record)
 
-    missing = sorted(set(grouped) - found)
-    if missing:
-        raise ValueError(f"map STR members missing from LOD: {', '.join(missing)}")
+    missing_members = set(grouped) - found
+    missing_required = REQUIRED_MAPS - found
+    if missing_required:
+        raise ValueError(f"required map STR members missing from LOD: {', '.join(sorted(missing_required))}")
 
     prefix = bytearray(archive[:root_offset])
     output = prefix + directory + b"".join(rebuilt_members)
     struct.pack_into("<I", output, 0x114, len(output) - root_offset)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(output)
-    return len(found), patched_strings
+    return len(found), patched_strings, skipped_rows, len(missing_members)
 
 
-def check_lod(lod_path: Path, translations: list[Translation]) -> tuple[int, int]:
+def check_lod(lod_path: Path, translations: list[Translation]) -> tuple[int, int, int, int]:
     archive = lod_path.read_bytes()
     root_offset, _directory, entries = archive_entries(archive)
     grouped = grouped_translations(translations)
     found: set[str] = set()
     verified = 0
+    skipped_rows = 0
     for name, offset, size in entries:
         rows = grouped.get(name.casefold())
         if not rows:
@@ -270,13 +300,31 @@ def check_lod(lod_path: Path, translations: list[Translation]) -> tuple[int, int
         if len(record) != size:
             raise ValueError(f"LOD member {name} is truncated")
         raw, _compressed = read_member_payload(record)
-        validate_str_data(raw, rows, name)
+        available, skipped = available_rows(raw, rows, name)
+        validate_str_data(raw, available, name)
         found.add(name.casefold())
-        verified += len(rows)
-    missing = sorted(set(grouped) - found)
-    if missing:
-        raise ValueError(f"map STR members missing from LOD: {', '.join(missing)}")
-    return len(found), verified
+        verified += len(available)
+        skipped_rows += skipped
+
+    missing_required = REQUIRED_MAPS - found
+    if missing_required:
+        raise ValueError(f"required map STR members missing from LOD: {', '.join(sorted(missing_required))}")
+    missing_members = set(grouped) - found
+    return len(found), verified, skipped_rows, len(missing_members)
+
+
+def print_audit(translations: list[Translation]) -> None:
+    count, legacy_oversize = audit_translations(translations)
+    print(
+        f"Map STR source audit: {count} translations; native payloads <= "
+        f"{MAX_EVENT_TEXT_PAYLOAD} bytes; {len(legacy_oversize)} would exceed the limit "
+        "under legacy marker encoding"
+    )
+    for row in legacy_oversize:
+        print(
+            f"legacy-overlimit: {row.map_file}[{row.string_id}] "
+            f"native={len(row.native)} legacy={len(row.legacy)}"
+        )
 
 
 def main() -> None:
@@ -289,26 +337,27 @@ def main() -> None:
     args = parser.parse_args()
 
     translations = load_translations(args.translations)
-    count, legacy_oversize = audit_translations(translations)
-    print(
-        f"Map STR source audit: {count} translations; native payloads <= "
-        f"{MAX_EVENT_TEXT_PAYLOAD} bytes; {legacy_oversize} would exceed the limit "
-        "under legacy marker encoding"
-    )
+    print_audit(translations)
 
     if args.audit and args.lod is None:
         return
     if args.lod is None:
         parser.error("--lod is required unless --audit is used by itself")
     if args.check:
-        files, strings = check_lod(args.lod, translations)
-        print(f"Verified {strings} native-CP949 map strings across {files} STR members")
+        files, strings, skipped_rows, missing_members = check_lod(args.lod, translations)
+        print(
+            f"Verified {strings} native-CP949 map strings across {files} STR members; "
+            f"skipped {skipped_rows} unavailable source rows and {missing_members} absent STR members"
+        )
         return
     if args.output is None:
         parser.error("--output is required unless --check is used")
-    files, strings = patch_lod(args.lod, translations, args.output)
+    files, strings, skipped_rows, missing_members = patch_lod(args.lod, translations, args.output)
     check_lod(args.output, translations)
-    print(f"Patched and verified {strings} native-CP949 map strings across {files} STR members")
+    print(
+        f"Patched and verified {strings} native-CP949 map strings across {files} STR members; "
+        f"skipped {skipped_rows} unavailable source rows and {missing_members} absent STR members"
+    )
 
 
 if __name__ == "__main__":
