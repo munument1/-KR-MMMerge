@@ -1,0 +1,86 @@
+name: Migrate packaged map STR data
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/migrate-native-map-str.yml
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Make future static builds write native map STR bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tools/build_static_localization.py')
+          text = path.read_text(encoding='utf-8')
+          old = '            encoded = encode_dbcs_special(encode_mixed_text(value))\n'
+          new = (
+              '            # FNT_DBCS renders native CP949 directly. Legacy marker wrapping can\n'
+              '            # expand long event strings beyond the engine event-text limit.\n'
+              '            encoded = encode_mixed_text(value)\n'
+          )
+          if text.count(old) != 1:
+              raise SystemExit(f'expected exactly one legacy map-string encoder, found {text.count(old)}')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
+      - name: Migrate committed Korean LOD map strings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --output "Data/zz LocKO.T.native.tmp.lod"
+          mv "Data/zz LocKO.T.native.tmp.lod" "Data/zz LocKO.T.lod"
+
+      - name: Verify migrated package data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+          python -m py_compile tools/build_static_localization.py tools/patch_static_map_strings_lod.py
+          if grep -Fq 'encoded = encode_dbcs_special(encode_mixed_text(value))' tools/build_static_localization.py; then
+            echo 'legacy map-string marker encoder is still present' >&2
+            exit 1
+          fi
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "Data/zz LocKO.T.lod" tools/build_static_localization.py
+          if git diff --cached --quiet; then
+            echo 'Nothing to migrate.'
+            exit 0
+          fi
+          git commit -m "fix: store map STR translations as native CP949"
+          git push
