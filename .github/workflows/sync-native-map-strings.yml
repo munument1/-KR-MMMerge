@@ -1,0 +1,76 @@
+name: Sync native map STR storage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - Data/Text localization/KO_MapStrings.txt
+      - tools/patch_static_map_strings_lod.py
+      - .github/workflows/sync-native-map-strings.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-native-map-strings-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Audit map event text byte lengths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/patch_static_map_strings_lod.py \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --audit
+
+      - name: Materialize native CP949 map strings into Korean LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --output "build/zz LocKO.native-map.T.lod"
+          mv "build/zz LocKO.native-map.T.lod" "Data/zz LocKO.T.lod"
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+      - name: Commit synchronized Korean LOD
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- "Data/zz LocKO.T.lod"; then
+            echo 'Korean LOD already matches map-string sources.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "Data/zz LocKO.T.lod"
+          git commit -m 'build(i18n): sync native map strings into Korean LOD'
+          git fetch origin "$GITHUB_REF_NAME"
+          git rebase "origin/$GITHUB_REF_NAME"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
