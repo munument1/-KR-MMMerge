@@ -1,0 +1,225 @@
+# v1.0.32 release workflow.
+# Fixes parser-sensitive confirmation input localization in MM6 Light/Dark path
+# changes and clarifies the Breach Telelocator confirmation input.
+name: Release v1.0.32
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.32.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-v1.0.32
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate localization sources
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress --fail-fuzzy --min-translated 25051
+          python tools/validate_parser_sensitive_localization.py
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate reported event hotfix and regressions
+        timeout-minutes: 25
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_reported_event_hotfixes.py .
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/audit_rodril_follower_topic_aliases.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/validate_korean_movie_subtitles.py .
+
+          python tools/patch_static_map_strings_lod.py \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --audit
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanMovieSubtitles.lua \
+            Scripts/General/LocalizeTables.lua \
+            Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua \
+            tools/test_localize_tables_upstream_semantics.lua \
+            tools/test_korean_movie_subtitles.lua \
+            tools/test_korean_rodril_numeric_localization.lua; do
+            luac5.1 -p "$f"
+          done
+          lua5.1 tools/test_localize_tables_upstream_semantics.lua
+          lua5.1 tools/test_korean_movie_subtitles.lua
+          lua5.1 tools/test_korean_rodril_numeric_localization.lua
+
+      - name: Build clean release package
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.32"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.32
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.20~v1.0.31 사용자는 그대로 덮어쓰면 됩니다.
+          v1.0.19 이하 사용자는 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+
+          v1.0.32 핵심 변경:
+          - MM6 블랙샤이어/실버코브에서 빛/어둠의 길 변경 시 yes 입력이 무시되던 문제 수정
+          - 판정용 NPCText[2108]을 번역하지 않고 원본 제어 토큰 yes로 유지
+          - 빛/어둠의 길 변경 확인 문구에서 실제 입력값 yes를 명확히 안내
+          - Breach 텔레로케이터 균열 진입 확인은 원본 스크립트가 y만 받으므로 안내문을 y 입력으로 수정
+          - Question() 기반 입력 판정 문자열에 대한 회귀 검사 추가
+          - v1.0.31의 MM6 제어센터 선언문 및 MM7 에메랄드 섬 미번역 대사 수정 포함
+
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          test -f release-stage/Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanReportedLocalization.lua
+          test -f release-stage/Scripts/General/LocalizeTables.lua
+          test ! -f release-stage/Scripts/Maps/out01.lua
+
+          python tools/validate_reported_event_hotfixes.py release-stage
+          python tools/patch_static_map_strings_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" .
+          )
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.32
+
+          이번 릴리즈는 한국어 현지화 문자열이 게임의 `Question()` 입력 판정과 충돌해 진행을 막을 수 있던 문제를 수정합니다.
+
+          ### MM6 빛/어둠의 길 변경 수정
+          - 블랙샤이어 또는 실버코브에서 길을 변경할 때 영문판처럼 `yes`를 입력해도 전직이 되지 않던 문제를 수정했습니다.
+          - 원인은 `NPCText[2108]`이 화면용 문구가 아니라 Lua가 직접 비교하는 판정 토큰인데, 한국어 패치에서 `예`로 번역되어 있었기 때문입니다.
+          - 해당 토큰을 원본과 동일한 `yes`로 유지하고, 확인 문구에도 `yes`를 입력해야 한다고 명확히 표시합니다.
+          - 같은 토큰을 사용하는 빛의 길과 어둠의 길 양쪽 변경에 적용됩니다.
+
+          ### Breach 텔레로케이터 확인 안내 수정
+          - Breach에서 텔레로케이터를 사용해 균열에 들어갈 때 기존 한국어 문구는 `(예/아니요)`라고 안내했지만, 원본 Lua는 실제로 소문자 변환 후 `y`만 확인합니다.
+          - 안내문을 `들어가려면 y를 입력하십시오.`로 바꿔 실제 판정 조건과 일치시켰습니다.
+          - 변경된 맵 문자열은 `KO_MapStrings.txt`뿐 아니라 배포용 `zz LocKO.T.lod`에도 동기화했습니다.
+
+          ### 입력 판정 회귀 방지
+          - Rodril Merge에서 `Question()`을 사용하는 입력 판정 지점을 점검했습니다.
+          - 이번 점검에서 확인된 확정 문제를 수정하고, 판정용 문자열이 다시 번역되거나 안내문과 실제 입력값이 어긋나면 CI에서 검출하도록 검사를 추가했습니다.
+          - 퍼즐/암호처럼 번역 여부가 게임 설계와 연결된 항목은 근거 없이 일괄 변경하지 않았습니다.
+
+          ### 기존 수정 포함
+          - v1.0.31의 MM6 제어센터 `선언` 두루마리 오표시 수정과 MM7 에메랄드 섬 소년 대사 현지화가 포함됩니다.
+          - v1.0.30의 VARN의 무덤 이벤트 텍스트 길이 오류 수정과 기존 한국어 안정화 수정도 모두 포함됩니다.
+
+          ### 설치
+          - v1.0.20~v1.0.31: ZIP 내용을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하: Rodril MMMerge 원본을 먼저 재적용한 뒤 설치하십시오.
+          EOF
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        timeout-minutes: 5
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.32"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.32" \
+            --notes-file release-notes.md \
+            --latest
