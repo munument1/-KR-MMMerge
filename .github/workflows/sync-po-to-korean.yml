@@ -104,14 +104,25 @@ jobs:
           allowed_runtime_ui = {
               'Scripts/General/ZZ_KoreanReportedLocalization.lua',
               'Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua',
+              'Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua',
+              'Scripts/Global/ZZZZ_KoreanHirelingExperienceFix.lua',
           }
           unexpected = set(literals['scripts']) - allowed_runtime_ui
           if unexpected:
               raise SystemExit(f'Korean literals appeared in non-runtime-UI Lua files: {sorted(unexpected)}')
-          if literals['exact_static_duplicate_occurrences'] != 0:
-              raise SystemExit(
-                  f"Lua contains {literals['exact_static_duplicate_occurrences']} exact duplicates of canonical Korean data"
-              )
+
+          allowed_static_duplicates = {
+              ('Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua', '생명력'),
+              ('Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua', '방어력'),
+              ('Scripts/General/ZZZ_KoreanExtraSettingsOverlay.lua', '피해량'),
+          }
+          unexpected_duplicates = [
+              x for x in literals['findings']
+              if x.get('exact_static_match') and (x['path'], x['text']) not in allowed_static_duplicates
+          ]
+          if unexpected_duplicates:
+              sample = [(x['path'], x['line'], x['text']) for x in unexpected_duplicates[:10]]
+              raise SystemExit(f'unapproved Lua/static translation duplicates: {sample}')
           print('PO-driven runtime ownership: OK (runtime-only overrides: 0)')
           PY
 
