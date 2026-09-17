@@ -16,6 +16,7 @@ on:
       - tools/rebuild_stats_skills_runtime.py
       - tools/audit_runtime_translation_ownership.py
       - tools/audit_lua_korean_literals.py
+      - tools/validate_parser_sensitive_localization.py
       - config/runtime_override_keys.tsv
       - mm8lang.ini
       - .github/workflows/sync-po-to-korean.yml
@@ -43,6 +44,9 @@ jobs:
 
       - name: Install PO dependency
         run: python -m pip install --disable-pip-version-check polib
+
+      - name: Normalize parser-sensitive localization tokens
+        run: python tools/validate_parser_sensitive_localization.py --fix
 
       - name: Require complete reviewed PO
         shell: bash
@@ -111,6 +115,9 @@ jobs:
           print('PO-driven runtime ownership: OK (runtime-only overrides: 0)')
           PY
 
+      - name: Require parser-sensitive localization tokens
+        run: python tools/validate_parser_sensitive_localization.py
+
       - name: Require materialized files to round-trip back to PO exactly
         shell: bash
         run: |
@@ -127,13 +134,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "$(git status --porcelain -- 'Data/Text localization' mm8lang.ini)" ]]; then
+          if [[ -z "$(git status --porcelain -- translations/ko/mmmerge.po 'Data/Text localization' mm8lang.ini)" ]]; then
             echo 'Korean runtime sources already match PO.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add 'Data/Text localization' mm8lang.ini
+          git add translations/ko/mmmerge.po 'Data/Text localization' mm8lang.ini
           git commit -m 'build(i18n): sync Korean runtime sources from PO'
           git fetch origin "$GITHUB_REF_NAME"
           git rebase "origin/$GITHUB_REF_NAME"
