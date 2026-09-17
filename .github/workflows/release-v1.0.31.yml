@@ -1,6 +1,7 @@
 # v1.0.31 release workflow.
 # Fixes the MM6 Control Center Proclamation scroll mapping and the untranslated
 # MM7 Emerald Island contest messenger conversation.
+# Re-triggered after correcting the byte-escape regression validator.
 name: Release v1.0.31
 
 on:
