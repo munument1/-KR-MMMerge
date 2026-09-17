@@ -15,6 +15,11 @@ try:
 except UnicodeDecodeError as exc:
     raise SystemExit(f"event hotfix must remain ASCII-only: {hotfix_path}: {exc}")
 
+# .gitattributes checks out Lua files with CRLF. Normalize line endings before
+# applying line-anchored source checks so the validator behaves identically on
+# GitHub Actions and local LF worktrees.
+hotfix = hotfix.replace("\r\n", "\n").replace("\r", "\n")
+
 required_fragments = [
     "local PROCLAMATION_ITEM_ID = 2166",
     'structs.o.GameStructure["MessageScrolls"]',
