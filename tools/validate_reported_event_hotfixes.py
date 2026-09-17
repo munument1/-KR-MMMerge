@@ -40,7 +40,11 @@ for forbidden in (
 
 
 def decode_lua_decimal_bytes(variable: str) -> str:
-    match = re.search(rf'^local {re.escape(variable)} = "([^"]*)"$', hotfix, re.MULTILINE)
+    match = re.search(rf'^local {re.escape(variable)} = "([^"]*)"$'.replace(r'[^\"]', r'[^\"]'), hotfix, re.MULTILINE)
+    # Build the regex without escaping the quote inside the character class;
+    # escaping it there would also exclude backslashes, which are the content.
+    if not match:
+        match = re.search(rf'^local {re.escape(variable)} = "(.*)"$', hotfix, re.MULTILINE)
     if not match:
         raise SystemExit(f"missing byte-escaped string: {variable}")
     raw = match.group(1)
