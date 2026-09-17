@@ -1755,7 +1755,7 @@ msgctxt "mmmerge/10LocLANG.T/Breach.STR|string=1"
 msgid ""
 "Once you've put the Telelocator into empty slot, Breach has changed, you can"
 " not see any landscape behind it. Will you dare to enter? (Y/N)"
-msgstr "빈 홈에 텔레로케이터를 끼우자 균열이 변해 그 너머의 풍경이 보이지 않습니다. 들어가시겠습니까? (예/아니요)"
+msgstr "빈 홈에 텔레로케이터를 끼우자 균열이 변해 그 너머의 풍경이 보이지 않습니다. 들어가려면 y를 입력하십시오."
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/Breach.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
