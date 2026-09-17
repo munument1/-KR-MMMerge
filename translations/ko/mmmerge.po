@@ -164895,7 +164895,8 @@ msgid ""
 "Are you sure, you want to change your path? Dark spells will be vanished "
 "from your spellbook and dark magic will be erased from your mind. (Yes/No)"
 msgstr ""
-"정말로 진로를 바꾸시겠습니까? 주문서에서 어둠 계열 주문이 사라지고, 머릿속에서 어둠 마법에 대한 지식도 지워집니다. (예/아니요)"
+"정말로 진로를 바꾸시겠습니까? 주문서에서 어둠 계열 주문이 사라지고, 머릿속에서 어둠 마법에 대한 지식도 지워집니다. 계속하려면 yes를"
+" 입력하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -164906,7 +164907,8 @@ msgid ""
 "Are you sure, you want to change your path? Light spells will be vanished "
 "from your spellbook and light magic will be erased from your mind. (Yes/No)"
 msgstr ""
-"정말로 진로를 바꾸시겠습니까? 주문서에서 빛 계열 주문이 사라지고, 머릿속에서 빛 마법에 대한 지식도 지워집니다. (예/아니요)"
+"정말로 진로를 바꾸시겠습니까? 주문서에서 빛 계열 주문이 사라지고, 머릿속에서 빛 마법에 대한 지식도 지워집니다. 계속하려면 yes를 "
+"입력하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -164930,7 +164932,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCText.txt|table=NPCText|id=2108|field=<default>"
 msgid "yes"
-msgstr "예"
+msgstr "yes"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
