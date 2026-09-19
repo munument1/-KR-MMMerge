@@ -741,7 +741,7 @@ msgctxt "mmmerge/10LocLANG.T/6T5.STR|string=14"
 msgid ""
 "\"Life above all, Accuracy before Might, Endurance before Speed, and "
 "finally, Luck.\""
-msgstr "무엇보다 생명을, 힘보다 정확도를, 속도보다 체력을, 그리고 마지막으로 행운을."
+msgstr "무엇보다 생명을, 힘보다 정확도를, 민첩성보다 체력을, 그리고 마지막으로 행운을."
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/6T5.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -771,7 +771,7 @@ msgstr "정확도의 제단"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/6T5.STR|string=8"
 msgid "Altar of Speed"
-msgstr "속도의 제단"
+msgstr "민첩성의 제단"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/6T5.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3846,7 +3846,7 @@ msgstr "저주받은 자들의 수렁"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUTC3.STR|string=8"
 msgid "Shrine of Speed"
-msgstr "속도의 성소"
+msgstr "민첩성의 성소"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUTD1.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -42183,7 +42183,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=22|field=<default>"
 msgid "Purple liquid grants Speed."
-msgstr "보라색 액체는 속도를 높인다."
+msgstr "보라색 액체는 민첩성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42720,7 +42720,7 @@ msgctxt ""
 msgid ""
 "25 points of temporary Might, Intellect, Personality, Endurance, Speed, "
 "Accuracy, and Luck from the central fountain in Celeste."
-msgstr "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 속도, 정확도, 행운 25 증가."
+msgstr "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 민첩성, 정확도, 행운 25 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42914,7 +42914,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=294|field=<default>"
 msgid "Purple liquid grants Speed."
-msgstr "보라색 액체는 속도를 높인다."
+msgstr "보라색 액체는 민첩성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44293,7 +44293,7 @@ msgctxt ""
 msgid ""
 "10 Points of permanent might, accuracy, speed, endurance, personality, "
 "intellect, and luck from the fountain on the south island in Dragonsand."
-msgstr "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 속도, 체력, 인격, 지력, 행운 영구적으로 10 증가."
+msgstr "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 민첩성, 체력, 인격, 지력, 행운 영구적으로 10 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44441,7 +44441,7 @@ msgid ""
 "50 Points of temporary might, accuracy, endurance, speed, personality, "
 "intellect, and luck from the fountain southwest of the village of Sweet "
 "Water."
-msgstr "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 속도, 인격, 지력, 행운 50 증가."
+msgstr "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 민첩성, 인격, 지력, 행운 50 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44873,7 +44873,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=485|field=<default>"
 msgid "Purple liquid grants Speed."
-msgstr "보라색 액체는 속도를 높인다."
+msgstr "보라색 액체는 민첩성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -101310,8 +101310,8 @@ msgid ""
 "subtracting 5 from his Speed. This potion requires six reagents to mix, four"
 " of any one color supplemented by one from each of the remaining colors."
 msgstr ""
-"인격의 정수는 캐릭터의 인격을 15 높이는 대신 속도를 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 시약을"
-" 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
+"인격의 정수는 캐릭터의 인격을 15 높이는 대신 민첩성을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
+"시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -186303,7 +186303,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1288|field=<default>"
 msgid "Game of Speed"
-msgstr "속도 게임"
+msgstr "민첩성 게임"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186367,7 +186367,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1295|field=<default>"
 msgid "Contest of Speed"
-msgstr "속도 경연"
+msgstr "민첩성 경연"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186439,7 +186439,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1302|field=<default>"
 msgid "Test of Speed"
-msgstr "속도 시험"
+msgstr "민첩성 시험"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186495,7 +186495,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1309|field=<default>"
 msgid "Challenge of Speed"
-msgstr "속도 도전"
+msgstr "민첩성 도전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -187503,7 +187503,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1422|field=<default>"
 msgid "Play Speed Game for 50 Gold"
-msgstr "50골드로 속도 게임하기"
+msgstr "50골드로 민첩성 게임하기"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194083,7 +194083,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=548|field=<default>"
 msgid "Game of Speed"
-msgstr "속도 게임"
+msgstr "민첩성 게임"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194147,7 +194147,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=555|field=<default>"
 msgid "Contest of Speed"
-msgstr "속도 경연"
+msgstr "민첩성 경연"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194211,7 +194211,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=562|field=<default>"
 msgid "Test of Speed"
-msgstr "속도 시험"
+msgstr "민첩성 시험"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194267,7 +194267,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=569|field=<default>"
 msgid "Challenge of Speed"
-msgstr "속도 도전"
+msgstr "민첩성 도전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
