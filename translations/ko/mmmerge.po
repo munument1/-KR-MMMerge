@@ -1513,7 +1513,7 @@ msgstr "매복!"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/7out05.STR|string=25"
 msgid "Hall of the Pit"
-msgstr "구덩이의 회관"
+msgstr "구덩이의 전당"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/7out05.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3472,7 +3472,7 @@ msgstr "타이탄 요새"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/out14.STR|string=27"
 msgid "Hall under the Hill"
-msgstr "언덕 아래의 회관"
+msgstr "언덕 아래 전당"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/out14.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3792,7 +3792,7 @@ msgstr "화이트 캡"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUTC2.STR|string=28"
 msgid "Guild of Mind"
-msgstr "정신의 길드"
+msgstr "정신 마법 길드"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUTC2.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -5823,7 +5823,7 @@ msgstr "광대"
 msgctxt ""
 "mmmerge/inherited/mm6/npcprof.txt|table=NPCProfessions|id=66|field=Name"
 msgid "Trapper"
-msgstr "덫사냥꾼"
+msgstr "덫 사냥꾼"
 
 #. EN: source/en/mm6/data/10LocLANG.icons/npcprof.txt
 #. KO: Data/Text localization/KO_NPCProfessions.txt
@@ -47627,7 +47627,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AwardsTxt.txt|table=AwardsTxt|id=65|field=<default>"
 msgid "Won Arcomage at Kessel's Kantina in Ravenshore."
-msgstr "레이븐쇼어의 '케셀스 칸티나'에서 아르코메이지에 승리함"
+msgstr "레이븐쇼어의 '케셀의 칸티나'에서 아르코메이지에 승리함"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AwardsTxt.txt
 #. KO: Data/Text localization/KO_AwardsTxt.txt
@@ -142717,7 +142717,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=382|field=<default>"
 msgid "The Enchanted Hauberk"
-msgstr "마법의 사슬 갑옷"
+msgstr "마법 걸린 호버크"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -144517,7 +144517,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=589|field=<default>"
 msgid "Widoweeps Berries"
-msgstr "위도우윕 열매"
+msgstr "위도우스위프 열매"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -187183,7 +187183,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1387|field=<default>"
 msgid "Memory Crystal"
-msgstr "기억의 수정"
+msgstr "기억 수정"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -190903,7 +190903,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=190|field=<default>"
 msgid "Anointed Herb Potion"
-msgstr "기름 부은 약초 물약"
+msgstr "축성된 약초 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194011,7 +194011,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=53|field=<default>"
 msgid "Ebonest"
-msgstr "에보니스트"
+msgstr "에보네스트"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194363,7 +194363,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=57|field=<default>"
 msgid "Ebonest"
-msgstr "에보니스트"
+msgstr "에보네스트"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -196055,7 +196055,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=76|field=<default>"
 msgid "Prophecies of the Sun"
-msgstr "태양의 예언서"
+msgstr "태양의 예언"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -196419,7 +196419,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=80|field=<default>"
 msgid "Prophecies of the Sun"
-msgstr "태양의 예언서"
+msgstr "태양의 예언"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -206000,7 +206000,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=1|field=BonusStat"
 msgid "Intellect"
-msgstr "지력"
+msgstr "지능"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtStats.txt
 #. KO: Data/Text localization/KO_StdItemsTxtStats.txt
