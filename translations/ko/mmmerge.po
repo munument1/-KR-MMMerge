@@ -741,7 +741,7 @@ msgctxt "mmmerge/10LocLANG.T/6T5.STR|string=14"
 msgid ""
 "\"Life above all, Accuracy before Might, Endurance before Speed, and "
 "finally, Luck.\""
-msgstr "무엇보다 생명을, 힘보다 정확도를, 속도보다 체력을, 그리고 마지막으로 행운을."
+msgstr "무엇보다 생명을, 힘보다 정확도를, 민첩성보다 체력을, 그리고 마지막으로 행운을."
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/6T5.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -771,7 +771,7 @@ msgstr "정확도의 제단"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/6T5.STR|string=8"
 msgid "Altar of Speed"
-msgstr "속도의 제단"
+msgstr "민첩성의 제단"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/6T5.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -1513,7 +1513,7 @@ msgstr "매복!"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/7out05.STR|string=25"
 msgid "Hall of the Pit"
-msgstr "구덩이의 회관"
+msgstr "구덩이의 전당"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/7out05.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -2812,7 +2812,7 @@ msgstr "말벌 둥지"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUT03.STR|string=46"
 msgid "Ogre Raiding Fort"
-msgstr "오우거 요새"
+msgstr "오우거 약탈 요새"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUT03.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3472,7 +3472,7 @@ msgstr "타이탄 요새"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/out14.STR|string=27"
 msgid "Hall under the Hill"
-msgstr "언덕 아래의 회관"
+msgstr "언덕 아래 전당"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/out14.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3792,7 +3792,7 @@ msgstr "화이트 캡"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUTC2.STR|string=28"
 msgid "Guild of Mind"
-msgstr "정신의 길드"
+msgstr "정신 마법 길드"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUTC2.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3846,7 +3846,7 @@ msgstr "저주받은 자들의 수렁"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUTC3.STR|string=8"
 msgid "Shrine of Speed"
-msgstr "속도의 성소"
+msgstr "민첩성의 성소"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUTD1.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -5823,7 +5823,7 @@ msgstr "광대"
 msgctxt ""
 "mmmerge/inherited/mm6/npcprof.txt|table=NPCProfessions|id=66|field=Name"
 msgid "Trapper"
-msgstr "덫사냥꾼"
+msgstr "덫 사냥꾼"
 
 #. EN: source/en/mm6/data/10LocLANG.icons/npcprof.txt
 #. KO: Data/Text localization/KO_NPCProfessions.txt
@@ -6087,7 +6087,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=119|field=<default>"
 msgid "Master Archer"
-msgstr "궁술 마스터"
+msgstr "명궁"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7136,7 +7136,7 @@ msgstr "기사"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=254|field=<default>"
 msgid "Cavalier"
-msgstr "기사"
+msgstr "중기병"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7255,7 +7255,7 @@ msgstr "상급 드루이드"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=26|field=<default>"
 msgid "Initiate"
-msgstr "수련생"
+msgstr "수련자"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7493,7 +7493,7 @@ msgstr "육체 저항"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=2|field=<default>"
 msgid "Black Knight"
-msgstr "블랙 나이트"
+msgstr "흑기사"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -8965,7 +8965,7 @@ msgstr "현재 소지한 금은 %d, 은행에 예치된 금은 %d입니다"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=48|field=<default>"
 msgid "Warlock"
-msgstr "워록"
+msgstr "흑마법사"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10508,7 +10508,7 @@ msgstr "트롤"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=684|field=<default>"
 msgid "War Troll"
-msgstr "워 트롤"
+msgstr "전투 트롤"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10571,7 +10571,7 @@ msgstr "드래곤"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=692|field=<default>"
 msgid "Great Wyrm"
-msgstr "그레이트 웜"
+msgstr "고룡"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -15604,7 +15604,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=41|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -15654,7 +15654,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=42|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -16204,7 +16204,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=52|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -16904,7 +16904,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=65|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -17507,7 +17507,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=76|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -17947,7 +17947,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=84|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -18095,7 +18095,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=87|field=GrandMaster"
 msgid "Moderate recovery rate"
-msgstr "보통의 회복 속도"
+msgstr "보통 회복 속도"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -18356,7 +18356,7 @@ msgstr "영구 지속"
 #. KO: Data/Text localization/KO_SpellsTxt.txt
 msgctxt "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=91|field=Master"
 msgid "Fastest recovery rate"
-msgstr "가장 빠른 회복 속도"
+msgstr "회복 속도 매우 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -18650,7 +18650,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=97|field=GrandMaster"
 msgid "Moderate recovery rate"
-msgstr "보통의 회복 속도"
+msgstr "보통 회복 속도"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -28847,7 +28847,7 @@ msgstr "치유사"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=325|field=Name"
 msgid "New Sorpigal Temple"
-msgstr "뉴 소르피갈신전"
+msgstr "뉴 소르피갈 신전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -29541,7 +29541,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=361|field=Name"
 msgid "Dragon Hunter Camp"
-msgstr "드래곤 사냥꾼야영지"
+msgstr "드래곤 사냥꾼 야영지"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -42183,7 +42183,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=22|field=<default>"
 msgid "Purple liquid grants Speed."
-msgstr "보라색 액체는 속도를 높인다."
+msgstr "보라색 액체는 민첩성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42212,7 +42212,7 @@ msgctxt ""
 msgid ""
 "Well on the Island of Regna gives a permanent Speed bonus up to a Speed of "
 "16."
-msgstr "레그나 섬에 있는 우물에서 속도가 16 미만일 때 영구적으로 증가."
+msgstr "레그나 섬에 있는 우물에서 민첩성이 16 미만일 때 영구적으로 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42720,7 +42720,7 @@ msgctxt ""
 msgid ""
 "25 points of temporary Might, Intellect, Personality, Endurance, Speed, "
 "Accuracy, and Luck from the central fountain in Celeste."
-msgstr "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 속도, 정확도, 행운 25 증가."
+msgstr "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 민첩성, 정확도, 행운 25 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42808,7 +42808,7 @@ msgctxt ""
 msgid ""
 "2 points of permanent Speed from the well in the western section of "
 "Tidewater in Tatalia."
-msgstr "타이드워터 · 타탈리아 서부에 있는 우물에서 속도 영구적으로 2 증가."
+msgstr "타이드워터 · 타탈리아 서부에 있는 우물에서 민첩성 영구적으로 2 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42914,7 +42914,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=294|field=<default>"
 msgid "Purple liquid grants Speed."
-msgstr "보라색 액체는 속도를 높인다."
+msgstr "보라색 액체는 민첩성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44099,7 +44099,7 @@ msgctxt ""
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=408|field=<default>"
 msgid ""
 "10 Points of temporary speed from the east fountain at Castle Ironfist."
-msgstr "아이언피스트 성 동쪽에 있는 분수에서 일시적으로 속도 10 증가."
+msgstr "아이언피스트 성 동쪽에 있는 분수에서 일시적으로 민첩성 10 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44181,7 +44181,7 @@ msgctxt ""
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=416|field=<default>"
 msgid ""
 "2 Points of permanent speed from the south fountain west of Silver Cove."
-msgstr "실버 코브 서쪽의 남쪽 분수에서 속도가 영구적으로 2 증가."
+msgstr "실버 코브 서쪽의 남쪽 분수에서 민첩성이 영구적으로 2 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44227,7 +44227,7 @@ msgctxt ""
 msgid ""
 "20 Points of temporary speed and accuracy from the west fountain in Icewind "
 "Lake."
-msgstr "아이스윈드 호수 서쪽에 있는 분수에서 일시적으로 속도와 정확도 20 증가."
+msgstr "아이스윈드 호수 서쪽에 있는 분수에서 일시적으로 민첩성과 정확도 20 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44293,7 +44293,7 @@ msgctxt ""
 msgid ""
 "10 Points of permanent might, accuracy, speed, endurance, personality, "
 "intellect, and luck from the fountain on the south island in Dragonsand."
-msgstr "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 속도, 체력, 인격, 지력, 행운 영구적으로 10 증가."
+msgstr "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 민첩성, 체력, 인격, 지력, 행운 영구적으로 10 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44441,7 +44441,7 @@ msgid ""
 "50 Points of temporary might, accuracy, endurance, speed, personality, "
 "intellect, and luck from the fountain southwest of the village of Sweet "
 "Water."
-msgstr "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 속도, 인격, 지력, 행운 50 증가."
+msgstr "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 민첩성, 인격, 지력, 행운 50 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44873,7 +44873,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=485|field=<default>"
 msgid "Purple liquid grants Speed."
-msgstr "보라색 액체는 속도를 높인다."
+msgstr "보라색 액체는 민첩성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -45193,7 +45193,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=51|field=<default>"
 msgid "Speed Boost (White) = Orange + Red and Orange Layered"
-msgstr "속도 강화 (흰색) = 주황 + 빨강·주황 층상 물약"
+msgstr "민첩성 강화 (흰색) = 주황 + 빨강·주황 층상 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46625,7 +46625,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=680|field=<default>"
 msgid "Essence of Speed = Cure Insanity + Harden Item"
-msgstr "속도의 정수 = 광기 치료 + 아이템 강화"
+msgstr "민첩성의 정수 = 광기 치료 + 아이템 강화"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46685,7 +46685,7 @@ msgid ""
 "Heroism."
 msgstr ""
 "신들의 물약 = 힘의 정수 + 아이템 강화 또는 지력의 정수 + 돌가죽 또는 인격의 정수 + 아이템 충전 또는 체력의 정수 + 신속 또는"
-" 정확도의 정수 + 방패 또는 속도의 정수 + 영웅심."
+" 정확도의 정수 + 방패 또는 민첩성의 정수 + 영웅심."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46901,7 +46901,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=80|field=<default>"
 msgid "Pure Speed (Black) = Purple Potion + Speed Boost (White)"
-msgstr "순수한 속도 (검은색) = 보라색 물약 + 속도 강화 (흰색)"
+msgstr "순수한 민첩성 (검은색) = 보라색 물약 + 민첩성 강화 (흰색)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -47627,7 +47627,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AwardsTxt.txt|table=AwardsTxt|id=65|field=<default>"
 msgid "Won Arcomage at Kessel's Kantina in Ravenshore."
-msgstr "레이븐쇼어의 '케셀스 칸티나'에서 아르코메이지에 승리함"
+msgstr "레이븐쇼어의 '케셀의 칸티나'에서 아르코메이지에 승리함"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AwardsTxt.txt
 #. KO: Data/Text localization/KO_AwardsTxt.txt
@@ -48762,7 +48762,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_ClassNames.txt|table=ClassNames|id=18|field=<default>"
 msgid "Black Knight"
-msgstr "챔피언"
+msgstr "흑기사"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassNames.txt
 #. KO: Data/Text localization/KO_ClassNames.txt
@@ -48770,7 +48770,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_ClassNames.txt|table=ClassNames|id=19|field=<default>"
 msgid "Champion"
-msgstr "흑기사"
+msgstr "챔피언"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassNames.txt
 #. KO: Data/Text localization/KO_ClassNames.txt
@@ -59716,7 +59716,7 @@ msgid ""
 "time, and Feather Falling) Rumored to be the footwear of a god, the winged "
 "sandals confer enormous power on the wearer."
 msgstr ""
-"(+100 속도, +50 정확도, +50 공기 저항, 시간에 따른 주문력과 생명력 회복, 깃털 낙하) 신의 신발이라는 소문이 있는 이 "
+"(민첩성 +100, 정확도 +50, 공기 저항 +50, 시간에 따른 주문력과 생명력 회복, 깃털 낙하) 신의 신발이라는 소문이 있는 이 "
 "날개 달린 샌들은 착용자에게 엄청난 힘을 부여합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -62241,7 +62241,7 @@ msgstr "순수한 지력 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1548|field=Name"
 msgid "Pure Speed Recipe"
-msgstr "순수한 속도 제조법"
+msgstr "순수한 민첩성 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -62256,7 +62256,7 @@ msgstr "메시지 두루마리입니다. 내용을 읽으려면 두루마리를 
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1548|field=NotIdentifiedName"
 msgid "Pure Speed Recipe"
-msgstr "순수한 속도 제조법"
+msgstr "순수한 민첩성 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -62431,7 +62431,7 @@ msgstr "체력 강화 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1556|field=Name"
 msgid "Speed Boost Recipe"
-msgstr "속도 강화 제조법"
+msgstr "민첩성 강화 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -62446,7 +62446,7 @@ msgstr "메시지 두루마리입니다. 내용을 읽으려면 두루마리를 
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1556|field=NotIdentifiedName"
 msgid "Speed Boost Recipe"
-msgstr "속도 강화 제조법"
+msgstr "민첩성 강화 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -68148,7 +68148,7 @@ msgid ""
 "To drink, pick the potion up and right-click over a character's portrait.  "
 "To mix, pick the potion up and right-click over another potion."
 msgstr ""
-"1회 사용 가능: 인격을 15만큼 증가시키고 속도를 5만큼 영구적으로 감소시킵니다. 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
+"1회 사용 가능: 인격을 15만큼 증가시키고 민첩성을 5만큼 영구적으로 감소시킵니다. 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
 "클릭하십시오. 섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -68211,7 +68211,7 @@ msgstr "검은색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1788|field=Name"
 msgid "Essence of Speed"
-msgstr "속도의 정수"
+msgstr "민첩성의 정수"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -68221,7 +68221,7 @@ msgid ""
 "To drink, pick the potion up and right-click over a character's portrait.  "
 "To mix, pick the potion up and right-click over another potion."
 msgstr ""
-"1회 사용 가능: 이동 속도를 15 증가시키고 인격을 5 감소시킵니다(영구 효과). 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
+"1회 사용 가능: 민첩성을 15 증가시키고 인격을 5 감소시킵니다(영구 효과). 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
 "클릭하십시오. 섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -78912,7 +78912,7 @@ msgstr "흰색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=244|field=Name"
 msgid "Speed Boost"
-msgstr "속도 강화"
+msgstr "민첩성 강화"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -78923,8 +78923,8 @@ msgid ""
 "and right-click over a character's portrait.  To mix two potions, pick up "
 "one and right-click it over the other.)"
 msgstr ""
-"물약 효능 1포인트당 30분 동안 물약 효능의 3배만큼 이동 속도를 일시적으로 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를"
-" 오른쪽 클릭하십시오. 물약 두 개를 섞으려면 물약 하나를 집어 들고 다른 물약 위에 오른쪽 클릭하십시오.)"
+"물약 효능 1포인트당 30분 동안 물약 효능의 3배만큼 민첩성을 일시적으로 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 "
+"오른쪽 클릭하십시오. 물약 두 개를 섞으려면 물약 하나를 집어 들고 다른 물약 위에 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -79478,7 +79478,7 @@ msgstr "검은색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=265|field=Name"
 msgid "Pure Speed"
-msgstr "순수한 속도"
+msgstr "순수한 민첩성"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -79488,8 +79488,8 @@ msgid ""
 "over a character's portrait.  To mix, pick the potion up and right-click "
 "over another potion.)"
 msgstr ""
-"이동 속도를 영구적으로 50 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을 집어 들고 "
-"다른 물약을 오른쪽 클릭하십시오.)"
+"민첩성을 영구적으로 50 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을 집어 들고 다른"
+" 물약을 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -79728,7 +79728,7 @@ msgid ""
 "pick the potion up and right-click over a character's portrait.  To mix, "
 "pick the potion up and right-click over another potion.)"
 msgstr ""
-"인격 수치를 영구적으로 15만큼 올리고 속도를 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
+"인격 수치를 영구적으로 15만큼 올리고 민첩성을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
 "섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -79790,7 +79790,7 @@ msgstr "흰색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=277|field=Name"
 msgid "Essence of Speed"
-msgstr "속도의 정수"
+msgstr "민첩성의 정수"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -79800,8 +79800,8 @@ msgid ""
 "pick the potion up and right-click over a character's portrait.  To mix, "
 "pick the potion up and right-click over another potion.)"
 msgstr ""
-"이동 속도를 15만큼 영구적으로 증가시키고 인격을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오."
-" 섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오.)"
+"민첩성을 15만큼 영구적으로 증가시키고 인격을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
+"섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90281,7 +90281,7 @@ msgstr "물약 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=706|field=Name"
 msgid "Pure Speed Recipe"
-msgstr "순수한 속도 제조법"
+msgstr "순수한 민첩성 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90474,7 +90474,7 @@ msgstr "물약 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=714|field=Name"
 msgid "Speed Boost Recipe"
-msgstr "속도 강화 제조법"
+msgstr "민첩성 강화 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91732,7 +91732,7 @@ msgstr "물약 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=768|field=Name"
 msgid "Essence of Speed recipe"
-msgstr "속도의 정수 제조법"
+msgstr "민첩성의 정수 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -99324,7 +99324,7 @@ msgid ""
 "combination of four of any red reagent type plus two of any blue reagent "
 "type and one of the yellow reagents.  "
 msgstr ""
-" 검은 순수한 속도 물약은 속도를 영구적으로 높여 더 빠르게 회복하고 몬스터보다 먼저 행동할 수 있게 합니다. 이 물약을 조합하려면 "
+" 검은 순수한 민첩성 물약은 민첩성을 영구적으로 높여 더 빠르게 회복하고 몬스터보다 먼저 행동할 수 있게 합니다. 이 물약을 조합하려면 "
 "빨간색 시약 네 개, 파란색 시약 두 개, 노란색 시약 한 개를 올바르게 조합해야 합니다.  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -99444,7 +99444,7 @@ msgid ""
 " need it. To mix this potion you need the correct combination of three of "
 "any red reagent type and two of any yellow reagents."
 msgstr ""
-" 흰 속도 증폭 물약은 필요할 때 속도를 일시적으로 높여줍니다. 이 물약을 조합하려면 빨간색 시약 세 개와 노란색 시약 두 개가 "
+" 흰 민첩성 강화 물약은 필요할 때 민첩성을 일시적으로 높여줍니다. 이 물약을 조합하려면 빨간색 시약 세 개와 노란색 시약 두 개가 "
 "필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -99644,8 +99644,8 @@ msgid ""
 " need it. To mix this potion you need the correct combination of three of "
 "any red reagent type and two of any yellow reagents."
 msgstr ""
-" 흰 속도 증폭 물약은 필요할 때 속도를 일시적으로 높여줍니다. 이 물약을 조합하려면 빨간색 시약 세 개와 노란색 시약 두 개를 올바르게"
-" 조합해야 합니다."
+" 흰 민첩성 강화 물약은 필요할 때 민첩성을 일시적으로 높여줍니다. 이 물약을 조합하려면 빨간색 시약 세 개와 노란색 시약 두 개를 "
+"올바르게 조합해야 합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -101310,8 +101310,8 @@ msgid ""
 "subtracting 5 from his Speed. This potion requires six reagents to mix, four"
 " of any one color supplemented by one from each of the remaining colors."
 msgstr ""
-"인격의 정수는 캐릭터의 인격을 15 높이는 대신 속도를 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 시약을"
-" 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
+"인격의 정수는 캐릭터의 인격을 15 높이는 대신 민첩성을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
+"시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -101349,8 +101349,8 @@ msgid ""
 "from his Personality. This potion requires six reagents to mix, four of any "
 "one color supplemented by one from each of the remaining colors."
 msgstr ""
-"속도의 정수는 캐릭터의 속도를 15 높이는 대신 인격을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 시약을"
-" 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
+"민첩성의 정수는 캐릭터의 민첩성을 15 높이는 대신 인격을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
+"시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -101379,9 +101379,9 @@ msgid ""
 "combination of four of any red reagent type, plus one of any blue reagent "
 "type and two of the yellow reagents.  "
 msgstr ""
-" 검은 순수한 속도 물약은 몬스터보다 먼저 행동하지 못하는 일행에게 해답이 될 수 있습니다. 속도를 영구적으로 높이면 더 빠르게 회복하고"
-" 몬스터보다 먼저 행동할 수 있습니다. 아무리 빨라도 지나치지 않습니다. 이 물약을 조합하려면 빨간색 시약 네 개, 파란색 시약 한 개,"
-" 노란색 시약 두 개를 올바르게 조합해야 합니다.  "
+" 검은 순수한 민첩성 물약은 몬스터보다 먼저 행동하지 못하는 일행에게 해답이 될 수 있습니다. 민첩성을 영구적으로 높이면 더 빠르게 "
+"회복하고 몬스터보다 먼저 행동할 수 있습니다. 아무리 빨라도 지나치지 않습니다. 이 물약을 조합하려면 빨간색 시약 네 개, 파란색 시약 "
+"한 개, 노란색 시약 두 개를 올바르게 조합해야 합니다.  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -140449,7 +140449,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=126|field=<default>"
 msgid "Buccaneers' Lair"
-msgstr "해적의 소굴"
+msgstr "해적단의 소굴"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140457,7 +140457,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=127|field=<default>"
 msgid "Protection Services"
-msgstr "보호 서비스"
+msgstr "방호 서비스"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140489,7 +140489,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=130|field=<default>"
 msgid "Duelists' Edge"
-msgstr "결투자의 칼끝"
+msgstr "결투자의 칼날"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140673,7 +140673,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=151|field=<default>"
 msgid "Buccaneers' Lair"
-msgstr "해적의 소굴"
+msgstr "해적단의 소굴"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140681,7 +140681,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=152|field=<default>"
 msgid "Protection Services"
-msgstr "보호 서비스"
+msgstr "방호 서비스"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140705,7 +140705,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=155|field=<default>"
 msgid "Duelists' Edge"
-msgstr "결투자의 칼끝"
+msgstr "결투자의 칼날"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -142717,7 +142717,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=382|field=<default>"
 msgid "The Enchanted Hauberk"
-msgstr "마법의 사슬 갑옷"
+msgstr "마법 걸린 호버크"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -144517,7 +144517,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=589|field=<default>"
 msgid "Widoweeps Berries"
-msgstr "위도우윕 열매"
+msgstr "위도우스위프 열매"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -145741,7 +145741,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=729|field=<default>"
 msgid "Lloyd's Beacon"
-msgstr "로이드의 표식"
+msgstr "로이드의 봉화"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -155382,7 +155382,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCText.txt|table=NPCText|id=1492|field=<default>"
 msgid "+2 Speed permanent"
-msgstr "속도 영구 +2"
+msgstr "민첩성 영구 +2"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -178198,7 +178198,7 @@ msgid ""
 "With them I can make this incredible potion and finish my studies in alchemy!\n"
 "I will reward you well for your assistance!"
 msgstr ""
-"순수한 속도의 물약에 필요한 기본 재료를 가져다주시겠습니까?\n"
+"순수한 민첩성 물약에 필요한 기본 재료를 가져다주시겠습니까?\n"
 "재료만 있으면 이 놀라운 물약을 만들어 연금술 연구를 마칠 수 있습니다!\n"
 "도와주시면 후하게 보상하겠습니다!"
 
@@ -179556,7 +179556,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCText.txt|table=NPCText|id=719|field=<default>"
 msgid "+2 Speed permanent"
-msgstr "속도 영구 +2"
+msgstr "민첩성 영구 +2"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -186303,7 +186303,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1288|field=<default>"
 msgid "Game of Speed"
-msgstr "속도 게임"
+msgstr "민첩성 게임"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186367,7 +186367,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1295|field=<default>"
 msgid "Contest of Speed"
-msgstr "속도 경연"
+msgstr "민첩성 경연"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186439,7 +186439,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1302|field=<default>"
 msgid "Test of Speed"
-msgstr "속도 시험"
+msgstr "민첩성 시험"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186495,7 +186495,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1309|field=<default>"
 msgid "Challenge of Speed"
-msgstr "속도 도전"
+msgstr "민첩성 도전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -187183,7 +187183,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1387|field=<default>"
 msgid "Memory Crystal"
-msgstr "기억의 수정"
+msgstr "기억 수정"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -187503,7 +187503,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1422|field=<default>"
 msgid "Play Speed Game for 50 Gold"
-msgstr "50골드로 속도 게임하기"
+msgstr "50골드로 민첩성 게임하기"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -190799,7 +190799,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=179|field=<default>"
 msgid "Potion of Pure Speed"
-msgstr "순수한 속도 물약"
+msgstr "순수한 민첩성 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -190903,7 +190903,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=190|field=<default>"
 msgid "Anointed Herb Potion"
-msgstr "기름 부은 약초 물약"
+msgstr "축성된 약초 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194011,7 +194011,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=53|field=<default>"
 msgid "Ebonest"
-msgstr "에보니스트"
+msgstr "에보네스트"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194083,7 +194083,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=548|field=<default>"
 msgid "Game of Speed"
-msgstr "속도 게임"
+msgstr "민첩성 게임"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194147,7 +194147,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=555|field=<default>"
 msgid "Contest of Speed"
-msgstr "속도 경연"
+msgstr "민첩성 경연"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194211,7 +194211,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=562|field=<default>"
 msgid "Test of Speed"
-msgstr "속도 시험"
+msgstr "민첩성 시험"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194267,7 +194267,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=569|field=<default>"
 msgid "Challenge of Speed"
-msgstr "속도 도전"
+msgstr "민첩성 도전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194363,7 +194363,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=57|field=<default>"
 msgid "Ebonest"
-msgstr "에보니스트"
+msgstr "에보네스트"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -196055,7 +196055,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=76|field=<default>"
 msgid "Prophecies of the Sun"
-msgstr "태양의 예언서"
+msgstr "태양의 예언"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -196419,7 +196419,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=80|field=<default>"
 msgid "Prophecies of the Sun"
-msgstr "태양의 예언서"
+msgstr "태양의 예언"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -199813,7 +199813,7 @@ msgctxt ""
 msgid ""
 "Bring Thistle on the Dagger Wound Islands the basic ingredients for a potion"
 " of Pure Speed."
-msgstr "순수한 속도 물약의 기본 재료를 대거 운드 제도의 시슬에게 가져가십시오."
+msgstr "순수한 민첩성 물약의 기본 재료를 대거 운드 제도의 시슬에게 가져가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -206000,7 +206000,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=1|field=BonusStat"
 msgid "Intellect"
-msgstr "지력"
+msgstr "지능"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtStats.txt
 #. KO: Data/Text localization/KO_StdItemsTxtStats.txt

@@ -1,6 +1,6 @@
 Table (of Game struct)	Id	Field	New text
 StdItemsTxt	0	BonusStat	힘
-	1	BonusStat	지력
+	1	BonusStat	지능
 	2	BonusStat	인격
 	3	BonusStat	인내력
 	4	BonusStat	정확도
