@@ -1,0 +1,238 @@
+# v1.0.33 release workflow.
+# Publishes the terminology consistency audit, including canonical Speed-stat naming.
+name: Release v1.0.33
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.33.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-v1.0.33
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate localization sources
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress --fail-fuzzy --min-translated 25051
+          python tools/validate_parser_sensitive_localization.py
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate reported event hotfix and regressions
+        timeout-minutes: 25
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_reported_event_hotfixes.py .
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/audit_rodril_follower_topic_aliases.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/validate_korean_movie_subtitles.py .
+
+          python tools/patch_static_map_strings_lod.py \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --audit
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanMovieSubtitles.lua \
+            Scripts/General/LocalizeTables.lua \
+            Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua \
+            tools/test_localize_tables_upstream_semantics.lua \
+            tools/test_korean_movie_subtitles.lua \
+            tools/test_korean_rodril_numeric_localization.lua; do
+            luac5.1 -p "$f"
+          done
+          lua5.1 tools/test_localize_tables_upstream_semantics.lua
+          lua5.1 tools/test_korean_movie_subtitles.lua
+          lua5.1 tools/test_korean_rodril_numeric_localization.lua
+
+      - name: Build clean release package
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.33"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.33
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.20~v1.0.32 사용자는 그대로 덮어쓰면 됩니다.
+          v1.0.19 이하 사용자는 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+
+          v1.0.33 핵심 변경:
+          - RPG 갤러리 제보 66207 기반 용어 통일 수정 포함
+          - 주문명, 클래스명, 지역/시설명, 아이템명 등 고신뢰 용어 불일치 전수 정리
+          - Black Knight / Champion 클래스 번역 뒤바뀜 수정
+          - Lloyd's Beacon, Town Portal, Feather Fall, Heroism 등 주요 게임 용어 표기 통일
+          - Speed 기본 능력치를 민첩성으로 통일
+          - Speed Boost / Pure Speed / Essence of Speed를 민첩성 강화 / 순수한 민첩성 / 민첩성의 정수로 통일
+          - 아티팩트·렐릭·물약 설명에서 Speed를 이동 속도로 오역한 항목 수정
+          - 실제 이동/공격/회복 속도를 뜻하는 문맥은 별도 의미로 유지
+
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          test -f release-stage/Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanReportedLocalization.lua
+          test -f release-stage/Scripts/General/LocalizeTables.lua
+          test ! -f release-stage/Scripts/Maps/out01.lua
+
+          python tools/validate_reported_event_hotfixes.py release-stage
+          python tools/patch_static_map_strings_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" .
+          )
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.33
+
+          이번 릴리즈는 한국어 패치 전반의 용어 일관성을 정리하고, 특히 `Speed` 기본 능력치가 `속도`·`이동 속도` 등으로 혼재되어 있던 문제를 수정합니다.
+
+          ### 용어 통일 전수 점검
+          - RPG 갤러리 제보 66207을 반영한 1차 수정 이후, `translations/ko/mmmerge.po` 전체에서 같은 영문 원문에 서로 다른 한국어 번역이 붙은 항목을 다시 검사했습니다.
+          - 주문명, 클래스/몬스터명, 지역·시설명, 아이템·퀘스트명처럼 문맥상 동일해야 하는 고신뢰 항목만 통일했습니다.
+          - 사람 이름, 일반명사, 문맥에 따라 의미가 달라지는 단어는 자동으로 일괄 변경하지 않았습니다.
+          - Black Knight / Champion 클래스 번역이 서로 뒤바뀐 항목도 바로잡았습니다.
+
+          ### 주요 게임 용어 정리
+          - Town Portal → `도시 귀환`
+          - Feather Fall → `깃털 낙하`
+          - Heroism → `영웅심`
+          - Berserk → `광폭화`
+          - Immolation → `화염의 장막`
+          - Power Cure → `대치유`
+          - Lloyd's Beacon → `로이드의 봉화`
+          - New Sorpigal → `뉴 소르피갈`
+          - 그 외 클래스·몬스터·시설·아이템 명칭의 명백한 불일치를 추가 정리했습니다.
+
+          ### Speed 능력치 표기 수정
+          - MMMerge의 `Speed`는 실제 이동 속도가 아니라 기본 능력치이므로 `민첩성`으로 통일했습니다.
+          - 아티팩트·렐릭·물약 설명에서 `Speed +N/-N`을 `속도` 또는 `이동 속도`로 번역한 항목을 `민첩성`으로 수정했습니다.
+          - `Speed Boost` → `민첩성 강화`
+          - `Pure Speed` → `순수한 민첩성`
+          - `Essence of Speed` → `민첩성의 정수`
+          - 화살 속도, 여행 속도, 공격/피격 회복 속도처럼 실제 동작 속도를 뜻하는 문장은 그대로 구분했습니다.
+
+          ### 검증
+          - 정본 PO 카탈로그 완전성 및 fuzzy 검사
+          - PO → 런타임 번역 파일 재생성 및 byte-identical 검사
+          - parser-sensitive 문자열 검사
+          - runtime translation ownership / Lua 한국어 리터럴 감사
+          - 기존 보고 이슈 회귀 검사와 native DBCS 검증을 모두 통과한 패키지만 릴리즈합니다.
+
+          ### 설치
+          - v1.0.20~v1.0.32: ZIP 내용을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하: Rodril MMMerge 원본을 먼저 재적용한 뒤 설치하십시오.
+          EOF
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        timeout-minutes: 5
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.33"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.33" \
+            --notes-file release-notes.md \
+            --latest
