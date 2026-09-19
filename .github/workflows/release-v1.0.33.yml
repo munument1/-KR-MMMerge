@@ -1,5 +1,6 @@
 # v1.0.33 release workflow.
 # Publishes the terminology consistency audit, including canonical Speed-stat naming.
+# Native map LOD sync must precede release validation.
 name: Release v1.0.33
 
 on:
