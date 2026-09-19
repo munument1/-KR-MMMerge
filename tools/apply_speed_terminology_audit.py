@@ -134,11 +134,61 @@ FIXES: list[tuple[str, str, str, str]] = [
      "Bring Thistle on the Dagger Wound Islands the basic ingredients for a potion of Pure Speed.",
      "순수한 속도 물약의 기본 재료를 대거 운드 제도의 시슬에게 가져가십시오.",
      "순수한 민첩성 물약의 기본 재료를 대거 운드 제도의 시슬에게 가져가십시오."),
+
+    # Remaining direct references to the Speed primary stat.
+    ("mmmerge/10LocLANG.T/6T5.STR|string=14",
+     "\"Life above all, Accuracy before Might, Endurance before Speed, and finally, Luck.\"",
+     "무엇보다 생명을, 힘보다 정확도를, 속도보다 체력을, 그리고 마지막으로 행운을.",
+     "무엇보다 생명을, 힘보다 정확도를, 민첩성보다 체력을, 그리고 마지막으로 행운을."),
+    ("mmmerge/10LocLANG.T/6T5.STR|string=8",
+     "Altar of Speed", "속도의 제단", "민첩성의 제단"),
+    ("mmmerge/10LocLANG.T/OUTC3.STR|string=8",
+     "Shrine of Speed", "속도의 성소", "민첩성의 성소"),
+    ("mmmerge/Text localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=22|field=<default>",
+     "Purple liquid grants Speed.", "보라색 액체는 속도를 높인다.", "보라색 액체는 민첩성을 높인다."),
+    ("mmmerge/Text localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=275|field=<default>",
+     "25 points of temporary Might, Intellect, Personality, Endurance, Speed, Accuracy, and Luck from the central fountain in Celeste.",
+     "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 속도, 정확도, 행운 25 증가.",
+     "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 민첩성, 정확도, 행운 25 증가."),
+    ("mmmerge/Text localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=294|field=<default>",
+     "Purple liquid grants Speed.", "보라색 액체는 속도를 높인다.", "보라색 액체는 민첩성을 높인다."),
+    ("mmmerge/Text localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=427|field=<default>",
+     "10 Points of permanent might, accuracy, speed, endurance, personality, intellect, and luck from the fountain on the south island in Dragonsand.",
+     "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 속도, 체력, 인격, 지력, 행운 영구적으로 10 증가.",
+     "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 민첩성, 체력, 인격, 지력, 행운 영구적으로 10 증가."),
+    ("mmmerge/Text localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=441|field=<default>",
+     "50 Points of temporary might, accuracy, endurance, speed, personality, intellect, and luck from the fountain southwest of the village of Sweet Water.",
+     "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 속도, 인격, 지력, 행운 50 증가.",
+     "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 민첩성, 인격, 지력, 행운 50 증가."),
+    ("mmmerge/Text localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=485|field=<default>",
+     "Purple liquid grants Speed.", "보라색 액체는 속도를 높인다.", "보라색 액체는 민첩성을 높인다."),
+    ("mmmerge/Text localization/LANG_MessageScrolls.txt|table=MessageScrolls|id=65|field=<default>",
+     "Essence of Personality increases a character’s Personality by 15, while subtracting 5 from his Speed. This potion requires six reagents to mix, four of any one color supplemented by one from each of the remaining colors.",
+     "인격의 정수는 캐릭터의 인격을 15 높이는 대신 속도를 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다.",
+     "인격의 정수는 캐릭터의 인격을 15 높이는 대신 민첩성을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다."),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=1288|field=<default>",
+     "Game of Speed", "속도 게임", "민첩성 게임"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=1295|field=<default>",
+     "Contest of Speed", "속도 경연", "민첩성 경연"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=1302|field=<default>",
+     "Test of Speed", "속도 시험", "민첩성 시험"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=1309|field=<default>",
+     "Challenge of Speed", "속도 도전", "민첩성 도전"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=1422|field=<default>",
+     "Play Speed Game for 50 Gold", "50골드로 속도 게임하기", "50골드로 민첩성 게임하기"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=548|field=<default>",
+     "Game of Speed", "속도 게임", "민첩성 게임"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=555|field=<default>",
+     "Contest of Speed", "속도 경연", "민첩성 경연"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=562|field=<default>",
+     "Test of Speed", "속도 시험", "민첩성 시험"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=569|field=<default>",
+     "Challenge of Speed", "속도 도전", "민첩성 도전"),
 ]
 
 def main() -> None:
-    if len(FIXES) != 37:
-        raise SystemExit(f"internal error: expected 37 fixes, got {len(FIXES)}")
+    if len(FIXES) != 56:
+        raise SystemExit(f"internal error: expected 56 fixes, got {len(FIXES)}")
 
     po = polib.pofile(str(PO), encoding="utf-8")
     by_context: dict[str, list[polib.POEntry]] = {}
