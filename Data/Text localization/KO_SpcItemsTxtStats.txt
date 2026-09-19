@@ -41,16 +41,16 @@ SpcItemsTxt	0	BonusStat	 모든 저항 +10.
 	39	BonusStat	드래곤에게 주는 피해가 두 배가 됩니다.
 	40	BonusStat	대상의 생명력을 흡수하고 무기 공격 속도가 증가합니다.
 	41	BonusStat	 7대 능력치, 생명력, 주문력, 방어도 및 모든 저항 +1.
-	42	BonusStat	 체력, 방어도 및 생명력 +10.
+	42	BonusStat	 인내력, 방어도 및 생명력 +10.
 	43	BonusStat	 생명력 +10. 시간이 지남에 따라 생명력을 재생합니다.
-	44	BonusStat	 속도와 정확도 +5.
+	44	BonusStat	 민첩성과 정확도 +5.
 	45	BonusStat	화염 피해 10~20 추가. 힘 +25.
 	46	BonusStat	 주문력 +10. 시간이 지남에 따라 주문력을 재생합니다.
 	47	BonusStat	 인내력 +15, 방어도 +5.
 	48	BonusStat	 지력과 운 +10.
 	49	BonusStat	 화염 저항 +30. 시간이 지남에 따라 생명력을 재생합니다.
-	50	BonusStat	 주문력, 속도 및 지능 +10.
-	51	BonusStat	 체력과 정확도 +10.
+	50	BonusStat	 주문력, 민첩성 및 지능 +10.
+	51	BonusStat	 인내력과 정확도 +10.
 	52	BonusStat	 힘과 인격 +10.
 	53	BonusStat	 인내력 +15. 시간이 지남에 따라 생명력을 재생합니다.
 	54	BonusStat	 운 +15. 시간이 지남에 따라 주문력을 재생합니다.

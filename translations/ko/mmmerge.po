@@ -7311,7 +7311,7 @@ msgstr "활"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=277|field=<default>"
 msgid "Mace"
-msgstr "메이스"
+msgstr "철퇴"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -11598,7 +11598,7 @@ msgid ""
 "Mace skill covers all kinds of blunt trauma weapons ranging from large clubs"
 " to flails.  Expert mace swingers do extra damage with their weapons. "
 "Masters and grandmasters can stun or paralyze their opponents."
-msgstr "메이스 무기 숙련도입니다."
+msgstr "철퇴 무기 숙련도입니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12980,7 +12980,7 @@ msgstr "활"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=6|field=<default>"
 msgid "Mace"
-msgstr "메이스"
+msgstr "철퇴"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -21530,7 +21530,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=128|field=Name"
 msgid "Initiate Guild of Fire"
-msgstr "불 마법 수련자 길드"
+msgstr "화염 마법 수련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -21615,7 +21615,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=129|field=Name"
 msgid "Adept Guild of Fire"
-msgstr "불 마법 숙련자 길드"
+msgstr "화염 마법 숙련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -21725,7 +21725,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=130|field=Name"
 msgid "Master Guild of Fire"
-msgstr "불 마법 마스터 길드"
+msgstr "화염 마법 마스터 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -21810,7 +21810,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=131|field=Name"
 msgid "Paramount Guild of Fire"
-msgstr "불 마법 최고위 길드"
+msgstr "화염 마법 최고위 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -21895,7 +21895,7 @@ msgstr "집"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=132|field=Name"
 msgid "Initiate Guild of Fire"
-msgstr "불 마법 수련자 길드"
+msgstr "화염 마법 수련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -21974,7 +21974,7 @@ msgstr "집"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=133|field=Name"
 msgid "Adept Guild of Fire"
-msgstr "불 마법 숙련자 길드"
+msgstr "화염 마법 숙련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -22059,7 +22059,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=134|field=Name"
 msgid "Initiate Guild of Air"
-msgstr "공기 마법 수련자 길드"
+msgstr "대기 마법 수련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -22144,7 +22144,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=135|field=Name"
 msgid "Adept Guild of Air"
-msgstr "공기 마법 숙련자 길드"
+msgstr "대기 마법 숙련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -22229,7 +22229,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=136|field=Name"
 msgid "Master Guild of Air"
-msgstr "공기 마법 마스터 길드"
+msgstr "대기 마법 마스터 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -22314,7 +22314,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=137|field=Name"
 msgid "Paramount Guild of Air"
-msgstr "공기 마법 최고위 길드"
+msgstr "대기 마법 최고위 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -22393,7 +22393,7 @@ msgstr "집"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=138|field=Name"
 msgid "Initiate Guild of Air"
-msgstr "공기 마법 수련자 길드"
+msgstr "대기 마법 수련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -22472,7 +22472,7 @@ msgstr "집"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=139|field=Name"
 msgid "Adept Guild of Air"
-msgstr "공기 마법 숙련자 길드"
+msgstr "대기 마법 숙련자 길드"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -56966,7 +56966,7 @@ msgid ""
 "from Medusa gazes, but like many grand enchantments, it comes with a flaw.  "
 "Kelebrim weakens it's owners resistance to Earth magic."
 msgstr ""
-"(석화 상태 면역, 방패 주문 상시 유지, 인내력 +50, 대지 저항 -30) 켈레브림 주조소에서 제작된 최초의 방패 중 하나인 이 "
+"(석화 면역, 방패 주문 상시 유지, 인내력 +50, 대지 저항 -30) 켈레브림 주조소에서 제작된 최초의 방패 중 하나인 이 "
 "방패는 손목끈 안쪽에 \"켈레브림\"이라는 단순한 각인이 새겨져 있습니다. 메두사의 시선으로부터 보호하는 강력한 마법이 걸려 있지만, "
 "많은 위대한 마법처럼 단점도 있습니다. 켈레브림은 소유자의 대지 마법 저항력을 약화시킵니다."
 
@@ -69205,7 +69205,7 @@ msgstr "주문서"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=182|field=Name"
 msgid "Topaz"
-msgstr "황옥"
+msgstr "토파즈"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -74987,7 +74987,7 @@ msgstr "보석"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=2058|field=Name"
 msgid "Topaz"
-msgstr "황옥"
+msgstr "토파즈"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -75098,7 +75098,7 @@ msgstr "보석"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=2062|field=Name"
 msgid "Purple Topaz"
-msgstr "보라색 황옥"
+msgstr "보라색 토파즈"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -84294,7 +84294,7 @@ msgid ""
 " damage to even the most ancient of dragons. Naturally, it is the "
 "spearfighter's choice for dispatching all foes."
 msgstr ""
-"이 무기의 등 쪽으로 뾰족하게 솟은 강철 날은 가장 오래된 용에게조차 치명적인 피해를 입히도록 설계되었습니다. 당연히 창술사들은 모든 "
+"이 무기의 등 쪽으로 뾰족하게 솟은 강철 날은 가장 오래된 드래곤에게조차 치명적인 피해를 입히도록 설계되었습니다. 당연히 창술사들은 모든 "
 "적을 처치하는 데 이 무기를 선택합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -86003,7 +86003,7 @@ msgid ""
 "almost never seen. When used as a material, they imbue the resulting item "
 "with fantastic powers."
 msgstr ""
-"(깃털 낙하, 지능 +30, 모든 마법 저항력 +10) 천사가 타락하면 날개를 잃습니다. 이러한 일이 극히 드물게 발생하기 때문에 천사의"
+"(깃털 낙하, 지능 +30, 모든 저항력 +10) 천사가 타락하면 날개를 잃습니다. 이러한 일이 극히 드물게 발생하기 때문에 천사의"
 " 날개는 매우 희귀한 것입니다. 대천사의 날개는 거의 찾아볼 수 없습니다. 재료로 사용될 경우, 만들어진 아이템에 놀라운 힘을 "
 "부여합니다."
 
@@ -97146,7 +97146,7 @@ msgstr "보석"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=989|field=Name"
 msgid "Topaz"
-msgstr "황옥"
+msgstr "토파즈"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -97326,7 +97326,7 @@ msgstr "보석"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=996|field=Name"
 msgid "Yellow Topaz"
-msgstr "노란 황옥"
+msgstr "노란 토파즈"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -97446,7 +97446,7 @@ msgid ""
 "A deep biting, perfectly balanced weapon designed for one purpose - the "
 "slaying of dragons."
 msgstr ""
-"깊은 상처를 남기는 날카로운 절삭력과 완벽한 균형을 갖춘 이 무기는 오직 한 가지 목적, 바로 용을 처치하는 것을 위해 설계되었습니다."
+"깊은 상처를 남기는 날카로운 절삭력과 완벽한 균형을 갖춘 이 무기는 오직 한 가지 목적, 바로 드래곤을 처치하는 것을 위해 설계되었습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -185103,7 +185103,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1152|field=<default>"
 msgid "Air Guild Membership"
-msgstr "공기 길드 가입"
+msgstr "대기 길드 가입"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -185119,7 +185119,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1154|field=<default>"
 msgid "Fire Guild Membership"
-msgstr "불 길드 가입"
+msgstr "화염 길드 가입"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -188519,7 +188519,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1537|field=<default>"
 msgid "Fire Magic Expertise"
-msgstr "불 마법 전문가"
+msgstr "화염 마법 전문가"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -188527,7 +188527,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1538|field=<default>"
 msgid "Master of Fire "
-msgstr "불 마법 마스터 "
+msgstr "화염 마법 마스터 "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -188535,7 +188535,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1539|field=<default>"
 msgid "Air Magic Expertise"
-msgstr "공기 마법 전문가"
+msgstr "대기 마법 전문가"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -188551,7 +188551,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1540|field=<default>"
 msgid "Master of Air"
-msgstr "공기 마법 마스터"
+msgstr "대기 마법 마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -189991,7 +189991,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1702|field=<default>"
 msgid "Air Guild Membership"
-msgstr "공기 길드 가입"
+msgstr "대기 길드 가입"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -190007,7 +190007,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1704|field=<default>"
 msgid "Fire Guild Membership"
-msgstr "불 길드 가입"
+msgstr "화염 길드 가입"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -192203,7 +192203,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=336|field=<default>"
 msgid "Expert Fire Magic"
-msgstr "불 마법 전문가"
+msgstr "화염 마법 전문가"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -192211,7 +192211,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=337|field=<default>"
 msgid "Master Fire Magic"
-msgstr "불 마법 마스터"
+msgstr "화염 마법 마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -192219,7 +192219,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=338|field=<default>"
 msgid "Grand Master Fire Magic"
-msgstr "불 마법 그랜드마스터"
+msgstr "화염 마법 그랜드마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -192227,7 +192227,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=339|field=<default>"
 msgid "Expert Air Magic"
-msgstr "공기 마법 전문가"
+msgstr "대기 마법 전문가"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -192243,7 +192243,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=340|field=<default>"
 msgid "Master Air Magic"
-msgstr "공기 마법 마스터"
+msgstr "대기 마법 마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -192251,7 +192251,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=341|field=<default>"
 msgid "Grand Master Air Magic"
-msgstr "공기 마법 그랜드마스터"
+msgstr "대기 마법 그랜드마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -197979,7 +197979,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=986|field=<default>"
 msgid "Fire Magic Expert"
-msgstr "불 마법 전문가"
+msgstr "화염 마법 전문가"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -197987,7 +197987,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=987|field=<default>"
 msgid "Fire Magic Master"
-msgstr "불 마법 마스터"
+msgstr "화염 마법 마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -197995,7 +197995,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=988|field=<default>"
 msgid "Fire Magic Grandmaster"
-msgstr "불 마법 그랜드마스터"
+msgstr "화염 마법 그랜드마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -198003,7 +198003,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=989|field=<default>"
 msgid "Air Magic Expert"
-msgstr "공기 마법 전문가"
+msgstr "대기 마법 전문가"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -198019,7 +198019,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=990|field=<default>"
 msgid "Air Magic Master"
-msgstr "공기 마법 마스터"
+msgstr "대기 마법 마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -198027,7 +198027,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=991|field=<default>"
 msgid "Air Magic Grandmaster"
-msgstr "공기 마법 그랜드마스터"
+msgstr "대기 마법 그랜드마스터"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -204712,7 +204712,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtNames.txt|table=SpcItemsTxt|id=29|field=NameAdd"
 msgid "of Fire Magic"
-msgstr "[불 마법]"
+msgstr "[화염 마법]"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtNames.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtNames.txt
@@ -205416,7 +205416,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=42|field=BonusStat"
 msgid " +10 to Endurance, Armor, Hit points."
-msgstr " 체력, 방어도 및 생명력 +10."
+msgstr " 인내력, 방어도 및 생명력 +10."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205432,7 +205432,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=44|field=BonusStat"
 msgid " +5 Speed and Accuracy."
-msgstr " 속도와 정확도 +5."
+msgstr " 민첩성과 정확도 +5."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205488,7 +205488,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=50|field=BonusStat"
 msgid " +10 Spell points, Speed, Intellect."
-msgstr " 주문력, 속도 및 지능 +10."
+msgstr " 주문력, 민첩성 및 지능 +10."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205496,7 +205496,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=51|field=BonusStat"
 msgid " +10 Endurance and Accuracy."
-msgstr " 체력과 정확도 +10."
+msgstr " 인내력과 정확도 +10."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205872,7 +205872,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtNames.txt|table=StdItemsTxt|id=5|field=NameAdd"
 msgid "of Speed"
-msgstr "[속도]"
+msgstr "[민첩성]"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtNames.txt
 #. KO: Data/Text localization/KO_StdItemsTxtNames.txt
@@ -206056,7 +206056,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=3|field=BonusStat"
 msgid "Endurance"
-msgstr "체력"
+msgstr "인내력"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtStats.txt
 #. KO: Data/Text localization/KO_StdItemsTxtStats.txt
@@ -206072,7 +206072,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=5|field=BonusStat"
 msgid "Speed"
-msgstr "속도"
+msgstr "민첩성"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtStats.txt
 #. KO: Data/Text localization/KO_StdItemsTxtStats.txt

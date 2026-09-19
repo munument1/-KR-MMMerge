@@ -41,7 +41,7 @@ for item_id, fixes in ROW_FIXES.items():
             violations.append(f"item {item_id}: missing corrected phrase {new}")
 
 required = {
-    522: ["모든 마법 저항력 +10"],
+    522: ["모든 저항력 +10"],
     524: ["대혼란은 특수 능력 덕분에"],
     528: ["통치의 삼지창은 원래"],
     1309: ["언데드 사냥"],
