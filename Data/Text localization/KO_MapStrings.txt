@@ -754,7 +754,7 @@ OUT02.STR	46	다이어 울프 소굴
 OUT02.STR	47	알바르 상인회관
 OUT03.STR	1	알바르
 OUT03.STR	45	말벌 둥지
-OUT03.STR	46	오우거 요새
+OUT03.STR	46	오우거 약탈 요새
 OUT03.STR	47	다크 드워프 거주지
 OUT04.STR	1	아이언샌드 사막
 OUT04.STR	39	파괴된 건물

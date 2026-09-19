@@ -292,14 +292,14 @@ SpellsTxt	0	Name
 	41	Normal	n/a
 	41	Expert	n/a
 	41	Master	보통 회복 속도
-	41	GrandMaster	더 빠른 회복 속도
+	41	GrandMaster	회복 속도 증가
 	42	Name	염동력
 	42	ShortName	염동력
 	42	Description	염동력을 사용하면 멀리 떨어진 물체를 조종할 수 있습니다. 이 주문을 사용하면 안전한 거리에서 스위치를 작동시키거나, 물건을 줍고, 문을 열 수 있어 위험한 함정을 피하는 데 유용합니다.
 	42	Normal	n/a
 	42	Expert	n/a
 	42	Master	보통 회복 속도
-	42	GrandMaster	더 빠른 회복 속도
+	42	GrandMaster	회복 속도 증가
 	43	Name	죽음의 꽃
 	43	ShortName	죽음의 꽃
 	43	Description	공중에서 폭발하여 폭발하는 대지의 파편을 비처럼 쏟아내는 마법 돌을 발사합니다. 각 파편은 20의 기본 피해와 대지 마법 기술 포인트당 2의 추가 피해를 입힙니다. 이 주문은 야외에서만 사용할 수 있습니다.
@@ -369,7 +369,7 @@ SpellsTxt	0	Name
 	52	Normal	n/a
 	52	Expert	n/a
 	52	Master	보통 회복 속도
-	52	GrandMaster	더 빠른 회복 속도
+	52	GrandMaster	회복 속도 증가
 	53	Name	소생
 	53	ShortName	소생
 	53	Description	제시간에 이 주문을 시전하면 죽은 캐릭터를 소생시킵니다. 정신 마법의 기술과 등급이 높을수록 '돌이킬 수 없는 지점'에 도달하기 전까지 캐릭터가 죽어 있을 수 있는 시간이 길어집니다. 그 이후에는 신성한 개입을 제외하면 사원을 방문하는 것만이 캐릭터를 소생시킬 수 있는 유일한 방법입니다. 이 주문을 시전하면 캐릭터는 허약 상태가 됩니다.
@@ -460,7 +460,7 @@ SpellsTxt	0	Name
 	65	Normal	n/a
 	65	Expert	n/a
 	65	Master	보통 회복 속도
-	65	GrandMaster	더 빠른 회복 속도
+	65	GrandMaster	회복 속도 증가
 	66	Name	노예화
 	66	ShortName	노예화
 	66	Description	정신 마법 스킬 포인트당 10분 동안 대상의 정신을 지배합니다. 지배당한 생명체는 주문 지속 시간 동안 시전자에게 적대적인 몬스터와 싸우며, 시전자나 동료가 공격하더라도 반격하지 않습니다. 이 주문은 언데드에게는 통하지 않습니다.
@@ -537,7 +537,7 @@ SpellsTxt	0	Name
 	76	Normal	n/a
 	76	Expert	n/a
 	76	Master	보통 회복 속도
-	76	GrandMaster	더 빠른 회복 속도
+	76	GrandMaster	회복 속도 증가
 	77	Name	대치유
 	77	ShortName	대치유
 	77	Description	파티의 모든 캐릭터의 생명력을 한꺼번에 회복합니다. 회복량은 10에 육체 마법 기술 점수 1점당 5를 더한 값입니다.
@@ -593,7 +593,7 @@ SpellsTxt	0	Name
 	84	Normal	n/a
 	84	Expert	n/a
 	84	Master	보통 회복 속도
-	84	GrandMaster	더 빠른 회복 속도
+	84	GrandMaster	회복 속도 증가
 	85	Name	보호의 날
 	85	ShortName	보호의 날
 	85	Description	모든 캐릭터에게 화염, 공기, 물, 대지, 정신, 신체 보호 주문과 깃털 낙하, 마법사의 눈 주문을 빛 마법 기술의 4배 효과로 동시에 시전합니다.
@@ -614,7 +614,7 @@ SpellsTxt	0	Name
 	87	Normal	n/a
 	87	Expert	n/a
 	87	Master	느린 회복 속도
-	87	GrandMaster	보통의 회복 속도
+	87	GrandMaster	보통 회복 속도
 	88	Name	신성한 개입
 	88	ShortName	신성한 개입
 	88	Description	하루에 세 번 하늘의 힘을 빌려 캐릭터의 모든 피해를 치유하고, 주문 포인트를 회복하며, 모든 부정적인 상태를 제거합니다. 하지만 신들은 그 대가로 시전자의 나이를 10살씩 먹게 합니다. 빛 마법 기술이 높을수록 이 주문의 회복 시간이 단축됩니다.
@@ -641,7 +641,7 @@ SpellsTxt	0	Name
 	91	Description	무기에 흡혈 능력을 부여합니다. 이 무기로 몬스터를 공격하면 입힌 피해량만큼 시전자의 생명력이 회복되며, 최대 생명력까지 회복할 수 있습니다.
 	91	Normal	지속 시간: 기술 포인트당 1시간
 	91	Expert	회복 속도 증가
-	91	Master	가장 빠른 회복 속도
+	91	Master	회복 속도 매우 증가
 	91	GrandMaster	영구 지속
 	92	Name	축소 광선
 	92	ShortName	축소 광선
@@ -684,7 +684,7 @@ SpellsTxt	0	Name
 	97	Normal	n/a
 	97	Expert	n/a
 	97	Master	느린 회복 속도
-	97	GrandMaster	보통의 회복 속도
+	97	GrandMaster	보통 회복 속도
 	98	Name	아마겟돈
 	98	ShortName	아마겟돈
 	98	Description	이 주문은 마을을 파괴하는 주문입니다. 아마겟돈은 맵상의 모든 생명체(아군 포함)에게 50의 피해와 캐릭터의 어둠 마법 기술 점수당 1의 추가 피해를 입힙니다. 하루에 세 번만 시전할 수 있으며 야외에서만 사용 가능합니다.

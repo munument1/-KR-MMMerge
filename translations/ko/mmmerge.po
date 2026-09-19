@@ -2812,7 +2812,7 @@ msgstr "말벌 둥지"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUT03.STR|string=46"
 msgid "Ogre Raiding Fort"
-msgstr "오우거 요새"
+msgstr "오우거 약탈 요새"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUT03.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -6087,7 +6087,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=119|field=<default>"
 msgid "Master Archer"
-msgstr "궁술 마스터"
+msgstr "명궁"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7136,7 +7136,7 @@ msgstr "기사"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=254|field=<default>"
 msgid "Cavalier"
-msgstr "기사"
+msgstr "중기병"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7255,7 +7255,7 @@ msgstr "상급 드루이드"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=26|field=<default>"
 msgid "Initiate"
-msgstr "수련생"
+msgstr "수련자"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7493,7 +7493,7 @@ msgstr "육체 저항"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=2|field=<default>"
 msgid "Black Knight"
-msgstr "블랙 나이트"
+msgstr "흑기사"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -8965,7 +8965,7 @@ msgstr "현재 소지한 금은 %d, 은행에 예치된 금은 %d입니다"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=48|field=<default>"
 msgid "Warlock"
-msgstr "워록"
+msgstr "흑마법사"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10508,7 +10508,7 @@ msgstr "트롤"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=684|field=<default>"
 msgid "War Troll"
-msgstr "워 트롤"
+msgstr "전투 트롤"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10571,7 +10571,7 @@ msgstr "드래곤"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=692|field=<default>"
 msgid "Great Wyrm"
-msgstr "그레이트 웜"
+msgstr "고룡"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -15604,7 +15604,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=41|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -15654,7 +15654,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=42|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -16204,7 +16204,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=52|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -16904,7 +16904,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=65|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -17507,7 +17507,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=76|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -17947,7 +17947,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=84|field=GrandMaster"
 msgid "Faster recovery rate"
-msgstr "더 빠른 회복 속도"
+msgstr "회복 속도 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -18095,7 +18095,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=87|field=GrandMaster"
 msgid "Moderate recovery rate"
-msgstr "보통의 회복 속도"
+msgstr "보통 회복 속도"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -18356,7 +18356,7 @@ msgstr "영구 지속"
 #. KO: Data/Text localization/KO_SpellsTxt.txt
 msgctxt "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=91|field=Master"
 msgid "Fastest recovery rate"
-msgstr "가장 빠른 회복 속도"
+msgstr "회복 속도 매우 증가"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -18650,7 +18650,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=97|field=GrandMaster"
 msgid "Moderate recovery rate"
-msgstr "보통의 회복 속도"
+msgstr "보통 회복 속도"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -28847,7 +28847,7 @@ msgstr "치유사"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=325|field=Name"
 msgid "New Sorpigal Temple"
-msgstr "뉴 소르피갈신전"
+msgstr "뉴 소르피갈 신전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -29541,7 +29541,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=361|field=Name"
 msgid "Dragon Hunter Camp"
-msgstr "드래곤 사냥꾼야영지"
+msgstr "드래곤 사냥꾼 야영지"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -48762,7 +48762,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_ClassNames.txt|table=ClassNames|id=18|field=<default>"
 msgid "Black Knight"
-msgstr "챔피언"
+msgstr "흑기사"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassNames.txt
 #. KO: Data/Text localization/KO_ClassNames.txt
@@ -48770,7 +48770,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_ClassNames.txt|table=ClassNames|id=19|field=<default>"
 msgid "Champion"
-msgstr "흑기사"
+msgstr "챔피언"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ClassNames.txt
 #. KO: Data/Text localization/KO_ClassNames.txt
@@ -140449,7 +140449,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=126|field=<default>"
 msgid "Buccaneers' Lair"
-msgstr "해적의 소굴"
+msgstr "해적단의 소굴"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140457,7 +140457,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=127|field=<default>"
 msgid "Protection Services"
-msgstr "보호 서비스"
+msgstr "방호 서비스"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140489,7 +140489,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=130|field=<default>"
 msgid "Duelists' Edge"
-msgstr "결투자의 칼끝"
+msgstr "결투자의 칼날"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140673,7 +140673,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=151|field=<default>"
 msgid "Buccaneers' Lair"
-msgstr "해적의 소굴"
+msgstr "해적단의 소굴"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140681,7 +140681,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=152|field=<default>"
 msgid "Protection Services"
-msgstr "보호 서비스"
+msgstr "방호 서비스"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -140705,7 +140705,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=155|field=<default>"
 msgid "Duelists' Edge"
-msgstr "결투자의 칼끝"
+msgstr "결투자의 칼날"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -145741,7 +145741,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=729|field=<default>"
 msgid "Lloyd's Beacon"
-msgstr "로이드의 표식"
+msgstr "로이드의 봉화"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
