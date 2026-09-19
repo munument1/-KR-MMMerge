@@ -5,10 +5,10 @@ StdItemsTxt	0	BonusStat	힘
 	3	BonusStat	인내력
 	4	BonusStat	정확도
 	5	BonusStat	민첩성
-	6	BonusStat	행운
+	6	BonusStat	운
 	7	BonusStat	생명력
 	8	BonusStat	주문력
-	9	BonusStat	방어도
+	9	BonusStat	방어력
 	10	BonusStat	화염 저항
 	11	BonusStat	공기 저항
 	12	BonusStat	물 저항

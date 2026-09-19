@@ -6012,7 +6012,7 @@ msgstr "시간"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=10|field=<default>"
 msgid "Town Portal"
-msgstr "마을 포털"
+msgstr "도시 귀환"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -6047,7 +6047,7 @@ msgstr "감정"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=114|field=<default>"
 msgid "Rogue"
-msgstr "도적"
+msgstr "로그"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -6868,7 +6868,7 @@ msgstr "투명화"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=218|field=<default>"
 msgid "Immolation"
-msgstr "제물"
+msgstr "화염의 장막"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -8270,7 +8270,7 @@ msgstr "대상 선택"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=3|field=<default>"
 msgid "Spy"
-msgstr "스파이"
+msgstr "첩자"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -8587,7 +8587,7 @@ msgstr "냉기"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=440|field=<default>"
 msgid "Heroism"
-msgstr "용맹"
+msgstr "영웅심"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -8692,7 +8692,7 @@ msgstr "마법사의 눈"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=454|field=<default>"
 msgid "Feather Fall"
-msgstr "낙하 감쇠"
+msgstr "깃털 낙하"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -9406,7 +9406,7 @@ msgstr "아이언피스트 성"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=546|field=<default>"
 msgid "New Sorpigal"
-msgstr "뉴 소피갈"
+msgstr "뉴 소르피갈"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -9789,7 +9789,7 @@ msgstr "약화됨"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=595|field=<default>"
 msgid "Wand"
-msgstr "지팡이"
+msgstr "마법봉"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -9894,7 +9894,7 @@ msgstr "노예화됨"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=608|field=<default>"
 msgid "Berserk"
-msgstr "광분"
+msgstr "광폭화"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10452,7 +10452,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=677|field=<default>"
 msgid "Necromancer"
-msgstr "네크로맨서"
+msgstr "강령술사"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10466,7 +10466,7 @@ msgstr "리치"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=679|field=<default>"
 msgid "Cleric"
-msgstr "클레릭"
+msgstr "성직자"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10487,7 +10487,7 @@ msgstr "태양의 사제"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=681|field=<default>"
 msgid "Knight"
-msgstr "나이트"
+msgstr "기사"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -10522,7 +10522,7 @@ msgstr "미노타우로스"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=686|field=<default>"
 msgid "Minotaur Lord"
-msgstr "미노타우로스 로드"
+msgstr "미노타우로스 군주"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -56966,9 +56966,9 @@ msgid ""
 "from Medusa gazes, but like many grand enchantments, it comes with a flaw.  "
 "Kelebrim weakens it's owners resistance to Earth magic."
 msgstr ""
-"(석화 면역, 방패 주문 상시 유지, 인내력 +50, 대지 저항 -30) 켈레브림 주조소에서 제작된 최초의 방패 중 하나인 이 "
-"방패는 손목끈 안쪽에 \"켈레브림\"이라는 단순한 각인이 새겨져 있습니다. 메두사의 시선으로부터 보호하는 강력한 마법이 걸려 있지만, "
-"많은 위대한 마법처럼 단점도 있습니다. 켈레브림은 소유자의 대지 마법 저항력을 약화시킵니다."
+"(석화 면역, 방패 주문 상시 유지, 인내력 +50, 대지 저항 -30) 켈레브림 주조소에서 제작된 최초의 방패 중 하나인 이 방패는 "
+"손목끈 안쪽에 \"켈레브림\"이라는 단순한 각인이 새겨져 있습니다. 메두사의 시선으로부터 보호하는 강력한 마법이 걸려 있지만, 많은 "
+"위대한 마법처럼 단점도 있습니다. 켈레브림은 소유자의 대지 마법 저항력을 약화시킵니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -84294,8 +84294,8 @@ msgid ""
 " damage to even the most ancient of dragons. Naturally, it is the "
 "spearfighter's choice for dispatching all foes."
 msgstr ""
-"이 무기의 등 쪽으로 뾰족하게 솟은 강철 날은 가장 오래된 드래곤에게조차 치명적인 피해를 입히도록 설계되었습니다. 당연히 창술사들은 모든 "
-"적을 처치하는 데 이 무기를 선택합니다."
+"이 무기의 등 쪽으로 뾰족하게 솟은 강철 날은 가장 오래된 드래곤에게조차 치명적인 피해를 입히도록 설계되었습니다. 당연히 창술사들은 모든"
+" 적을 처치하는 데 이 무기를 선택합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -86003,9 +86003,8 @@ msgid ""
 "almost never seen. When used as a material, they imbue the resulting item "
 "with fantastic powers."
 msgstr ""
-"(깃털 낙하, 지능 +30, 모든 저항력 +10) 천사가 타락하면 날개를 잃습니다. 이러한 일이 극히 드물게 발생하기 때문에 천사의"
-" 날개는 매우 희귀한 것입니다. 대천사의 날개는 거의 찾아볼 수 없습니다. 재료로 사용될 경우, 만들어진 아이템에 놀라운 힘을 "
-"부여합니다."
+"(깃털 낙하, 지능 +30, 모든 저항력 +10) 천사가 타락하면 날개를 잃습니다. 이러한 일이 극히 드물게 발생하기 때문에 천사의 "
+"날개는 매우 희귀한 것입니다. 대천사의 날개는 거의 찾아볼 수 없습니다. 재료로 사용될 경우, 만들어진 아이템에 놀라운 힘을 부여합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90931,7 +90930,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=733|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90952,7 +90951,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=734|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90973,7 +90972,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=735|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90994,7 +90993,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=736|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91015,7 +91014,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=737|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91036,7 +91035,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=738|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91057,7 +91056,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=739|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91102,7 +91101,7 @@ msgstr "여행 일기에서 찢어낸 페이지입니다. (읽으려면 페이�
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=740|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91169,7 +91168,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=743|field=NotIdentifiedName"
 msgid "Journal Scrap"
-msgstr "일지 조각"
+msgstr "일기 조각"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -97446,7 +97445,8 @@ msgid ""
 "A deep biting, perfectly balanced weapon designed for one purpose - the "
 "slaying of dragons."
 msgstr ""
-"깊은 상처를 남기는 날카로운 절삭력과 완벽한 균형을 갖춘 이 무기는 오직 한 가지 목적, 바로 드래곤을 처치하는 것을 위해 설계되었습니다."
+"깊은 상처를 남기는 날카로운 절삭력과 완벽한 균형을 갖춘 이 무기는 오직 한 가지 목적, 바로 드래곤을 처치하는 것을 위해 "
+"설계되었습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -143069,7 +143069,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=421|field=<default>"
 msgid "Town Portal"
-msgstr "타운 포털"
+msgstr "도시 귀환"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -144389,7 +144389,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=574|field=<default>"
 msgid "Town Portal"
-msgstr "타운 포털"
+msgstr "도시 귀환"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -146845,7 +146845,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=853|field=<default>"
 msgid "Power Cure"
-msgstr "강력한 치료"
+msgstr "대치유"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCNewsTopics.txt
 #. KO: Data/Text localization/KO_NPCNewsTopics.txt
@@ -206080,7 +206080,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=6|field=BonusStat"
 msgid "Luck"
-msgstr "행운"
+msgstr "운"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtStats.txt
 #. KO: Data/Text localization/KO_StdItemsTxtStats.txt
@@ -206104,7 +206104,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=9|field=BonusStat"
 msgid "Armor Class"
-msgstr "방어도"
+msgstr "방어력"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_TransTxt.txt
 #. KO: Data/Text localization/KO_TransTxt.txt
