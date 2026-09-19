@@ -14,7 +14,7 @@ root = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 path = root / "Data" / "Text localization" / "KO_ItemsTxt.txt"
 
 ROW_FIXES: dict[int, list[tuple[str, str]]] = {
-    522: [("모든 마법 저항 +10", "모든 마법 저항력 +10")],
+    522: [("모든 마법 저항 +10", "모든 저항력 +10")],
     524: [("하복은 특수 능력 덕분에", "대혼란은 특수 능력 덕분에")],
     528: [("지배의 삼지창은 원래", "통치의 삼지창은 원래")],
     1309: [("(언데드 처치, 마비 면역, 화염 피해 3-18)", "(언데드 사냥, 마비 면역, 화염 피해 3-18)")],
