@@ -62,6 +62,44 @@ FIXES: list[tuple[str, str, str, str]] = [
      "Duelists' Edge", "결투자의 칼끝", "결투자의 칼날"),
     ("mmmerge/10LocLANG.T/OUT03.STR|string=46",
      "Ogre Raiding Fort", "오우거 요새", "오우거 약탈 요새"),
+    ("mmmerge/10LocLANG.T/OUTC2.STR|string=28",
+     "Guild of Mind", "정신의 길드", "정신 마법 길드"),
+    ("mmmerge/10LocLANG.T/7out05.STR|string=25",
+     "Hall of the Pit", "구덩이의 회관", "구덩이의 전당"),
+    ("mmmerge/10LocLANG.T/out14.STR|string=27",
+     "Hall under the Hill", "언덕 아래의 회관", "언덕 아래 전당"),
+    ("mmmerge/Text localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=382|field=<default>",
+     "The Enchanted Hauberk", "마법의 사슬 갑옷", "마법 걸린 호버크"),
+
+    # Exact proper-name reference to an existing named inn.
+    ("mmmerge/Text localization/LANG_AwardsTxt.txt|table=AwardsTxt|id=65|field=<default>",
+     "Won Arcomage at Kessel's Kantina in Ravenshore.",
+     "레이븐쇼어의 '케셀스 칸티나'에서 아르코메이지에 승리함",
+     "레이븐쇼어의 '케셀의 칸티나'에서 아르코메이지에 승리함"),
+
+    # Core stat terminology: all other base stats already match GlobalTxt.
+    ("mmmerge/Text localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=1|field=BonusStat",
+     "Intellect", "지력", "지능"),
+
+    # One pure spacing mismatch in the same NPC profession term.
+    ("mmmerge/inherited/mm6/npcprof.txt|table=NPCProfessions|id=66|field=Name",
+     "Trapper", "덫사냥꾼", "덫 사냥꾼"),
+
+    # Quest / item names: use the actual item-table name in matching NPC topics.
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=1387|field=<default>",
+     "Memory Crystal", "기억의 수정", "기억 수정"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=53|field=<default>",
+     "Ebonest", "에보니스트", "에보네스트"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=57|field=<default>",
+     "Ebonest", "에보니스트", "에보네스트"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=190|field=<default>",
+     "Anointed Herb Potion", "기름 부은 약초 물약", "축성된 약초 물약"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=76|field=<default>",
+     "Prophecies of the Sun", "태양의 예언서", "태양의 예언"),
+    ("mmmerge/Text localization/LANG_NPCTopic.txt|table=NPCTopic|id=80|field=<default>",
+     "Prophecies of the Sun", "태양의 예언서", "태양의 예언"),
+    ("mmmerge/Text localization/LANG_NPCNewsTopics.txt|table=NPCNewsTopics|id=589|field=<default>",
+     "Widoweeps Berries", "위도우윕 열매", "위도우스위프 열매"),
 
     # Identical recovery-rate text in the same Spells table.
     ("mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=41|field=GrandMaster",
@@ -86,8 +124,8 @@ FIXES: list[tuple[str, str, str, str]] = [
 
 
 def main() -> None:
-    if len(FIXES) != 28:
-        raise SystemExit(f"internal error: expected 28 fixes, got {len(FIXES)}")
+    if len(FIXES) != 42:
+        raise SystemExit(f"internal error: expected 42 fixes, got {len(FIXES)}")
 
     po = polib.pofile(str(PO), encoding="utf-8")
     by_context: dict[str, list[polib.POEntry]] = {}
