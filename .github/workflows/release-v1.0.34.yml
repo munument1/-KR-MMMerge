@@ -1,0 +1,240 @@
+# v1.0.34 release workflow.
+# Publishes RPG gallery report 66263 final terminology consistency fixes.
+# Native map/stats/reported-term LOD sync must precede release validation.
+name: Release v1.0.34
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/release-v1.0.34.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-v1.0.34
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install validation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check polib
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1 >/dev/null
+
+      - name: Validate localization sources
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/po_catalog_stats.py \
+            translations/ko/mmmerge.po \
+            --baseline translations/ko/PO_BASELINE.json \
+            --no-regress --fail-fuzzy --min-translated 25051
+          python tools/validate_parser_sensitive_localization.py
+          python tools/apply_report_66263_terminology.py .
+          git diff --exit-code -- translations/ko/mmmerge.po
+          python tools/validate_spell_names.py .
+          rm -rf build/po-release-roundtrip
+          python tools/build_korean_from_po.py \
+            --output-root build/po-release-roundtrip \
+            --require-byte-identical
+          python tools/build_mm8lang_from_po.py \
+            --output build/mm8lang-release-roundtrip.ini \
+            --require-byte-identical
+          python tools/rebuild_runtime_overrides.py --check
+          python tools/rebuild_stats_skills_runtime.py --check
+          python tools/audit_runtime_translation_ownership.py --json build/runtime-ownership-release.json
+          python tools/audit_lua_korean_literals.py --json build/lua-korean-literals-release.json
+
+      - name: Validate reported event hotfix and regressions
+        timeout-minutes: 25
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate_reported_event_hotfixes.py .
+          python tools/validate_native_dbcs_integration.py .
+          python tools/validate_rodril_overlay_boundary.py
+          python tools/audit_rodril_localizer_semantics.py
+          python tools/audit_rodril_follower_topic_aliases.py
+          python tools/validate_korean_history_encoding.py
+          python tools/validate_reported_localization_fixes.py .
+          python tools/validate_report_65949.py .
+          python tools/validate_report_65949_followup.py .
+          python tools/validate_report_65949_item_review2.py .
+          python tools/validate_report_65949_item_review3.py .
+          python tools/validate_report_65949_item_review4.py .
+          python tools/validate_report_65949_item_review5.py .
+          python tools/validate_report_65960.py .
+          python tools/validate_korean_movie_subtitles.py .
+
+          python tools/patch_static_map_strings_lod.py \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --audit
+          python tools/patch_static_map_strings_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_reported_terms_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "Data/zz LocKO.T.lod" \
+            --translations "Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          for f in \
+            Scripts/General/FNT_DBCS.lua \
+            Scripts/General/KoreanMovieSubtitles.lua \
+            Scripts/General/LocalizeTables.lua \
+            Scripts/General/ZZ_KoreanRodrilNumericLocalization.lua \
+            Scripts/General/ZZ_KoreanReportedLocalization.lua \
+            Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua \
+            tools/test_localize_tables_upstream_semantics.lua \
+            tools/test_korean_movie_subtitles.lua \
+            tools/test_korean_rodril_numeric_localization.lua; do
+            luac5.1 -p "$f"
+          done
+          lua5.1 tools/test_localize_tables_upstream_semantics.lua
+          lua5.1 tools/test_korean_movie_subtitles.lua
+          lua5.1 tools/test_korean_rodril_numeric_localization.lua
+
+      - name: Build clean release package
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION="v1.0.34"
+          ASSET="MMMerge_Korean_${VERSION}_Release.zip"
+          rm -rf release-stage
+          mkdir -p release-stage
+          cp -a Data release-stage/
+          cp -a DataFiles release-stage/
+          cp -a Scripts release-stage/
+          cp mm8lang.ini release-stage/
+          cp FONT_LICENSES.md release-stage/
+
+          cat > release-stage/README.txt <<'EOF'
+          MMMerge 한국어 패치 v1.0.34
+
+          설치:
+          1) Rodril MMMerge를 먼저 설치합니다.
+          2) 이 ZIP의 내용을 게임 폴더에 그대로 덮어씁니다.
+          3) 게임을 완전히 종료했다가 다시 실행합니다.
+
+          v1.0.20~v1.0.33 사용자는 그대로 덮어쓰면 됩니다.
+          v1.0.19 이하 사용자는 Rodril MMMerge 원본을 먼저 다시 적용한 뒤 설치하십시오.
+
+          v1.0.34 핵심 변경:
+          - RPG 갤러리 제보 66263의 최종 용어 통일 반영
+          - Tour 표기: 관광 → 안내
+          - Body 계열 마법: 신체 → 육체
+          - Stone Skin: 석피/돌가죽 → 석갑
+          - Personality 능력치: 인격 → 인성
+          - Avlee: 아블리/애블리 → 에이블리
+          - Balance(은행 UI): 중립 → 잔고
+          - [지력] 인챈트: [지능]으로 통일
+          - [불 마법] 인챈트 효과 설명: 불 → 화염
+          - Blue Potion: 푸른색 물약 → 파란색 물약
+          - v1.0.33의 민첩성/인내력 등 기존 용어 통일은 회귀 방지 검증 유지
+
+          저장소: https://github.com/munument1/-KR-MMMerge
+          EOF
+
+          test -f release-stage/Scripts/General/ZZZ_KoreanReportedEventHotfixes.lua
+          test -f release-stage/Scripts/General/ZZ_KoreanReportedLocalization.lua
+          test -f release-stage/Scripts/General/LocalizeTables.lua
+          test ! -f release-stage/Scripts/Maps/out01.lua
+
+          python tools/validate_reported_event_hotfixes.py release-stage
+          python tools/patch_static_map_strings_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_MapStrings.txt" \
+            --check
+          python tools/patch_static_stats_lod.py \
+            --lod "release-stage/Data/zz LocKO.T.lod" \
+            --translations "release-stage/Data/Text localization/KO_StatsDescriptions.tsv" \
+            --check
+
+          (
+            cd release-stage
+            zip -9 -X -r "../${ASSET}" .
+          )
+          ZIP_SHA="$(sha256sum "${ASSET}" | awk '{print $1}')"
+          printf '%s  %s\n' "${ZIP_SHA}" "${ASSET}" > "${ASSET}.sha256"
+
+          cat > release-notes.md <<'EOF'
+          ## MMMerge 한국어 패치 v1.0.34
+
+          이번 릴리즈는 RPG 갤러리 제보 66263에서 확인된 마지막 용어 불일치를 정리한 버전입니다.
+
+          ### 제보 66263 반영
+          - `Tour`: `관광` → `안내`
+          - Body 계열 마법 용어: `신체` → `육체`
+          - `Stone Skin`: `석피` / `돌가죽` → `석갑`
+          - `Personality` 능력치: `인격` → `인성`
+          - `Avlee`: `아블리` / `애블리` → `에이블리`
+          - 은행 UI `Balance`: `중립` → `잔고`
+          - `[지력]` 인챈트: `[지능]`으로 통일
+          - `[불 마법]` 인챈트 효과 설명: `불 계열` → `화염 계열`
+          - `Blue Potion`: `푸른색 물약` → `파란색 물약`
+          - v1.0.33에서 이미 수정한 `Speed → 민첩성`, `Endurance → 인내력` 등은 회귀 방지 검증을 유지합니다.
+
+          ### 범위 제어
+          - 일반적인 문장의 `몸`, `신체`, `인격적`, `인격체`처럼 게임 능력치/마법 용어가 아닌 표현은 문맥에 따라 유지했습니다.
+          - 정본 `translations/ko/mmmerge.po`, 런타임 `KO_*.txt`, runtime overrides, stats/skills projection, 정적 `zz LocKO.T.lod`를 함께 동기화했습니다.
+          - Stone Skin 표준 용어와 정규화 규칙도 `석갑` 기준으로 맞췄습니다.
+
+          ### 검증
+          - PO 완전성/fuzzy 검사
+          - 제보 66263 용어 패치 idempotence 검사
+          - PO → 런타임 번역 파일 byte-identical round trip
+          - 주문명 표준 용어/LOD 일치 검사
+          - parser-sensitive 문자열 검사
+          - runtime translation ownership / Lua 한국어 리터럴 감사
+          - static map/stats/reported-term LOD 검사
+          - 기존 제보 회귀 검사와 native DBCS 검증
+
+          ### 설치
+          - v1.0.20~v1.0.33: ZIP 내용을 그대로 덮어쓴 뒤 게임을 완전히 종료/재실행하십시오.
+          - v1.0.19 이하: Rodril MMMerge 원본을 먼저 재적용한 뒤 설치하십시오.
+          EOF
+          printf '\nZIP SHA-256:\n\n%s\n' "$ZIP_SHA" >> release-notes.md
+          echo "ASSET=${ASSET}" >> "$GITHUB_ENV"
+
+      - name: Publish GitHub Release
+        timeout-minutes: 5
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v1.0.34"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; refusing to overwrite it." >&2
+            exit 1
+          fi
+          gh release create "$TAG" "$ASSET" "$ASSET.sha256" \
+            --target "$GITHUB_SHA" \
+            --title "MMMerge 한국어 패치 v1.0.34" \
+            --notes-file release-notes.md \
+            --latest
