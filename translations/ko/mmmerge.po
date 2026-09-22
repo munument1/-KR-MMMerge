@@ -67957,8 +67957,8 @@ msgid ""
 "and right-click over a character's portrait.  To mix, pick the potion up and"
 " right-click over another potion."
 msgstr ""
-"6시간 동안 (마법과 동일하게) 돌 피부 효과를 부여합니다. 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 "
-"물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오."
+"6시간 동안 (마법과 동일하게) 석갑 효과를 부여합니다. 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을"
+" 집어 들고 다른 물약을 오른쪽 클릭하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -78657,7 +78657,7 @@ msgid ""
 "portrait.  To mix two potions, pick up one and right-click it over the "
 "other.)"
 msgstr ""
-"물약 강도 1포인트당 30분 동안 (마법과 동일하게) 돌 피부 효과를 부여합니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
+"물약 강도 1포인트당 30분 동안 (마법과 동일하게) 석갑 효과를 부여합니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
 "클릭하십시오. 물약 두 개를 섞으려면 물약을 집어 들고 다른 물약 위에 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
