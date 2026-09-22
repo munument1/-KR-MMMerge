@@ -28,7 +28,7 @@ SpcItemsTxt	0	BonusStat	 모든 저항 +10.
 	26	BonusStat	모든 육체 계열 주문의 효과가 증가합니다.
 	27	BonusStat	모든 어둠 계열 주문의 효과가 증가합니다.
 	28	BonusStat	모든 대지 계열 주문의 효과가 증가합니다.
-	29	BonusStat	모든 불 계열 주문의 효과가 증가합니다.
+	29	BonusStat	모든 화염 계열 주문의 효과가 증가합니다.
 	30	BonusStat	모든 빛 계열 주문의 효과가 증가합니다.
 	31	BonusStat	모든 정신 계열 주문의 효과가 증가합니다.
 	32	BonusStat	모든 영혼 계열 주문의 효과가 증가합니다.
@@ -51,11 +51,11 @@ SpcItemsTxt	0	BonusStat	 모든 저항 +10.
 	49	BonusStat	 화염 저항 +30. 시간이 지남에 따라 생명력을 재생합니다.
 	50	BonusStat	 주문력, 민첩성 및 지능 +10.
 	51	BonusStat	 인내력과 정확도 +10.
-	52	BonusStat	 힘과 인격 +10.
+	52	BonusStat	 힘과 인성 +10.
 	53	BonusStat	 인내력 +15. 시간이 지남에 따라 생명력을 재생합니다.
 	54	BonusStat	 운 +15. 시간이 지남에 따라 주문력을 재생합니다.
 	55	BonusStat	 힘과 인내력 +5.
-	56	BonusStat	 지력과 인격 +5.
+	56	BonusStat	 지력과 인성 +5.
 	57	BonusStat	가치가 증가합니다.
 	58	BonusStat	무기 공격 속도가 증가합니다.
 	59	BonusStat	맨손 전투와 회피 기술 +3.
