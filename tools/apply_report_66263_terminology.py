@@ -2,7 +2,7 @@
 """Apply terminology fixes from RPG gallery report 66263.
 
 The report targets player-facing terminology that still drifted after v1.0.33.
-The canonical gettext catalog remains the source of truth.  Generic prose is
+The canonical gettext catalog remains the source of truth. Generic prose is
 left alone unless the reported term is an unambiguous proper name or spell name.
 """
 from __future__ import annotations
@@ -71,7 +71,7 @@ EXACT_REPLACEMENTS: tuple[tuple[str, str, str], ...] = (
     ),
 )
 
-# Already-correct v1.0.33 fixes mentioned again in the report.  Keep them as
+# Already-correct v1.0.33 fixes mentioned again in the report. Keep them as
 # regression assertions so this pass cannot accidentally restore the old terms.
 REQUIRED_EXISTING: tuple[tuple[str, str], ...] = (
     (
@@ -119,9 +119,9 @@ def replace_exact(entry: polib.POEntry, old: str, new: str) -> int:
 
 
 def main() -> None:
+    original_catalog = PO.read_text(encoding="utf-8")
     po = polib.pofile(str(PO), encoding="utf-8")
     by_context = context_map(po)
-    changed_entries = 0
     counts = {
         "tour": 0,
         "avlee": 0,
@@ -132,8 +132,7 @@ def main() -> None:
 
     # Safe catalog-wide terminology replacements.
     for entry in po:
-        original = entry.msgstr
-        text = original
+        text = entry.msgstr
 
         if "관광" in text:
             counts["tour"] += text.count("관광")
@@ -150,27 +149,20 @@ def main() -> None:
         stone_count = text.count("돌가죽") + text.count("석피") + text.count("석화 피부")
         if stone_count:
             counts["stone_skin"] += stone_count
-            text = text.replace("석화 피부", "석갑").replace("돌가죽", "석갑").replace("석피", "석갑")
+            text = (
+                text.replace("석화 피부", "석갑")
+                .replace("돌가죽", "석갑")
+                .replace("석피", "석갑")
+            )
 
-        if text != original:
-            entry.msgstr = text
-            changed_entries += 1
+        entry.msgstr = text
 
     # Context-sensitive fixes.
     for ctx, old, new in EXACT_REPLACEMENTS:
         entry = by_context.get(ctx)
         if entry is None:
             raise SystemExit(f"missing PO context: {ctx}")
-        before = entry.msgstr
         counts["exact"] += replace_exact(entry, old, new)
-        if entry.msgstr != before and before == original if False else False:
-            pass
-
-    # The previous loop may have already counted an entry as changed.  Recount
-    # directly to keep the printed number accurate and deterministic.
-    changed_entries = sum(1 for entry in po if entry.msgstr != "")
-    # changed_entries above is informational only; actual write is based on
-    # whether the serialized catalog differs, so idempotent reruns are safe.
 
     # Final report-specific assertions.
     failures: list[str] = []
@@ -186,10 +178,9 @@ def main() -> None:
             failures.append(f"{entry.msgctxt}: old Stone Skin term remains")
 
     # Protect unrelated Korean words that merely contain 인격.
-    protected = [entry.msgstr for entry in po if "인격적" in entry.msgstr or "인격체" in entry.msgstr]
-    if not any("인격적" in text for text in protected):
+    if not any("인격적" in entry.msgstr for entry in po):
         failures.append("protected prose term 인격적 was lost")
-    if not any("인격체" in text for text in protected):
+    if not any("인격체" in entry.msgstr for entry in po):
         failures.append("protected noun 인격체 was lost")
 
     for ctx, expected in REQUIRED_EXISTING:
@@ -209,16 +200,16 @@ def main() -> None:
     }
     for ctx, expected in expected_exact.items():
         entry = by_context.get(ctx)
-        if entry is None or entry.msgstr != expected:
-            failures.append(f"{ctx}: expected {expected!r}, got {None if entry is None else entry.msgstr!r}")
+        actual = None if entry is None else entry.msgstr
+        if actual != expected:
+            failures.append(f"{ctx}: expected {expected!r}, got {actual!r}")
 
     if failures:
         raise SystemExit("report 66263 verification failed:\n" + "\n".join(failures[:50]))
 
-    before = PO.read_text(encoding="utf-8")
     po.save(str(PO))
-    after = PO.read_text(encoding="utf-8")
-    if before == after:
+    updated_catalog = PO.read_text(encoding="utf-8")
+    if original_catalog == updated_catalog:
         print("report 66263 terminology: already applied")
     else:
         print(
