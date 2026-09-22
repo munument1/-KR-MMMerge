@@ -78,6 +78,8 @@ MEMBER_REPLACEMENTS: dict[str, list[tuple[str, str]]] = {
         ("날개 치기(Wing Buffet)", "날개 치기"),
         ("스킬", "기술"),
         ("(+기술당 ", "(+기술 레벨당 "),
+        ("신체 마법", "육체 마법"),
+        ("신체 계열", "육체 계열"),
     ],
     "class.txt": [
         (
