@@ -279,7 +279,7 @@ msgstr "나무를 뒤져 무언가를 찾아냅니다."
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/6D13.STR|string=11"
 msgid "+5 Personality permanent to Druids and Clerics."
-msgstr "드루이드와 성직자의 인격이 영구적으로 5 증가합니다."
+msgstr "드루이드와 성직자의 인성이 영구적으로 5 증가합니다."
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/6D13.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3286,7 +3286,7 @@ msgstr "스킬 포인트 +2"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/out10.STR|string=76"
 msgid "+10 Personality and Intellect(Permanent)"
-msgstr "인격과 지력이 영구적으로 10 증가합니다."
+msgstr "인성과 지력이 영구적으로 10 증가합니다."
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/out11.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3502,7 +3502,7 @@ msgstr "동쪽: 툴라리안 숲"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/out14.STR|string=46"
 msgid "Avlee"
-msgstr "아블리"
+msgstr "에이블리"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/out14.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -3858,7 +3858,7 @@ msgstr "돌의 원"
 #. KO: Data/Text localization/KO_MapStrings.txt
 msgctxt "mmmerge/10LocLANG.T/OUTD1.STR|string=13"
 msgid "Shrine of Personality"
-msgstr "인격의 성소"
+msgstr "인성의 성소"
 
 #. EN: source/en/mmmerge/Data/10LocLANG.T/OUTD1.STR
 #. KO: Data/Text localization/KO_MapStrings.txt
@@ -6439,7 +6439,7 @@ msgstr "마비"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=163|field=<default>"
 msgid "Personality"
-msgstr "인격"
+msgstr "인성"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7094,7 +7094,7 @@ msgstr "일시적 운"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=249|field=<default>"
 msgid "Temp Personality"
-msgstr "일시적 인격"
+msgstr "일시적 인성"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -7178,7 +7178,7 @@ msgstr "소서러"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=25|field=<default>"
 msgid "Balance"
-msgstr "중립"
+msgstr "잔고"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -8601,7 +8601,7 @@ msgstr "가속"
 msgctxt ""
 "mmmerge/inherited/mm8/Global.txt|table=GlobalTxt|id=442|field=<default>"
 msgid "Stoneskin"
-msgstr "석피"
+msgstr "석갑"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Global.txt
 #. KO: Data/Text localization/KO_GlobalTxt.txt
@@ -11324,7 +11324,7 @@ msgid ""
 "While body magic includes some direct damage spells, it is the magic most "
 "concerned with healing. At higher ranks you can learn more powerful spells "
 "and cast the ones you know with greater effect."
-msgstr "신체 계열 마법 숙련도입니다."
+msgstr "육체 계열 마법 숙련도입니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -12798,7 +12798,7 @@ msgstr "정신 마법"
 msgctxt ""
 "mmmerge/inherited/mm8/Skilldes.txt|table=SkillNames|id=18|field=<default>"
 msgid "Body"
-msgstr "신체 마법"
+msgstr "육체 마법"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Skilldes.txt
 #. KO: Data/Text localization/KO_Skilldes.txt
@@ -15417,7 +15417,7 @@ msgstr "지속 시간 1시간 + 기술 포인트당 15분"
 #. KO: Data/Text localization/KO_SpellsTxt.txt
 msgctxt "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=38|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -15430,7 +15430,7 @@ msgstr "n/a"
 msgctxt ""
 "mmmerge/inherited/mm8/Spells.txt|table=SpellsTxt|id=38|field=ShortName"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -17339,7 +17339,7 @@ msgid ""
 "damage caused by the unarmed attack."
 msgstr ""
 "망치손은 비무장 전투원의 기술을 마법적으로 강화하여 상대의 약점을 더 정확하게 타격할 수 있게 합니다. 망치손의 보조를 받는 공격은 "
-"비무장 공격으로 입히는 물리 피해와 동일한 양의 신체 속성 추가 피해를 입힙니다."
+"비무장 공격으로 입히는 물리 피해와 동일한 양의 육체 속성 추가 피해를 입힙니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
 #. KO: Data/Text localization/KO_SpellsTxt.txt
@@ -17983,7 +17983,7 @@ msgid ""
 "Body, plus Feather Fall and Wizard Eye on all your characters at four times "
 "your skill in Light Magic."
 msgstr ""
-"모든 캐릭터에게 화염, 공기, 물, 대지, 정신, 신체 보호 주문과 깃털 낙하, 마법사의 눈 주문을 빛 마법 기술의 4배 효과로 동시에 "
+"모든 캐릭터에게 화염, 공기, 물, 대지, 정신, 육체 보호 주문과 깃털 낙하, 마법사의 눈 주문을 빛 마법 기술의 4배 효과로 동시에 "
 "시전합니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/Spells.txt
@@ -19041,7 +19041,7 @@ msgid ""
 "Personality represents both a character's strength of will and personal "
 "charm.  Maximum spell points for Clerics, Vampires and Minotaurs are based "
 "on Personality."
-msgstr "인격은 캐릭터의 의지력과 개인적 매력을 나타냅니다. 성직자, 뱀파이어, 미노타우로스의 최대 주문력은 인격에 따라 결정됩니다."
+msgstr "인성은 캐릭터의 의지력과 개인적 매력을 나타냅니다. 성직자, 뱀파이어, 미노타우로스의 최대 주문력은 인성에 따라 결정됩니다."
 
 #. EN: source/en/mm8/Data/10LocLANG.EnglishT/stats.txt (Endurance)
 #. KO: Data/Text localization/KO_StatsDescriptions.tsv
@@ -24320,7 +24320,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=1578|field=Name"
 msgid "Avlee Gymnaisium"
-msgstr "아블리 체육관"
+msgstr "에이블리 체육관"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -33568,7 +33568,7 @@ msgstr "0"
 #. KO: Data/Text localization/KO_2DEvents.txt
 msgctxt "mmmerge/Text localization/LANG_2DEvents.txt|id=56|field=Name"
 msgid "Avlee Outpost"
-msgstr "아블리 전초기지"
+msgstr "에이블리 전초기지"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_2DEvents.txt
 #. KO: Data/Text localization/KO_2DEvents.txt
@@ -41857,7 +41857,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=19|field=<default>"
 msgid "Blue liquid grants Personality."
-msgstr "파란 액체는 인격을 높인다."
+msgstr "파란 액체는 인성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42003,7 +42003,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=212|field=<default>"
 msgid "Well in the city of Alvar gives a temporary Personality bonus of 25."
-msgstr "알바르에 있는 우물에서 일시적으로 인격 25 증가."
+msgstr "알바르에 있는 우물에서 일시적으로 인성 25 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42119,7 +42119,7 @@ msgctxt ""
 msgid ""
 "Well near the Temple of the Sun in Murmurwoods gives a permanent Personality"
 " bonus up to a Personality of 16."
-msgstr "태양의 신전 · 머머우즈 근처에 있는 우물에서 인격이 16 미만일 때 영구적으로 증가."
+msgstr "태양의 신전 · 머머우즈 근처에 있는 우물에서 인성이 16 미만일 때 영구적으로 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42643,7 +42643,7 @@ msgctxt ""
 msgid ""
 "5 points of temporary Personality from the trough in front of the Steadwick "
 "Town Hall."
-msgstr "스테드윅 시청 앞에 있는 구유에서 일시적으로 인격 5 증가."
+msgstr "스테드윅 시청 앞에 있는 구유에서 일시적으로 인성 5 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42690,7 +42690,7 @@ msgctxt ""
 msgid ""
 "10 points of temporary Personality from the well near the Temple of the Dark"
 " in Moulder in Deyja."
-msgstr "어둠의 신전 · 몰더 · 데이자 근처에 있는 우물에서 일시적으로 인격 10 증가."
+msgstr "어둠의 신전 · 몰더 · 데이자 근처에 있는 우물에서 일시적으로 인성 10 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42710,7 +42710,7 @@ msgctxt ""
 msgid ""
 "25 points of temporary Intellect and Personality from the fountain outside "
 "the School of Sorcery in the Bracada Desert."
-msgstr "브라카다 사막의 마법 학교 밖에 있는 분수에서 일시적으로 지력과 인격 25 증가."
+msgstr "브라카다 사막의 마법 학교 밖에 있는 분수에서 일시적으로 지력과 인성 25 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42720,7 +42720,7 @@ msgctxt ""
 msgid ""
 "25 points of temporary Might, Intellect, Personality, Endurance, Speed, "
 "Accuracy, and Luck from the central fountain in Celeste."
-msgstr "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인격, 체력, 민첩성, 정확도, 행운 25 증가."
+msgstr "셀레스트 중앙에 있는 분수에서 일시적으로 힘, 지력, 인성, 체력, 민첩성, 정확도, 행운 25 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42730,7 +42730,7 @@ msgctxt ""
 msgid ""
 "50 points of temporary Intellect and Personality from the central fountain "
 "in Damocles in Mount Nighon."
-msgstr "다모클레스 · 나이혼 산 중앙에 있는 분수에서 일시적으로 지력과 인격 50 증가."
+msgstr "다모클레스 · 나이혼 산 중앙에 있는 분수에서 일시적으로 지력과 인성 50 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42750,7 +42750,7 @@ msgctxt ""
 msgid ""
 "2 points of permanent Personality from the well near Fortune's Folly in "
 "Damocles in Mount Nighon."
-msgstr "행운의 어리석음 · 다모클레스 · 나이혼 산 근처에 있는 우물에서 인격 영구적으로 2 증가."
+msgstr "행운의 어리석음 · 다모클레스 · 나이혼 산 근처에 있는 우물에서 인성 영구적으로 2 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42838,7 +42838,7 @@ msgctxt ""
 msgid ""
 "2 points of permanent Endurance from the well in the northeast section of "
 "Spaward in Avlee."
-msgstr "스파워드 · 아블리 북동부에 있는 우물에서 체력 영구적으로 2 증가."
+msgstr "스파워드 · 에이블리 북동부에 있는 우물에서 체력 영구적으로 2 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42848,7 +42848,7 @@ msgctxt ""
 msgid ""
 "20 points of temporary Water resistance from the well in the northwest "
 "section of Spaward in Avlee."
-msgstr "스파워드 · 아블리 북서부에 있는 우물에서 일시적으로 물 저항 20 증가."
+msgstr "스파워드 · 에이블리 북서부에 있는 우물에서 일시적으로 물 저항 20 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42856,7 +42856,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=288|field=<default>"
 msgid "25 Hit Points regained from the well in the island village in Avlee."
-msgstr "아블리의 섬 마을에 있는 우물에서 생명력 25 회복."
+msgstr "에이블리의 섬 마을에 있는 우물에서 생명력 25 회복."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -42890,7 +42890,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=291|field=<default>"
 msgid "Blue liquid grants Personality."
-msgstr "파란 액체는 인격을 높인다."
+msgstr "파란 액체는 인성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43198,7 +43198,7 @@ msgctxt ""
 msgid ""
 "The ultimate teacher in the ways of the Staff, Jillian Mithrit, can be found"
 " in the elven territory of Avlee.  Her home is in the city in the northeast."
-msgstr "아블리 · 북동부에 있는 질리언 미스릿에게서 지팡이 그랜드마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 북동부에 있는 질리언 미스릿에게서 지팡이 그랜드마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43392,7 +43392,7 @@ msgid ""
 "The Master instructor of uses of Chain Armor, Medwari Dragontracker, can be "
 "found in the elven territory of Avlee.  His home is in the city in the "
 "northeast."
-msgstr "아블리 · 북동부에 있는 메드와리 드래곤트래커에게서 사슬 갑옷 마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 북동부에 있는 메드와리 드래곤트래커에게서 사슬 갑옷 마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43453,7 +43453,7 @@ msgctxt ""
 msgid ""
 "The Master tutor of Air Magic, Rislyn Greenstorm, lives in the elven "
 "territory of Avlee.  His home is in the city in the northeast."
-msgstr "아블리 · 북동부에 있는 리슬린 그린스톰에게서 공기 마법 마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 북동부에 있는 리슬린 그린스톰에게서 공기 마법 마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43545,7 +43545,7 @@ msgid ""
 "The Master teacher in the ways of Mind Magic, Myles Featherwind, can be "
 "found in the elven territory of Avlee.  His home is in the city to the "
 "northeast."
-msgstr "아블리 · 북동부에 있는 마일스 페더윈드에게서 정신 마법 마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 북동부에 있는 마일스 페더윈드에게서 정신 마법 마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43577,7 +43577,7 @@ msgid ""
 "The Grandmaster teacher in the ways of Body Magic, Tempus, can be found in "
 "the elven territory of Avlee.  His home is on an island somewhere in the "
 "central bay."
-msgstr "아블리 · 중앙 · 섬에 있는 템푸스에게서 육체 마법 그랜드마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 중앙 · 섬에 있는 템푸스에게서 육체 마법 그랜드마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43606,7 +43606,7 @@ msgid ""
 "The Grandmaster of the Identify Item skill, Payge Blueswan, can be found in "
 "the elven territory of Avlee.  His home is just northwest of the elven city "
 "of Spaward."
-msgstr "아블리 · 스파워드 · 북서부에 있는 페이지 블루스완에게서 아이템 감정 그랜드마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 스파워드 · 북서부에 있는 페이지 블루스완에게서 아이템 감정 그랜드마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43686,7 +43686,7 @@ msgctxt ""
 msgid ""
 "The Grandmaster of Meditation, Kaine, can be found in the elven territory of"
 " Avlee.  His home is on an island somewhere in the central bay."
-msgstr "아블리 · 중앙 · 섬에 있는 케인에게서 명상 그랜드마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 중앙 · 섬에 있는 케인에게서 명상 그랜드마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43784,7 +43784,7 @@ msgctxt ""
 msgid ""
 "The Master instructor of the Identify Monster Skill, Jeni Swiftfoot, lives "
 "in the elven territory of Avlee.  Her home is in the city in the northeast."
-msgstr "아블리 · 북동부에 있는 제니 스위프트풋에게서 몬스터 식별 마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 북동부에 있는 제니 스위프트풋에게서 몬스터 식별 마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43804,7 +43804,7 @@ msgctxt ""
 msgid ""
 "The Master tutor of the Armsmaster Skill, Paula Brightspear, lives in the "
 "elven territory of Avlee.  Her home is in the city in the northeast."
-msgstr "아블리 · 북동부에 있는 폴라 브라이트스피어에게서 무기술 마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 북동부에 있는 폴라 브라이트스피어에게서 무기술 마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -43863,7 +43863,7 @@ msgid ""
 "The Grandmaster instructor of Alchemy, Lucid Apple, can be found in the "
 "elven territory of Avlee.  His home is on an island somewhere in the central"
 " bay."
-msgstr "아블리 · 중앙 · 섬에 있는 루시드 애플에게서 연금술 그랜드마스터 훈련을 받을 수 있다."
+msgstr "에이블리 · 중앙 · 섬에 있는 루시드 애플에게서 연금술 그랜드마스터 훈련을 받을 수 있다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44051,7 +44051,7 @@ msgctxt ""
 msgid ""
 "10 Points of temporary intellect and personality from the west fountain at "
 "Castle Newton."
-msgstr "뉴턴 성 서쪽에 있는 분수에서 일시적으로 지력과 인격 10 증가."
+msgstr "뉴턴 성 서쪽에 있는 분수에서 일시적으로 지력과 인성 10 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44143,7 +44143,7 @@ msgctxt ""
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=412|field=<default>"
 msgid ""
 "2 Points of permanent personality from the south fountain in Bootleg Bay."
-msgstr "부틀렉 베이 남쪽에 있는 분수에서 인격 영구적으로 2 증가."
+msgstr "부틀렉 베이 남쪽에 있는 분수에서 인성 영구적으로 2 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44153,7 +44153,7 @@ msgctxt ""
 msgid ""
 "20 Points of temporary intellect and personality from the fountain in the "
 "north side of Silver Cove."
-msgstr "실버 코브 북쪽에 있는 분수에서 일시적으로 지력과 인격 20 증가."
+msgstr "실버 코브 북쪽에 있는 분수에서 일시적으로 지력과 인성 20 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44217,7 +44217,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=41|field=<default>"
 msgid "Stoneskin (Yellow and Orange Layered) = Yellow + Orange"
-msgstr "돌가죽 (노랑·주황 층상 물약) = 노랑 + 주황"
+msgstr "석갑 (노랑·주황 층상 물약) = 노랑 + 주황"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44293,7 +44293,7 @@ msgctxt ""
 msgid ""
 "10 Points of permanent might, accuracy, speed, endurance, personality, "
 "intellect, and luck from the fountain on the south island in Dragonsand."
-msgstr "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 민첩성, 체력, 인격, 지력, 행운 영구적으로 10 증가."
+msgstr "드래곤샌드 남쪽 섬에 있는 분수에서 힘, 정확도, 민첩성, 체력, 인성, 지력, 행운 영구적으로 10 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44338,7 +44338,7 @@ msgctxt ""
 msgid ""
 "5 Points of permanent intellect and personality from the fountain north of "
 "the Temple of the Snake."
-msgstr "뱀의 신전 북쪽에 있는 분수에서 지력과 인격 영구적으로 5 증가."
+msgstr "뱀의 신전 북쪽에 있는 분수에서 지력과 인성 영구적으로 5 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44441,7 +44441,7 @@ msgid ""
 "50 Points of temporary might, accuracy, endurance, speed, personality, "
 "intellect, and luck from the fountain southwest of the village of Sweet "
 "Water."
-msgstr "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 민첩성, 인격, 지력, 행운 50 증가."
+msgstr "스위트 워터 남서부에 있는 분수에서 일시적으로 힘, 정확도, 체력, 민첩성, 인성, 지력, 행운 50 증가."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -44849,7 +44849,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=482|field=<default>"
 msgid "Blue liquid grants Personality."
-msgstr "파란 액체는 인격을 높인다."
+msgstr "파란 액체는 인성을 높인다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -45001,7 +45001,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=49|field=<default>"
 msgid "Personality Boost (White) = Green + Blue and Green Layered"
-msgstr "인격 강화 (흰색) = 초록 + 파랑·초록 층상 물약"
+msgstr "인성 강화 (흰색) = 초록 + 파랑·초록 층상 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46559,7 +46559,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=673|field=<default>"
 msgid "Won Arcomage at The Potted Pixie in Avlee."
-msgstr "아블리의 '화분 속 픽시'에서 아르코메이지에 승리함"
+msgstr "에이블리의 '화분 속 픽시'에서 아르코메이지에 승리함"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46591,7 +46591,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=677|field=<default>"
 msgid "Essence of Personality = Remove Fear + Haste"
-msgstr "인격의 정수 = 공포 해제 + 신속"
+msgstr "인성의 정수 = 공포 해제 + 신속"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46607,7 +46607,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=679|field=<default>"
 msgid "Essence of Accuracy = Cure Insanity + Stoneskin"
-msgstr "정확도의 정수 = 광기 치료 + 돌가죽"
+msgstr "정확도의 정수 = 광기 치료 + 석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46635,7 +46635,7 @@ msgctxt ""
 msgid ""
 "Essence of Luck = Haste + Heroism, Recharge Item + Shield, Harden Item + "
 "Stoneskin"
-msgstr "행운의 정수 = 신속 + 영웅심, 아이템 충전 + 방패, 아이템 강화 + 돌가죽"
+msgstr "행운의 정수 = 신속 + 영웅심, 아이템 충전 + 방패, 아이템 강화 + 석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46684,8 +46684,8 @@ msgid ""
 "Endurance + Haste or Essence of Accuracy + Shield or Essence of Speed + "
 "Heroism."
 msgstr ""
-"신들의 물약 = 힘의 정수 + 아이템 강화 또는 지력의 정수 + 돌가죽 또는 인격의 정수 + 아이템 충전 또는 체력의 정수 + 신속 또는"
-" 정확도의 정수 + 방패 또는 민첩성의 정수 + 영웅심."
+"신들의 물약 = 힘의 정수 + 아이템 강화 또는 지력의 정수 + 석갑 또는 인성의 정수 + 아이템 충전 또는 체력의 정수 + 신속 또는 "
+"정확도의 정수 + 방패 또는 민첩성의 정수 + 영웅심."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -46925,7 +46925,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_AutonoteTxt.txt|table=AutonoteTxt|id=83|field=<default>"
 msgid "Pure Personality (Black) = Purple Potion + Personality Boost (White)"
-msgstr "순수한 인격 (검은색) = 보라색 물약 + 인격 강화 (흰색)"
+msgstr "순수한 인성 (검은색) = 보라색 물약 + 인성 강화 (흰색)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_AutonoteTxt.txt
 #. KO: Data/Text localization/KO_AutonoteTxt.txt
@@ -52247,7 +52247,7 @@ msgstr "주문서"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1139|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -54696,7 +54696,7 @@ msgstr "마법서"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1239|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -56436,7 +56436,7 @@ msgid ""
 "none of its owner's ambitions have been fulfilled, no one has ever declined "
 "to carry Wallace once they have heard its siren song."
 msgstr ""
-"(무기 전문가 기술 +10, 인격 +40) 월리스는 어찌 된 영문인지 수 세기 동안 반란군과 선동가들의 손에 들어가 왔습니다. 이 무기는"
+"(무기 전문가 기술 +10, 인성 +40) 월리스는 어찌 된 영문인지 수 세기 동안 반란군과 선동가들의 손에 들어가 왔습니다. 이 무기는"
 " 사용자의 능력과 자신감을 증폭시켜, 소유자로 하여금 평소라면 피했을 위험을 무릅쓰게 만듭니다. 소유자의 야망이 모두 이루어진 적은 "
 "없지만, 월리스의 매혹적인 노래에 한번이라도 매료된 사람은 누구도 월리스를 거부할 수 없었습니다."
 
@@ -56778,7 +56778,7 @@ msgid ""
 "First Ogre with Mash, and all Ogres have since borne the mark of that act--"
 "strong, but slow, dull, and stupid.  In any event, Mash is yours now."
 msgstr ""
-"(힘 +150, 지능 -40, 인격 -40, 민첩성 -40) 매시는 최초의 오우거가 신들에게 그 어떤 것보다 강한 무기를 달라고 기도한 "
+"(힘 +150, 지능 -40, 인성 -40, 민첩성 -40) 매시는 최초의 오우거가 신들에게 그 어떤 것보다 강한 무기를 달라고 기도한 "
 "것에 대한 응답이라고 전해집니다. 이에 분노한 신들은 최초의 오우거에게 매시라는 저주를 내렸고, 그 이후 모든 오우거는 그 저주의 낙인,"
 " 즉 강하지만 느리고 둔하며 어리석음을 지니고 있게 되었습니다. 어쨌든, 이제 매시는 당신의 것입니다."
 
@@ -56997,7 +56997,7 @@ msgid ""
 "crushed beneath the wheels of a runaway peasant's wagon while crossing the "
 "street in Steadwick."
 msgstr ""
-"(빛 마법, 인격 +15, 힘 +15, 운 -40, 선) 서기 870년부터 태양 교회의 최고 성물 전달자이자 신성한 통로였던 탈레돈이 "
+"(빛 마법, 인성 +15, 힘 +15, 운 -40, 선) 서기 870년부터 태양 교회의 최고 성물 전달자이자 신성한 통로였던 탈레돈이 "
 "소유했던 이 강력한 투구는 아마도 881년 그의 갑작스러운 죽음에 일조했을 것입니다. 물건에 마법을 너무 많이 부여하면 부정적인 기운이 "
 "배어 나온다고 합니다. 이 경우, 그 부정적인 기운이 착용자를 극도로 불운하게 만들었습니다. 당대 가장 강력한 인물 중 하나였던 노련한 "
 "외교관이자 군인, 그리고 사제였던 탈레돈은 스테드윅에서 길을 건너던 중 폭주하는 농민의 마차 바퀴에 깔려 사망했습니다."
@@ -57051,7 +57051,7 @@ msgid ""
 "skill in Fire magic the wearer may have, and fiercely resists water based "
 "attacks."
 msgstr ""
-"(화염 마법, 물 저항 +50, 인격 +30, 방어력 -20) 이것은 단명했던 피낙시아 제국의 한때 잃어버렸던 왕관입니다. 착용하면 "
+"(화염 마법, 물 저항 +50, 인성 +30, 방어력 -20) 이것은 단명했던 피낙시아 제국의 한때 잃어버렸던 왕관입니다. 착용하면 "
 "왕관의 보석에서 억제되지 않은 화염 마법이 타오르며 착용자의 얼굴에 붉은빛을 비춥니다. 이 왕관은 착용자의 화염 마법 능력을 증폭시키고 "
 "물 속성 공격에 강력한 저항력을 제공합니다."
 
@@ -57254,7 +57254,7 @@ msgid ""
 "Priest of Baa, though useful it seems to sap the will of the wearer slowly "
 "away."
 msgstr ""
-"(질병, 광기, 마비, 독, 수면, 석화 상태에 대한 면역, 지능 -20, 인격 -20) 바의 대사제가 입는 망토는 유용하지만 착용자의 "
+"(질병, 광기, 마비, 독, 수면, 석화 상태에 대한 면역, 지능 -20, 인성 -20) 바의 대사제가 입는 망토는 유용하지만 착용자의 "
 "의지를 서서히 앗아가는 듯하다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -57308,8 +57308,8 @@ msgid ""
 " also provides head protection.  Unfortunately, Mind's Eye will only fit on "
 "the head of a human."
 msgstr ""
-"(지능 +15, 인격 +15, 주문력 회복, 인간) 마음의 눈은 상급 드루이드 라레트 와이스만을 위해 메코리그가 제작했습니다. 마음의 "
-"눈은 지능과 인격을 향상시키는 동시에 착용자의 마나를 회복시켜주고 머리 보호 기능도 제공합니다. 다만, 마음의 눈은 인간의 머리에만 "
+"(지능 +15, 인성 +15, 주문력 회복, 인간) 마음의 눈은 상급 드루이드 라레트 와이스만을 위해 메코리그가 제작했습니다. 마음의 "
+"눈은 지능과 인성을 향상시키는 동시에 착용자의 마나를 회복시켜주고 머리 보호 기능도 제공합니다. 다만, 마음의 눈은 인간의 머리에만 "
 "착용할 수 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -59553,7 +59553,7 @@ msgid ""
 " areas.  To use the apple, pick the apple up and left-click over the picture"
 " of your character in the inventory screen."
 msgstr ""
-"이런 사과는 마법으로 가득 찬 나무에서 열립니다. 주로 엘프의 땅인 아블리와 툴라레안 숲에서 자라지만, 꼭 이 지역에만 국한된 것은 "
+"이런 사과는 마법으로 가득 찬 나무에서 열립니다. 주로 엘프의 땅인 에이블리와 툴라레안 숲에서 자라지만, 꼭 이 지역에만 국한된 것은 "
 "아닙니다. 사과를 사용하려면 사과를 주운 다음 인벤토리 화면에서 캐릭터 사진을 왼쪽 클릭하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -62178,7 +62178,7 @@ msgstr "순수한 정확도 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1545|field=Name"
 msgid "Pure Personality Recipe"
-msgstr "순수한 인격 제조법"
+msgstr "순수한 인성 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -62193,7 +62193,7 @@ msgstr "메시지 두루마리입니다. 내용을 읽으려면 두루마리를 
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1545|field=NotIdentifiedName"
 msgid "Pure Personality Recipe"
-msgstr "순수한 인격 제조법"
+msgstr "순수한 인성 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -62389,7 +62389,7 @@ msgstr "지력 강화 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1554|field=Name"
 msgid "Personality Boost Recipe"
-msgstr "인격 강화 제조법"
+msgstr "인성 강화 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -62404,7 +62404,7 @@ msgstr "메시지 두루마리입니다. 내용을 읽으려면 두루마리를 
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1554|field=NotIdentifiedName"
 msgid "Personality Boost Recipe"
-msgstr "인격 강화 제조법"
+msgstr "인성 강화 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -67677,7 +67677,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1767|field=NotIdentifiedName"
 msgid "Blue Potion"
-msgstr "푸른색 물약"
+msgstr "파란색 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -67947,7 +67947,7 @@ msgstr "흰색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1778|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -68138,7 +68138,7 @@ msgstr "검은색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1785|field=Name"
 msgid "Essence of Personality"
-msgstr "인격의 정수"
+msgstr "인성의 정수"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -68148,7 +68148,7 @@ msgid ""
 "To drink, pick the potion up and right-click over a character's portrait.  "
 "To mix, pick the potion up and right-click over another potion."
 msgstr ""
-"1회 사용 가능: 인격을 15만큼 증가시키고 민첩성을 5만큼 영구적으로 감소시킵니다. 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
+"1회 사용 가능: 인성을 15만큼 증가시키고 민첩성을 5만큼 영구적으로 감소시킵니다. 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
 "클릭하십시오. 섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -68221,7 +68221,7 @@ msgid ""
 "To drink, pick the potion up and right-click over a character's portrait.  "
 "To mix, pick the potion up and right-click over another potion."
 msgstr ""
-"1회 사용 가능: 민첩성을 15 증가시키고 인격을 5 감소시킵니다(영구 효과). 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
+"1회 사용 가능: 민첩성을 15 증가시키고 인성을 5 감소시킵니다(영구 효과). 마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 "
 "클릭하십시오. 섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -69416,7 +69416,7 @@ msgstr "주문서"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1839|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -72022,7 +72022,7 @@ msgstr "마법서"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=1947|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -74108,7 +74108,7 @@ msgid ""
 msgstr ""
 "침묵의 시대 이후 만들어진 최고의 사슬 갑옷이라고 할 수 있는 갈라하드의 갑옷은 재질 강도 마법이 매우 강력하여 착용자의 몸에 어느 정도"
 " 부여되는 듯한 효과를 발휘하며, 일반적인 갑옷보다 훨씬 더 많은 충격을 견딜 수 있게 해줍니다. (특수 능력: 방패 주문 상시 유지, "
-"돌가죽 주문 상시 유지, 생명력 +25)  "
+"석갑 주문 상시 유지, 생명력 +25)  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -74726,8 +74726,8 @@ msgid ""
 "and -40 Luck)"
 msgstr ""
 "오랜 세월 동안 어리석은 자들의 욕망과 갈망을 불러일으켰던 이 아름다운 반지는 피부를 매끄럽게 하고 목소리를 맑게 하며 착용자의 외모를 "
-"극적으로 개선할 뿐만 아니라 인격까지 향상시켜 줍니다. 하지만 이 반지는 불운의 저주를 품고 있어, 착용자는 반지를 발견한 직후 비극적인"
-" 사고로 죽음을 맞이하는 경우가 많습니다. (특수 능력: 인격 +100, 운 -40)"
+"극적으로 개선할 뿐만 아니라 인성까지 향상시켜 줍니다. 하지만 이 반지는 불운의 저주를 품고 있어, 착용자는 반지를 발견한 직후 비극적인"
+" 사고로 죽음을 맞이하는 경우가 많습니다. (특수 능력: 인성 +100, 운 -40)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -74780,8 +74780,8 @@ msgid ""
 "Luck, and -50 Personality)"
 msgstr ""
 "때때로 '바보의 부적'이라고도 불리는 이 기묘한 유물은 침묵의 시대 이전부터 존재해 왔으며, 착용자의 활력, 마법 에너지, 행운을 "
-"극적으로 증가시키지만, 그 대가로 인격이 저하됩니다. 이 목걸이를 착용하는 동안 얼굴은 무표정해지고, 눈빛은 공허해지며, 목소리는 "
-"단조로워집니다. (특수 능력: 생명력 +50, 주문력 +50, 운 +50, 인격 -50)"
+"극적으로 증가시키지만, 그 대가로 인성이 저하됩니다. 이 목걸이를 착용하는 동안 얼굴은 무표정해지고, 눈빛은 공허해지며, 목소리는 "
+"단조로워집니다. (특수 능력: 생명력 +50, 주문력 +50, 운 +50, 인성 -50)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -78373,7 +78373,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/Text localization/LANG_ItemsTxt.txt|id=223|field=NotIdentifiedName"
 msgid "Blue Potion"
-msgstr "푸른색 물약"
+msgstr "파란색 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -78646,7 +78646,7 @@ msgstr "층상 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=234|field=Name"
 msgid "Stoneskin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -78862,7 +78862,7 @@ msgstr "흰색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=242|field=Name"
 msgid "Personality Boost"
-msgstr "인격 강화"
+msgstr "인성 강화"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -78873,7 +78873,7 @@ msgid ""
 "potion up and right-click over a character's portrait.  To mix two potions, "
 "pick up one and right-click it over the other.)"
 msgstr ""
-"물약의 강도 1포인트당 30분 동안 물약 강도의 3배만큼 일시적으로 인격을 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 "
+"물약의 강도 1포인트당 30분 동안 물약 강도의 3배만큼 일시적으로 인성을 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 "
 "오른쪽 클릭하십시오. 두 개의 물약을 섞으려면 물약 하나를 집어 들고 다른 물약 위에 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -79550,7 +79550,7 @@ msgstr "검은색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=268|field=Name"
 msgid "Pure Personality"
-msgstr "순수한 인격"
+msgstr "순수한 인성"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -79560,7 +79560,7 @@ msgid ""
 "click over a character's portrait.  To mix, pick the potion up and right-"
 "click over another potion.)"
 msgstr ""
-"인격 수치를 영구적으로 50만큼 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을 집어 "
+"인성 수치를 영구적으로 50만큼 증가시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. 섞으려면 물약을 집어 "
 "들고 다른 물약을 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -79718,7 +79718,7 @@ msgstr "흰색 물약"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=274|field=Name"
 msgid "Essence of Personality"
-msgstr "인격의 정수"
+msgstr "인성의 정수"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -79728,7 +79728,7 @@ msgid ""
 "pick the potion up and right-click over a character's portrait.  To mix, "
 "pick the potion up and right-click over another potion.)"
 msgstr ""
-"인격 수치를 영구적으로 15만큼 올리고 민첩성을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
+"인성 수치를 영구적으로 15만큼 올리고 민첩성을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
 "섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -79800,7 +79800,7 @@ msgid ""
 "pick the potion up and right-click over a character's portrait.  To mix, "
 "pick the potion up and right-click over another potion.)"
 msgstr ""
-"민첩성을 15만큼 영구적으로 증가시키고 인격을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
+"민첩성을 15만큼 영구적으로 증가시키고 인성을 5만큼 감소시킵니다. (마시려면 물약을 집어 들고 캐릭터 초상화를 오른쪽 클릭하십시오. "
 "섞으려면 물약을 집어 들고 다른 물약을 오른쪽 클릭하십시오.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -81236,7 +81236,7 @@ msgstr "두루마리"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=337|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -83687,7 +83687,7 @@ msgstr "마법서"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=437|field=Name"
 msgid "Stone Skin"
-msgstr "돌가죽"
+msgstr "석갑"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -85620,7 +85620,7 @@ msgid ""
 "crown and left him to fend for himself in the Howling Marsh. He was never "
 "seen again."
 msgstr ""
-"(인격 +40, 생명력 회복) 서부 엘프의 왕이자 \"술주정뱅이 왕\"으로도 불렸던 우리 호사나는 사냥 여행 중 부주의하게 왕권을 "
+"(인성 +40, 생명력 회복) 서부 엘프의 왕이자 \"술주정뱅이 왕\"으로도 불렸던 우리 호사나는 사냥 여행 중 부주의하게 왕권을 "
 "상징하는 홀을 잃어버린 날 폐위되었습니다. 이는 무능한 통치자의 마지막 실책이었습니다. 그의 고문들은 왕관을 빼앗고 그를 울부짖는 늪에 "
 "홀로 남겨두었습니다. 그 후 그는 다시는 나타나지 않았습니다."
 
@@ -85949,7 +85949,7 @@ msgid ""
 "It is said that he wore his helmet, even in sleep. Now that you possess it, "
 "you understand why."
 msgstr ""
-"(인격 +15, 지능 +15, 생명력 회복) 보리 야만족의 역사에서 오랫동안 통치한 족장은 드물다. 더욱 드문 것은 무력이 아닌 마법으로"
+"(인성 +15, 지능 +15, 생명력 회복) 보리 야만족의 역사에서 오랫동안 통치한 족장은 드물다. 더욱 드문 것은 무력이 아닌 마법으로"
 " 그 자리를 지킨 족장이다. 드로그는 바로 그런 인물이었다. 수많은 경쟁자들의 도전을 이겨낸 전사 마법사. 전해지는 이야기에 따르면 그는"
 " 잠잘 때조차 투구를 쓰고 있었다. 이제 당신이 그 투구를 손에 넣었으니, 그 이유를 알게 될 것이다."
 
@@ -86029,7 +86029,7 @@ msgid ""
 "targets--a good design, but poorly implemented, for some of the negative "
 "energies flow into the sword's wielder as well."
 msgstr ""
-"(대상 공격 회복 속도 감소, 물 저항 -50, 인격 -15) 이 검의 손잡이 끝에는 끔찍하게 축소된 메두사의 머리가 박혀 있다. 비록 "
+"(대상 공격 회복 속도 감소, 물 저항 -50, 인성 -15) 이 검의 손잡이 끝에는 끔찍하게 축소된 메두사의 머리가 박혀 있다. 비록 "
 "크게 약해졌지만, 메두사의 힘은 뱀의 검날을 따라 흘러 대상에게 전달된다. 디자인은 훌륭하지만, 일부 부정적인 에너지가 검을 휘두르는 "
 "자에게도 흘러들어가는 것은 구현상의 문제다."
 
@@ -86105,7 +86105,7 @@ msgid ""
 " of its power to demonize its wielder, nevertheless, there are many who "
 "would willingly pay the price for the power offered by \"Hell's Cleaver.\""
 msgstr ""
-"(힘 +70, 정확도 +70, 인격 -50, 지능 -50) 사용자를 악마화시키는 힘 때문에 '지옥의 도끼'라고 불리지만, 그 힘을 얻기 "
+"(힘 +70, 정확도 +70, 인성 -50, 지능 -50) 사용자를 악마화시키는 힘 때문에 '지옥의 도끼'라고 불리지만, 그 힘을 얻기 "
 "위해 기꺼이 대가를 치르려는 자들이 많다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -86312,7 +86312,7 @@ msgid ""
 "personal items with vulnerabilities to these magics to dissuade others from "
 "using them."
 msgstr ""
-"(인격 +80, 지능 +70, 정신 및 영혼 저항 -30) 인간 형태에서 완전히 퇴화한 리치는 영혼을 완전히 잃어 특정 마법에 면역이 "
+"(인성 +80, 지능 +70, 정신 및 영혼 저항 -30) 인간 형태에서 완전히 퇴화한 리치는 영혼을 완전히 잃어 특정 마법에 면역이 "
 "됩니다. 이러한 리치들은 다른 이들이 자신의 소지품을 사용하지 못하도록 해당 마법에 취약하게 저주를 거는 경우가 많습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -86337,7 +86337,7 @@ msgid ""
 "brunt of a dark and deadly curse. Though it still retained its great powers,"
 " the shield was also weighed down with malevolent energies."
 msgstr ""
-"(공포, 석화, 마비, 수면에 면역; 인격 -15, 운 -15) 위대한 기사 제럴드 헤론데일은 이 방패가 어둡고 치명적인 저주에 심하게 "
+"(공포, 석화, 마비, 수면에 면역; 인성 -15, 운 -15) 위대한 기사 제럴드 헤론데일은 이 방패가 어둡고 치명적인 저주에 심하게 "
 "시달린 후 버렸습니다. 비록 여전히 강력한 힘을 간직하고 있었지만, 이 방패는 악의적인 기운으로 무겁게 짓눌려 있었습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
@@ -86385,7 +86385,7 @@ msgid ""
 "(Luck + 90, Personality -50) The only reason someone would wear this hat is "
 "for the luck it conveys. It is the farthest thing from flattering!"
 msgstr ""
-"(운 +90, 인격 -50) 이 모자를 쓰는 유일한 이유는 행운을 가져다준다는 믿음 때문일 것이다. 전혀 어울리지 않는 모자다!"
+"(운 +90, 인성 -50) 이 모자를 쓰는 유일한 이유는 행운을 가져다준다는 믿음 때문일 것이다. 전혀 어울리지 않는 모자다!"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90218,7 +90218,7 @@ msgstr "물약 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=703|field=Name"
 msgid "Pure Personality Recipe"
-msgstr "순수한 인격 제조법"
+msgstr "순수한 인성 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -90432,7 +90432,7 @@ msgstr "물약 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=712|field=Name"
 msgid "Personality Boost Recipe"
-msgstr "인격 강화 제조법"
+msgstr "인성 강화 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -91669,7 +91669,7 @@ msgstr "물약 제조법"
 #. KO: Data/Text localization/KO_ItemsTxt.txt
 msgctxt "mmmerge/Text localization/LANG_ItemsTxt.txt|id=765|field=Name"
 msgid "Essence of Personality recipe"
-msgstr "인격의 정수 제조법"
+msgstr "인성의 정수 제조법"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_ItemsTxt.txt
 #. KO: Data/Text localization/KO_ItemsTxt.txt
@@ -98699,7 +98699,7 @@ msgstr "타탈리아"
 msgctxt ""
 "mmmerge/Text localization/LANG_MapStats.txt|table=MapStats|id=73|field=Name"
 msgid "Avlee"
-msgstr "아블리"
+msgstr "에이블리"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MapStats.txt
 #. KO: Data/Text localization/KO_MapStats.txt
@@ -99115,8 +99115,8 @@ msgid ""
 msgstr ""
 " 매매 명세서 수신: 슈멘드릭 발신: ACME 골렘사 요청하신 골렘 부품을 제작했습니다. 안타깝게도 배송 업체가 부품들을 잘못 "
 "배달했습니다. 당사는 배송 업체의 어떠한 실수에도 책임지지 않습니다. 다만 부품이 배송된 장소는 알고 있으므로, 편하실 때 직접 회수하실"
-" 수 있습니다. 부품 1개: 고분 지대 부품 1개: 타탈리아 부품 1개: 아블리 부품 2개: 데이자 머리 2개: 브라카다 (어느 모델을 "
-"선호하시는지 알 수 없어 두 종류를 보냈습니다.)"
+" 수 있습니다. 부품 1개: 고분 지대 부품 1개: 타탈리아 부품 1개: 에이블리 부품 2개: 데이자 머리 2개: 브라카다 (어느 모델을"
+" 선호하시는지 알 수 없어 두 종류를 보냈습니다.)"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -99279,7 +99279,7 @@ msgid ""
 "potion you need the correct combination of one of any red reagent type plus "
 "four of any blue reagent type and  two of the yellow reagents.  "
 msgstr ""
-" 검은 순수한 인격 물약은 인격을 영구적으로 높입니다. 이에 따라 인격을 기반으로 계산되는 총 주문력이 증가합니다. 이 물약을 조합하려면"
+" 검은 순수한 인성 물약은 인성을 영구적으로 높입니다. 이에 따라 인성을 기반으로 계산되는 총 주문력이 증가합니다. 이 물약을 조합하려면"
 " 빨간색 시약 한 개, 파란색 시약 네 개, 노란색 시약 두 개를 올바르게 조합해야 합니다.  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -99353,7 +99353,7 @@ msgid ""
 "just when you need it. To mix this potion you need the correct combination "
 "of three of any blue reagent type and two of any yellow reagents."
 msgstr ""
-" 흰 인격 증폭 물약은 필요할 때 인격을 일시적으로 높여줍니다. 이 물약을 조합하려면 파란색 시약 세 개와 노란색 시약 두 개를 올바르게"
+" 흰 인성 증폭 물약은 필요할 때 인성을 일시적으로 높여줍니다. 이 물약을 조합하려면 파란색 시약 세 개와 노란색 시약 두 개를 올바르게"
 " 조합해야 합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -99418,7 +99418,7 @@ msgid ""
 "just when you need it. To mix this potion you need the correct combination "
 "of three of any blue reagent type and two of any yellow reagents."
 msgstr ""
-" 흰 인격 증폭 물약은 필요할 때 인격을 일시적으로 높여줍니다. 이 물약을 조합하려면 파란색 시약 세 개와 노란색 시약 두 개가 "
+" 흰 인성 증폭 물약은 필요할 때 인성을 일시적으로 높여줍니다. 이 물약을 조합하려면 파란색 시약 세 개와 노란색 시약 두 개가 "
 "필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -100865,7 +100865,7 @@ msgid ""
 "any red reagent type, plus four of any blue reagent type and two of the "
 "yellow reagents.  "
 msgstr ""
-" 검은 순수한 인격 물약은 인격을 영구적으로 높입니다. 이에 따라 인격을 기반으로 계산되는 총 주문력이 증가합니다. 이 물약을 조합하려면"
+" 검은 순수한 인성 물약은 인성을 영구적으로 높입니다. 이에 따라 인성을 기반으로 계산되는 총 주문력이 증가합니다. 이 물약을 조합하려면"
 " 빨간색 시약 한 개, 파란색 시약 네 개, 노란색 시약 두 개를 올바르게 조합해야 합니다.  "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -101310,7 +101310,7 @@ msgid ""
 "subtracting 5 from his Speed. This potion requires six reagents to mix, four"
 " of any one color supplemented by one from each of the remaining colors."
 msgstr ""
-"인격의 정수는 캐릭터의 인격을 15 높이는 대신 민첩성을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
+"인성의 정수는 캐릭터의 인성을 15 높이는 대신 민첩성을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
 "시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -101349,7 +101349,7 @@ msgid ""
 "from his Personality. This potion requires six reagents to mix, four of any "
 "one color supplemented by one from each of the remaining colors."
 msgstr ""
-"민첩성의 정수는 캐릭터의 민첩성을 15 높이는 대신 인격을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
+"민첩성의 정수는 캐릭터의 민첩성을 15 높이는 대신 인성을 5 낮춥니다. 이 물약을 조합하려면 한 색상 시약 네 개와 나머지 두 색상 "
 "시약을 각각 한 개씩 넣어 총 여섯 개가 필요합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
@@ -101635,8 +101635,8 @@ msgid ""
 msgstr ""
 " 감옥지기 페이드릴에게, 툴라리안 숲의 이 동굴에 새로운 구역을 만들었습니다. 분명 마음에 들 겁니다. 새 구역에 들어가려면 마법으로 "
 "숨긴 다리를 건너고(누가 허공 위를 걸으려 하겠습니까?), 순간이동 장치들을 작동시켜야 합니다. 순간이동 장치 하나는 감옥 구역으로 "
-"이어지고 나머지 둘은 함정입니다. 감옥의 주둔 경비를 강화하기 위해 아블리에서 와이번 몇 마리와 소규모 트로글로다이트 부족을 붙잡아 감옥"
-" 구역의 수호자로 배치했습니다. 그 구역에 방문하려면 먹이를 충분히 주십시오. 와이번은 상당히 적대적일 수 있습니다. 물론 당신과 "
+"이어지고 나머지 둘은 함정입니다. 감옥의 주둔 경비를 강화하기 위해 에이블리에서 와이번 몇 마리와 소규모 트로글로다이트 부족을 붙잡아 "
+"감옥 구역의 수호자로 배치했습니다. 그 구역에 방문하려면 먹이를 충분히 주십시오. 와이번은 상당히 적대적일 수 있습니다. 물론 당신과 "
 "부하들의 생명에 대해서는 어떠한 책임도 지지 않습니다. 우리의 임무는 감옥 건설을 감독하고 구조나 탈출 가능성을 최소화하는 것이었습니다."
 " 안전은 스스로 책임지십시오. 나일스 스탠틀리"
 
@@ -101654,9 +101654,9 @@ msgid ""
 "seek.  Saint Perci gained hope from his vision, and set out again to sear..."
 " "
 msgstr ""
-" …성 퍼시는 사라진 창을 찾아 아블리에서 브라카다로 향했으며 여러 차례 길을 잃었다. 그는 창의 위치를 알아내지 못한 채 에라시아 대륙"
-" 대부분을 떠돌았다. 마침내 모든 희망을 잃었을 때 환영을 보았다. 해가 서쪽에서 지고, 달이 북쪽에서 지며, 별들이 동쪽에서 떨어질 "
-"때, 그대가 찾는 것을 발견하리라. 성 퍼시는 환영에서 희망을 얻고 다시 수색에 나섰… "
+" …성 퍼시는 사라진 창을 찾아 에이블리에서 브라카다로 향했으며 여러 차례 길을 잃었다. 그는 창의 위치를 알아내지 못한 채 에라시아 "
+"대륙 대부분을 떠돌았다. 마침내 모든 희망을 잃었을 때 환영을 보았다. 해가 서쪽에서 지고, 달이 북쪽에서 지며, 별들이 동쪽에서 떨어질"
+" 때, 그대가 찾는 것을 발견하리라. 성 퍼시는 환영에서 희망을 얻고 다시 수색에 나섰… "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_MessageScrolls.txt
 #. KO: Data/Text localization/KO_MessageScrolls.txt
@@ -117655,7 +117655,7 @@ msgid ""
 msgstr ""
 "어떻게 지내시오?\n"
 "[로런스가 깊이 절한다) 나는 최고의 궁수인 마크 대가요.\n"
-"지난 4년 동안 매년 아블리 대회에서 우승했소!\n"
+"지난 4년 동안 매년 에이블리 대회에서 우승했소!\n"
 "내 이야기는 그만하고, 그대들은 어떻소?"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCGreet1.txt
@@ -118194,8 +118194,8 @@ msgid ""
 "I will always be available for any business you wish to conduct."
 msgstr ""
 "안녕하시오.\n"
-"나는 아블리의 대사 알랭 하니요.\n"
-"내가 조국을 대변하며, 내 말은 곧 아블리의 약속이오.\n"
+"나는 에이블리의 대사 알랭 하니요.\n"
+"내가 조국을 대변하며, 내 말은 곧 에이블리의 약속이오.\n"
 "그대들이 처리하고 싶은 일이 있다면 언제든 나를 찾으시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCGreet1.txt
@@ -118223,7 +118223,7 @@ msgid ""
 "Just remember that your treachery has been...noted."
 msgstr ""
 "아, 하몬데일이군.\n"
-"용건을 처리하기 전에, 최근 그대들이 아블리에서 잘못된 죄수를 돌려보냈다는 사실을 알게 되었다고 말하고 싶소.\n"
+"용건을 처리하기 전에, 최근 그대들이 에이블리에서 잘못된 죄수를 돌려보냈다는 사실을 알게 되었다고 말하고 싶소.\n"
 "정말 놀라울 정도로 닮았더군!\n"
 "그대들을 처형해야 마땅하지만 전쟁이 끝났고, 그건 품위 없는 행동이겠지.\n"
 "그대들의 배신은…기록되었다는 것만 기억하시오."
@@ -118316,7 +118316,7 @@ msgstr ""
 "영주님들, 저는 브라카다에서 온 라이트 대사입니다.\n"
 "아시다시피 에라시아 남쪽 국경의 마법사들이지요.\n"
 "이제 영주님들은 매우 중요한 분들이 되셨습니다!\n"
-"그레이 판사가 영주님들의 땅에서 사망했으므로, 에라시아와 아블리의 분쟁을 해결할 새로운 중재자를 선택해야 합니다.\n"
+"그레이 판사가 영주님들의 땅에서 사망했으므로, 에라시아와 에이블리의 분쟁을 해결할 새로운 중재자를 선택해야 합니다.\n"
 "브라카다를 방문해 이 자리에 강력히 추천하는 페어웨더 판사를 만나시도록 정식으로 초대합니다.\n"
 "억지로 몰아붙이려는 뜻은 아니지만, 그 선택이 두 정부의 향후 관계에 영향을 미친다는 점은 이해하시리라 믿습니다…"
 
@@ -118378,7 +118378,7 @@ msgstr ""
 "하몬데일의 새 영주들이겠군요.\n"
 "저는 슬린 판사입니다.\n"
 "솔직히 말하겠습니다. 저는 데이자와 강령술사들에게 호의적입니다.\n"
-"에라시아와 아블리의 전쟁을 중재할 사람으로 저를 선택해 주길 바랍니다.\n"
+"에라시아와 에이블리의 전쟁을 중재할 사람으로 저를 선택해 주길 바랍니다.\n"
 "두 나라 모두 데이자의 적이므로 저는 공정한 판사가 될 것입니다.\n"
 "하지만 데이자의 동맹이 된다는 것은 다른 이들이 '어둠'이라 부르는 것을 선택한다는 뜻입니다.이 어둠 운운하는 말은 완전히 터무니없습니다.\n"
 "강령술은 죽음과 죽은 뒤 영혼에 일어나는 일을 연구하는 학문일 뿐입니다.\n"
@@ -118439,7 +118439,7 @@ msgstr ""
 "안녕하십니까.\n"
 "기다리고 있었습니다.\n"
 "저는 페어웨더 판사입니다.\n"
-"제가 브라카다를 위해 일하기는 하지만 에라시아와 아블리의 전쟁에서는 중립이라는 점을 이해하셔야 합니다.\n"
+"제가 브라카다를 위해 일하기는 하지만 에라시아와 에이블리의 전쟁에서는 중립이라는 점을 이해하셔야 합니다.\n"
 "물론 우리는 이 분쟁의 중재자로 저를 고용하길 바라며, 저는 공정한 판사가 될 것입니다.\n"
 "하지만 저를 중재자로 선택한다는 것은 빛의 길을 선택한다는 뜻임을 이해하셔야 합니다.그것이 옳은 선택입니다.\n"
 "이 파괴적인 전쟁을 최대한 빨리 끝내고 희생을 줄이겠습니다.\n"
@@ -118555,7 +118555,7 @@ msgid ""
 msgstr ""
 "[레저렉트라가 미소 지으며 절한다] 영주님들.\n"
 "저는 매그너스 왕의 수석 조언자 레저렉트라입니다.\n"
-"에라시아와 아블리의 분쟁에서 페어웨더 판사를 중재자로 선택하신 것을 기쁘게 생각합니다.\n"
+"에라시아와 에이블리의 분쟁에서 페어웨더 판사를 중재자로 선택하신 것을 기쁘게 생각합니다.\n"
 "선의를 보여 주는 선택입니다.\n"
 "하지만 앞으로 더 거래하려면 먼저 왕의 시험을 마쳐야 합니다.\n"
 "우리는 결의가 없거나 겁이 많은 자들에게 낭비할 시간이 없습니다.시험을 끝내면 제게 돌아오십시오. 그러면 이야기하겠습니다.\n"
@@ -119199,7 +119199,7 @@ msgid ""
 "However, they wish to speak to you at once, and urge you to return to your castle.\n"
 "They have declared a truce until a successor can be found for Judge Grey."
 msgstr ""
-"영주님들, 에라시아와 아블리 대사들이 그레이 판사의 갑작스러운 죽음을 알리기 위해 저를 보냈습니다.\n"
+"영주님들, 에라시아와 에이블리 대사들이 그레이 판사의 갑작스러운 죽음을 알리기 위해 저를 보냈습니다.\n"
 "심장 마비로 보이며, 타살을 의심할 이유는 없습니다.\n"
 "하지만 대사들은 즉시 영주님들과 이야기하기를 바라며 성으로 돌아오시길 촉구했습니다.\n"
 "그레이 판사의 후임자가 정해질 때까지 휴전을 선언했습니다."
@@ -122190,7 +122190,7 @@ msgstr ""
 msgctxt ""
 "mmmerge/Text localization/LANG_NPCGreet2.txt|table=NPCGreet|id=207|field=1"
 msgid "Avlee is listening, my Lords."
-msgstr "아블리가 귀 기울이고 있습니다, 영주님들."
+msgstr "에이블리가 귀 기울이고 있습니다, 영주님들."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCGreet2.txt
 #. KO: Data/Text localization/KO_NPCGreet2.txt
@@ -122266,7 +122266,7 @@ msgid ""
 "Feeling the heat yet?"
 msgstr ""
 "돌아오셨군요, 영주님들.\n"
-"에라시아와 아블리가 또 서로 목을 물어뜯고 있습니다.\n"
+"에라시아와 에이블리가 또 서로 목을 물어뜯고 있습니다.\n"
 "벌써 열기가 느껴지십니까?"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCGreet2.txt
@@ -122322,7 +122322,7 @@ msgstr ""
 "아직도 선택을 고민하고 계시는군요.\n"
 "무엇이 걸려 있는지 상기시켜 드리겠습니다.\n"
 "[대사가 손가락 하나를 세운다]전쟁의 기간입니다. 전쟁이 오래갈수록 우리 모두에게 유리합니다.\n"
-"에라시아와 아블리는 약해져 우리 일에 간섭하지 못할 것입니다.당신들은 우리와 동맹을 맺게 됩니다.\n"
+"에라시아와 에이블리는 약해져 우리 일에 간섭하지 못할 것입니다.당신들은 우리와 동맹을 맺게 됩니다.\n"
 "우리가 가르쳐 줄 수 있는 것들이 있습니다…무엇보다도, 당신들은 어둠의 길을 선택하게 됩니다.\n"
 "이 선택은 되돌릴 수 없습니다."
 
@@ -122921,7 +122921,7 @@ msgid ""
 "However, they wish to speak to you at once, and urge you to return to your castle.\n"
 "They have declared a truce until a successor can be found for Judge Grey."
 msgstr ""
-"영주님들, 에라시아와 아블리 대사들이 그레이 판사의 갑작스러운 죽음을 알리기 위해 저를 보냈습니다.\n"
+"영주님들, 에라시아와 에이블리 대사들이 그레이 판사의 갑작스러운 죽음을 알리기 위해 저를 보냈습니다.\n"
 "심장 마비로 보이며, 타살을 의심할 이유는 없습니다.\n"
 "하지만 대사들은 즉시 영주님들과 이야기하기를 바라며 성으로 돌아오시길 촉구했습니다.\n"
 "그레이 판사의 후임자가 정해질 때까지 휴전을 선언했습니다."
@@ -148156,7 +148156,7 @@ msgid ""
 "The cost is 50 gold pieces."
 msgstr ""
 "저는 육체 길드의 회원 모집 담당자입니다.\n"
-"많은 사람이 우리 주문은 몸을 치유하기만 한다고 생각하지만, 상대의 몸에 피해를 주는 주문도 있습니다.\n"
+"많은 사람이 우리 주문은 육체를 치유하기만 한다고 생각하지만, 상대의 육체에 피해를 주는 주문도 있습니다.\n"
 "가입비는 금화 50개입니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -148633,7 +148633,7 @@ msgid ""
 "If you are successful, I will promote all Warrior Mages to Master Archers, or honorary Master Archers, as the case may be."
 msgstr ""
 "몇 세대 전, 엘프와 인간 사이에 또 하나의 평화 조약을 맺기 위해 툴라리안 숲의 연금술사들이 마법의 활을 만들었다.\n"
-"에라시아로 운반되던 중 애블리의 타이탄들이 운반자들에게서 활을 빼앗았다.\n"
+"에라시아로 운반되던 중 에이블리의 타이탄들이 운반자들에게서 활을 빼앗았다.\n"
 "그들에게는 쓸모가 없으니 아직 요새 안에 있을 것이다.\n"
 "우리 직업의 명예를 위해 그 활을 되찾아라.\n"
 "그 활은 같은 종류의 무기 중 단연 최고다.\n"
@@ -149261,7 +149261,7 @@ msgid ""
 "You'll see."
 msgstr ""
 "어디서 시작해야 할지 모르겠다면 숲에서 가장 오래된 나무를 찾아봐라.\n"
-"애블리의 피어폰트 바깥 어딘가에 있을 것이다.\n"
+"에이블리의 피어폰트 바깥 어딘가에 있을 것이다.\n"
 "그 오래된 나무는 말을 할 수 있으니, 도움이 될 만한 것을 알고 있을지도 모른다.\n"
 "듣고 싶은 이야기는 물론이고 그보다 훨씬 많은 이야기를 기꺼이 해줄 것이다.\n"
 "직접 보면 알겠지."
@@ -149312,7 +149312,7 @@ msgstr ""
 "너희에게 시험을 내겠다.\n"
 "헌터는 숲을 이해해야 하며, 검술만큼이나 마법에도 능숙해야 한다.\n"
 "그 점을 가장 잘 가르치는 존재는 요정들이다.\n"
-"애블리 북부에 요정 언덕이 있다.\n"
+"에이블리 북부에 요정 언덕이 있다.\n"
 "안으로 들어갈 방법을 찾아내면 요정들이 너희 중 진정한 레인저에게 마법을 내려 헌터로 승급시켜 줄 것이다.\n"
 "나머지는 명예 헌터가 될 것이다. "
 
@@ -149339,7 +149339,7 @@ msgstr ""
 "한 방 먹었다고… 그러니까… 아하하하.\n"
 "아닌가 보군.\n"
 "헌터가 되는 법은 이미 알려줬다.\n"
-"애블리의 요정 언덕 안으로 들어가라.\n"
+"에이블리의 요정 언덕 안으로 들어가라.\n"
 "이제 그만 귀찮게 해!"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -149757,7 +149757,7 @@ msgstr ""
 "위저드가 되고 싶다면 나를 찾아오는 게 맞다.\n"
 "내 제자는 모두 위저드로 인정받기 전에 과제를 완수해야 한다.\n"
 "올해 과제는 골렘 제작이다.\n"
-"이곳에서 애블리까지 여러 지역에 여분의 부품이 흩어져 있다.\n"
+"이곳에서 에이블리까지 여러 지역에 여분의 부품이 흩어져 있다.\n"
 "몸통과 머리뿐 아니라 팔다리 네 개도 모두 필요하다.\n"
 "머리를 어디서 구하는지는 특히 조심해라. 작년 여름에 한 제자가 머리를 잘못 만들고 장난삼아 그 불량품을 남에게 줬다.\n"
 "부품을 모두 모으면 내게 와라.\n"
@@ -150048,7 +150048,7 @@ msgid ""
 msgstr ""
 "드루이드의 승급 과정은 간단하다.\n"
 "수백 년 전 우리가 세운 세 곳의 고대 자연 신전을 찾아가 그 중심에서 기도해야 한다.\n"
-"신전들은 타탈리아, 이븐몬 섬, 애블리에 있으며, 중앙에 물의 제단이 놓인 돌 원형진처럼 생겼다.\n"
+"신전들은 타탈리아, 이븐몬 섬, 에이블리에 있으며, 중앙에 물의 제단이 놓인 돌 원형진처럼 생겼다.\n"
 "정확한 위치는 말해주지 않겠다. 주변 땅을 탐험하는 것도 과정의 일부이기 때문이다.\n"
 "세 원형진을 모두 방문한 뒤 돌아와 경험한 바를 이야기하라."
 
@@ -150712,7 +150712,7 @@ msgid ""
 "Please travel to Pierpont in the Tularean Forest and meet with him.\n"
 "We will make it worth your while."
 msgstr ""
-"현재 애블리가 하몬데일을 다스리지는 않지만, 애블리의 국왕 엘드리치 파슨 폐하께서는 이곳이 정당한 우리 영토라고 주장하십니다.\n"
+"현재 에이블리가 하몬데일을 다스리지는 않지만, 에이블리의 국왕 엘드리치 파슨 폐하께서는 이곳이 정당한 우리 영토라고 주장하십니다.\n"
 "이유는 복잡하지만, 핵심은 오래전 목재 전쟁에서 에라시아가 우리 땅을 빼앗았으며 되찾을 때까지 결코 포기하지 않으리라는 것입니다.\n"
 "국왕 폐하께서 영주님들을 만나고 싶어 하십니다.\n"
 "툴라리안 숲의 피어폰트로 가서 폐하를 만나십시오.\n"
@@ -150742,7 +150742,7 @@ msgid ""
 msgstr ""
 "리버스트라이드 요새에 대담하게 잠입했다는 소식을 들었습니다. 인상적이군요!\n"
 "우리 전략가들이 지금 작전 계획을 분석하고 있으며, 요새를 공격할 때 매우 유용한 정보가 될 것이라 합니다.\n"
-"애블리가 감사를 표합니다!"
+"에이블리가 감사를 표합니다!"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -150756,7 +150756,7 @@ msgid ""
 msgstr ""
 "영주님들이 에라시아의 요청을 거절하고 첩자 로렌 스틸을 감옥에서 빼내주지 않았다는 소식이 왕실에서 왔습니다.\n"
 "게다가 가짜 죄수를 심는 일까지 도와주셨고, 그자는 그곳에 들어간 뒤로 줄곧 거짓 정보를 흘리고 있습니다.\n"
-"애블리는 영주님들에게 큰 빚을 졌습니다!"
+"에이블리는 영주님들에게 큰 빚을 졌습니다!"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -150894,7 +150894,7 @@ msgstr ""
 "로렌의 목숨이 위태롭다.\n"
 "엘프들의 요구를 받아들이면 훨씬 더 많은 생명이 희생될 것이다.\n"
 "서둘러주게.\n"
-"애블리는 예정대로 그를 처형할 것이 분명하다."
+"에이블리는 예정대로 그를 처형할 것이 분명하다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -151044,7 +151044,7 @@ msgid ""
 "Visit the ship and retrieve the Oscillation Overthruster to insure our victory.\n"
 "Make sure to be properly outfitted for the journey."
 msgstr ""
-"애블리 서쪽에는 레저렉트라와 동료들이 에라시아에 올 때 사용했던 함선이 있습니다.\n"
+"에이블리 서쪽에는 레저렉트라와 동료들이 에라시아에 올 때 사용했던 함선이 있습니다.\n"
 "그 배로 가서 진동 과추진기를 회수해야 승리를 확실히 할 수 있습니다.\n"
 "여정에 필요한 장비를 제대로 갖추십시오."
 
@@ -151881,7 +151881,7 @@ msgstr ""
 "한 가지를 제외하고 말입니다.\n"
 "이 세계에서는 진동 과추진기를 찾을 수 없었습니다.\n"
 "모든 것이 수포로 돌아갈 뻔했지만, 우리를 이 세계로 데려온 이동 수단인 링컨호에 장치 하나가 남아 있습니다.\n"
-"링컨호는 애블리 서쪽 바다에 있으며, 우리조차 들어가지 못하도록 봉쇄되어 있습니다.\n"
+"링컨호는 에이블리 서쪽 바다에 있으며, 우리조차 들어가지 못하도록 봉쇄되어 있습니다.\n"
 "이제 당신들은 환경 보호복을 입고 함선에 들어가 과추진기를 가져와야 합니다. 보호복은 이 알현실 밖의 상자에 있습니다.\n"
 "보호복이 제대로 작동하려면 다른 장비를 아무것도 착용하지 않아야 합니다.\n"
 "우리는 관문을 지키며 옛 동료들과 싸워야 합니다."
@@ -151913,7 +151913,7 @@ msgid ""
 "Return here with the Overthruster as soon as possible."
 msgstr ""
 "링컨호에 가려면 잠수복이 필요하다는 것을 잊지 마십시오.\n"
-"잠수복은 이 알현실 밖의 상자에 있으며, 링컨호는 애블리 서쪽 바다에 있습니다.\n"
+"잠수복은 이 알현실 밖의 상자에 있으며, 링컨호는 에이블리 서쪽 바다에 있습니다.\n"
 "가능한 한 빨리 과추진기를 가지고 이곳으로 돌아오십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -151944,7 +151944,7 @@ msgstr ""
 "하지만 너희는 달랐다!\n"
 "너희는 지금까지 줄곧 우리와 함께했다.이제 남은 임무는 단 하나, 우리의 옛 이동 수단 링컨호에서 진동 과추진기를 가져오는 것이다.\n"
 "이 세계에서는 그 장치를 찾을 수 없었다.\n"
-"함선은 애블리 서쪽 바다에 있으며, 우리조차 들어가지 못하도록 봉쇄되어 있다.\n"
+"함선은 에이블리 서쪽 바다에 있으며, 우리조차 들어가지 못하도록 봉쇄되어 있다.\n"
 "이제 환경 보호복을 입고 함선에 들어가 과추진기를 가져와라.\n"
 "옛 환경 보호복은 이 알현실 밖의 상자에 준비해 두었다.\n"
 "보호복이 제대로 작동하려면 다른 장비를 아무것도 착용하지 않아야 한다.우리는 대장간을 지키며 적들에게서 방어하겠다.\n"
@@ -151977,7 +151977,7 @@ msgid ""
 "What else do you need to know?"
 msgstr ""
 "링컨호에 가려면 환경 보호복이 필요하다는 것을 잊지 마라.\n"
-"보호복은 알현실 밖의 상자에 있고, 링컨호는 애블리 서쪽 바다에 있다.\n"
+"보호복은 알현실 밖의 상자에 있고, 링컨호는 에이블리 서쪽 바다에 있다.\n"
 "그 밖에 또 뭘 알아야 하지?"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -153228,7 +153228,7 @@ msgid ""
 msgstr ""
 "상점 주인들은 욕심이 많습니다.\n"
 "물건을 사고팔 때 더 좋은 가격을 받고 싶습니까?\n"
-"그렇다면 상인 기술을 익히고 거래의 요령을 배워야 합니다. 상인 전문가 기술이 7 이상이고 인격이 50 이상이며 5,000골드를 낸다면 마스터가 되도록 가르쳐드리겠습니다.\n"
+"그렇다면 상인 기술을 익히고 거래의 요령을 배워야 합니다. 상인 전문가 기술이 7 이상이고 인성이 50 이상이며 5,000골드를 낸다면 마스터가 되도록 가르쳐드리겠습니다.\n"
 "마스터가 되면 가격 보너스가 세 배로 적용됩니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -154129,7 +154129,7 @@ msgid ""
 "I've heard the bandits base themselves out of a camp in Erathia, but I'm no warrior-- I'd not last a minute against them.\n"
 "Please go to Erathia and see this justice done!"
 msgstr ""
-"영주님들, 애블리에서 돌아오던 길에 사악한 도적들에게 습격당해 엘프들에게서 가져온 모든 것을 빼앗겼습니다.\n"
+"영주님들, 에이블리에서 돌아오던 길에 사악한 도적들에게 습격당해 엘프들에게서 가져온 모든 것을 빼앗겼습니다.\n"
 "인장 반지까지 가져갔습니다!\n"
 "그것이 없으면 나와 다른 상인들 사이의 계약서에 봉인을 찍을 수 없어 사업을 계속할 수 없습니다.\n"
 "도적들이 에라시아의 한 야영지를 근거지로 삼는다고 들었지만, 나는 전사가 아니라 그들을 상대로는 1분도 버티지 못할 것입니다.\n"
@@ -154274,7 +154274,7 @@ msgid ""
 msgstr ""
 "당신들이 하몬데일의 새 영주들이라는 말을 들었소, 그렇지?\n"
 "내게 큰 부탁 하나를 들어주면서 당신들에게도 도움이 될 수 있을 것 같소.\n"
-"북쪽 애블리에는 요정 왕의 영지인 언덕 아래의 회관이 있소.\n"
+"북쪽 에이블리에는 요정 왕의 영지인 언덕 아래의 회관이 있소.\n"
 "그는 내가 예전에 베푼 일의 대가를 빚지고 있는데, 이제 받아내고 싶소.\n"
 "안타깝게도 회관의 요정들과 그들이 부리는 장난은 나를 죽도록 겁나게 하오.\n"
 "이 편지를 요정 왕에게 전하고 그가 주는 것을 내게 가져다준다면 정말 고맙겠소.\n"
@@ -154553,7 +154553,7 @@ msgid ""
 "The ultimate teacher in the ways of the Staff, Jillian Mithrit, can be found in the elven territory of Avlee.\n"
 "Her home is in the city in the northeast."
 msgstr ""
-"지팡이의 그랜드마스터 질리언 미스릿은 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"지팡이의 그랜드마스터 질리언 미스릿은 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그녀의 집은 북동쪽 도시에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -154746,7 +154746,7 @@ msgid ""
 "The Master instructor of uses of Chain Armor, Medwari Dragontracker, can be found in the elven territory of Avlee.\n"
 "His home is in the city in the northeast."
 msgstr ""
-"사슬 갑옷의 달인 교관 메드와리 드래곤트래커는 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"사슬 갑옷의 달인 교관 메드와리 드래곤트래커는 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그의 집은 북동쪽 도시에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -154822,7 +154822,7 @@ msgid ""
 "The Master tutor of Air Magic, Rislyn Greenstorm, lives in the elven territory of Avlee.\n"
 "His home is in the city in the northeast."
 msgstr ""
-"공기 마법의 달인 교관 리슬린 그린스톰은 엘프 영토 애블리에 삽니다.\n"
+"공기 마법의 달인 교관 리슬린 그린스톰은 엘프 영토 에이블리에 삽니다.\n"
 "그의 집은 북동쪽 도시에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -154922,7 +154922,7 @@ msgid ""
 "The Master teacher in the ways of Mind Magic, Myles Featherwind, can be found in the elven territory of Avlee.\n"
 "His home is in the city to the northeast."
 msgstr ""
-"정신 마법의 달인 교관 마일스 페더윈드는 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"정신 마법의 달인 교관 마일스 페더윈드는 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그의 집은 북동쪽 도시에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -154966,7 +154966,7 @@ msgid ""
 "The Grandmaster of the Identify Item skill, Payge Blueswan, can be found in the elven territory of Avlee.\n"
 "His home is just northwest of the elven city of Spaward."
 msgstr ""
-"물품 감정 기술의 그랜드마스터 페이지 블루스완은 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"물품 감정 기술의 그랜드마스터 페이지 블루스완은 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그의 집은 엘프 도시 스파워드 바로 북서쪽에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -155060,7 +155060,7 @@ msgid ""
 "The Grandmaster of Meditation, Kaine, can be found in the elven territory of Avlee.\n"
 "His home is on an island somewhere in the central bay."
 msgstr ""
-"명상의 그랜드마스터 케인은 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"명상의 그랜드마스터 케인은 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그의 집은 중앙 만 어딘가의 섬에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -155166,7 +155166,7 @@ msgid ""
 "The Master instructor of the Identify Monster Skill, Jeni Swiftfoot, lives in the elven territory of Avlee.\n"
 "Her home is in the city in the northeast."
 msgstr ""
-"괴물 식별 기술의 달인 교관 제니 스위프트풋은 엘프 영토 애블리에 삽니다.\n"
+"괴물 식별 기술의 달인 교관 제니 스위프트풋은 엘프 영토 에이블리에 삽니다.\n"
 "그녀의 집은 북동쪽 도시에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -155188,7 +155188,7 @@ msgid ""
 "The Master tutor of the Armsmaster Skill, Paula Brightspear, lives in the elven territory of Avlee.\n"
 "Her home is in the city in the northeast."
 msgstr ""
-"무기술의 달인 교관 폴라 브라이트스피어는 엘프 영토 애블리에 삽니다.\n"
+"무기술의 달인 교관 폴라 브라이트스피어는 엘프 영토 에이블리에 삽니다.\n"
 "그녀의 집은 북동쪽 도시에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -155240,7 +155240,7 @@ msgid ""
 "The Grandmaster instructor of Alchemy, Lucid Apple, can be found in the elven territory of Avlee.\n"
 "His home is on an island somewhere in the central bay."
 msgstr ""
-"연금술의 그랜드마스터 교관 루시드 애플은 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"연금술의 그랜드마스터 교관 루시드 애플은 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그의 집은 중앙 만 어딘가의 섬에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -155980,7 +155980,7 @@ msgid ""
 "If you ever get tired of amateur bounty hunts, and want to advance your career, speak with Ebednezer Sower in Avlee.\n"
 "He only teaches followers of the shadow path, though."
 msgstr ""
-"아마추어 현상금 사냥에 질려 본격적으로 출세하고 싶다면 아블리의 에베드네저 소어에게 이야기하십시오.\n"
+"아마추어 현상금 사냥에 질려 본격적으로 출세하고 싶다면 에이블리의 에베드네저 소어에게 이야기하십시오.\n"
 "다만 어둠의 길을 따르는 자만 가르칩니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -156438,7 +156438,7 @@ msgid ""
 "I represent a group of Druids that want these shrines back to their original form-- it is critical for their worship.\n"
 "To this end, I am offering a substantial reward for anyone that will find the statuettes and place them on the shrines."
 msgstr ""
-"태양 신전과 달 신전 사이의 전쟁 중, 브라카다 사막과 타탈리아, 애블리의 성소에서 작은 조각상 세 개가 도난당했습니다.\n"
+"태양 신전과 달 신전 사이의 전쟁 중, 브라카다 사막과 타탈리아, 에이블리의 성소에서 작은 조각상 세 개가 도난당했습니다.\n"
 "나는 이 성소들을 원래 모습으로 되돌리려는 드루이드 집단을 대표합니다. 그들의 예배에 꼭 필요한 일입니다.\n"
 "그래서 조각상을 찾아 각 성소에 돌려놓는 사람에게 후한 보상을 드리겠습니다."
 
@@ -156765,7 +156765,7 @@ msgid ""
 "Probably sooner."
 msgstr ""
 "외람되지만, 영주님들께서는 오래 버티지 못할 거라고 모두가 생각합니다. 하몬데일의 이전 영주들도 오래 버티지 못했으니까요.\n"
-"에라시아와 애블리의 전쟁과 정치 다툼이 언젠가는 영주님들을 집어삼킬 것입니다.\n"
+"에라시아와 에이블리의 전쟁과 정치 다툼이 언젠가는 영주님들을 집어삼킬 것입니다.\n"
 "아마도 빠른 시일 안에요."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -156806,9 +156806,9 @@ msgid ""
 "Harmondale sees a lot of violence, but at least they don't conscript.\n"
 "You know, there's been so many wars in Avlee that one of the kings had a tunnel dug from his castle to the caves in the North just in case the castle was taken AGAIN."
 msgstr ""
-"애블리는 늘 전쟁에 휘말리는 데다 세금도 너무 높아서, 나는 하몬데일로 이사해 아예 정착했습니다.\n"
+"에이블리는 늘 전쟁에 휘말리는 데다 세금도 너무 높아서, 나는 하몬데일로 이사해 아예 정착했습니다.\n"
 "하몬데일도 폭력 사태가 많지만, 적어도 강제로 징집하지는 않습니다.\n"
-"아시겠습니까? 애블리에서는 전쟁이 너무 잦아서 어느 왕은 성이 또다시 함락될 때를 대비해 성에서 북쪽 동굴까지 터널을 파게 했답니다."
+"아시겠습니까? 에이블리에서는 전쟁이 너무 잦아서 어느 왕은 성이 또다시 함락될 때를 대비해 성에서 북쪽 동굴까지 터널을 파게 했답니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -156854,7 +156854,7 @@ msgid ""
 "If they find it--watch out!\n"
 "Blood will be spilt. "
 msgstr ""
-"애블리와 에라시아가 수십 년 동안 서로 차지하려고 싸워온 유물이 하나 있습니다.\n"
+"에이블리와 에라시아가 수십 년 동안 서로 차지하려고 싸워온 유물이 하나 있습니다.\n"
 "양쪽 모두 자기 민족이 만들었다고 주장하며, 서로를 습격하다가 여러 번 빼앗기기도 했습니다.\n"
 "마법이 깃든 물건도 아니고, 그저 전리품일 뿐입니다.\n"
 "15년 전 습격 도중 그 전리품이 사라졌고, 어디로 갔는지는 아무도 모릅니다.\n"
@@ -156872,7 +156872,7 @@ msgid ""
 "He's staying in the \"\"House of Stars\"\" on the eastern edge of Harmondale territory.\n"
 "Maybe he has some advice for you."
 msgstr ""
-"긴장이 고조되자 에라시아와 애블리는 분쟁을 해결할 중재자를 고용했습니다.\n"
+"긴장이 고조되자 에라시아와 에이블리는 분쟁을 해결할 중재자를 고용했습니다.\n"
 "그는 하몬데일 영지 동쪽 끝의 별의 집에 머물고 있습니다.\n"
 "어쩌면 당신에게 조언해 줄 수 있을 겁니다."
 
@@ -157002,7 +157002,7 @@ msgid ""
 "During the War, the Warlocks had dealings with some strange creatures called the \"\"Kreegan\"\" in the mountains south of Avlee.\n"
 "It's impossible to get there from the mainland, but the Warlocks dug a tunnel under the sea from their island that leads to the Kreegan's home."
 msgstr ""
-"전쟁 중 워록들은 애블리 남쪽 산맥의 크리건이라는 이상한 생물들과 거래했습니다.\n"
+"전쟁 중 워록들은 에이블리 남쪽 산맥의 크리건이라는 이상한 생물들과 거래했습니다.\n"
 "본토에서는 그곳으로 갈 수 없지만, 워록들이 자신들의 섬에서 바다 밑을 지나 크리건의 본거지로 이어지는 터널을 뚫었습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -157020,7 +157020,7 @@ msgstr ""
 "우리는… 전쟁에서 욕심을 너무 부렸고, 결국 본토의 영토를 하나도 얻지 못했습니다.\n"
 "우리의 동맹 크리건은 전혀 믿을 수 없는 자들이었습니다.\n"
 "엔로스 사람들은 그들을 악마라고 부릅니다. 이제 그 이유를 알겠군요.\n"
-"그들이 가장 필요했던 순간, 놈들은 등을 돌려 달아났고 우리는 에라시아와 애블리 군대의 분노를 홀로 감당해야 했습니다.\n"
+"그들이 가장 필요했던 순간, 놈들은 등을 돌려 달아났고 우리는 에라시아와 에이블리 군대의 분노를 홀로 감당해야 했습니다.\n"
 "다음에는 그렇게 쉽게 믿지 않을 겁니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -157034,7 +157034,7 @@ msgid ""
 "A lot of Necromancers followed him there--seems there's some sort of split going on."
 msgstr ""
 "데이자에서 상당한 움직임이 일고 있다는 소문입니다.\n"
-"데이자의 지도자이자 전 엔로스 왕인 아치볼드 아이언피스트가 구덩이를 떠나 애블리 동쪽 해안의 어느 섬으로 갔다고 합니다.\n"
+"데이자의 지도자이자 전 엔로스 왕인 아치볼드 아이언피스트가 구덩이를 떠나 에이블리 동쪽 해안의 어느 섬으로 갔다고 합니다.\n"
 "많은 네크로맨서가 그를 따라갔다니, 내부에서 분열이 일어난 모양입니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -157169,7 +157169,7 @@ msgid ""
 "Walk into the sea from the farthest point west on the beach, and look around underwater.\n"
 "The ship is unmistakable."
 msgstr ""
-"우리는 북부 애블리의 서쪽 해안에 상륙했습니다.\n"
+"우리는 북부 에이블리의 서쪽 해안에 상륙했습니다.\n"
 "해변에서 가장 서쪽 지점으로 가 바다에 들어간 뒤 물속을 둘러보십시오.\n"
 "그 배는 한눈에 알아볼 수 있습니다."
 
@@ -157288,7 +157288,7 @@ msgid ""
 "Looks like the trophy fell into the hands of Avlee.\n"
 "I hear there was quite a fight over it! "
 msgstr ""
-"전리품은 애블리의 손에 들어간 모양입니다.\n"
+"전리품은 에이블리의 손에 들어간 모양입니다.\n"
 "그것을 두고 꽤 치열한 싸움이 벌어졌다더군요! "
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -157885,7 +157885,7 @@ msgid ""
 "Be sure to take this crate of Glass Bottles to Infernon in Avlee.\n"
 "He bottles the finest Enrothian Wine."
 msgstr ""
-"이 유리병 상자를 애블리의 인페르논에게 꼭 가져가십시오.\n"
+"이 유리병 상자를 에이블리의 인페르논에게 꼭 가져가십시오.\n"
 "그는 최고급 엔로스산 와인을 병에 담습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -157938,7 +157938,7 @@ msgid ""
 " you can charter a boat to Evenmorn Island on Sundays."
 msgstr ""
 "이 항구에서는 화요일, 목요일, 토요일에 에라시아행 배를 전세 낼 수 있습니다. 브라카다 사막행 배는 월요일과 수요일에 출항합니다. "
-"애블리행 배는 금요일에만 출항합니다. 사제 퀘스트를 완료했다면 일요일에 이븐몬 섬행 배를 전세 낼 수 있습니다."
+"에이블리행 배는 금요일에만 출항합니다. 사제 퀘스트를 완료했다면 일요일에 이븐몬 섬행 배를 전세 낼 수 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -165914,7 +165914,7 @@ msgid ""
 "Luckily, it doesn’t need to feed on just one person. No, it won’t literally suck the thing out of you! Seriously? I’m being metaphorical. Why would I want to break you… *Verdant sighs and shakes her head.* Telelocator needs to feel Might, Endurance, Accuracy, Intellect, Personality, and Luck. If you feel strong at one of them, come forth, take it, and close your eyes. Tell it, in your mind, about your valor. If it deems you worthy and absorbs your essence – NOT by taking it away, I SWEAR – the Guiding Gem will glow."
 msgstr ""
 "훌륭하고, 멋지고, 아름답습니다. 이제 이 녀석이 한 덩어리로 완성됐고 충분한 마력도 갖췄으며 각 차원에 조율되었으니, 활성화하기 전에 한 가지를 더 해야 합니다. 정확히는 한 가지 정도요. 영웅적인 정신, 영웅의 특성, 용맹한 동류의 영혼, 뭐라고 부르든 그런 것에 맞춰 조율해야 합니다. 간단히 말해 여러분이 들고 이 장치가 여러분의 대단함에 취하게 만들어야 해요. 문제는 장치가 여러분에게서 마시고 싶어 할 만큼 실제로 대단해야 한다는 점입니다.\n"
-"다행히 한 사람에게서만 흡수할 필요는 없습니다. 말 그대로 여러분에게서 빼앗아 빨아들이는 게 아니에요! 진심이에요? 비유적으로 말한 겁니다. 왜 여러분을 망가뜨리고 싶겠어요… *베르던트가 한숨을 쉬며 고개를 젓는다.* 텔레로케이터는 힘, 인내력, 명중, 지력, 인격, 행운을 느껴야 합니다. 그중 하나에 자신 있다면 앞으로 나와 장치를 들고 눈을 감으세요. 마음속으로 자신의 용맹을 들려주세요. 장치가 여러분을 자격 있다고 판단하고 정수를 흡수하면-없애는 게 아니라고 맹세해요-인도 보석이 빛날 겁니다."
+"다행히 한 사람에게서만 흡수할 필요는 없습니다. 말 그대로 여러분에게서 빼앗아 빨아들이는 게 아니에요! 진심이에요? 비유적으로 말한 겁니다. 왜 여러분을 망가뜨리고 싶겠어요… *베르던트가 한숨을 쉬며 고개를 젓는다.* 텔레로케이터는 힘, 인내력, 명중, 지력, 인성, 행운을 느껴야 합니다. 그중 하나에 자신 있다면 앞으로 나와 장치를 들고 눈을 감으세요. 마음속으로 자신의 용맹을 들려주세요. 장치가 여러분을 자격 있다고 판단하고 정수를 흡수하면-없애는 게 아니라고 맹세해요-인도 보석이 빛날 겁니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -166069,7 +166069,7 @@ msgstr ""
 "인내력 시험(70)에 통과하여 텔레로케이터를 조율하십시오.\n"
 "명중 시험(70)에 통과하여 텔레로케이터를 조율하십시오.\n"
 "지력 시험(70)에 통과하여 텔레로케이터를 조율하십시오.\n"
-"인격 시험(70)에 통과하여 텔레로케이터를 조율하십시오.\n"
+"인성 시험(70)에 통과하여 텔레로케이터를 조율하십시오.\n"
 "행운 시험(70)에 통과하여 텔레로케이터를 조율하십시오"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -172720,7 +172720,7 @@ msgid ""
 "He's gone."
 msgstr ""
 "불쌍한 로렌에게 주어진 시간이 끝났군.\n"
-"그는 예정대로 애블리에서 간첩죄로 처형되었다.\n"
+"그는 예정대로 에이블리에서 간첩죄로 처형되었다.\n"
 "구출하려 애쓸 필요 없다.\n"
 "이미 죽었다."
 
@@ -172762,7 +172762,7 @@ msgid ""
 msgstr ""
 "환영한다.\n"
 "그 멍청이 마크햄이 너희를 하몬데일의 영주로 임명했다는 말을 들었다.\n"
-"잘 들어라. 나는 반드시 하몬데일에 대한 애블리의 지배를 회복할 것이다. 중요한 건 너희가 내 편인지 적인지뿐이다.\n"
+"잘 들어라. 나는 반드시 하몬데일에 대한 에이블리의 지배를 회복할 것이다. 중요한 건 너희가 내 편인지 적인지뿐이다.\n"
 "내 편이라면 너희의 지위를 보장하겠다.\n"
 "적이라면 내 군대가 너희 땅을 점령하는 즉시 너희를 처리하겠다.\n"
 "[파슨 왕이 상냥하게 미소 짓는다] 그러니 당연히 내 편이겠지!\n"
@@ -172943,7 +172943,7 @@ msgid ""
 "Guards!\n"
 "Take these traitors to the courtyard and execute them!"
 msgstr ""
-"[왕은 당신이 애블리를 상대로 저지른 범죄를 나열하는 동안 말없이 듣다가, 이야기가 끝나자 미소 지으며 두 손을 펼친다] 그래!\n"
+"[왕은 당신이 에이블리를 상대로 저지른 범죄를 나열하는 동안 말없이 듣다가, 이야기가 끝나자 미소 지으며 두 손을 펼친다] 그래!\n"
 "그 이야기가 모든 것을 말해 주는군, 안 그런가?\n"
 "경비병!\n"
 "이 반역자들을 안뜰로 끌고 가 처형해라!"
@@ -173060,7 +173060,7 @@ msgid ""
 "Protect yourselves and your people first.\n"
 "We didn't have this conversation."
 msgstr ""
-"또다시 인간 왕국 에라시아와 엘프 왕국 애블리가 전쟁을 벌이고 있다.\n"
+"또다시 인간 왕국 에라시아와 엘프 왕국 에이블리가 전쟁을 벌이고 있다.\n"
 "지역의 판관인 내가 양측의 갈등을 봉합하고 협상 테이블로 이끌 책임을 맡았다.\n"
 "두 진영의 힘이 너무 비슷해 어느 쪽이 이겨도 이상하지 않다.\n"
 "[판관이 몸을 가까이 기울이며 목소리를 낮춘다] 솔직히 말하자면 이제 누가 이기든 별로 관심도 없다.\n"
@@ -173164,7 +173164,7 @@ msgid ""
 "Go west of Avlee, and make sure to be properly outfitted."
 msgstr ""
 "계속 진행하려면 캐스토어와 그의 부하들을 에라시아로 데려온 비행선을 찾아가야 한다.\n"
-"애블리 서쪽으로 가되 장비를 제대로 갖춰라."
+"에이블리 서쪽으로 가되 장비를 제대로 갖춰라."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -176956,7 +176956,7 @@ msgid ""
 "The Grandmaster teacher in the ways of Body Magic, Tempus, can be found in the elven territory of Avlee.\n"
 "His home is on an island somewhere in the central bay."
 msgstr ""
-"육체 마법의 그랜드마스터 교관 템푸스는 엘프 영토 애블리에서 찾을 수 있습니다.\n"
+"육체 마법의 그랜드마스터 교관 템푸스는 엘프 영토 에이블리에서 찾을 수 있습니다.\n"
 "그의 집은 중앙 만 어딘가의 섬에 있습니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
@@ -183607,7 +183607,7 @@ msgid ""
 "If you later decide that you'd like to hear what I have to say, find me in the Two Palms tavern and then select Tour On."
 msgstr ""
 "에메랄드 섬의 장소에 관한 제 안내를 더는 듣지 않기로 했군요.\n"
-"나중에 다시 듣고 싶다면 두 야자수 선술집에서 저를 찾아 ‘관광 켜기’를 선택하십시오."
+"나중에 다시 듣고 싶다면 두 야자수 선술집에서 저를 찾아 ‘안내 켜기’를 선택하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -183619,7 +183619,7 @@ msgid ""
 "If you decide that you no longer want me to point out areas of interest then select Tour Off."
 msgstr ""
 "에메랄드 섬의 주요 장소에 관한 제 안내를 듣기로 했군요.\n"
-"더는 관심 지점을 알려 주지 않기를 바란다면 ‘관광 끄기’를 선택하십시오."
+"더는 관심 지점을 알려 주지 않기를 바란다면 ‘안내 끄기’를 선택하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCText.txt
 #. KO: Data/Text localization/KO_NPCText.txt
@@ -186247,7 +186247,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1281|field=<default>"
 msgid "Stone Skin Pedestal"
-msgstr "돌가죽 받침대"
+msgstr "석갑 받침대"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186287,7 +186287,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1286|field=<default>"
 msgid "Game of Personality"
-msgstr "인격 게임"
+msgstr "인성 게임"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186351,7 +186351,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1293|field=<default>"
 msgid "Contest of Personality"
-msgstr "인격 경연"
+msgstr "인성 경연"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186423,7 +186423,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1300|field=<default>"
 msgid "Test of Personality"
-msgstr "인격 시험"
+msgstr "인성 시험"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -186479,7 +186479,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=1307|field=<default>"
 msgid "Challenge of Personality"
-msgstr "인격 도전"
+msgstr "인성 도전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -191331,7 +191331,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=238|field=<default>"
 msgid "Potion of Pure Personality"
-msgstr "순수한 인격 물약"
+msgstr "순수한 인성 물약"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194027,7 +194027,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=541|field=<default>"
 msgid "Stone Skin Pedestal"
-msgstr "돌가죽 받침대"
+msgstr "석갑 받침대"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194067,7 +194067,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=546|field=<default>"
 msgid "Game of Personality"
-msgstr "인격 게임"
+msgstr "인성 게임"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194131,7 +194131,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=553|field=<default>"
 msgid "Contest of Personality"
-msgstr "인격 경연"
+msgstr "인성 경연"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194195,7 +194195,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=560|field=<default>"
 msgid "Test of Personality"
-msgstr "인격 시험"
+msgstr "인성 시험"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -194251,7 +194251,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_NPCTopic.txt|table=NPCTopic|id=567|field=<default>"
 msgid "Challenge of Personality"
-msgstr "인격 도전"
+msgstr "인성 도전"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_NPCTopic.txt
 #. KO: Data/Text localization/KO_NPCTopic.txt
@@ -200210,7 +200210,7 @@ msgctxt ""
 msgid ""
 "Bring Castigeir in Murmurwoods the basic ingredients for a potion of Pure "
 "Personality."
-msgstr "순수한 인격 물약의 기본 재료를 머머우즈의 카스티기어에게 가져가십시오."
+msgstr "순수한 인성 물약의 기본 재료를 머머우즈의 카스티기어에게 가져가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202055,7 +202055,7 @@ msgctxt ""
 msgid ""
 "Go to the Temple of Baa in Avlee and kill the High Priest of Baa, then "
 "return to Bartholomew Hume in Harmondale."
-msgstr "아블리의 바 신전으로 가서 바의 대사제를 처치한 뒤, 하몬데일의 바솔로뮤 흄에게 돌아가십시오."
+msgstr "에이블리의 바 신전으로 가서 바의 대사제를 처치한 뒤, 하몬데일의 바솔로뮤 흄에게 돌아가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202078,7 +202078,7 @@ msgctxt ""
 msgid ""
 "Retrieve the Perfect Bow from the Titans' Stronghold in Avlee and return it "
 "to Lawrence Mark in Harmondale."
-msgstr "아블리의 타이탄 요새에서 완벽한 활을 되찾아 하몬데일의 로렌스 마크에게 가져가십시오."
+msgstr "에이블리의 타이탄 요새에서 완벽한 활을 되찾아 하몬데일의 로렌스 마크에게 가져가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202088,7 +202088,7 @@ msgctxt ""
 msgid ""
 "Sabotage the lift in the Red Dwarf Mines in the Bracada Desert then return "
 "to Steagal Snick in Avlee."
-msgstr "브라카다 사막의 레드 드워프 광산에서 승강기를 파괴한 뒤 아블리의 스티걸 스닉에게 돌아가십시오."
+msgstr "브라카다 사막의 레드 드워프 광산에서 승강기를 파괴한 뒤 에이블리의 스티걸 스닉에게 돌아가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202098,7 +202098,7 @@ msgctxt ""
 msgid ""
 "Retrieve the Perfect Bow from the Titans' Stronghold in Avlee and return it "
 "to Steagal Snick in Avlee."
-msgstr "아블리의 타이탄 요새에서 완벽한 활을 되찾아 아블리의 스티걸 스닉에게 가져가십시오."
+msgstr "에이블리의 타이탄 요새에서 완벽한 활을 되찾아 에이블리의 스티걸 스닉에게 가져가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202147,7 +202147,7 @@ msgctxt ""
 msgid ""
 "Solve the secret to the entrance of the Faerie Mound in Avlee and speak to "
 "the Faerie King."
-msgstr "아블리의 요정 언덕으로 들어가는 비밀을 풀고 요정 왕과 대화하십시오."
+msgstr "에이블리의 요정 언덕으로 들어가는 비밀을 풀고 요정 왕과 대화하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202245,7 +202245,7 @@ msgctxt ""
 msgid ""
 "Visit the three stonehenge monoliths in Tatalia, the Evenmorn Islands, and "
 "Avlee, then return to Anthony Green in the Tularean Forest."
-msgstr "타탈리아, 이븐모른 제도, 아블리에 있는 세 곳의 스톤헨지 거석을 방문한 뒤 툴라리안 숲의 앤서니 그린에게 돌아가십시오."
+msgstr "타탈리아, 이븐모른 제도, 에이블리에 있는 세 곳의 스톤헨지 거석을 방문한 뒤 툴라리안 숲의 앤서니 그린에게 돌아가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202483,7 +202483,7 @@ msgctxt ""
 msgid ""
 "Go to the Lincoln in the sea west of Avlee and retrieve the Oscillation "
 "Overthruster and return it to Resurectra in Celeste."
-msgstr "아블리 서쪽 바다의 링컨호로 가서 오실레이션 오버스러스터를 되찾아 셀레스트의 리저렉트라에게 가져가십시오."
+msgstr "에이블리 서쪽 바다의 링컨호로 가서 오실레이션 오버스러스터를 되찾아 셀레스트의 리저렉트라에게 가져가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202493,7 +202493,7 @@ msgctxt ""
 msgid ""
 "Go to the Lincoln in the sea west of Avlee and retrieve the Oscillation "
 "Overthruster and return it to Kastore in the Pit."
-msgstr "아블리 서쪽 바다의 링컨호로 가서 오실레이션 오버스러스터를 되찾아 구덩이의 카스토어에게 가져가십시오."
+msgstr "에이블리 서쪽 바다의 링컨호로 가서 오실레이션 오버스러스터를 되찾아 구덩이의 카스토어에게 가져가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202599,7 +202599,7 @@ msgctxt ""
 msgid ""
 "Take the sealed letter to the Faerie King in the Hall under the Hill in "
 "Avlee."
-msgstr "봉인된 편지를 아블리 언덕 아래 전당의 요정 왕에게 전달하십시오."
+msgstr "봉인된 편지를 에이블리 언덕 아래 전당의 요정 왕에게 전달하십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -202690,7 +202690,7 @@ msgid ""
 "Retrieve the three statuettes and place them on the shrines in the Bracada "
 "Desert, Tatalia, and Avlee, then return to Thom Lumbra in the Tularean "
 "Forest."
-msgstr "조각상 세 개를 되찾아 브라카다 사막, 타탈리아, 아블리의 성소에 각각 놓은 뒤 툴라리안 숲의 톰 럼브라에게 돌아가십시오."
+msgstr "조각상 세 개를 되찾아 브라카다 사막, 타탈리아, 에이블리의 성소에 각각 놓은 뒤 툴라리안 숲의 톰 럼브라에게 돌아가십시오."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_QuestsTxt.txt
 #. KO: Data/Text localization/KO_QuestsTxt.txt
@@ -205296,7 +205296,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=29|field=BonusStat"
 msgid "Increases effect of all Fire spells."
-msgstr "모든 불 계열 주문의 효과가 증가합니다."
+msgstr "모든 화염 계열 주문의 효과가 증가합니다."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205504,7 +205504,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=52|field=BonusStat"
 msgid " +10 Might and Personality."
-msgstr " 힘과 인격 +10."
+msgstr " 힘과 인성 +10."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205536,7 +205536,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_SpcItemsTxtStats.txt|table=SpcItemsTxt|id=56|field=BonusStat"
 msgid " +5 Intellect and Personality."
-msgstr " 지력과 인격 +5."
+msgstr " 지력과 인성 +5."
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_SpcItemsTxtStats.txt
 #. KO: Data/Text localization/KO_SpcItemsTxtStats.txt
@@ -205800,7 +205800,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtNames.txt|table=StdItemsTxt|id=1|field=NameAdd"
 msgid "of Thought"
-msgstr "[지력]"
+msgstr "[지능]"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtNames.txt
 #. KO: Data/Text localization/KO_StdItemsTxtNames.txt
@@ -206048,7 +206048,7 @@ msgctxt ""
 "mmmerge/Text "
 "localization/LANG_StdItemsTxtStats.txt|table=StdItemsTxt|id=2|field=BonusStat"
 msgid "Personality"
-msgstr "인격"
+msgstr "인성"
 
 #. EN: source/en/mmmerge/Data/Text localization/LANG_StdItemsTxtStats.txt
 #. KO: Data/Text localization/KO_StdItemsTxtStats.txt

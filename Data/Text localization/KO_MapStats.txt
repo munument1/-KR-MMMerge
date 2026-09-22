@@ -72,7 +72,7 @@ MapStats	0	Name
 	70	Name	고분 지대
 	71	Name	거인들의 땅
 	72	Name	타탈리아
-	73	Name	아블리
+	73	Name	에이블리
 	74	Name	여울
 	75	Name	에라시아 하수도
 	76	Name	미궁

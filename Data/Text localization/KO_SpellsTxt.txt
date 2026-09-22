@@ -265,8 +265,8 @@ SpellsTxt	0	Name
 	37	Expert	회복 속도 증가
 	37	Master	회복 속도 증가
 	37	GrandMaster	회복 속도 매우 증가
-	38	Name	돌가죽
-	38	ShortName	돌가죽
+	38	Name	석갑
+	38	ShortName	석갑
 	38	Description	모든 캐릭터의 방어도를 5만큼 증가시키며, 대지 마법 기술 점수 1점당 1의 추가 방어도를 제공합니다.
 	38	Normal	n/a
 	38	Expert	지속 시간 1시간 + 기술 포인트당 5분
@@ -512,7 +512,7 @@ SpellsTxt	0	Name
 	72	GrandMaster	시간 제한 없음
 	73	Name	망치손
 	73	ShortName	망치손
-	73	Description	망치손은 비무장 전투원의 기술을 마법적으로 강화하여 상대의 약점을 더 정확하게 타격할 수 있게 합니다. 망치손의 보조를 받는 공격은 비무장 공격으로 입히는 물리 피해와 동일한 양의 신체 속성 추가 피해를 입힙니다.
+	73	Description	망치손은 비무장 전투원의 기술을 마법적으로 강화하여 상대의 약점을 더 정확하게 타격할 수 있게 합니다. 망치손의 보조를 받는 공격은 비무장 공격으로 입히는 물리 피해와 동일한 양의 육체 속성 추가 피해를 입힙니다.
 	73	Normal	n/a
 	73	Expert	회복 속도 증가
 	73	Master	회복 속도 증가
@@ -596,7 +596,7 @@ SpellsTxt	0	Name
 	84	GrandMaster	회복 속도 증가
 	85	Name	보호의 날
 	85	ShortName	보호의 날
-	85	Description	모든 캐릭터에게 화염, 공기, 물, 대지, 정신, 신체 보호 주문과 깃털 낙하, 마법사의 눈 주문을 빛 마법 기술의 4배 효과로 동시에 시전합니다.
+	85	Description	모든 캐릭터에게 화염, 공기, 물, 대지, 정신, 육체 보호 주문과 깃털 낙하, 마법사의 눈 주문을 빛 마법 기술의 4배 효과로 동시에 시전합니다.
 	85	Normal	n/a
 	85	Expert	n/a
 	85	Master	모든 주문이 기술 점수의 4배로 시전됨

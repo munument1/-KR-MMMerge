@@ -1,6 +1,6 @@
 Table (of Game struct)	Id	Field	New text
 StdItemsTxt	0	NameAdd	[힘]
-	1	NameAdd	[지력]
+	1	NameAdd	[지능]
 	2	NameAdd	[매력]
 	3	NameAdd	[활력]
 	4	NameAdd	[정밀]
