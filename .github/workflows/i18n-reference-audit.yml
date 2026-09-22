@@ -1,0 +1,52 @@
+name: mm678-i18n Korean reference audit
+
+on:
+  pull_request:
+    paths:
+      - 'Data/Text localization/**'
+      - tools/audit_i18n_reference.py
+      - .github/workflows/i18n-reference-audit.yml
+  push:
+    branches: [main]
+    paths:
+      - 'Data/Text localization/**'
+      - tools/audit_i18n_reference.py
+      - .github/workflows/i18n-reference-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Audit against pinned Korean legacy reference
+        run: |
+          mkdir -p build
+          python tools/audit_i18n_reference.py . --output build/I18N_REFERENCE_AUDIT.txt
+
+      - name: Publish concise job summary
+        if: always()
+        run: |
+          {
+            echo '## mm678-i18n Korean reference audit'
+            echo
+            echo 'Pinned reference: `aea1b22666ef556f34a71b4f3945904b04de1466`'
+            echo
+            echo '```text'
+            head -n 120 build/I18N_REFERENCE_AUDIT.txt 2>/dev/null || true
+            echo '```'
+            echo
+            echo 'The full report is attached as a workflow artifact. Findings are advisory and never modify translations.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload full audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: i18n-reference-audit
+          path: build/I18N_REFERENCE_AUDIT.txt
+          if-no-files-found: warn
