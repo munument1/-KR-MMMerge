@@ -146,13 +146,19 @@ def main() -> None:
         text, n = PERSONALITY_RE.subn("인성", text)
         counts["personality"] += n
 
-        stone_count = text.count("돌가죽") + text.count("석피") + text.count("석화 피부")
+        stone_count = (
+            text.count("돌가죽")
+            + text.count("석피")
+            + text.count("석화 피부")
+            + text.count("돌 피부 효과")
+        )
         if stone_count:
             counts["stone_skin"] += stone_count
             text = (
                 text.replace("석화 피부", "석갑")
                 .replace("돌가죽", "석갑")
                 .replace("석피", "석갑")
+                .replace("돌 피부 효과", "석갑 효과")
             )
 
         entry.msgstr = text
