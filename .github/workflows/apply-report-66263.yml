@@ -92,28 +92,6 @@ jobs:
             --output /tmp/report66263-maps.lod
           mv /tmp/report66263-maps.lod "$LOD"
 
-          EMPTY=/tmp/report66263-empty-overlays
-          mkdir -p "$EMPTY"
-          for f in \
-            KO_AutonoteTxt.txt \
-            KO_NPCGreet1.txt \
-            KO_NPCGreet2.txt \
-            KO_NPCText.txt \
-            KO_NPCTopic.txt \
-            KO_QuestsTxt.txt \
-            KO_MessageScrolls.txt \
-            KO_SpcItemsTxtStats.txt \
-            KO_StdItemsTxtStats.txt \
-            KO_StdItemsTxtNames.txt; do
-            printf 'Header\n' > "$EMPTY/$f"
-          done
-
-          python tools/patch_static_spell_references_lod.py \
-            --lod "$LOD" \
-            --translations "Data/Text localization" \
-            --base-translations "$EMPTY" \
-            --output /tmp/report66263-references.lod
-          mv /tmp/report66263-references.lod "$LOD"
 
           python tools/patch_reported_terms_lod.py \
             --lod "$LOD" \
